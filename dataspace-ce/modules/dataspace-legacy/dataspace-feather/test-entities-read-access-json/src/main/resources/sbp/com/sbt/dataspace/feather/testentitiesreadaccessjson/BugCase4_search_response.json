@@ -1,8 +1,0 @@
-{
-  "elems": [
-    {
-      "type": "Service",
-      "id": "${service1Id}"
-    }
-  ]
-}

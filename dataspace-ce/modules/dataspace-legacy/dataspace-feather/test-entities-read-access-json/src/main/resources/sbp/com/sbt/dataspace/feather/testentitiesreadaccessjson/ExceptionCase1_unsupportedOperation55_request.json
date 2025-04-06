@@ -1,4 +1,0 @@
-{
-  "type": "TestEntity",
-  "cond": "root.p2 $in root.ps1"
-}

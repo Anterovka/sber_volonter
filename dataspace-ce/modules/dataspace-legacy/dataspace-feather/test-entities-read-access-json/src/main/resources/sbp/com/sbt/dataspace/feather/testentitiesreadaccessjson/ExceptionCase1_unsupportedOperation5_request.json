@@ -1,4 +1,0 @@
-{
-  "type": "TestEntity",
-  "cond": "root.p7 + root.p1 == 1"
-}

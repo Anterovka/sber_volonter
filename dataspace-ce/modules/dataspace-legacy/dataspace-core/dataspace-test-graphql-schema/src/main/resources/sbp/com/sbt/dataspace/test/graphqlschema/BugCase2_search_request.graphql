@@ -1,7 +1,0 @@
-{
-    selectionByTestEntity(cond: "it.$id == '${testEntity1Id}'") {
-        elems {
-            id
-        }
-    }
-}

@@ -1,5 +1,0 @@
-{
-  "type": "Request",
-  "cond": "it.$id $in ['${request1Id}', '${requestPlus1Id}', '${requestPlus2Id}']",
-  "sort": "it.initiator.lastName"
-}

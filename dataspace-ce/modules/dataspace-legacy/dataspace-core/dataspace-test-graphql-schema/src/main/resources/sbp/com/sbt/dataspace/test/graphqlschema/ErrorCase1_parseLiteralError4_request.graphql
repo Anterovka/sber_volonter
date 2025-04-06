@@ -1,5 +1,0 @@
-query Test($byteArray: _ByteArray = true) {
-    searchTestEntity(cond: "root.$id == '${testEntity1Id}'") {
-        count
-    }
-}

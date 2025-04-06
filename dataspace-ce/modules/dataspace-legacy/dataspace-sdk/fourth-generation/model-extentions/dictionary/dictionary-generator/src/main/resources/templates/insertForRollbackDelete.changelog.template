@@ -1,4 +1,0 @@
-        <insert tableName="${tableName}">
-        ${columns}
-        </insert>
-

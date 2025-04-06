@@ -1,4 +1,0 @@
-{
-  "type": "ProductPlus",
-  "cond": "root.$id == '${productPlus1Id}' && (root.affectedProducts.relatedProduct.$exists || root.affectedProducts{cond = elem.relatedProduct == null}.relatedProduct.$exists)"
-}

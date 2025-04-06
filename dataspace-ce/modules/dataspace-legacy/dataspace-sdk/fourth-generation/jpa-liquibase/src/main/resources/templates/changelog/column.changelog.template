@@ -1,2 +1,0 @@
-            <column name="${columnName}" type="${type}" remarks="${remarks1}" ${computedExpression}>${additional} </column>
-

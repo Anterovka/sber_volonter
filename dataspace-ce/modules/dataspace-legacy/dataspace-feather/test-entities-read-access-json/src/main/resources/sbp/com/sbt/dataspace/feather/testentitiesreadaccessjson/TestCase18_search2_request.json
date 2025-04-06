@@ -1,4 +1,0 @@
-{
-  "type": "TestEntity",
-  "cond": "it.$id == '${testEntity1Id}' && it.code $in entities{type = Parameter, cond = it.$id $in ['${parameter1Id}', '${parameter2Id}']}.value"
-}

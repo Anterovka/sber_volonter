@@ -1,9 +1,0 @@
-{
-  "elems": [
-    {
-      "type": "Document",
-      "id": "${document1Id}",
-      "invalid": true
-    }
-  ]
-}

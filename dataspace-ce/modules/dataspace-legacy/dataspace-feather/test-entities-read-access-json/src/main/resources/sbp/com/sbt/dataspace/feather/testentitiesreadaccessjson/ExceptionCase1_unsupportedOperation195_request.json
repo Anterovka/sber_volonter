@@ -1,6 +1,0 @@
-{
-  "type": "TestEntity",
-  "selection": {
-    "p1": "'8'.$log(2)"
-  }
-}

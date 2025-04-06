@@ -1,9 +1,0 @@
-{
-  "elems": [
-    {
-      "type": "Product",
-      "id": "${product1Id}",
-      "aggVersion": "1"
-    }
-  ]
-}

@@ -1,8 +1,0 @@
-{
-  "type": "Product",
-  "selection": {
-    "p1": "it.code"
-  },
-  "cond": "it.$id $in ['${product1Id}', '${product2Id}']",
-  "secCond": "it.code != 'product2'"
-}

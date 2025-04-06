@@ -1,5 +1,0 @@
-{
-  "type": "TestEntity",
-  "cond": "root.$id == '${testEntity1Id}'",
-  "aggVersion": true
-}

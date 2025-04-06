@@ -1,4 +1,0 @@
-{
-  "type": "Request",
-  "cond": "it.$id == '${request2Id}' && it.createdEntity{type=Product}.creatorCode == 1"
-}

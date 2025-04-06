@@ -1,8 +1,0 @@
-{
-  "type": "ProductLimited",
-  "props": [
-    "limitedOffer",
-    "code"
-  ],
-  "cond": "root.creatorCode > 10"
-}

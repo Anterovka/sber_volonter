@@ -1,5 +1,0 @@
-{
-  "type": "Operation",
-  "props": "service",
-  "cond": "root.$id == '${operation1Id}'"
-}

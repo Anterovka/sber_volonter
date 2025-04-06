@@ -1,7 +1,0 @@
-{
-    merge {
-        ... on _MergedEntitiesCollection {
-            count
-        }
-    }
-}

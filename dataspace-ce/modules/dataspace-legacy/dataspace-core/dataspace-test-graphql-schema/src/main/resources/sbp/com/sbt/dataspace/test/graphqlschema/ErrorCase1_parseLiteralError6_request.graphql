@@ -1,5 +1,0 @@
-query Test($date: _Date = "hello") {
-    searchTestEntity(cond: "root.$id == '${testEntity1Id}'") {
-        count
-    }
-}

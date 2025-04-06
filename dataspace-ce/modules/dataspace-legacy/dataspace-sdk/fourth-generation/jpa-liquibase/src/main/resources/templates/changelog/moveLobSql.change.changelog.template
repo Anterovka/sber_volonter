@@ -1,2 +1,0 @@
-
-            <sql>alter table ${tableName} move lob (${columnName}) store as (tablespace ${tablespace_l})</sql>

@@ -1,4 +1,0 @@
-{
-  "type": "TestEntity",
-  "cond": "root.p9 >= root.p1"
-}

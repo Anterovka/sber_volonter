@@ -1,4 +1,0 @@
-{
-  "type": "TestEntity",
-  "cond": "root.p2.$rtrim == '1'"
-}

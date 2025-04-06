@@ -1,7 +1,0 @@
-{
-  "type": "Product",
-  "selection": {
-    "p1": "it.$id"
-  },
-  "aggVersion": true
-}

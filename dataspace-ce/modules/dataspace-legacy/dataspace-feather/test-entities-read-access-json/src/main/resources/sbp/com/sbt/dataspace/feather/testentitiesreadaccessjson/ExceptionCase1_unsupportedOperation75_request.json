@@ -1,4 +1,0 @@
-{
-  "type": "TestEntity",
-  "cond": "root.p1.$replace(1, 2) == '1'"
-}

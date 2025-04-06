@@ -1,8 +1,0 @@
-{
-  "type": "Product",
-  "props": {
-    "relatedProduct": {
-      "type": "Service"
-    }
-  }
-}

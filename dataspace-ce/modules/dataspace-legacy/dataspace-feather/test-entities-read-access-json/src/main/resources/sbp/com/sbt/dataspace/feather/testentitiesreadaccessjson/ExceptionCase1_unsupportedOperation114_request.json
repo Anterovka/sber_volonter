@@ -1,4 +1,0 @@
-{
-  "type": "TestEntity",
-  "cond": "coalesce(root.p4, root.p1) == 123"
-}

@@ -1,7 +1,0 @@
-{
-  "type": "Service",
-  "id": "${service1Id}",
-  "props": {
-    "code": "service1"
-  }
-}

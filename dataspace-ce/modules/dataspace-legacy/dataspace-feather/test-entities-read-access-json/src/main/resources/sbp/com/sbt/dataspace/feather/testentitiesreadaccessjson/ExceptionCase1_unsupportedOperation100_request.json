@@ -1,4 +1,0 @@
-{
-  "type": "TestEntity",
-  "cond": "root.p1.$subSeconds(1) == D2020-09-03"
-}

@@ -1,4 +1,0 @@
-{
-  "type": "TestEntity",
-  "cond": "root.p1.$round == 1"
-}

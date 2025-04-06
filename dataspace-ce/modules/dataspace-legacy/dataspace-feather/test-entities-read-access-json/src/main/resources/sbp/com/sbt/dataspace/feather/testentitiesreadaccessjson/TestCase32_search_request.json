@@ -1,4 +1,0 @@
-{
-  "type": "TestEntity",
-  "cond": "it.$id == '${testEntity1Id}' && it.p15 < now"
-}

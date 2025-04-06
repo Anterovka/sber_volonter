@@ -1,4 +1,0 @@
-{
-  "type": "TestEntity",
-  "cond": "root.p7.$subDays('1') == D2020-09-03"
-}

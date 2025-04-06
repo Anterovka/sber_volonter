@@ -1,9 +1,0 @@
-{
-  "type": "Product",
-  "props": {
-    "request": {
-      "props": "agreement"
-    }
-  },
-  "cond": "root.$id == '${productPlus1Id}'"
-}

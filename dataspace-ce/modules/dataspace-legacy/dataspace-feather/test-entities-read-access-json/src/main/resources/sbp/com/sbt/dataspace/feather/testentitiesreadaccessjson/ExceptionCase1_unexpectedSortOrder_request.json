@@ -1,7 +1,0 @@
-{
-  "type": "Entity",
-  "sort": {
-    "crit": "root.code",
-    "order": "asc2"
-  }
-}

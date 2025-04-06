@@ -1,4 +1,0 @@
-{
-  "type": "TestEntity",
-  "cond": "root.$id == '${testEntity1Id}' && root.g1 == null && !(root.g1 != null)"
-}
