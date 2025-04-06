@@ -1,0 +1,22 @@
+{
+  "type": "Product",
+  "props": {
+    "documents": {
+      "props": "code",
+      "details": {
+        "Permission": "number",
+        "Agreement": [
+          "participant",
+          {
+            "request": {
+              "type": "RequestPlus",
+              "props": "description"
+            }
+          }
+        ]
+      },
+      "sort": "elem.code"
+    }
+  },
+  "cond": "root.$id == '${product1Id}'"
+}

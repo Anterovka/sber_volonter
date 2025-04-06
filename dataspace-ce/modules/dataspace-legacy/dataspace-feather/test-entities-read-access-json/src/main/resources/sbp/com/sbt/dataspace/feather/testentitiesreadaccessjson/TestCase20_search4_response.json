@@ -1,0 +1,32 @@
+{
+  "elems": [
+    {
+      "type": "RequestPlus",
+      "id": "${requestPlus1Id}",
+      "props": {
+        "entity": {
+          "base": "createdEntity",
+          "value": {
+            "type": "Product",
+            "id": "${product1Id}",
+            "props": {
+              "code": "product1",
+              "product": {
+                "base": "relatedProduct",
+                "value": {
+                  "type": "ProductLimited",
+                  "id": "${productLimited1Id}",
+                  "props": {
+                    "creatorCode": "2",
+                    "code": "productLimited1",
+                    "limitedOffer": "limitedOffer1"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

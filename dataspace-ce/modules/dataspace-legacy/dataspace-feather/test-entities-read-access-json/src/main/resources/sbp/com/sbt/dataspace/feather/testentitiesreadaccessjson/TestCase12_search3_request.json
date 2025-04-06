@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.$id == '${testEntity3Id}' && (root.p1.$asBigDecimal + 1198).$asString == '1' + root.p2.$asString && root.p1.$asString == '123' && root.p2.$asBigDecimal == 321 && (1 - root.p2).$abs == 320"
+}

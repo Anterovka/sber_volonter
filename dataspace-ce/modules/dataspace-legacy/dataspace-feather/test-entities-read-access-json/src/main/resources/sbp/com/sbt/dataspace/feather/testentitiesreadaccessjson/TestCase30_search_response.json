@@ -1,0 +1,48 @@
+{
+  "elems": [
+    {
+      "type": "UserProduct",
+      "id": "${product1Id}",
+      "props": {
+        "code": "product1",
+        "aliases": {
+          "elems": [
+            "alias1"
+          ]
+        },
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${product4Id}"
+        },
+        "services": {
+          "elems": [
+            {
+              "type": "Service",
+              "id": "${service1Id}"
+            }
+          ]
+        },
+        "initiator": {
+          "firstName": "Ivan"
+        }
+      }
+    },
+    {
+      "type": "UserProduct",
+      "id": "${product2Id}",
+      "props": {
+        "code": "product2",
+        "aliases": {
+          "elems": []
+        },
+        "relatedProduct": null,
+        "services": {
+          "elems": []
+        },
+        "initiator": {
+          "firstName": "Ivan"
+        }
+      }
+    }
+  ]
+}

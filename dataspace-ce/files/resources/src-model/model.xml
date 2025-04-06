@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model model-name="volonteerNew" version="0.0.1">
+  <class name="Event" is-abstract="false" embeddable="false" strategy="JOINED">
+    <property name="description" type="STRING" mandatory="true" length="4000"/>
+    <property name="endDateTime" type="LOCALDATETIME" length="3"/>
+    <property name="organization" type="Organization" parent="true"/>
+    <property name="startDateTime" type="LOCALDATETIME" length="3"/>
+
+    <statuses>
+      <group code="X">
+        <status code="ACCEPTED" initial="false">
+          <to status="CLOSED"/>
+        </status>
+        <status code="CANCELLED" initial="false"/>
+        <status code="CLOSED" initial="false"/>
+        <status code="DRAFT" initial="true">
+          <to status="ACCEPTED"/>
+          <to status="CANCELLED"/>
+        </status>
+      </group>
+    </statuses>
+  </class>
+  <class name="Organization" is-abstract="false" embeddable="false" strategy="JOINED">
+    <property name="eventList" type="Event" collection="SET" mappedBy="organization"/>
+    <property name="name" type="STRING" mandatory="true" length="254"/>
+  </class>
+  <class name="Person" is-abstract="false" embeddable="false" strategy="JOINED">
+    <property name="birthDate" type="LOCALDATE"/>
+    <property name="firstName" type="STRING" mandatory="true" length="254"/>
+    <property name="lastName" type="STRING" mandatory="true" length="254"/>
+  </class>
+  <class name="Volonteer" is-abstract="false" embeddable="false" strategy="JOINED">
+    <property name="eventBookingList" type="VolonteerEventRequest" collection="SET" mappedBy="volonteer"/>
+    <property name="nickName" type="STRING" length="254"/>
+    <reference name="person" type="Person" label="" mandatory="true"/>
+  </class>
+  <class name="VolonteerEventRequest" is-abstract="false" embeddable="false" strategy="JOINED">
+    <property name="description" type="STRING" length="4000"/>
+    <property name="volonteer" type="Volonteer" parent="true"/>
+    <reference name="event" type="Event"/>
+
+    <statuses>
+      <group code="X">
+        <status code="ACCEPTED" initial="false">
+          <to status="CONFIRMED"/>
+        </status>
+        <status code="CANCELLED" initial="false"/>
+        <status code="CONFIRMED" initial="false"/>
+        <status code="OPEN" initial="true">
+          <to status="ACCEPTED"/>
+          <to status="CANCELLED"/>
+        </status>
+      </group>
+    </statuses>
+  </class>
+</model>

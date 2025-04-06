@@ -1,0 +1,8 @@
+{
+  "type": "Document",
+  "cond": "root.$id $in ['${document1Id}', '${permission1Id}', '${agreement1Id}']",
+  "offset": 1,
+  "limit": 1,
+  "sort": "root.code",
+  "count": true
+}

@@ -1,0 +1,14 @@
+{
+  "selection": true,
+  "elems": [
+    {
+      "p1": "1",
+      "p2": "product1"
+    },
+    {
+      "p1": "3",
+      "p2": "product3"
+    }
+  ],
+  "count": 3
+}

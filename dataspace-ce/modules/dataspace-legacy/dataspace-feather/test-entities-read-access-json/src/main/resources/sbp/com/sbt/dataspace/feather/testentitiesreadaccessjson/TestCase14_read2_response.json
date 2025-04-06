@@ -1,0 +1,33 @@
+{
+  "elems": [
+    {
+      "type": "ProductPlus",
+      "id": "${productPlus1Id}",
+      "props": {
+        "affectedProducts": {
+          "elems": [
+            {
+              "type": "Product",
+              "id": "${product1Id}",
+              "props": {
+                "aliases": {
+                  "elems": [
+                    "product1_alias1"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "parameters": {
+          "elems": [
+            {
+              "type": "Parameter",
+              "id": "${parameter6Id}"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

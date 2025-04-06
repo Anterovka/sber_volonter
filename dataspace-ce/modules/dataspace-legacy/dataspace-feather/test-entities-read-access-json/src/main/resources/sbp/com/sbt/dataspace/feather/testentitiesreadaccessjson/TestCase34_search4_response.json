@@ -1,0 +1,77 @@
+{
+  "elems": [
+    {
+      "id": "${entityB1Id}",
+      "type": "EntityB",
+      "props": {
+        "refsA": {
+          "elems": [
+            {
+              "id": "${entityAAA1Id}",
+              "type": "EntityAAA",
+              "props": {
+                "refB": {
+                  "id": "${entityB1Id}",
+                  "type": "EntityB",
+                  "props": {
+                    "refC": {
+                      "id": "${entityC1Id}",
+                      "type": "EntityC",
+                      "props": {
+                        "refD": {
+                          "id": "${entityD1Id}",
+                          "type": "EntityD",
+                          "props": {
+                            "refE": {
+                              "id": "${entityE1Id}",
+                              "type": "EntityE",
+                              "props": {
+                                "code": "entityE1"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "ref2B": {
+                  "id": "${entityB1Id}",
+                  "type": "EntityB",
+                  "props": {
+                    "refC": {
+                      "id": "${entityC1Id}",
+                      "type": "EntityC",
+                      "props": {
+                        "refD": {
+                          "id": "${entityD1Id}",
+                          "type": "EntityD",
+                          "props": {
+                            "refE": {
+                              "id": "${entityE1Id}",
+                              "type": "EntityE",
+                              "props": {
+                                "code": "entityE1"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "refE": {
+                  "id": "${entityE1Id}",
+                  "type": "EntityE",
+                  "props": {
+                    "code": "entityE1"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

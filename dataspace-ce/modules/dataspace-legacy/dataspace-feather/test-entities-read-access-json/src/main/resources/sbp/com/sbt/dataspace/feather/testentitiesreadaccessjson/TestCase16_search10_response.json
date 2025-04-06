@@ -1,0 +1,14 @@
+{
+  "elems": [
+    {
+      "type": "Operation",
+      "id": "${operation1Id}",
+      "props": {
+        "service": {
+          "type": "Service",
+          "id": "nonExistent"
+        }
+      }
+    }
+  ]
+}

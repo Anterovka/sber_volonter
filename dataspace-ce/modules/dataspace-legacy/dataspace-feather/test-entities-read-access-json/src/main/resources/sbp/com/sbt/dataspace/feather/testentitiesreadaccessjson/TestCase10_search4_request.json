@@ -1,0 +1,4 @@
+{
+  "type": "Entity",
+  "cond": "root.$id $in ['${service1Id}'] && coalesce(root.request.$id, '123') != '123'"
+}

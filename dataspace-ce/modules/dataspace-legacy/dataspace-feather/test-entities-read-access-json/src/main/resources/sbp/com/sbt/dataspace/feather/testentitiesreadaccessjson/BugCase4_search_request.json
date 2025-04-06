@@ -1,0 +1,4 @@
+{
+  "type": "Service",
+  "cond": "root.$id == '${service1Id}' && root.operations{cond = elem{type = OperationSpecial}.specialOffer == 'specialOffer1' || elem{type = OperationLimited}.limitedOffer == 'limitedOffer1'}.$exists"
+}

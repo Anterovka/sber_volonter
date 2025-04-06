@@ -1,0 +1,5 @@
+query Test($float: _Float4 = 1.23, $float2: _Float4 = 1, $float3: _Float4 = "1.23", $date: _Date = "2020-11-30", $dateTime: _DateTime = "2020-11-30T00:40:10.123", $offsetDateTime: _OffsetDateTime = "2020-11-30T00:40:10.123+08:00", $byteArray: _ByteArray = "AAEC") {
+    searchTestEntity(cond: "root.$id == '${testEntity1Id}'") {
+        count
+    }
+}

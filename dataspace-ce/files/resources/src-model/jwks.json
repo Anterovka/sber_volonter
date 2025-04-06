@@ -1,0 +1,12 @@
+{
+  "keys": [
+    {
+      "kty": "RSA",
+      "e": "AQAB",
+      "use": "sig",
+      "kid": "quickStart",
+      "alg": "RS256",
+      "n": "AK52roDAbQKhJ_G0R25D-TgGc_7_xI-mMRek3rLVQxG__4QvXSblPeKZL_B2z5ltUNNBs8doMSrEnz5jVUQtQX56gMUWNG1sK10FEDTTlniv9Z8lZuRnMy6eA-8VfmT-0B_YZw3uE6HWTgS8eG-w_v3AdnywZPbD3ATGVRJzHjB5"
+    }
+  ]
+}

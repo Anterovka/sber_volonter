@@ -1,0 +1,111 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <property dbms="oracle" name="namecase" value="UPPER"/>
+    <property dbms="oracle" name="bytelength" value="lengthb"/>
+    <property dbms="oracle" name="systimestamp" value="SYSTIMESTAMP"/>
+    <property dbms="oracle" name="type_double" value="BINARY_DOUBLE"/>
+    <property dbms="oracle" name="type_float" value="FLOAT"/>
+    <property dbms="oracle" name="type_int" value="NUMBER(10,0)"/>
+    <property dbms="oracle" name="type_long" value="NUMBER(19,0)"/>
+    <property dbms="oracle" name="type_short" value="NUMBER(5,0)"/>
+    <property dbms="oracle" name="type_byte" value="NUMBER(3,0)"/>
+    <property dbms="oracle" name="type_boolean" value="NUMBER(1,0)"/>
+    <property dbms="oracle" name="type_blob" value="BLOB"/>
+    <property dbms="oracle" name="type_offsetDateTime0" value="TIMESTAMP(0) WITH LOCAL TIME ZONE"/>
+    <property dbms="oracle" name="type_offsetDateTime1" value="TIMESTAMP(1) WITH LOCAL TIME ZONE"/>
+    <property dbms="oracle" name="type_offsetDateTime2" value="TIMESTAMP(2) WITH LOCAL TIME ZONE"/>
+    <property dbms="oracle" name="type_offsetDateTime3" value="TIMESTAMP(3) WITH LOCAL TIME ZONE"/>
+    <property dbms="oracle" name="type_offsetDateTime4" value="TIMESTAMP(4) WITH LOCAL TIME ZONE"/>
+    <property dbms="oracle" name="type_offsetDateTime5" value="TIMESTAMP(5) WITH LOCAL TIME ZONE"/>
+    <property dbms="oracle" name="type_offsetDateTime6" value="TIMESTAMP(6) WITH LOCAL TIME ZONE"/>
+    <property dbms="oracle" name="postfix_type" value="CHAR"/>
+    <property dbms="oracle" name="index_parallel_count" value="1"/>
+    <property dbms="oracle" name="parallelDegree" value="${index_parallel_count}"/>
+    <property dbms="oracle" name="liquibase.oracle.online" value=""/>
+    <property dbms="oracle" name="default_schema_name" value=""/>
+    <property dbms="postgresql" name="schemaname" value="${user_name}"/>
+    <property dbms="postgresql" name="namecase" value="lower"/>
+    <property dbms="postgresql" name="bytelength" value="length"/>
+    <property dbms="postgresql" name="systimestamp" value="localtimestamp"/>
+    <property dbms="postgresql" name="type_double" value="double precision"/>
+    <property dbms="postgresql" name="type_float" value="real"/>
+    <property dbms="postgresql" name="type_int" value="integer"/>
+    <property dbms="postgresql" name="type_long" value="bigint"/>
+    <property dbms="postgresql" name="type_short" value="smallint"/>
+    <property dbms="postgresql" name="type_byte" value="smallint"/>
+    <property dbms="postgresql" name="type_boolean" value="boolean"/>
+    <property dbms="postgresql" name="type_blob" value="bytea"/>
+    <property dbms="postgresql" name="type_offsetDateTime0" value="TIMESTAMPTZ(0)"/>
+    <property dbms="postgresql" name="type_offsetDateTime1" value="TIMESTAMPTZ(1)"/>
+    <property dbms="postgresql" name="type_offsetDateTime2" value="TIMESTAMPTZ(2)"/>
+    <property dbms="postgresql" name="type_offsetDateTime3" value="TIMESTAMPTZ(3)"/>
+    <property dbms="postgresql" name="type_offsetDateTime4" value="TIMESTAMPTZ(4)"/>
+    <property dbms="postgresql" name="type_offsetDateTime5" value="TIMESTAMPTZ(5)"/>
+    <property dbms="postgresql" name="type_offsetDateTime6" value="TIMESTAMPTZ(6)"/>
+    <property dbms="postgresql" name="postfix_type" value=""/>
+    <property dbms="postgresql" name="liquibase.pg.online" value=""/>
+    <property dbms="postgresql" name="default_schema_name" value="${defaultSchemaName}."/>
+    <property dbms="h2" name="schemaname" value="${user_name}"/>
+    <property dbms="h2" name="namecase" value="lower"/>
+    <property dbms="h2" name="bytelength" value="length"/>
+    <property dbms="h2" name="systimestamp" value="now()"/>
+    <property dbms="h2" name="type_double" value="double"/>
+    <property dbms="h2" name="type_float" value="real"/>
+    <property dbms="h2" name="type_int" value="int"/>
+    <property dbms="h2" name="type_long" value="bigint"/>
+    <property dbms="h2" name="type_short" value="smallint"/>
+    <property dbms="h2" name="type_byte" value="tinyint"/>
+    <property dbms="h2" name="type_boolean" value="boolean"/>
+    <property dbms="h2" name="type_blob" value="blob"/>
+    <property dbms="h2" name="type_offsetDateTime0" value="TIMESTAMP(0) WITH TIME ZONE"/>
+    <property dbms="h2" name="type_offsetDateTime1" value="TIMESTAMP(1) WITH TIME ZONE"/>
+    <property dbms="h2" name="type_offsetDateTime2" value="TIMESTAMP(2) WITH TIME ZONE"/>
+    <property dbms="h2" name="type_offsetDateTime3" value="TIMESTAMP(3) WITH TIME ZONE"/>
+    <property dbms="h2" name="type_offsetDateTime4" value="TIMESTAMP(4) WITH TIME ZONE"/>
+    <property dbms="h2" name="type_offsetDateTime5" value="TIMESTAMP(5) WITH TIME ZONE"/>
+    <property dbms="h2" name="type_offsetDateTime6" value="TIMESTAMP(6) WITH TIME ZONE"/>
+    <property dbms="h2" name="postfix_type" value=""/>
+    <property dbms="h2" name="default_schema_name" value=""/>
+    <property dbms="hsqldb" name="schemaname" value="${user_name}"/>
+    <property dbms="hsqldb" name="namecase" value="lower"/>
+    <property dbms="hsqldb" name="bytelength" value="length"/>
+    <property dbms="hsqldb" name="systimestamp" value="now()"/>
+    <property dbms="hsqldb" name="type_double" value="double"/>
+    <property dbms="hsqldb" name="type_float" value="real"/>
+    <property dbms="hsqldb" name="type_int" value="int"/>
+    <property dbms="hsqldb" name="type_long" value="bigint"/>
+    <property dbms="hsqldb" name="type_short" value="smallint"/>
+    <property dbms="hsqldb" name="type_byte" value="tinyint"/>
+    <property dbms="hsqldb" name="type_boolean" value="tinyint"/>
+    <property dbms="hsqldb" name="type_blob" value="blob"/>
+    <property dbms="hsqldb" name="type_offsetDateTime0" value="TIMESTAMPTZ(0)"/>
+    <property dbms="hsqldb" name="type_offsetDateTime1" value="TIMESTAMPTZ(1)"/>
+    <property dbms="hsqldb" name="type_offsetDateTime2" value="TIMESTAMPTZ(2)"/>
+    <property dbms="hsqldb" name="type_offsetDateTime3" value="TIMESTAMPTZ(3)"/>
+    <property dbms="hsqldb" name="type_offsetDateTime4" value="TIMESTAMPTZ(4)"/>
+    <property dbms="hsqldb" name="type_offsetDateTime5" value="TIMESTAMPTZ(5)"/>
+    <property dbms="hsqldb" name="type_offsetDateTime6" value="TIMESTAMPTZ(6)"/>
+    <property dbms="hsqldb" name="postfix_type" value=""/>
+    <property dbms="hsqldb" name="default_schema_name" value=""/>
+
+    <changeSet id="set-role" author="devops" dbms="postgresql" runAlways="true">
+        <preConditions onFail="CONTINUE">
+            <changeLogPropertyDefined property="setRole"/>
+        </preConditions>
+        <sql>set role ${setRole}</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="${modelName}" dbms="postgresql" id="check-value-defaultSchemaName" runAlways="true">
+        <preConditions onFail="HALT" onFailMessage="Liquibase parameter defaultSchemaName is not specified or schema does not exist. It is mandatory for PostgreSQL. Set correct schema name for parameter defaultSchemaName and run again.">
+            <sqlCheck expectedResult="1">
+                select count (*) from information_schema.schemata where schema_name = '${defaultSchemaName}'
+            </sqlCheck>
+        </preConditions>
+    </changeSet>
+${checkEnableIntermediaryRelease}
+${checkDeployDbmsOracle}
+
+</databaseChangeLog>

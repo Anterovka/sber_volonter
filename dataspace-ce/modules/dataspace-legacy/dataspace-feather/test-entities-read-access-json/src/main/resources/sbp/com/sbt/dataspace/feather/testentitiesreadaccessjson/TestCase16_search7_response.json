@@ -1,0 +1,18 @@
+{
+  "elems": [
+    {
+      "type": "ProductPlus",
+      "id": "${productPlus1Id}",
+      "props": {
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${product1Id}",
+          "access": false
+        },
+        "affectedProducts": {
+          "elems": []
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+    <changeSet author="${modelName}" id="${version}-${index}-lob-${indexIndex}" dbms="oracle">
+        <preConditions onFail="MARK_RAN" onError="CONTINUE">
+            <sqlCheck expectedResult="0">select count (*) from ${tableName}</sqlCheck>
+            <sqlCheck expectedResult="1">select count (*) from sys.all_lobs where owner=USER and table_name=${namecase}('${tableName}') and column_name=${namecase}('${columnName}') and tablespace_name&lt;&gt;${namecase}('${tablespace_l}')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${tableName} move lob (${columnName}) store as (tablespace ${tablespace_l})</sql>
+        <rollback/>
+    </changeSet>
+

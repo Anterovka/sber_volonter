@@ -1,0 +1,101 @@
+:root {
+  --primary-color: #21A038;
+  --text-color: #333;
+  --error-color: #ff4d4f;
+  --background-color: #f0f2f5;
+}
+
+/* Base styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Loading state */
+.app-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--background-color);
+}
+
+/* Error state */
+.app-error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  text-align: center;
+}
+
+.app-error h2 {
+  color: var(--error-color);
+  margin-bottom: 16px;
+}
+
+/* Menu styles */
+.ant-menu {
+  background: transparent;
+}
+
+.ant-menu-horizontal {
+  border-bottom: none;
+}
+
+/* Menu item styles */
+.ant-menu-horizontal .ant-menu-item,
+.ant-menu-horizontal .ant-menu-item:hover,
+.ant-menu-horizontal .ant-menu-item-selected,
+.ant-menu-horizontal .ant-menu-item-active {
+  color: var(--text-color);
+}
+
+/* Переопределение стилей меню */
+.ant-menu-horizontal .ant-menu-item::after,
+.ant-menu-horizontal .ant-menu-item:hover::after,
+.ant-menu-horizontal .ant-menu-item-selected::after,
+.ant-menu-horizontal .ant-menu-item-active::after {
+    border-bottom: 2px solid #21A038 !important;
+}
+
+/* Принудительное переопределение для всех состояний */
+.ant-menu-horizontal > .ant-menu-item::after,
+.ant-menu-horizontal > .ant-menu-item:hover::after,
+.ant-menu-horizontal > .ant-menu-item-active::after,
+.ant-menu-horizontal > .ant-menu-item-selected::after {
+    border-bottom: 2px solid #21A038 !important;
+}
+
+/* Дополнительное переопределение для светлой темы */
+.ant-menu-light.ant-menu-horizontal > .ant-menu-item::after,
+.ant-menu-light.ant-menu-horizontal > .ant-menu-item:hover::after,
+.ant-menu-light.ant-menu-horizontal > .ant-menu-item-active::after,
+.ant-menu-light.ant-menu-horizontal > .ant-menu-item-selected::after {
+    border-bottom: 2px solid #21A038 !important;
+}
+
+/* Максимальная специфичность */
+body .ant-menu-horizontal > .ant-menu-item::after,
+body .ant-menu-horizontal > .ant-menu-item:hover::after,
+body .ant-menu-horizontal > .ant-menu-item-active::after,
+body .ant-menu-horizontal > .ant-menu-item-selected::after {
+    border-bottom: 2px solid #21A038 !important;
+}
+
+/* Дополнительные стили для гарантии */
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected::after {
+    border-bottom-color: #21A038 !important;
+} 

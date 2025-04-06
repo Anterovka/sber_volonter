@@ -1,0 +1,11 @@
+
+    <changeSet author="${modelName}" dbms="oracle" id="${version}-${index}">
+        <preConditions onFail="MARK_RAN">
+            <not><columnExists tableName="${tableName}" columnName="${columnName}"/></not>
+        </preConditions>
+        <addColumn tableName="${tableName}">
+            <column name="${columnName}" remarks="${remarks1}" type="${type}">${additional}</column>
+        </addColumn>
+        <sql>update ${tableName} set ${columnName} = ${defaultValue} where ${columnName} is null</sql>
+        <addNotNullConstraint tableName="${tableName}" columnName="${columnName}" columnDataType="${type}"/>${rollbackOraWithBinDefVal}
+    </changeSet>

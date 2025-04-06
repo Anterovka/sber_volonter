@@ -1,0 +1,11 @@
+{
+  "selection": true,
+  "elems": [
+    {
+      "p1": true,
+      "p2": false,
+      "p3": "1",
+      "p4": "0"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "elems": [
+    {
+      "type": "ProductPlus",
+      "id": "${productPlus1Id}",
+      "props": {
+        "code": "productPlus1",
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${product1Id}",
+          "props": {
+            "relatedProduct": null
+          }
+        },
+        "request": {
+          "type": "RequestPlus",
+          "id": "${requestPlus1Id}",
+          "props": {
+            "code": "requestPlus1",
+            "description": "description1",
+            "initiator": {
+              "firstName": "Ivan",
+              "lastName": "Ivanov"
+            }
+          }
+        },
+        "services": {
+          "elems": [
+            {
+              "type": "Service",
+              "id": "${service1Id}",
+              "props": {
+                "request": {
+                  "type": "Request",
+                  "id": "${request2Id}",
+                  "props": {
+                    "initiator": {
+                      "firstName": "Vasya",
+                      "lastName": "Vasiliev",
+                      "age": null
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

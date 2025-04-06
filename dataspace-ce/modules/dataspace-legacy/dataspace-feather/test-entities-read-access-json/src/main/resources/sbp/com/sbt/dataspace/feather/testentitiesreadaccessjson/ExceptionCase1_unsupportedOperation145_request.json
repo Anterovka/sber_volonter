@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "it.p7.$time $in it.ps1"
+}

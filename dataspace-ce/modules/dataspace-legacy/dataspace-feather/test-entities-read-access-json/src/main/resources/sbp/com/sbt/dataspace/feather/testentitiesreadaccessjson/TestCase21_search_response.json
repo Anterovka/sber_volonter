@@ -1,0 +1,56 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${productPlus1Id}",
+      "props": {
+        "code": {
+          "calc": true,
+          "value": "product1"
+        },
+        "servicesCount": {
+          "calc": true,
+          "value": "2"
+        },
+        "totalCreatorCode": {
+          "calc": true,
+          "value": "10"
+        },
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${product1Id}",
+          "props": {
+            "servicesCount": {
+              "calc": true,
+              "value": "1"
+            },
+            "services": {
+              "elems": [
+                {
+                  "type": "Service",
+                  "id": "${service3Id}",
+                  "props": {
+                    "operationsCount": {
+                      "calc": true,
+                      "value": "1"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "request": {
+          "type": "Request",
+          "id": "${request1Id}",
+          "props": {
+            "initiatorLastName": {
+              "calc": true,
+              "value": "Ivanov"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

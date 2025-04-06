@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.p1 $mod root.p2 == 1"
+}

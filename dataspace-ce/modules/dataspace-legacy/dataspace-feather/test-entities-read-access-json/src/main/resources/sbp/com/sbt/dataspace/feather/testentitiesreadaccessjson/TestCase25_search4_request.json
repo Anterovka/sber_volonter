@@ -1,0 +1,8 @@
+{
+  "type": "TestEntity",
+  "selection": {
+    "p1": "it.p14.$min",
+    "p2": "it.p14.$max"
+  },
+  "cond": "it.$id $in ['${testEntity1Id}', '${testEntity2Id}']"
+}

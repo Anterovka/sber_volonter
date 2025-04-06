@@ -1,0 +1,35 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${product1Id}",
+      "aggVersion": "1",
+      "props": {
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${product2Id}",
+          "aggVersion": "2"
+        },
+        "request": {
+          "type": "Request",
+          "id": "${request1Id}",
+          "aggVersion": "4"
+        },
+        "services": {
+          "elems": [ {
+              "type": "Service",
+              "id": "${service1Id}",
+              "aggVersion": "3"
+            } ]
+        },
+        "parameters": {
+          "elems": [ {
+              "type": "Parameter",
+              "id": "${parameter1Id}",
+              "aggVersion": "5"
+            } ]
+        }
+      }
+    }
+  ]
+}

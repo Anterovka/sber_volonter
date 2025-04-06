@@ -1,0 +1,10 @@
+{
+  "type": "Product",
+  "selection": {
+    "p1": "it.code",
+    "p2": "it.services.$count"
+  },
+  "cond": "it.$id == '${product1Id}'",
+  "limit": 1,
+  "count": true
+}

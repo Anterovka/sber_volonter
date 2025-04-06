@@ -1,0 +1,30 @@
+{
+  "elems": [
+    {
+      "id": "${operationLimited1Id}",
+      "type": "OperationLimited",
+      "props": {
+        "product": {
+          "id": "${product1Id}",
+          "type": "Product",
+          "props": {
+            "code": "product1"
+          }
+        }
+      }
+    },
+    {
+      "id": "${operationSpecial1Id}",
+      "type": "OperationSpecial",
+      "props": {
+        "product": {
+          "id": "${product1Id}",
+          "type": "Product",
+          "props": {
+            "code": "product1"
+          }
+        }
+      }
+    }
+  ]
+}

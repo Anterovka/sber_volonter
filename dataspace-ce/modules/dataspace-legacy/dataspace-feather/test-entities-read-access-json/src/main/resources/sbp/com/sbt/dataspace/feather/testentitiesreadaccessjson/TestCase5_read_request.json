@@ -1,0 +1,47 @@
+{
+  "type": "ProductLimited",
+  "props": [
+    "code",
+    "aliases",
+    {
+      "relatedProduct": {
+        "type": "ProductPlus",
+        "props": {
+          "relatedProduct": {
+            "type": "ProductPlus"
+          }
+        }
+      },
+      "affectedProducts": {
+        "props": [
+          "code",
+          {
+            "rates": {
+              "cond": "elem $between (1, 10.8)",
+              "limit": 3
+            }
+          }
+        ],
+        "details": {
+          "ProductPlus": {
+            "rates": {},
+            "affectedProducts": {
+              "props": [
+                "code",
+                {
+                  "rates": "elem $between (2, 3)"
+                }
+              ],
+              "limit": 1
+            }
+          }
+        },
+        "cond": "elem.code $like 'product%'",
+        "limit": 2,
+        "count": true
+      }
+    }
+  ],
+  "cond": "root.$id == '${productLimited1Id}'",
+  "limit": 1
+}

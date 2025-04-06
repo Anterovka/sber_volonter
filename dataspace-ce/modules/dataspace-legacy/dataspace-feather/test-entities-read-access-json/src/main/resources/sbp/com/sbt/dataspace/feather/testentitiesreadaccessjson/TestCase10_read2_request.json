@@ -1,0 +1,56 @@
+{
+  "type": "Product",
+  "props": [
+    "code",
+    {
+      "relatedProduct": {
+        "props": {
+          "relatedProduct": {
+            "type": "ProductPlus"
+          }
+        }
+      },
+      "request": {
+        "props": [
+          "code",
+          {
+            "initiator": "firstName"
+          }
+        ]
+      },
+      "services": {
+        "props": {
+          "request": {
+            "props": {
+              "initiator": [
+                "firstName",
+                "lastName",
+                "age"
+              ]
+            },
+            "details": {
+              "RequestPlus": "description"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "details": {
+    "ProductPlus": [
+      "code",
+      {
+        "request": {
+          "type": "RequestPlus",
+          "props": [
+            "description",
+            {
+              "initiator": "lastName"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "cond": "root.$id == '${productPlus1Id}'"
+}

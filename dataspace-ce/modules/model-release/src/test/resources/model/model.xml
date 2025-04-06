@@ -1,0 +1,55 @@
+<model model-name="newParent" version="DEV-SNAPSHOT" xmlns="DataspaceModel">
+
+  <class name="MyAbstractClass">
+    <statuses>
+      <group code="service">
+        <status code="first" initial="true"/>
+        <status code="second"/>
+      </group>
+    </statuses>
+  </class>
+
+  <class name="MyClass" extends="MyAbstractClass">
+    <property name="code" type="String"/>
+    <property name="myTime" type="localtime"/>
+    <statuses>
+      <group code="service" reason-length="300">
+        <status code="new" initial="true">
+          <to status="close"/>
+        </status>
+        <status code="close"/>
+      </group>
+    </statuses>
+  </class>
+
+  <class name="ChildClass" extends="MyClass">
+    <statuses>
+      <group code="service">
+        <status code="draft" initial="true"/>
+        <status code="done"/>
+      </group>
+    </statuses>
+  </class>
+
+  <class name="SingleTableClass" extends="MyAbstractClass">
+    <statuses>
+      <group code="user">
+        <status code="new" initial="true"/>
+        <status code="old"/>
+      </group>
+      <group code="service">
+        <status code="new" initial="true"/>
+        <status code="old"/>
+      </group>
+    </statuses>
+  </class>
+
+    <class name="MyDictionary" is-dictionary="true">
+        <property name="code" type="String"/>
+    </class>
+
+
+  <enum name="Sample">
+    <value name="ONE"/>
+  </enum>
+</model>

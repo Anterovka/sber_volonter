@@ -1,0 +1,13 @@
+{
+  "type": "Product",
+  "props": {
+    "documents": {
+      "props": "code",
+      "details": {
+        "Permission": "number"
+      },
+      "sort": "elem.code"
+    }
+  },
+  "cond": "root.$id == '${product1Id}'"
+}

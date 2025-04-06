@@ -1,0 +1,19 @@
+{
+  "type": "Request",
+  "props": {
+    "initiator": {
+      "name": {
+        "base": "lastName"
+      }
+    }
+  },
+  "details": {
+    "RequestPlus": {
+      "initiator": {
+        "name": {
+          "base": "document"
+        }
+      }
+    }
+  }
+}

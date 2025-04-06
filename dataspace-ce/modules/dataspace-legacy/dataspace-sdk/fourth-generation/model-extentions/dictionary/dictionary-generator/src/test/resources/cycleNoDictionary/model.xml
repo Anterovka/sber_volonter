@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model model-name="myModel" version="DEV-SNAPSHOT" xmlns="DataspaceModel">
+
+    <class name="City">
+        <property name="name" type="String"/>
+    </class>
+
+</model>

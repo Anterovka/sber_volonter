@@ -1,0 +1,214 @@
+{
+  "elems": [
+    {
+      "type": "TestEntity",
+      "id": "${testEntity1Id}",
+      "props": {
+        "p7plus": {
+          "calc": true,
+          "value": "${dateTime6}"
+        },
+        "p7plus2": {
+          "calc": true,
+          "value": "${dateTime6}"
+        },
+        "p7minus": {
+          "calc": true,
+          "value": "${dateTime13}"
+        },
+        "p7addMilliseconds": {
+          "calc": true,
+          "value": "${dateTime2}"
+        },
+        "p7addSeconds": {
+          "calc": true,
+          "value": "${dateTime3}"
+        },
+        "p7addMinutes": {
+          "calc": true,
+          "value": "${dateTime4}"
+        },
+        "p7addHours": {
+          "calc": true,
+          "value": "${dateTime5}"
+        },
+        "p7addDays": {
+          "calc": true,
+          "value": "${dateTime6}"
+        },
+        "p7addMonths": {
+          "calc": true,
+          "value": "${dateTime7}"
+        },
+        "p7addYears": {
+          "calc": true,
+          "value": "${dateTime8}"
+        },
+        "p7subMilliseconds": {
+          "calc": true,
+          "value": "${dateTime9}"
+        },
+        "p7subSeconds": {
+          "calc": true,
+          "value": "${dateTime10}"
+        },
+        "p7subMinutes": {
+          "calc": true,
+          "value": "${dateTime11}"
+        },
+        "p7subHours": {
+          "calc": true,
+          "value": "${dateTime12}"
+        },
+        "p7subDays": {
+          "calc": true,
+          "value": "${dateTime13}"
+        },
+        "p7subMonths": {
+          "calc": true,
+          "value": "${dateTime14}"
+        },
+        "p7subYears": {
+          "calc": true,
+          "value": "${dateTime15}"
+        },
+        "p14plus": {
+          "calc": true,
+          "value": "${date6}"
+        },
+        "p14plus2": {
+          "calc": true,
+          "value": "${date6}"
+        },
+        "p14minus": {
+          "calc": true,
+          "value": "${date13}"
+        },
+        "p14addMilliseconds": {
+          "calc": true,
+          "value": "${dateTime2d}"
+        },
+        "p14addSeconds": {
+          "calc": true,
+          "value": "${dateTime3d}"
+        },
+        "p14addMinutes": {
+          "calc": true,
+          "value": "${dateTime4d}"
+        },
+        "p14addHours": {
+          "calc": true,
+          "value": "${dateTime5d}"
+        },
+        "p14addDays": {
+          "calc": true,
+          "value": "${date6}"
+        },
+        "p14addMonths": {
+          "calc": true,
+          "value": "${date7}"
+        },
+        "p14addYears": {
+          "calc": true,
+          "value": "${date8}"
+        },
+        "p14subMilliseconds": {
+          "calc": true,
+          "value": "${dateTime9d}"
+        },
+        "p14subSeconds": {
+          "calc": true,
+          "value": "${dateTime10d}"
+        },
+        "p14subMinutes": {
+          "calc": true,
+          "value": "${dateTime11d}"
+        },
+        "p14subHours": {
+          "calc": true,
+          "value": "${dateTime12d}"
+        },
+        "p14subDays": {
+          "calc": true,
+          "value": "${date13}"
+        },
+        "p14subMonths": {
+          "calc": true,
+          "value": "${date14}"
+        },
+        "p14subYears": {
+          "calc": true,
+          "value": "${date15}"
+        },
+        "p15plus": {
+          "calc": true,
+          "value": "${offsetDateTime6}"
+        },
+        "p15plus2": {
+          "calc": true,
+          "value": "${offsetDateTime6}"
+        },
+        "p15minus": {
+          "calc": true,
+          "value": "${offsetDateTime13}"
+        },
+        "p15addMilliseconds": {
+          "calc": true,
+          "value": "${offsetDateTime2}"
+        },
+        "p15addSeconds": {
+          "calc": true,
+          "value": "${offsetDateTime3}"
+        },
+        "p15addMinutes": {
+          "calc": true,
+          "value": "${offsetDateTime4}"
+        },
+        "p15addHours": {
+          "calc": true,
+          "value": "${offsetDateTime5}"
+        },
+        "p15addDays": {
+          "calc": true,
+          "value": "${offsetDateTime6}"
+        },
+        "p15addMonths": {
+          "calc": true,
+          "value": "${offsetDateTime7}"
+        },
+        "p15addYears": {
+          "calc": true,
+          "value": "${offsetDateTime8}"
+        },
+        "p15subMilliseconds": {
+          "calc": true,
+          "value": "${offsetDateTime9}"
+        },
+        "p15subSeconds": {
+          "calc": true,
+          "value": "${offsetDateTime10}"
+        },
+        "p15subMinutes": {
+          "calc": true,
+          "value": "${offsetDateTime11}"
+        },
+        "p15subHours": {
+          "calc": true,
+          "value": "${offsetDateTime12}"
+        },
+        "p15subDays": {
+          "calc": true,
+          "value": "${offsetDateTime13}"
+        },
+        "p15subMonths": {
+          "calc": true,
+          "value": "${offsetDateTime14}"
+        },
+        "p15subYears": {
+          "calc": true,
+          "value": "${offsetDateTime15}"
+        }
+      }
+    }
+  ]
+}

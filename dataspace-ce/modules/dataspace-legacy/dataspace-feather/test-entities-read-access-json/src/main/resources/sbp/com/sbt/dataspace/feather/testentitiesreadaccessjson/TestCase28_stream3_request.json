@@ -1,0 +1,14 @@
+{
+  "merge": [
+    {
+      "type": "Service",
+      "props": "code",
+      "cond": "it.$id == '${service1Id}'"
+    },
+    {
+      "type": "Product",
+      "cond": "it.$id == '${product1Id}'"
+    }
+  ],
+  "sort": "it.code"
+}

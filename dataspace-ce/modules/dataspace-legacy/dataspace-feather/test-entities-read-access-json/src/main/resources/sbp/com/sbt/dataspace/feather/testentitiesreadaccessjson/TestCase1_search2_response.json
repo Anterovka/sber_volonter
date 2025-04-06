@@ -1,0 +1,44 @@
+{
+  "elems": [
+    {
+      "type": "TestEntity",
+      "id": "${testEntity1Id}",
+      "props": {
+        "p1": "Hello",
+        "p2": "127",
+        "p3": "32767",
+        "p4": "2147483647",
+        "p5": "9223372036854775807",
+        "p6": "1234567.890123456",
+        "p7": "${dateTime}",
+        "p8": true,
+        "p9": "${bytes}",
+        "p10": "123456789.0123456789",
+        "p11": "${string5000}",
+        "p12": "123.4567",
+        "p13": "G",
+        "p14": "${date}",
+        "r1": {
+          "type": "TestEntity",
+          "id": "${testEntity1Id}"
+        },
+        "rc1": {
+          "elems": [
+            {
+              "type": "TestEntity",
+              "id": "${testEntity1Id}"
+            }
+          ]
+        },
+        "brec1": {
+          "elems": [
+            {
+              "type": "TestEntity",
+              "id": "${testEntity1Id}"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

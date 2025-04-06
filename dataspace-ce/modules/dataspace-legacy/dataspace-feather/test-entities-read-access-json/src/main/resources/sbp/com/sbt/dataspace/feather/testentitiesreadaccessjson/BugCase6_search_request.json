@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.$id == '${testEntity1Id}' && root.code + root.p1 + 'hello' + root.p1 == 'testEntity1hello'"
+}

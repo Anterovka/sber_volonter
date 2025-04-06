@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "it.$id == '${testEntity1Id}' && entities{type = Product, elemAlias = product, cond = it.parameters{cond = it.value $in [root.code, @product.code]}.$count == 2}.$exists"
+}

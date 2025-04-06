@@ -1,0 +1,10 @@
+{
+  "type": "ProductCopy",
+  "selection": {
+    "p1": "it.idCopy"
+  },
+  "distinct": true,
+  "cond": "it.idCopy == '${product1Id}'",
+  "limit": 1,
+  "count": true
+}

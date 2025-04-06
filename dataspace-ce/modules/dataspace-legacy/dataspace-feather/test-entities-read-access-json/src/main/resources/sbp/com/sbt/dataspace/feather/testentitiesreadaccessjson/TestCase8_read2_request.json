@@ -1,0 +1,4 @@
+{
+  "type": "Permission",
+  "cond": "root.$id == '${document1Id}'"
+}

@@ -1,0 +1,9 @@
+{
+  "selection": true,
+  "elems": [
+    {
+      "p1": "${product1Id}"
+    }
+  ],
+  "count": 1
+}

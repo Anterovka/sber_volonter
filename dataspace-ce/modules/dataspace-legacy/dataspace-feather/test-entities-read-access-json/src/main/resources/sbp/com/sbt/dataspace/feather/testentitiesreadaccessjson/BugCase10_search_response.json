@@ -1,0 +1,13 @@
+{
+  "elems": [
+    {
+      "type": "Service",
+      "id": "${service1Id}",
+      "props": {
+        "initiator": {
+          "firstName": "Ivan"
+        }
+      }
+    }
+  ]
+}

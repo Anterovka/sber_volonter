@@ -1,0 +1,10 @@
+
+        <rollback>
+            <createIndex
+                tablespace="${tablespace_i}"
+                tableName="${tableName}"
+                unique="${isUnique}"
+                indexName="${indexName}">
+                ${indexColumns}
+            </createIndex>
+        </rollback>

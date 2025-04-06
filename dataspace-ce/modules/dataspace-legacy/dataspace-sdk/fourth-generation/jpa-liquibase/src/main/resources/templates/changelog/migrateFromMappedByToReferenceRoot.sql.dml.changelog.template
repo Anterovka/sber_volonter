@@ -1,0 +1,7 @@
+
+    <changeSet author="${modelName}" id="${version}-${index}-migrate">
+        <sql dbms="!postgresql">update ${tableName} set ${columnName} = (select object_id from ${tableName2} where ${parentColumnName} = ${tableName}.object_id)</sql>
+        <sql dbms="postgresql">update ${defaultSchemaName}.${tableName} set ${columnName} = (select object_id from ${defaultSchemaName}.${tableName2} where ${parentColumnName} = ${defaultSchemaName}.${tableName}.object_id)</sql>
+        <rollback/>
+    </changeSet>
+

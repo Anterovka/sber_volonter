@@ -1,0 +1,89 @@
+{
+  "elems": [
+    {
+      "type": "TestEntity",
+      "id": "${testEntity1Id}",
+      "props": {
+        "p1": "Hello",
+        "calcP1": {
+          "calc": true,
+          "value": "Hello"
+        },
+        "p2": "127",
+        "calcP2": {
+          "calc": true,
+          "value": "127"
+        },
+        "p3": "32767",
+        "calcP3": {
+          "calc": true,
+          "value": "32767"
+        },
+        "p4": "2147483647",
+        "calcP4": {
+          "calc": true,
+          "value": "2147483647"
+        },
+        "p5": "9223372036854775807",
+        "calcP5": {
+          "calc": true,
+          "value": "9223372036854775807"
+        },
+        "p6": "1234567.890123456",
+        "calcP6": {
+          "calc": true,
+          "value": "1234567.890123456"
+        },
+        "p7": "${dateTime}",
+        "calcP7": {
+          "calc": true,
+          "value": "${dateTime}"
+        },
+        "p8": true,
+        "calcP8": {
+          "calc": true,
+          "value": true
+        },
+        "p9": "${bytes}",
+        "calcP9": {
+          "calc": true,
+          "value": "${bytes}"
+        },
+        "p10": "123456789.0123456789",
+        "calcP10": {
+          "calc": true,
+          "value": "123456789.0123456789"
+        },
+        "p11": "${string5000}",
+        "calcP11": {
+          "calc": true,
+          "value": "${string5000}"
+        },
+        "p12": "123.4567",
+        "calcP12": {
+          "calc": true,
+          "value": "123.4567"
+        },
+        "p13": "G",
+        "calcP13": {
+          "calc": true,
+          "value": "G"
+        },
+        "p14": "${date}",
+        "calcP14": {
+          "calc": true,
+          "value": "${date}"
+        },
+        "p15": "${offsetDateTime}",
+        "calcP15": {
+          "calc": true,
+          "value": "${offsetDateTime}"
+        },
+        "calcR1Code": {
+          "calc": true,
+          "value": null
+        }
+      }
+    }
+  ]
+}

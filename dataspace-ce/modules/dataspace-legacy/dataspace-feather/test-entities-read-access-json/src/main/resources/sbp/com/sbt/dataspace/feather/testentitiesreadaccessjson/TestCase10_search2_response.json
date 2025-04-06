@@ -1,0 +1,15 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${productPlus1Id}",
+      "props": {
+        "request": {
+          "type": "Request",
+          "id": "${requestPlus1Id}"
+        }
+      }
+    }
+  ],
+  "count": 1
+}

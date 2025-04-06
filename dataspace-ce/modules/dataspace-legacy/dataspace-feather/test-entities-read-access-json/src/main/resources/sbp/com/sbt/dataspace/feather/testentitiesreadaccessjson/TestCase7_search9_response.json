@@ -1,0 +1,25 @@
+{
+  "elems": [
+    {
+      "type": "Service",
+      "id": "${service2Id}",
+      "props": {
+        "name": "Service 2"
+      }
+    },
+    {
+      "type": "Service",
+      "id": "${service1Id}",
+      "props": {
+        "name": "Service 1"
+      }
+    },
+    {
+      "type": "Service",
+      "id": "${service3Id}",
+      "props": {
+        "name": null
+      }
+    }
+  ]
+}

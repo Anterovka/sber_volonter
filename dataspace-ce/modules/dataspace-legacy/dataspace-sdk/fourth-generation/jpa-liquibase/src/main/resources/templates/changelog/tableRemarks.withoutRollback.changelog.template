@@ -1,0 +1,7 @@
+    <changeSet author="${modelName}" id="${version}-${index}">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="${tableName}"/>
+        </preConditions>
+        <setTableRemarks remarks="${remarks2}" tableName="${tableName}"/>
+        <rollback/>
+    </changeSet>

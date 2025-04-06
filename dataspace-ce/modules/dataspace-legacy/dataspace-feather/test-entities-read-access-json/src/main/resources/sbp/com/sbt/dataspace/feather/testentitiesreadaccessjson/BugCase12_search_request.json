@@ -1,0 +1,32 @@
+{
+  "type": "Operation",
+  "props": "code",
+  "details": {
+    "OperationSpecial": [
+      "name",
+      {
+        "service": {
+          "props": "code"
+        },
+        "request": {
+          "props": "code"
+        },
+        "parameters": {}
+      }
+    ],
+    "OperationLimited": [
+      "name",
+      {
+        "service": {
+          "props": "code"
+        },
+        "request": {
+          "props": "code"
+        },
+        "parameters": {}
+      }
+    ]
+  },
+  "cond": "it.$id $in ['${operationSpecial1Id}', '${operationLimited1Id}']",
+  "sort": "it.code"
+}

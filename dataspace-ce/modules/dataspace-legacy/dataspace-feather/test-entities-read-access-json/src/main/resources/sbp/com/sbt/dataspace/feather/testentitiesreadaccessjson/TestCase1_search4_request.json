@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.$id == '${testEntity1Id}' && root.p6>(root.p12-123.0000)"
+}

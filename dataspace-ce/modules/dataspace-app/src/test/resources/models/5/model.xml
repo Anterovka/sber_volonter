@@ -1,0 +1,164 @@
+<model model-name="test" description="Test model" version="DEV-SNAPSHOT">
+  <enum name="Attribute">
+    <value name="TOP_PRIORITY"/>
+    <value name="FORBIDDEN"/>
+  </enum>
+  <enum name="Gender">
+    <value name="MALE"/>
+    <value name="FEMALE"/>
+  </enum>
+
+  <class name="Person" description="Person" embeddable="true">
+    <property name="firstName" type="String" mandatory="true"/>
+    <property name="lastName" type="String"/>
+    <property name="gender" type="Gender"/>
+    <!-- embedded property forbidden -->
+    <!-- collection property forbidden -->
+  </class>
+
+  <class name="TestEntity">
+    <id category="AUTO_ON_EMPTY"/>
+    <property name="pChar" description="Char" type="Character"/>
+    <property name="pString" type="String"/>
+    <property name="pText" type="Text"/>
+    <property name="pByte" type="Byte"/>
+    <property name="pShort" type="Short"/>
+    <property name="pInteger" type="Integer"/>
+    <property name="pLong" type="Long"/>
+    <property name="pFloat" type="Float"/>
+    <property name="pDouble" type="Double"/>
+    <property name="pBigDecimal" type="BigDecimal"/>
+    <property name="pLocalDate" type="LocalDate"/>
+    <property name="pDate" type="Date"/>
+    <!-- local time property either is not supported or is bugged -->
+    <property name="pLocalDateTime" type="LocalDateTime"/>
+    <property name="pOffsetDateTime" type="OffsetDateTime"/>
+    <property name="pBoolean" type="Boolean"/>
+    <property name="pByteArray" type="byte[]"/>
+
+    <property name="pCharCollection" description="Char collection" type="Character" collection="set"/>
+    <property name="pStringCollection" type="String" collection="set"/>
+    <!-- text collection property forbidden -->
+    <property name="pByteCollection" type="Byte" collection="set"/>
+    <property name="pShortCollection" type="Short" collection="set"/>
+    <property name="pIntegerCollection" type="Integer" collection="set"/>
+    <property name="pLongCollection" type="Long" collection="set"/>
+    <property name="pFloatCollection" type="Float" collection="set"/>
+    <property name="pDoubleCollection" type="Double" collection="set"/>
+    <property name="pBigDecimalCollection" type="BigDecimal" collection="set"/>
+    <property name="pLocalDateCollection" type="LocalDate" collection="set"/>
+    <property name="pDateCollection" type="Date" collection="set"/>
+    <!-- local time property either is not supported or is bugged -->
+    <property name="pLocalDateTimeCollection" type="LocalDateTime" collection="set"/>
+    <property name="pOffsetDateTimeCollection" type="OffsetDateTime" collection="set"/>
+    <!-- boolean collection property forbidden -->
+    <!-- byte array collection property forbidden -->
+
+    <property name="owner" description="Embedded" type="Person"/>
+  </class>
+
+  <class name="TestEntityExt" extends="TestEntity">
+    <property name="pStringExt" type="String"/>
+  </class>
+
+  <class name="TestEntitySingleTable" strategy="SINGLE_TABLE">
+    <id category="AUTO_ON_EMPTY"/>
+    <property name="pString" type="String"/>
+  </class>
+
+  <class name="TestEntitySingleTableExt" extends="TestEntitySingleTable">
+    <property name="pStringSingleTableExt" type="String"/>
+  </class>
+
+  <class name="Product">
+    <id category="AUTO_ON_EMPTY"/>
+    <property name="code" type="String"/>
+    <property name="attribute" type="Attribute"/>
+    <property name="services" type="Service" collection="set" mappedBy="product"/>
+    <reference name="externalProduct" type="Product"/>
+    <reference name="externalProducts" type="Product" collection="set"/>
+    <reference name="externalService" type="Service"/>
+    <reference name="externalServices" type="Service" collection="set"/>
+    <reference name="client" type="Client"/>
+    <reference name="clients" type="Client" collection="set"/>
+
+    <statuses>
+      <group code="platform">
+        <status code="opened" initial="true">
+          <to status="closed"/>
+        </status>
+        <status code="closed"/>
+      </group>
+    </statuses>
+  </class>
+
+  <class name="ProductWithExtendedStatuses" extends="Product">
+    <property name="description" type="String"/>
+
+    <statuses>
+      <group code="service">
+        <status code="new" initial="true">
+          <to status="old"/>
+        </status>
+        <status code="old"/>
+      </group>
+      <group code="platform">
+        <status code="created" initial="true">
+          <to status="deleted"/>
+          <to status="checked"/>
+        </status>
+        <status code="checked">
+          <to status="deleted"/>
+        </status>
+        <status code="deleted"/>
+      </group>
+    </statuses>
+  </class>
+
+  <class name="Service">
+    <id category="AUTO_ON_EMPTY"/>
+    <property name="code" type="String"/>
+    <property name="product" type="Product" parent="true" index="true"/>
+    <property name="operations" type="Operation" collection="set" mappedBy="service"/>
+  </class>
+
+  <class name="Operation">
+    <id category="AUTO_ON_EMPTY"/>
+    <property name="code" type="String"/>
+    <property name="contract" type="Contract" mappedBy="operation"/>
+    <property name="service" type="Service" parent="true" index="true"/>
+  </class>
+
+  <class name="Contract">
+    <id category="AUTO_ON_EMPTY"/>
+    <property name="code" type="String"/>
+    <property name="operation" type="Operation" parent="true"/>
+  </class>
+
+  <class name="Document">
+    <id category="AUTO_ON_EMPTY"/>
+    <property name="name" type="String"/>
+    <property name="documentParts" type="DocumentPart" collection="set" mappedBy="document"/>
+  </class>
+
+  <class name="DocumentPart">
+    <id category="AUTO_ON_EMPTY"/>
+    <property name="desc" type="String"/>
+    <property name="document" type="Document" parent="true"/>
+    <property name="parent" type="DocumentPart" parent="true"/>
+    <property name="parts" type="DocumentPart" collection="set" mappedBy="parent"/>
+    <property name="level2parts" type="DocumentPartLevel2" collection="set" mappedBy="documentPart"/>
+  </class>
+
+  <class name="DocumentPartLevel2">
+    <id category="AUTO_ON_EMPTY"/>
+    <property name="desc" type="String"/>
+    <property name="documentPart" type="DocumentPart" parent="true"/>
+    <property name="parent" type="DocumentPartLevel2" parent="true"/>
+    <property name="parts" type="DocumentPartLevel2" collection="set" mappedBy="parent"/>
+  </class>
+
+  <class name="Currency" is-dictionary="true" label="Валюта">
+    <property name="name" type="String" label="Наименование"/>
+  </class>
+</model>

@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.p7 $between (root.p1, root.p1)"
+}

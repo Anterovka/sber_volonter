@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "it.$id == '${testEntity1Id}' && !entities{type=Test2Entity,params={character=null,string=null,byte=null,short=null,integer=null,long=null,float=null,double=null,bigDecimal=null,date=null,datetime=null,offsetDatetime=null,boolean=null,strings=[null]}}.$exists"
+}

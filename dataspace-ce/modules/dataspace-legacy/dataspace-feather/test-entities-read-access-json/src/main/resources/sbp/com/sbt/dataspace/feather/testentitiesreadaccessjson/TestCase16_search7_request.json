@@ -1,0 +1,8 @@
+{
+  "type": "ProductPlus",
+  "props": {
+    "relatedProduct": {},
+    "affectedProducts": "root.relatedProduct.code != null"
+  },
+  "cond": "it.$id == '${productPlus1Id}'"
+}

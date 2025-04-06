@@ -1,0 +1,4 @@
+
+        <sql dbms="!postgresql">update ${tableName} set ${columnName} = (select ${columnName} from ${oldTableName} where ${oldTableName}.object_id = ${tableName}.object_id)</sql>
+        <sql dbms="postgresql">update ${defaultSchemaName}.${tableName} set ${columnName} = (select ${columnName} from ${defaultSchemaName}.${oldTableName} where ${defaultSchemaName}.${oldTableName}.object_id = ${defaultSchemaName}.${tableName}.object_id)</sql>
+

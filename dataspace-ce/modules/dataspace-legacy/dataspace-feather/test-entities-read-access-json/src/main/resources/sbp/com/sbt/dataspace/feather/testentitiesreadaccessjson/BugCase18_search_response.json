@@ -1,0 +1,14 @@
+{
+  "elems": [
+    {
+      "type": "Parameter",
+      "id": "${parameter1Id}",
+      "props": {
+        "entity": {
+          "type": "Entity",
+          "id": "${entity1Id}"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.p1 $like root.p2"
+}

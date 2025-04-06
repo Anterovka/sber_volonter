@@ -1,0 +1,18 @@
+{
+  "type": "TestEntity",
+  "props": {
+    "g2": {
+      "r1": {
+        "type": "TestEntity",
+        "props": "code"
+      }
+    },
+    "g3": {
+      "r1": {
+        "type": "Product",
+        "props": "code"
+      }
+    }
+  },
+  "cond": "root.$id == '${testEntity2Id}'"
+}

@@ -1,0 +1,12 @@
+{
+  "type": "Product",
+  "props": {
+    "aliases": {
+      "sort": {
+        "crit": "it",
+        "order": "desc"
+      }
+    }
+  },
+  "cond": "it.$id == '${product2Id}'"
+}

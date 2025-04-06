@@ -1,0 +1,28 @@
+{
+  "elems": [
+    {
+      "type": "TestEntity",
+      "id": "${testEntity2Id}",
+      "props": {
+        "g2": {
+          "r1": {
+            "type": "TestEntity",
+            "id": "${testEntity1Id}",
+            "props": {
+              "code": "testEntity1"
+            }
+          }
+        },
+        "g3": {
+          "r1": {
+            "type": "Product",
+            "id": "${product1Id}",
+            "props": {
+              "code": "product1"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

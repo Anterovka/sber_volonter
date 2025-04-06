@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model model-name="myModel" version="DEV-SNAPSHOT" xmlns="DataspaceModel">
+
+    <class name="City" is-dictionary="true">
+        <property name="name" type="String"/>
+        <property name="brotherCity" type="City"/>
+    </class>
+
+    <class name="Region" is-dictionary="true">
+        <property name="code" type="String"/>
+        <property name="mainCity" type="City"/>
+    </class>
+
+    <class name="Measure" is-dictionary="true">
+        <property name="code" type="String"/>
+    </class>
+
+</model>

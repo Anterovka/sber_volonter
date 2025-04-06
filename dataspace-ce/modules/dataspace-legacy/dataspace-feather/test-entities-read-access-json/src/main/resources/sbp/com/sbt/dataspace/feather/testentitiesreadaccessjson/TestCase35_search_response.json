@@ -1,0 +1,18 @@
+{
+  "elems": [
+    {
+      "id": "${entityA1Id}",
+      "type": "EntityA",
+      "props": {
+        "refB": {
+          "type": "EntityB",
+          "id": "${entityB1Id}"
+        },
+        "ref2B": {
+          "type": "EntityB",
+          "id": "nonExistent"
+        }
+      }
+    }
+  ]
+}

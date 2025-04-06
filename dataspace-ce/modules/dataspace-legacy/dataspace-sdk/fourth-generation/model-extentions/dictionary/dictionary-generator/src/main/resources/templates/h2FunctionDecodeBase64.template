@@ -1,0 +1,5 @@
+    <changeSet author="${modelName}" id="DICTIONARY-H2-DECODER-BASE64" dbms="h2">
+        <sql>CREATE ALIAS IF NOT EXISTS BASE64_DECODE AS 'byte[] encode(String source) {return java.util.Base64.getDecoder().decode(source);}'</sql>
+        <rollback/>
+    </changeSet>
+

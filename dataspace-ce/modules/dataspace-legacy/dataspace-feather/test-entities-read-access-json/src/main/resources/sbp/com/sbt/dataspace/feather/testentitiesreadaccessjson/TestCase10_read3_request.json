@@ -1,0 +1,22 @@
+{
+  "type": "Product",
+  "props": {
+    "services": {
+      "props": {
+        "request": {
+          "type": "RequestPlus",
+          "props": {
+            "initiator": [
+              "firstName",
+              "lastName",
+              "age"
+            ]
+          }
+        }
+      }
+    },
+    "events": "elem.code != null",
+    "parameters": "elem.code != null"
+  },
+  "cond": "root.$id == '${productPlus1Id}'"
+}

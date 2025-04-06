@@ -1,0 +1,4 @@
+{
+  "type": "Product",
+  "cond": "it.$id == '${product2Id}' && it.relatedProduct.$id == '${product1Id}'"
+}

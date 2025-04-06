@@ -1,0 +1,6 @@
+{
+  "type": "ProductCopy",
+  "cond": "it.idCopy == '${product1Id}'",
+  "limit": 1,
+  "count": true
+}

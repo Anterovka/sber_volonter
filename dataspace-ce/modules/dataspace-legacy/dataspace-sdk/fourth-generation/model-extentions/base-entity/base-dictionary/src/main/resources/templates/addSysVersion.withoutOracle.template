@@ -1,0 +1,20 @@
+
+    <changeSet author="${modelName}" id="${version}-${id}" dbms="h2">
+            <preConditions onFail="MARK_RAN">
+                <sqlCheck expectedResult="0">select count(*) from ${tableName} where ${tableCode} = '${code}'</sqlCheck>
+            </preConditions>
+            <insert tableName="${tableName}">
+    ${columns}
+            </insert>
+            <rollback/>
+        </changeSet>
+
+    <changeSet author="${modelName}" id="${version}-${id}" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from ${defaultSchemaName}.${tableName} where ${tableCode} = '${code}'</sqlCheck>
+        </preConditions>
+        <insert tableName="${tableName}">
+${columns}
+        </insert>
+        <rollback/>
+    </changeSet>

@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.p2 != root.p1"
+}

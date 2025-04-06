@@ -1,0 +1,8 @@
+{
+  "type": "Test2Entity",
+  "params": {
+    "strings": [
+      "${testEntity1Id}"
+    ]
+  }
+}

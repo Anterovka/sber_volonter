@@ -1,0 +1,8 @@
+{
+  "elems": [
+    {
+      "type": "Test2Entity",
+      "id": "${testEntity1Id}"
+    }
+  ]
+}

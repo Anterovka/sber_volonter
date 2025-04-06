@@ -1,0 +1,7 @@
+{
+    searchProduct {
+        ... on _EC_Product @mergeReqSpec(cond: "it.$id != null") {
+            count
+        }
+    }
+}

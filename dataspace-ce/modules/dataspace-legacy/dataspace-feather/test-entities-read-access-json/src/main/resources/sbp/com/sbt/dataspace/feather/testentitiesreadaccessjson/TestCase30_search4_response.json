@@ -1,0 +1,11 @@
+{
+  "elems": [
+    {
+      "type": "ProductCopy",
+      "id": null,
+      "props": {
+        "idCopy": "${product1Id}"
+      }
+    }
+  ]
+}

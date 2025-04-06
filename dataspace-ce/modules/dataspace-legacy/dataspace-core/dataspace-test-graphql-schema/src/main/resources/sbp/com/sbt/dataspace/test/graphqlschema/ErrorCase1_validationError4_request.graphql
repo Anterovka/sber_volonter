@@ -1,0 +1,11 @@
+{
+    merge {
+        elems {
+            ... f1
+        }
+    }
+}
+
+fragment f1 on Product {
+    id
+}

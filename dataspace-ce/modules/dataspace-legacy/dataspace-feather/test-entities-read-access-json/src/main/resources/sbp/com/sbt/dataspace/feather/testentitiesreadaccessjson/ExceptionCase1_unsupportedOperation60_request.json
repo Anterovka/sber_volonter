@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.ps4.$max == 1"
+}

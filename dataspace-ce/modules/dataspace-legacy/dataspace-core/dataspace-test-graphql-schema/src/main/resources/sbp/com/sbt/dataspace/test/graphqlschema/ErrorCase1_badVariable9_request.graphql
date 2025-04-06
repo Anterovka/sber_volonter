@@ -1,0 +1,7 @@
+query Test($varSort: [_SortCriterionSpecification!]! = [{ crit: "it.p1" }]) {
+    searchTestEntity(cond: "it.p1 == ${varSort[0]}", sort: $varSort) {
+        elems {
+            id
+        }
+    }
+}

@@ -1,0 +1,8 @@
+    <changeSet author="${modelName}" id="${version}-${index}">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="${tableName}" columnName="${columnName}"/> ${additionalPrecondition}
+        </preConditions>
+        <modifyDataType columnName="${columnName}" newDataType="${dataType}" tableName="${tableName}"/>
+        <rollback/>
+    </changeSet>
+

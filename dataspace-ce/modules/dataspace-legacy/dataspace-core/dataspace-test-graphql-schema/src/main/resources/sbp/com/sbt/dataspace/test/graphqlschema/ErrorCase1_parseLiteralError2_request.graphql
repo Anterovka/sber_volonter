@@ -1,0 +1,5 @@
+query Test($date: _Date = true) {
+    searchTestEntity(cond: "root.$id == '${testEntity1Id}'") {
+        count
+    }
+}

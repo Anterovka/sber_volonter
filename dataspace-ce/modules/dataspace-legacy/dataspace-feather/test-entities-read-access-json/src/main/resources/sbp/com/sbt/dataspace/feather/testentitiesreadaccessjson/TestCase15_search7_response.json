@@ -1,0 +1,31 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${product2Id}",
+      "props": {
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${product1Id}",
+          "props": {
+            "code": "product1"
+          }
+        },
+        "services": {
+          "elems": [
+            {
+              "type": "Service",
+              "id": "${product2Service2Id}",
+              "props": {
+                "managerPersonalCode": "2",
+                "operations": {
+                  "elems": []
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

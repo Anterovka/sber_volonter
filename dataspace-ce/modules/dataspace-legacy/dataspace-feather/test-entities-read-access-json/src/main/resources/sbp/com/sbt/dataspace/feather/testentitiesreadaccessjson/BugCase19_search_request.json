@@ -1,0 +1,11 @@
+{
+  "type": "Service",
+  "props": {
+    "initiator": {
+      "document": {
+        "props": "code"
+      }
+    }
+  },
+  "cond": "it.$id == '${service1Id}'"
+}

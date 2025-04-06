@@ -1,0 +1,15 @@
+{
+  "type": "Product",
+  "props": {
+    "relatedProduct": {
+      "type": "ProductLimited",
+      "props": {
+        "limitedOffer": {},
+        "servicesCount": {
+          "calc": "it.services.$count"
+        }
+      }
+    }
+  },
+  "cond": "it.$id == '${productPlus1Id}'"
+}

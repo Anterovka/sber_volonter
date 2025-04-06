@@ -1,0 +1,14 @@
+<model model-name="newEntities" version="DEV-SNAPSHOT" xmlns="DataspaceModel">
+  <class name="MyClass">
+    <statuses>
+      <group code="service" reason-length="300">
+        <status code="new" initial="true"/>
+        <status code="done"/>
+      </group>
+      <group code="user" reason-length="100">
+        <status code="new" initial="true"/>
+        <status code="old"/>
+      </group>
+    </statuses>
+  </class>
+</model>

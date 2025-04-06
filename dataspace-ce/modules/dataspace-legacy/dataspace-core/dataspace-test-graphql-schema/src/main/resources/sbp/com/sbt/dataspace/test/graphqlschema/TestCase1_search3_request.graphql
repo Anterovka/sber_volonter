@@ -1,0 +1,40 @@
+query Test {
+    searchTestEntity(cond: "it.id == '${testEntity1Id}'") {
+        elems {
+            _calc {
+                p1: char(expr: "it.p13")
+                p2: string(expr: "it.p1")
+                p3: string(expr: "it.p11")
+                p4: byte(expr: "it.p2")
+                p5: short(expr: "it.p3")
+                p6: int(expr: "it.p4")
+                p7: long(expr: "it.p5")
+                p8: float(expr: "it.p12")
+                p9: double(expr: "it.p6")
+                p10: bigDecimal(expr: "it.p10")
+                p11: date(expr: "it.p14")
+                p12: dateTime(expr: "it.p7")
+                p13: offsetDateTime(expr: "it.p15")
+                p14: boolean(expr: "it.p8")
+                p15: byteArray(expr: "it.p9")
+            }
+            calc2: _calc {
+                p15: char(expr: "it.p13")
+                p14: string(expr: "it.p1")
+                p13: string(expr: "it.p11")
+                p12: byte(expr: "it.p2")
+                p11: short(expr: "it.p3")
+                p10: int(expr: "it.p4")
+                p9: long(expr: "it.p5")
+                p8: float(expr: "it.p12")
+                p7: double(expr: "it.p6")
+                p6: bigDecimal(expr: "it.p10")
+                p5: date(expr: "it.p14")
+                p4: dateTime(expr: "it.p7")
+                p3: offsetDateTime(expr: "it.p15")
+                p2: boolean(expr: "it.p8")
+                p1: byteArray(expr: "it.p9")
+            }
+        }
+    }
+}

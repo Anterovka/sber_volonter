@@ -1,0 +1,9 @@
+{
+  "type": "EntityAA",
+  "selection": {
+    "p1": "it.refB.refC.refD.refE.code",
+    "p2": "it.ref2B.refC.refD.refE.code",
+    "p3": "it{type=EntityAAA}.refE.code"
+  },
+  "cond": "it.$id == '${entityAAA1Id}'"
+}

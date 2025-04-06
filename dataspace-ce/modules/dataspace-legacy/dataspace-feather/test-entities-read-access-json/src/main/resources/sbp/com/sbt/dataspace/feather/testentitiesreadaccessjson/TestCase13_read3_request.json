@@ -1,0 +1,5 @@
+{
+  "type": "Product",
+  "cond": "root.$id == '${product1Id}'",
+  "aggVersion": true
+}

@@ -1,0 +1,11 @@
+{
+  "type": "ProductLimited",
+  "props": {
+    "request": {
+      "props": {
+        "initiator": "lastName"
+      }
+    }
+  },
+  "cond": "it.$id $in ['${productLimited1Id}', '${productLimited2Id}', '${productLimited3Id}'] && it.relatedProduct != null"
+}

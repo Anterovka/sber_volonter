@@ -1,0 +1,162 @@
+{
+  "elems": [
+    {
+      "type": "TestEntity",
+      "id": "${testEntity2Id}",
+      "props": {
+        "p1": {
+          "calc": true,
+          "value": "2023-08-21"
+        },
+        "p2": {
+          "calc": true,
+          "value": "2023-08-21T15:33:10.123000"
+        },
+        "p3": {
+          "calc": true,
+          "value": "2023-08-21T15:33:10.123000+00:00"
+        },
+        "p4": {
+          "calc": true,
+          "value": "2023-08-21"
+        },
+        "p4_2": {
+          "calc": true,
+          "value": "2023-08-21"
+        },
+        "p5": {
+          "calc": true,
+          "value": "2023-08-21T15:33:10.123456"
+        },
+        "p5_2": {
+          "calc": true,
+          "value": "2023-08-21T15:33:10.123456"
+        },
+        "p6": {
+          "calc": true,
+          "value": "2023-08-21T15:33:10.123456Z"
+        },
+        "p6_2": {
+          "calc": true,
+          "value": "2023-08-21T15:33:10.123456Z"
+        },
+        "p7": {
+          "calc": true,
+          "value": "2023"
+        },
+        "p8": {
+          "calc": true,
+          "value": "2023"
+        },
+        "p9": {
+          "calc": true,
+          "value": "2023"
+        },
+        "p10": {
+          "calc": true,
+          "value": "8"
+        },
+        "p11": {
+          "calc": true,
+          "value": "8"
+        },
+        "p12": {
+          "calc": true,
+          "value": "8"
+        },
+        "p13": {
+          "calc": true,
+          "value": "21"
+        },
+        "p14": {
+          "calc": true,
+          "value": "21"
+        },
+        "p15": {
+          "calc": true,
+          "value": "21"
+        },
+        "p16": {
+          "calc": true,
+          "value": "15"
+        },
+        "p17": {
+          "calc": true,
+          "value": "15"
+        },
+        "p18": {
+          "calc": true,
+          "value": "33"
+        },
+        "p19": {
+          "calc": true,
+          "value": "33"
+        },
+        "p20": {
+          "calc": true,
+          "value": "10.123"
+        },
+        "p21": {
+          "calc": true,
+          "value": "10.123"
+        },
+        "p22": {
+          "calc": true,
+          "value": "0"
+        },
+        "p23": {
+          "calc": true,
+          "value": "0"
+        },
+        "p24": {
+          "calc": true,
+          "value": "15:33:10.123456"
+        },
+        "p24_2": {
+          "calc": true,
+          "value": "15:33:00.000000"
+        },
+        "p25": {
+          "calc": true,
+          "value": "15:33:10.123000"
+        },
+        "p26": {
+          "calc": true,
+          "value": "15:33:10.123000"
+        },
+        "p27": {
+          "calc": true,
+          "value": "15:33:10.123456"
+        },
+        "p28": {
+          "calc": true,
+          "value": "2023-08-21"
+        },
+        "p29": {
+          "calc": true,
+          "value": "2023-08-21"
+        },
+        "p30": {
+          "calc": true,
+          "value": "15:33:10.123"
+        },
+        "p31": {
+          "calc": true,
+          "value": "15:33:10.123"
+        },
+        "p32": {
+          "calc": true,
+          "value": "+00:00"
+        },
+        "p33": {
+          "calc": true,
+          "value": "2023-08-21T15:33:10.123"
+        },
+        "p34": {
+          "calc": true,
+          "value": "2023-08-21T15:33:10.123000"
+        }
+      }
+    }
+  ]
+}

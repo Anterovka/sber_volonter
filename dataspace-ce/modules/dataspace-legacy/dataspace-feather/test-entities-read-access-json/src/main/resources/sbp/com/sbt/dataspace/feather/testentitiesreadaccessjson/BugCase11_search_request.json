@@ -1,0 +1,13 @@
+{
+  "type": "TestEntity",
+  "selection": {
+    "p1": "it.p2.$avg",
+    "p2": "it.p3.$avg",
+    "p3": "it.p4.$avg",
+    "p4": "it.p5.$avg",
+    "p5": "it.p6.$avg",
+    "p6": "it.p10.$avg",
+    "p7": "it.p12.$avg"
+  },
+  "cond": "it.$id $in ['${testEntity1Id}', '${testEntity2Id}']"
+}

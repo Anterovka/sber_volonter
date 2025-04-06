@@ -1,0 +1,17 @@
+{
+  "type": "Product",
+  "props": {
+    "documents": {
+      "props": "code",
+      "details": {
+        "Permission": "number"
+      },
+      "limit": 4,
+      "sort": "elem.code",
+      "count": true
+    }
+  },
+  "cond": "root.$id == '${product1Id}' && root.documents{cond = elem{type = Permission}.number == 1}.$exists && root.documents{cond = elem{type = Permission}.number == null}.$count == 1",
+  "limit": 1,
+  "count": true
+}

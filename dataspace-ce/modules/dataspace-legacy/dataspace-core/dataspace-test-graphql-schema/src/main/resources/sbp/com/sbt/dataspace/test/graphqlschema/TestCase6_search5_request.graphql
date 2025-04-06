@@ -1,0 +1,10 @@
+query Test(
+    $varInt: Int = 127 @strExpr(int: $varInt)
+) {
+    selectionByTestEntity(cond: "it.id $in ['${testEntity1Id}', '${testEntity2Id}']", group: ["it.p2", "coalesce(it.p2, ${varInt})"], groupCond: "coalesce(it.p2, ${varInt}) > 0", sort: { crit: "it.p2" }) {
+        elems {
+            p1: _getByte(expression: "it.p2")
+            p2: _getByte(expression: "coalesce(it.p2, ${varInt})")
+        }
+    }
+}

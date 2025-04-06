@@ -1,0 +1,18 @@
+package com.sbt.xmlmarker;
+
+import com.sbt.parameters.enums.Changeable;
+import com.sbt.parameters.enums.PropertyAccess;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Access {
+    Changeable value();
+
+    PropertyAccess access() default PropertyAccess.PRIVATE;
+}
+

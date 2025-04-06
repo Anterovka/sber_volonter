@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>sbp.com.sbt.dataspace.feather</groupId>
+        <artifactId>feather</artifactId>
+        <version>DEV-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>model-description-impl</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>model-description</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>model-description-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>test-model</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>test-model-description</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

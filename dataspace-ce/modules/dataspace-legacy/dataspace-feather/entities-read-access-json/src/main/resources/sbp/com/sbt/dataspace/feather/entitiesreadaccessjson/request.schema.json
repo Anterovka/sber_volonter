@@ -1,0 +1,512 @@
+{
+"$comment": "Request",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/entityType"
+        },
+        "params": {
+          "$ref": "#/$defs/params"
+        },
+        "props": {
+          "$ref": "#/$defs/properties"
+        },
+        "details": {
+          "$ref": "#/$defs/details"
+        },
+        "cond": {
+          "$ref": "#/$defs/condition"
+        },
+        "secCond": {
+          "$ref": "#/$defs/securityCondition"
+        },
+        "limit": {
+          "$ref": "#/$defs/limit"
+        },
+        "offset": {
+          "$ref": "#/$defs/offset"
+        },
+        "count": {
+          "$ref": "#/$defs/count"
+        },
+        "sort": {
+          "$ref": "#/$defs/sort"
+        },
+        "aggVersion": {
+          "$ref": "#/$defs/aggVersion"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "merge": {
+"$comment": "Merging requests",
+          "type": "array",
+          "items": {
+"$comment": "Merge request",
+            "type": "object",
+            "properties": {
+              "type": {
+                "$ref": "#/$defs/entityType"
+              },
+              "params": {
+                "$ref": "#/$defs/params"
+              },
+              "props": {
+                "$ref": "#/$defs/properties"
+              },
+              "details": {
+                "$ref": "#/$defs/details"
+              },
+              "cond": {
+                "$ref": "#/$defs/condition"
+              },
+              "secCond": {
+                "$ref": "#/$defs/securityCondition"
+              },
+              "aggVersion": {
+                "$ref": "#/$defs/aggVersion"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "limit": {
+          "$ref": "#/$defs/limit"
+        },
+        "offset": {
+          "$ref": "#/$defs/offset"
+        },
+        "count": {
+          "$ref": "#/$defs/count"
+        },
+        "sort": {
+          "$ref": "#/$defs/sort"
+        }
+      },
+      "required": [
+        "merge"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/entityType"
+        },
+        "params": {
+          "$ref": "#/$defs/params"
+        },
+        "selection": {
+          "$comment": "Property selection",
+          "type": "object",
+          "propertyNames": {
+          "$comment": "Property name",
+            "pattern": "^[A-Za-z0-9_]+$"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/calculatedExpression"
+          }
+        },
+        "distinct": {
+          "$comment": "Unique property sets selection flag",
+          "type": "boolean"
+        },
+        "cond": {
+          "$ref": "#/$defs/condition"
+        },
+        "secCond": {
+          "$ref": "#/$defs/securityCondition"
+        },
+        "group": {
+          "$comment": "Grouping",
+          "oneOf": [
+            {
+              "$ref": "#/$defs/groupCriterion"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/groupCriterion"
+              }
+            }
+          ]
+        },
+        "groupCond": {
+          "$comment": "The grouping condition is a condition in terms of string expressions",
+          "type": "string"
+        },
+        "limit": {
+          "$ref": "#/$defs/limit"
+        },
+        "offset": {
+          "$ref": "#/$defs/offset"
+        },
+        "count": {
+          "$ref": "#/$defs/count"
+        },
+        "sort": {
+          "$ref": "#/$defs/sort"
+        }
+      },
+      "required": [
+        "type",
+        "selection"
+      ],
+      "additionalProperties": false
+    }
+  ],
+  "$defs": {
+    "entityType": {
+      "$comment": "Entity type",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_]+$"
+    },
+    "properties": {
+      "$comment": "Properties",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/propertyName"
+        },
+        {
+          "$ref": "#/$defs/propertySpecifications"
+        },
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/propertyName"
+              },
+              {
+                "$ref": "#/$defs/propertySpecifications"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "propertyName": {
+      "$comment": "Property name",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_]+$"
+    },
+    "propertySpecifications": {
+      "$comment": "Property specifications",
+      "type": "object",
+      "propertyNames": {
+        "$comment": "Property name",
+        "pattern": "^[A-Za-z0-9_]+$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/propertySpecification"
+      }
+    },
+    "propertySpecification": {
+      "$comment": "Property specification",
+      "anyOf": [
+        {
+          "$comment": "Specification of primitive",
+          "type": "object",
+          "additionalProperties": false
+        },
+        {
+          "$comment": "Collection primitives specification",
+          "type": "object",
+          "properties": {
+            "cond": {
+              "$ref": "#/$defs/condition"
+            },
+            "secCond": {
+              "$ref": "#/$defs/securityCondition"
+            },
+            "limit": {
+              "$ref": "#/$defs/limit"
+            },
+            "offset": {
+              "$ref": "#/$defs/offset"
+            },
+            "count": {
+              "$ref": "#/$defs/count"
+            },
+            "sort": {
+              "$ref": "#/$defs/sort"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "$comment": "Link specification",
+          "type": "object",
+          "properties": {
+            "type": {
+              "$ref": "#/$defs/entityType"
+            },
+            "alias": {
+              "$comment": "Alias",
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_]+$"
+            },
+            "props": {
+              "$ref": "#/$defs/properties"
+            },
+            "details": {
+              "$ref": "#/$defs/details"
+            },
+            "aggVersion": {
+              "$ref": "#/$defs/aggVersion"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "$comment": "Collection link specification",
+          "type": "object",
+          "properties": {
+            "type": {
+              "$ref": "#/$defs/entityType"
+            },
+            "elemAlias": {
+              "$comment": "Alias of the element",
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_]+$"
+            },
+            "props": {
+              "$ref": "#/$defs/properties"
+            },
+            "details": {
+              "$ref": "#/$defs/details"
+            },
+            "aggVersion": {
+              "$ref": "#/$defs/aggVersion"
+            },
+            "cond": {
+              "$ref": "#/$defs/condition"
+            },
+            "secCond": {
+              "$ref": "#/$defs/securityCondition"
+            },
+            "limit": {
+              "$ref": "#/$defs/limit"
+            },
+            "offset": {
+              "$ref": "#/$defs/offset"
+            },
+            "count": {
+              "$ref": "#/$defs/count"
+            },
+            "sort": {
+              "$ref": "#/$defs/sort"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "$comment": "Grouping specification",
+          "$ref": "#/$defs/properties"
+        },
+        {
+          "$comment": "Simplified collection specification",
+          "$ref": "#/$defs/condition"
+        },
+        {
+          "$comment": "Property specification under the alias",
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "base": {
+                  "$comment": "The name of the property on which the property is based",
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9_]+$"
+                },
+                "spec": {
+                  "$ref": "#/$defs/propertySpecification"
+                }
+              },
+              "required": [
+                "base"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "calc": {
+                  "$ref": "#/$defs/calculatedExpression"
+                }
+              },
+              "required": [
+                "calc"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      ]
+    },
+    "condition": {
+      "$comment": "Condition in terms of string expressions",
+      "type": "string"
+    },
+    "securityCondition": {
+      "$comment": "Security condition in terms of string expressions",
+      "type": "string"
+    },
+    "limit": {
+      "$comment": "Restriction on the number of elements",
+      "type": "integer",
+      "minimum": 0
+    },
+    "offset": {
+      "$comment": "Offset",
+      "type": "integer",
+      "minimum": 0
+    },
+    "count": {
+      "$comment": "The indicator of counting the number of elements",
+      "type": "boolean"
+    },
+    "sort": {
+      "$comment": "Sorting",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/sortCriterion"
+        },
+        {
+          "$ref": "#/$defs/sortCriterionSpecification"
+        },
+        {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/sortCriterion"
+              },
+              {
+                "$ref": "#/$defs/sortCriterionSpecification"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "sortCriterion": {
+      "$comment": "The sorting criterion is a primitive expression in terms of string expressions.",
+      "type": "string"
+    },
+    "sortCriterionSpecification": {
+      "$comment": "Sorting criterion specification",
+      "type": "object",
+      "properties": {
+        "crit": {
+          "$ref": "#/$defs/sortCriterion"
+        },
+        "order": {
+          "$comment": "The order of sorting",
+          "type": "string",
+          "enum": [
+            "asc",
+            "desc"
+          ]
+        },
+        "nullsLast": {
+          "$comment": "Indicator of null values following",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "crit"
+      ],
+      "additionalProperties": false
+    },
+    "details": {
+      "$comment": "Detailization",
+      "type": "object",
+      "propertyNames": {
+        "$comment": "Entity type",
+        "pattern": "^[A-Za-z0-9_]+$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/properties"
+      }
+    },
+    "calculatedExpression": {
+      "$comment": "A computable expression in terms of string expressions",
+      "type": "string"
+    },
+    "aggVersion": {
+      "$comment": "Indicator of receiving the version of the unit",
+      "type": "boolean"
+    },
+    "groupCriterion": {
+      "$comment": "The grouping criterion is a primitive expression in terms of string expressions.",
+      "type": "string"
+    },
+    "params": {
+      "$comment": "Parameters",
+      "type": "object",
+      "propertyNames": {
+        "$paramName": "Parameter name",
+        "pattern": "^[A-Za-z0-9_]+$"
+      },
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/primitive"
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/primitive"
+            }
+          }
+        ]
+      }
+    },
+    "primitive": {
+      "$comment": "Primitive",
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$comment": "Строка",
+          "type": "string"
+        },
+        {
+          "$comment": "Число",
+          "type": "string",
+          "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$"
+        },
+        {
+          "$comment": "Дата",
+          "type": "string",
+          "pattern": "^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}$"
+        },
+        {
+          "$comment": "Date and time",
+          "type": "string",
+          "pattern": "^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?$"
+        },
+        {
+          "$comment": "Date and time with offset",
+          "type": "string",
+          "pattern": "^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?[+-][0-9]{2}:[0-9]{2}$"
+        },
+        {
+          "$comment": "Logical value",
+          "type": "boolean"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<types>
+    <type names="string,java.lang.string" hbmName="string" javaName="String" oracleName="VARCHAR" fullName="java.lang.String" collect="true" firstNumber="254" length="true"/>
+    <type names="unicodestring" hbmName="string" javaName="String" oracleName="VARCHAR" fullName="java.lang.String" collect="true" firstNumber="254" length="true"/>
+    <type names="text" hbmName="clob" javaName="String" oracleName="CLOB" fullName="java.lang.String" collect="false" length="false"/>
+    <type names="decimal,bigdecimal,java.math.bigdecimal" hbmName="big_decimal" javaName="BigDecimal" oracleName="NUMBER" fullName="java.math.BigDecimal" collect="true" firstNumber="38" secondNumber="10" length="true"/>
+    <type names="integer,int,java.lang.integer" hbmName="integer" javaName="Integer" fullName="java.lang.Integer" dbType="${type_int}" collect="true" length="false"/>
+    <type names="short,java.lang.short" hbmName="short" javaName="Short" fullName="java.lang.Short" dbType="${type_short}" collect="true" length="false"/>
+    <type names="long,java.lang.long" hbmName="long" javaName="Long" fullName="java.lang.Long" dbType="${type_long}" collect="true" length="false"/>
+    <type names="byte,java.lang.byte" hbmName="byte" javaName="Byte" fullName="java.lang.Byte" dbType="${type_byte}" collect="true" length="false"/>
+    <type names="boolean,bool,java.lang.boolean" hbmName="boolean" javaName="Boolean" fullName="java.lang.Boolean" dbType="${type_boolean}" collect="false" length="false"/>
+    <type names="character,char,java.lang.character" hbmName="character" javaName="Character" fullName="java.lang.Character" oracleName="CHAR(1)" collect="true" length="false"/>
+    <type names="date,java.util.date" hbmName="timestamp" javaName="Date" oracleName="TIMESTAMP" fullName="java.util.Date" collect="true" firstNumber="3" length="true"/>
+    <type names="localdatetime,java.time.localdatetime" hbmName="timestamp" javaName="LocalDateTime" oracleName="TIMESTAMP" fullName="java.time.LocalDateTime" collect="true" firstNumber="3" length="true"/>
+    <type names="localdate,java.time.localdate" hbmName="java.time.LocalDate" javaName="LocalDate" fullName="java.time.LocalDate" oracleName="DATE" collect="true" length="true"/>
+    <type names="offsetdatetime,java.time.offsetdatetime" hbmName="java.time.OffsetDateTime" javaName="OffsetDateTime" fullName="java.time.OffsetDateTime" collect="true" firstNumber="3" length="true"/>
+    <type names="localtime,java.time.localtime" hbmName="java.time.LocalTime" javaName="LocalTime" fullName="java.time.LocalTime" collect="true" firstNumber="3" length="true"/>
+    <type names="float,java.lang.float" hbmName="float" javaName="Float" fullName="java.lang.Float" dbType="${type_float}" collect="true" length="false"/>
+    <type names="double,java.lang.double" hbmName="BINARY_DOUBLE" javaName="Double" fullName="java.lang.Double" dbType="${type_double}" collect="true" length="false"/>
+    <type names="byte[],binary,serializable,java.io.serializable" hbmName="blob" javaName="byte[]" fullName="byte[]" dbType="${type_blob}" collect="false" length="false"/>
+    <type names="null" hbmName="null" javaName="null" oracleName="null" fullName="null" collect="false" length="false"/>
+</types>

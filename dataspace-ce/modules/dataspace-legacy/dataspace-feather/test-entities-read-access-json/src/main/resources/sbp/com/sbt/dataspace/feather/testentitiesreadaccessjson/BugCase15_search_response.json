@@ -1,0 +1,19 @@
+{
+  "elems": [
+    {
+      "id": "${product1Id}",
+      "type": "Product",
+      "props": {
+        "code": "product1",
+        "relatedProduct": {
+          "id": "${product2Id}",
+          "type": "Product",
+          "props": {
+            "code": "product2"
+          }
+        }
+      }
+    }
+  ],
+  "count": 1
+}

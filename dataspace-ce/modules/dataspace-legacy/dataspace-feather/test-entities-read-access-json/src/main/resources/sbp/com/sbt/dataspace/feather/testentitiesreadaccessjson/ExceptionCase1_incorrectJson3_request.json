@@ -1,0 +1,17 @@
+{
+  "type": "Request",
+  "props": {
+    "initiator": [
+      {
+        "document": {
+          "props": "code"
+        }
+      },
+      {
+        "document": {
+          "props": "code"
+        }
+      }
+    ]
+  }
+}

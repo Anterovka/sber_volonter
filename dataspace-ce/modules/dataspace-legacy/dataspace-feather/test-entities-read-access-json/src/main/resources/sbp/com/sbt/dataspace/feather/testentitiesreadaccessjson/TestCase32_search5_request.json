@@ -1,0 +1,22 @@
+{
+  "type": "TestEntity",
+  "selection": {
+    "p1": "~it.p2",
+    "p2": "it.p2 & it.p3",
+    "p3": "it.p2 | it.p3",
+    "p4": "it.p2 ^ it.p3",
+    "p5": "it.p2 << it.p2",
+    "p6": "it.p3 >> it.p4",
+    "p7": "~3",
+    "p8": "3 & 6",
+    "p9": "3 | 6",
+    "p10": "3 ^ 6",
+    "p11": "3 << 3",
+    "p12": "6 >> 2",
+    "p13": "it.code.$lpad(it.p5, it.p13)",
+    "p14": "it.code.$rpad(it.p5, it.p13)",
+    "p15": "'testEntity2'.$lpad(13, '-')",
+    "p16": "'testEntity2'.$rpad(13, '-')"
+  },
+  "cond": "it.$id == '${testEntity2Id}'"
+}

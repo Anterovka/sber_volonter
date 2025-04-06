@@ -1,0 +1,18 @@
+    <changeSet author="${modelName}" id="${version}-${index}-10">
+        <sql dbms="postgresql">update ${defaultSchemaName}.${tableName} set ${columnName} = ${postgreValue} where ${columnName} is null</sql>
+        <sql dbms="h2">update ${tableName} set ${columnName} = ${h2Value} where ${columnName} is null</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="${modelName}" id="${version}-${index}-30" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from INFORMATION_SCHEMA.COLUMNS where table_schema='${defaultSchemaName}' and table_name=lower('${tableName}') and column_name=lower('${columnName}') and is_nullable='NO'</sqlCheck>
+        </preConditions>
+        <addNotNullConstraint tableName="${tableName}" columnName="${columnName}" columnDataType="${type}"/>
+    </changeSet>
+    <changeSet author="${modelName}" id="${version}-${index}-40" dbms="h2">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from INFORMATION_SCHEMA.COLUMNS where table_name='${tableName}' and column_name='${columnName}' and is_nullable='NO'</sqlCheck>
+        </preConditions>
+        <addNotNullConstraint tableName="${tableName}" columnName="${columnName}" columnDataType="${type}"/>
+    </changeSet>
+

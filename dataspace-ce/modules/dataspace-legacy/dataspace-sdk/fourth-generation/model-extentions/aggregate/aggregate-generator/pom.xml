@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>sbp.com.sbt.dataspace</groupId>
+        <artifactId>aggregate</artifactId>
+        <version>DEV-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>aggregate-generator</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace</groupId>
+            <artifactId>pdm-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace</groupId>
+            <artifactId>xml-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace</groupId>
+            <artifactId>aggregate-interface</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace</groupId>
+            <artifactId>base-model-parameters</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.barfuin.texttree</groupId>
+            <artifactId>text-tree</artifactId>
+        </dependency>
+    </dependencies>
+</project>

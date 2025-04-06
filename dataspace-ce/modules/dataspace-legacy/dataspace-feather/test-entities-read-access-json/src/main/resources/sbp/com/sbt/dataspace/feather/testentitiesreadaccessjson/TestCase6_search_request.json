@@ -1,0 +1,61 @@
+{
+  "type": "Product",
+  "props": {
+    "aliases": {
+      "sort": {
+        "crit": "it",
+        "order": "desc"
+      }
+    },
+    "rates": {
+      "sort": {
+        "crit": "it",
+        "order": "desc"
+      }
+    },
+    "services": {
+      "props": {
+        "operations": {
+          "props": {
+            "parameters": {
+              "sort": "it.code"
+            }
+          },
+          "limit": 2,
+          "offset": 2,
+          "sort": "it.code"
+        }
+      },
+      "sort": {
+        "crit": "it.managerPersonalCode",
+        "order": "desc"
+      }
+    },
+    "events": {
+      "props": "parameters",
+      "sort": {
+        "crit": "it.author",
+        "order": "desc"
+      },
+      "limit": 3
+    },
+    "parameters": {
+      "props": "parameters",
+      "sort": {
+        "crit": "it.value",
+        "order": "desc"
+      },
+      "offset": 1
+    }
+  },
+  "cond": "it.$id $in ['${product2Id}', '${product3Id}'] || (it.$id == '${product1Id}' && it.parameters{cond = it.value $like 'value%'}.$exists)",
+  "count": false,
+  "sort": [
+    "it.$type",
+    {
+      "crit": "it.relatedProduct.creatorCode",
+      "nullsLast": false
+    }
+  ],
+  "aggVersion": false
+}

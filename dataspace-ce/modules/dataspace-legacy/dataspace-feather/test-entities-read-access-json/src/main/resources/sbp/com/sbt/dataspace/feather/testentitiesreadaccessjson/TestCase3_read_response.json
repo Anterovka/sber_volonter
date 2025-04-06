@@ -1,0 +1,24 @@
+{
+  "elems": [
+    {
+      "type": "TestEntity",
+      "id": "${testEntity1Id}",
+      "props": {
+        "r1": {
+          "type": "TestEntity",
+          "id": "${nonexistentId}",
+          "invalid": true
+        },
+        "rc1": {
+          "elems": [
+            {
+              "type": "TestEntity",
+              "id": "${nonexistentId}",
+              "invalid": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

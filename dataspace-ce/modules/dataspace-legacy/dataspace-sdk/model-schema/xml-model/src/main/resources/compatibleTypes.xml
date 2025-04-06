@@ -1,0 +1,12 @@
+<pairs>
+ <pair sourceType="Byte" targetType="Integer"/>
+ <pair sourceType="Byte" targetType="Long"/>
+ <pair sourceType="Byte" targetType="Short"/>
+ <pair sourceType="Character" targetType="String"/>
+ <pair sourceType="Date" targetType="LocalDateTime"/>
+ <pair sourceType="Integer" targetType="BigDecimal"/>
+ <pair sourceType="Integer" targetType="Long"/>
+ <pair sourceType="LocalDate" targetType="LocalDateTime"/>
+ <pair sourceType="Short" targetType="Integer"/>
+ <pair sourceType="Short" targetType="Long"/>
+</pairs>

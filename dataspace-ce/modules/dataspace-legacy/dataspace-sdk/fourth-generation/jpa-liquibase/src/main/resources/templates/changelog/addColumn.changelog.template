@@ -1,0 +1,9 @@
+
+    <changeSet author="${modelName}" ${dbms} id="${version}-${index}">
+        <preConditions onFail="${onFailAction}">
+            <not><columnExists tableName="${tableName}" columnName="${columnName}"/></not> ${addPreconditions}
+        </preConditions>
+        <addColumn tableName="${tableName}">
+            <column name="${columnName}" remarks="${remarks1}" type="${type}" ${defaultValue}>${additional}</column>
+        </addColumn>${rollback}
+    </changeSet>

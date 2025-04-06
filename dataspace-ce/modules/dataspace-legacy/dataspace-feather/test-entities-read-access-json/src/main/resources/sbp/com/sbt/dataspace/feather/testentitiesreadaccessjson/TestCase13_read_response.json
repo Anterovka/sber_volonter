@@ -1,0 +1,12 @@
+{
+  "elems": [
+    {
+      "type": "TestEntity",
+      "id": "${testEntity2Id}",
+      "props": {
+        "code": "testEntity2"
+      },
+      "aggVersion": "1"
+    }
+  ]
+}

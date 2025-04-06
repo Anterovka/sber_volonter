@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dataspace GraphiQL</title>
+    <style>
+        body {
+            height: 100%;
+            margin: 0;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        #graphiql {
+            height: 100vh;
+        }
+    </style>
+  <script src="./js/react.production.min.js" crossorigin></script>
+  <script src="./js/react-dom.production.min.js" crossorigin></script>
+  <script src="./js/graphiql.min.js" type="application/javascript"></script>
+  <link rel="stylesheet" href="./css/graphiql.min.css" />
+  <script src="./js/index.umd.js" crossorigin></script>
+  <link rel="stylesheet" href="./css/style.css"/>
+</head>
+<body>
+<div id="graphiql">Loading...</div>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const path = params.get("path") || "/graphql";
+    const url = `${location.protocol}//${location.host}${path}`;
+    const wsPath = params.get("wsPath") || "/graphql";
+    const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const subscriptionUrl = `${wsProtocol}//${location.host}${wsPath}`;
+    const gqlFetcher = GraphiQL.createFetcher({'url': url, 'subscriptionUrl': subscriptionUrl});
+    const explorerPlugin = GraphiQLPluginExplorer.explorerPlugin();
+    const xsrfToken = document.cookie.match(new RegExp('(?:^| )XSRF-TOKEN=([^;]+)'));
+    const headers = xsrfToken ? `{ "X-XSRF-TOKEN" : "${ xsrfToken[1] }" }` : `{}`;
+    ReactDOM.render(
+        React.createElement(GraphiQL, {
+            fetcher: gqlFetcher,
+            defaultVariableEditorOpen: true,
+            headerEditorEnabled: true,
+            shouldPersistHeaders: true,
+            headers: headers,
+            plugins: [explorerPlugin]
+        }),
+        document.getElementById('graphiql'),
+    );
+</script>
+</body>
+</html>

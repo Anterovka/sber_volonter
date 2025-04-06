@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>sbp.com.sbt.dataspace</groupId>
+        <artifactId>fourth-generation</artifactId>
+        <version>DEV-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>jpa-model-generator</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace</groupId>
+            <artifactId>xml-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace</groupId>
+            <artifactId>model-checker</artifactId>
+        </dependency>
+      <dependency>
+        <groupId>sbp.com.sbt.dataspace</groupId>
+        <artifactId>jpa-liquibase</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>sbp.com.sbt.dataspace</groupId>
+        <artifactId>jpa-model-support</artifactId>
+      </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace</groupId>
+            <artifactId>pdm-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace</groupId>
+            <artifactId>base-model-parameters</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.barfuin.texttree</groupId>
+            <artifactId>text-tree</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace</groupId>
+            <artifactId>semver</artifactId>
+        </dependency>
+      <dependency>
+        <groupId>sbp.com.sbt.dataspace</groupId>
+        <artifactId>external-reference-generator</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>sbp.com.sbt.dataspace</groupId>
+        <artifactId>dictionary-generator</artifactId>
+      </dependency>
+    </dependencies>
+</project>

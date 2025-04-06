@@ -1,0 +1,10 @@
+
+            <createTable
+                    tablespace="${tablespace_t}"
+                    tableName="${tableName}"
+                    remarks="${remarks2}">
+                ${columns}
+            </createTable>
+
+            <addPrimaryKey tablespace="${tablespace_i}" tableName="${tableName}" columnNames="${pk_keys_column}" constraintName="${pkIndexName}"/>
+            ${moveLobSql}

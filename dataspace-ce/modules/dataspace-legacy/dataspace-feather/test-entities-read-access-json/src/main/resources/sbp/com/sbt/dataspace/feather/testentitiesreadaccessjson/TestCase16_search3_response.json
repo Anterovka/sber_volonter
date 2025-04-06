@@ -1,0 +1,47 @@
+{
+  "elems": [
+    {
+      "type": "Agreement",
+      "id": "${agreement1Id}",
+      "props": {
+        "document": {
+          "type": "Document",
+          "id": "${document1Id}",
+          "props": {
+            "product": {
+              "type": "Product",
+              "id": "${product2Id}",
+              "props": {
+                "mainDocument": {
+                  "type": "Document",
+                  "id": "${document1Id}"
+                },
+                "request": {
+                  "type": "Request",
+                  "id": "${request1Id}"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "Agreement",
+      "id": "${agreement2Id}",
+      "props": {
+        "document": {
+          "type": "Document",
+          "id": "${document2Id}",
+          "props": {
+            "product": {
+              "type": "Product",
+              "id": "${product1Id}",
+              "access": false
+            }
+          }
+        }
+      }
+    }
+  ]
+}

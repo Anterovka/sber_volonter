@@ -1,0 +1,15 @@
+{
+    searchProduct(cond: "root.$id == '${product1Id}'") {
+        elems {
+            relatedProduct {
+                code
+            }
+            request {
+                initiator {
+                    firstName
+                    lastName
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,44 @@
+
+    public static Date parseDateFormat(String formatDate) {
+        final List<DateFormat> dateFormatters = new ArrayList<>();
+        dateFormatters.add(new SimpleDateFormat(DATE_TIME_PATTERN_T));
+        dateFormatters.add(new SimpleDateFormat(DATE_TIME_PATTERN_SPACE));
+        for (DateFormat formatter : dateFormatters) {
+            try {
+                return formatter.parse(formatDate);
+            } catch (ParseException exception) {
+                // NOPE
+            }
+        }
+        throw new IllegalArgumentException("Failed to parse the default value: " + formatDate);
+    }
+
+    public static LocalDateTime parseLocalDateTimeFormat(String localDateTimeString) {
+        for (DateTimeFormatter formatter : DATETIME_FORMATTERS) {
+            try {
+                return LocalDateTime.parse(localDateTimeString, formatter);
+            } catch (DateTimeParseException exception) {
+                // NOPE
+            }
+        }
+        throw new IllegalArgumentException("Failed to parse the default value: " + localDateTimeString);
+    }
+
+    public static OffsetDateTime parseOffsetDateTimeFormat(String offsetDateTimeString) {
+        for (DateTimeFormatter formatter : OFFSET_FORMATTERS) {
+            try {
+                return OffsetDateTime.parse(offsetDateTimeString, formatter);
+            } catch (DateTimeParseException exception) {
+                // NOPE
+            }
+        }
+        throw new IllegalArgumentException("Failed to parse the default value: " + offsetDateTimeString);
+    }
+
+    public static LocalDate parseLocalDateFormat(String localDateString) {
+        try {
+            return LocalDate.parse(localDateString, LOCAL_DATE_FORMATTER);
+        } catch(DateTimeParseException ex) {
+            throw new IllegalArgumentException("Failed to parse the default value: " + localDateString);
+        }
+    }

@@ -1,0 +1,7 @@
+{
+  "type": "Document",
+  "props": "code",
+  "cond": "root.$id $in ['${document1Id}', '${permission1Id}', '${agreement1Id}']",
+  "offset": 1,
+  "sort": "root.code"
+}

@@ -1,0 +1,15 @@
+{
+  "elems": [
+    {
+      "type": "ProductLimited",
+      "id": "${productLimited1Id}",
+      "props": {
+        "request": {
+          "type": "Request",
+          "id": "${requestPlus2Id}",
+          "access": false
+        }
+      }
+    }
+  ]
+}

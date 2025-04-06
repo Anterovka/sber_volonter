@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>sbp.com.sbt.dataspace</groupId>
+        <artifactId>dataspace-core</artifactId>
+        <version>DEV-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>dataspace-graphql-schema</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace</groupId>
+            <artifactId>base-model-parameters</artifactId>
+            <version>DEV-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>model-description</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>entities-read-access-json</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java-extended-scalars</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace</groupId>
+            <artifactId>pdm-model</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace</groupId>
+            <artifactId>dataspace-test-graphql-schema</artifactId>
+            <version>DEV-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>entities-read-access-json-impl</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace</groupId>
+            <artifactId>xml-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace</groupId>
+            <artifactId>utils</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace</groupId>
+            <artifactId>graphql-security-interfaces</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.support</groupId>
+            <artifactId>dataspace-security-legacy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ru.sbertech.dataspace</groupId>
+            <artifactId>dataspace-security</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

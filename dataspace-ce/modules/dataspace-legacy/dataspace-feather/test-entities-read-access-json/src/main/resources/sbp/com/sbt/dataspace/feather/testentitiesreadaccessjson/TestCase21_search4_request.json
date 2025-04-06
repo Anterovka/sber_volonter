@@ -1,0 +1,159 @@
+{
+  "type": "TestEntity",
+  "props": {
+    "p7plus": {
+      "calc": "it.p7 + 1"
+    },
+    "p7plus2": {
+      "calc": "1 + it.p7"
+    },
+    "p7minus": {
+      "calc": "it.p7 - 1"
+    },
+    "p7addMilliseconds": {
+      "calc": "it.p7.$addMilliseconds(1)"
+    },
+    "p7addSeconds": {
+      "calc": "it.p7.$addSeconds(1)"
+    },
+    "p7addMinutes": {
+      "calc": "it.p7.$addMinutes(1)"
+    },
+    "p7addHours": {
+      "calc": "it.p7.$addHours(1)"
+    },
+    "p7addDays": {
+      "calc": "it.p7.$addDays(1)"
+    },
+    "p7addMonths": {
+      "calc": "it.p7.$addMonths(1)"
+    },
+    "p7addYears": {
+      "calc": "it.p7.$addYears(1)"
+    },
+    "p7subMilliseconds": {
+      "calc": "it.p7.$subMilliseconds(1)"
+    },
+    "p7subSeconds": {
+      "calc": "it.p7.$subSeconds(1)"
+    },
+    "p7subMinutes": {
+      "calc": "it.p7.$subMinutes(1)"
+    },
+    "p7subHours": {
+      "calc": "it.p7.$subHours(1)"
+    },
+    "p7subDays": {
+      "calc": "it.p7.$subDays(1)"
+    },
+    "p7subMonths": {
+      "calc": "it.p7.$subMonths(1)"
+    },
+    "p7subYears": {
+      "calc": "it.p7.$subYears(1)"
+    },
+    "p14plus": {
+      "calc": "it.p14 + 1"
+    },
+    "p14plus2": {
+      "calc": "1 + it.p14"
+    },
+    "p14minus": {
+      "calc": "it.p14 - 1"
+    },
+    "p14addMilliseconds": {
+      "calc": "it.p14.$addMilliseconds(1)"
+    },
+    "p14addSeconds": {
+      "calc": "it.p14.$addSeconds(1)"
+    },
+    "p14addMinutes": {
+      "calc": "it.p14.$addMinutes(1)"
+    },
+    "p14addHours": {
+      "calc": "it.p14.$addHours(1)"
+    },
+    "p14addDays": {
+      "calc": "it.p14.$addDays(1)"
+    },
+    "p14addMonths": {
+      "calc": "it.p14.$addMonths(1)"
+    },
+    "p14addYears": {
+      "calc": "it.p14.$addYears(1)"
+    },
+    "p14subMilliseconds": {
+      "calc": "it.p14.$subMilliseconds(1)"
+    },
+    "p14subSeconds": {
+      "calc": "it.p14.$subSeconds(1)"
+    },
+    "p14subMinutes": {
+      "calc": "it.p14.$subMinutes(1)"
+    },
+    "p14subHours": {
+      "calc": "it.p14.$subHours(1)"
+    },
+    "p14subDays": {
+      "calc": "it.p14.$subDays(1)"
+    },
+    "p14subMonths": {
+      "calc": "it.p14.$subMonths(1)"
+    },
+    "p14subYears": {
+      "calc": "it.p14.$subYears(1)"
+    },
+    "p15plus": {
+      "calc": "it.p15 + 1"
+    },
+    "p15plus2": {
+      "calc": "1 + it.p15"
+    },
+    "p15minus": {
+      "calc": "it.p15 - 1"
+    },
+    "p15addMilliseconds": {
+      "calc": "it.p15.$addMilliseconds(1)"
+    },
+    "p15addSeconds": {
+      "calc": "it.p15.$addSeconds(1)"
+    },
+    "p15addMinutes": {
+      "calc": "it.p15.$addMinutes(1)"
+    },
+    "p15addHours": {
+      "calc": "it.p15.$addHours(1)"
+    },
+    "p15addDays": {
+      "calc": "it.p15.$addDays(1)"
+    },
+    "p15addMonths": {
+      "calc": "it.p15.$addMonths(1)"
+    },
+    "p15addYears": {
+      "calc": "it.p15.$addYears(1)"
+    },
+    "p15subMilliseconds": {
+      "calc": "it.p15.$subMilliseconds(1)"
+    },
+    "p15subSeconds": {
+      "calc": "it.p15.$subSeconds(1)"
+    },
+    "p15subMinutes": {
+      "calc": "it.p15.$subMinutes(1)"
+    },
+    "p15subHours": {
+      "calc": "it.p15.$subHours(1)"
+    },
+    "p15subDays": {
+      "calc": "it.p15.$subDays(1)"
+    },
+    "p15subMonths": {
+      "calc": "it.p15.$subMonths(1)"
+    },
+    "p15subYears": {
+      "calc": "it.p15.$subYears(1)"
+    }
+  },
+  "cond": "it.$id == '${testEntity1Id}'"
+}

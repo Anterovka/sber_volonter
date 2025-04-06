@@ -1,0 +1,7 @@
+{
+  "type": "TestEntity",
+  "props": "code",
+  "cond": "root.$id == '${testEntity1Id}' && root.p2 != 0 && root.p7 != D2020-08-08T15:22:10.123 && root.p8 != false && root.p1 > 'Hell' && root.p7 > D${dateTime} - 1 && root.p1 <= 'Hello' && root.p2 <= 127 && root.p7 <= D${dateTime} && root.p1 >= 'Hello' && root.p7 >= D${dateTime} && root.p1 < 'Hello2' && root.p7 < D${dateTime} + 1 && root.p1 $between ('Hell', 'Hello2') && root.p7 $between (D${dateTime} - 1, D${dateTime} + 1) && root.p2 $in [127, 128, 129] && root.p7 $in [D${dateTime}, D2020-08-08T15:25:10.123] && root.p8 $in [true, false] && 1 $in root.ps2 && D${dateTime} $in root.ps3 && true $in root.ps4 && root.ps3.$min == D${dateTime} && root.ps1.$max == '3' && root.ps3.$max == D${dateTime3}",
+  "limit": 1,
+  "count": true
+}

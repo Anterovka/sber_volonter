@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    // Общие настройки компилятора
+    "target": "esnext",                   // Целевой уровень ECMAScript
+    "module": "commonjs",                // Модульная система (commonjs, amd, umd, system, esnext)
+    "declaration": true,                 // Генерация файлов .d.ts
+    "outDir": "./build",                 // Папка для вывода скомпилированных файлов
+    "rootDir": "./src",                  // Папка с исходными TypeScript-файлами
+    "strict": true,                      // Включение строгого режима
+    "esModuleInterop": true,             // Разрешает использование импорта из UMD модулей
+    "typeRoots": ["./**/*"]
+  },
+  "include": ["src/*"],
+  "exclude": ["./build", "node_modules"]                // Файлы для компиляции
+}

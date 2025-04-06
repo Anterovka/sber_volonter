@@ -1,0 +1,9 @@
+{
+  "type": "TestEntity",
+  "selection": {
+    "minDateTime": "it.brec1.p7.$min",
+    "minDate": "it.brec1.p14.$min",
+    "minOffsetDateTime": "it.brec1.p15.$min"
+  },
+  "cond": "root.$id == '${testEntity1Id}'"
+}

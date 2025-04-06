@@ -1,0 +1,13 @@
+{
+  "type": "ProductLimited",
+  "props": {
+    "aliases": {
+      "offset": 0
+    },
+    "relatedProduct": {
+      "type": "ProductLimited",
+      "props": "code"
+    }
+  },
+  "cond": "root.$id == '${productLimited1Id}'"
+}

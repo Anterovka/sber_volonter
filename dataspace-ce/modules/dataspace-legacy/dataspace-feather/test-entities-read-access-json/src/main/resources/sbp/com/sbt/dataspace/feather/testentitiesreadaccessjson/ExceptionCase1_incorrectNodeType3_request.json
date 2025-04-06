@@ -1,0 +1,6 @@
+{
+  "type": "Product",
+  "props": {
+    "relatedProduct": 1
+  }
+}

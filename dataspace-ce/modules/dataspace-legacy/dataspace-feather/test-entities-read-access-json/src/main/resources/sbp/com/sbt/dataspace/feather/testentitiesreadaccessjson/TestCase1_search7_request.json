@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.$id == '${testEntity1Id}' && root.r1.code != null && root.r1.code == 'testEntity1' && root.r1.code $between ('testEntity1', 'testEntity1') && root.r1.code $in ['testEntity1', ''] && !(root.r1.code $in root.ps1)"
+}

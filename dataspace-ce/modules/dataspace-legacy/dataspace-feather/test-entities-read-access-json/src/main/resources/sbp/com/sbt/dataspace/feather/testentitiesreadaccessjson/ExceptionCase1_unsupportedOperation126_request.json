@@ -1,0 +1,6 @@
+{
+  "type": "TestEntity",
+  "selection": {
+    "p1": "it.p9.$month"
+  }
+}

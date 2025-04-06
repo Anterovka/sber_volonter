@@ -1,0 +1,12 @@
+{
+  "data": {
+    "searchTestEntity": {
+      "elems": [
+        {
+          "p1": "it.id",
+          "p2": 10
+        }
+      ]
+    }
+  }
+}

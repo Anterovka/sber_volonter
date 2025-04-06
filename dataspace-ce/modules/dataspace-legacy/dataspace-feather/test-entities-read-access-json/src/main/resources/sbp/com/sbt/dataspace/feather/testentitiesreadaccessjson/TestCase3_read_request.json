@@ -1,0 +1,12 @@
+{
+  "type": "TestEntity",
+  "props": {
+    "r1": {
+      "props": "p1"
+    },
+    "rc1": {
+      "props": "p1"
+    }
+  },
+  "cond": "root.$id == '${testEntity1Id}'"
+}

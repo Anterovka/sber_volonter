@@ -1,0 +1,48 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${product1Id}",
+      "props": {
+        "documents": {
+          "elems": [
+            {
+              "type": "Agreement",
+              "id": "${agreement1Id}",
+              "props": {
+                "code": "agreement1",
+                "document": {
+                  "type": "AgreementSpecial",
+                  "id": "${agreementSpecial1Id}"
+                }
+              }
+            },
+            {
+              "type": "Document",
+              "id": "${document1Id}",
+              "props": {
+                "code": "document1"
+              }
+            },
+            {
+              "type": "Permission",
+              "id": "${permission1Id}",
+              "props": {
+                "code": "permission1",
+                "number": "1"
+              }
+            },
+            {
+              "type": "Permission",
+              "id": "${permission2Id}",
+              "props": {
+                "code": "permission2",
+                "number": null
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "type": "Service",
+  "selection": {
+    "code": "it.code"
+  },
+  "cond": "it.$id $in ['${service1Id}', '${service2Id}']",
+  "sort": "it.code"
+}

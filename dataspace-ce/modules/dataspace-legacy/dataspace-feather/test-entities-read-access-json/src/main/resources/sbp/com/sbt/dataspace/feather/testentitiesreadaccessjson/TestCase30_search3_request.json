@@ -1,0 +1,21 @@
+{
+  "merge": [
+    {
+      "type": "UserProduct",
+      "params": {
+        "firstName": "Ivan",
+        "lastName": "Ivanov"
+      },
+      "cond": "it.$id == '${product1Id}'"
+    },
+    {
+      "type": "UserProduct",
+      "params": {
+        "firstName": "Ivan",
+        "lastName": "Ivanov"
+      },
+      "cond": "it.$id == '${product2Id}'"
+    }
+  ],
+  "sort": "it.code"
+}

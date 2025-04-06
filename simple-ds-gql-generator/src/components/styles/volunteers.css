@@ -1,0 +1,205 @@
+:root {
+    --volunteer-primary: #21A038;
+    --volunteer-primary-light: #E8F5E9;
+    --volunteer-primary-dark: #1B8A2E;
+    --volunteer-text: #333333;
+    --volunteer-background: #FFFFFF;
+    --volunteer-border: #E0E0E0;
+    --volunteer-error: #FF4D4F;
+    --volunteer-radius: 8px;
+    --volunteer-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --volunteer-transition: all 0.3s ease;
+}
+
+/* Header and Main Menu */
+.volunteer-header {
+    background: var(--volunteer-primary-light) !important;
+    padding: 0 24px !important;
+    box-shadow: var(--volunteer-shadow) !important;
+    position: fixed !important;
+    width: 100% !important;
+    z-index: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.volunteer-logo {
+    margin-right: 24px;
+    color: var(--volunteer-primary);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.volunteer-main-menu {
+    border-bottom: none !important;
+    line-height: 64px !important;
+    flex: 1 !important;
+    background: transparent !important;
+}
+
+.volunteer-main-menu.ant-menu-horizontal {
+    border-bottom: none;
+}
+
+.volunteer-main-menu .ant-menu-item a {
+    color: var(--volunteer-primary) !important;
+}
+
+.volunteer-main-menu .ant-menu-item:hover a {
+    color: var(--volunteer-primary-dark) !important;
+}
+
+.volunteer-main-menu .ant-menu-item-selected {
+    background-color: transparent !important;
+}
+
+.volunteer-main-menu .ant-menu-item-selected a {
+    color: var(--volunteer-primary) !important;
+}
+
+.volunteer-main-menu .ant-menu-item::after {
+    border-bottom-color: var(--volunteer-primary) !important;
+}
+
+.volunteer-main-content {
+    margin-top: 64px;
+    padding: 24px;
+    min-height: calc(100vh - 64px);
+    background: #f5f5f5;
+}
+
+/* Layout */
+.volunteer-layout {
+    min-height: 100vh;
+    background-color: #F0F2F5;
+}
+
+.volunteer-sider {
+    background: white;
+    padding: 24px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.volunteer-menu {
+    border: none;
+}
+
+.volunteer-menu-item {
+    margin: 8px 0;
+    padding: 0 24px;
+}
+
+.volunteer-menu .ant-menu-item a {
+    color: var(--volunteer-primary) !important;
+}
+
+.volunteer-menu .ant-menu-item:hover a {
+    color: var(--volunteer-primary-dark) !important;
+}
+
+.volunteer-menu .ant-menu-item-selected {
+    background-color: var(--volunteer-primary-light) !important;
+}
+
+.volunteer-menu .ant-menu-item-selected a {
+    color: var(--volunteer-primary) !important;
+}
+
+.volunteer-menu .ant-menu-item::after {
+    border-right-color: var(--volunteer-primary) !important;
+}
+
+.volunteer-content {
+    margin-left: 288px;
+    padding: 24px;
+    min-height: calc(100vh - 112px);
+    background-color: var(--volunteer-background);
+    border-radius: var(--volunteer-radius);
+    box-shadow: var(--volunteer-shadow);
+    width: calc(100% - 336px);
+    max-width: 1200px;
+}
+
+/* Buttons */
+button.volunteer-button.ant-btn,
+.ant-btn.volunteer-button {
+    background-color: var(--volunteer-primary) !important;
+    border-color: var(--volunteer-primary) !important;
+    color: white !important;
+    border-radius: 8px !important;
+    transition: var(--volunteer-transition) !important;
+    box-shadow: 0 2px 6px rgba(33, 160, 56, 0.2) !important;
+}
+
+button.volunteer-button.ant-btn:hover,
+.ant-btn.volunteer-button:hover {
+    background-color: var(--volunteer-primary-dark) !important;
+    border-color: var(--volunteer-primary-dark) !important;
+    transform: translateY(-1px);
+}
+
+button.volunteer-button-link.ant-btn,
+.ant-btn.volunteer-button-link {
+    color: var(--volunteer-primary) !important;
+    border-color: transparent !important;
+    background: transparent !important;
+    border-radius: 8px !important;
+    transition: var(--volunteer-transition) !important;
+}
+
+button.volunteer-button-link.ant-btn:hover,
+.ant-btn.volunteer-button-link:hover {
+    color: var(--volunteer-primary-dark) !important;
+    background-color: var(--volunteer-primary-light) !important;
+}
+
+/* Volunteer Cards */
+.volunteer-card {
+    background: var(--volunteer-background);
+    border-radius: var(--volunteer-radius);
+    box-shadow: var(--volunteer-shadow);
+    transition: var(--volunteer-transition);
+    border: 1px solid var(--volunteer-border);
+    padding: 24px;
+}
+
+/* Table Styles */
+.volunteer-table {
+    width: 100%;
+    border-radius: var(--volunteer-radius);
+    overflow: hidden;
+}
+
+.volunteer-table-header {
+    background-color: #FAFAFA !important;
+    color: var(--volunteer-text) !important;
+    font-weight: 600 !important;
+}
+
+.volunteer-table-row {
+    cursor: pointer;
+    transition: var(--volunteer-transition);
+}
+
+.volunteer-table-row:hover {
+    background-color: var(--volunteer-primary-light) !important;
+}
+
+/* Loading and Error States */
+.volunteer-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+}
+
+.volunteer-spin {
+    color: var(--volunteer-primary);
+}
+
+.volunteer-error {
+    padding: 16px;
+    background-color: #FFF2F0;
+    border-radius: var(--volunteer-radius);
+    border: 1px solid #B7EB8F;
+} 

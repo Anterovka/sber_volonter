@@ -1,0 +1,17 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${productPlus1Id}",
+      "props": {
+        "request": {
+          "type": "RequestPlus",
+          "id": "${requestPlus1Id}",
+          "props": {
+            "agreement": null
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+
+    <changeSet author="${modelName}" id="${version}-${index}">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="${tableName}"/>
+        </preConditions>
+        <dropTable cascadeConstraints="true" tableName="${tableName}"/>
+        <rollback/>
+    </changeSet>

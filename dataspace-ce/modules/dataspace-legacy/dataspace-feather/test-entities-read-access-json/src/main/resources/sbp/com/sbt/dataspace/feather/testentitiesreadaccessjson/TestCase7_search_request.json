@@ -1,0 +1,8 @@
+{
+  "type": "Product",
+  "cond": "root.$id $in ['${product1Id}', '${product2Id}', '${product3Id}']",
+  "sort": {
+    "crit": "root.services{cond = elem.code $like 'service%'}.$count",
+    "order": "asc"
+  }
+}

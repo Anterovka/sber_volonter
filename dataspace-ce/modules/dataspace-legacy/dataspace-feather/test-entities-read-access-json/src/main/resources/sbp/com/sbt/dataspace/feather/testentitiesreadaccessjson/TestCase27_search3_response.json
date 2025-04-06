@@ -1,0 +1,12 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${product1Id}"
+    },
+    {
+      "type": "Service",
+      "id": "${service1Id}"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "type": "Document",
+  "cond": "root.$id == '${document1Id}'",
+  "count": true
+}

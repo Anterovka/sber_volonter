@@ -1,0 +1,12 @@
+{
+    merge {
+        elems {
+            ... on Product {
+                id
+            }
+            ... on ProductPlus {
+                id
+            }
+        }
+    }
+}

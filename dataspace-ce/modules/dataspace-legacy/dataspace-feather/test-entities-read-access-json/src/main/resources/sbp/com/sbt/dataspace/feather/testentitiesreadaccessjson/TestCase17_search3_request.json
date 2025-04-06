@@ -1,0 +1,4 @@
+{
+  "type": "Service",
+  "cond": "it.$id $in ['${service1Id}', '${service2Id}'] && it.request.initiator == null"
+}

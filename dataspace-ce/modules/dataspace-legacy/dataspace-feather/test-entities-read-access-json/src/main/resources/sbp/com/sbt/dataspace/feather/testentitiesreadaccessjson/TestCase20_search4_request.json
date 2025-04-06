@@ -1,0 +1,44 @@
+{
+  "type": "Request",
+  "props": {
+    "entity": {
+      "base": "createdEntity",
+      "spec": {
+        "details": {
+          "Product": {
+            "product": {
+              "base": "relatedProduct",
+              "spec": {
+                "props": "creatorCode"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "details": {
+    "RequestPlus": {
+      "entity": {
+        "base": "createdEntity",
+        "spec": {
+          "props": "code",
+          "details": {
+            "Product": {
+              "product": {
+                "base": "relatedProduct",
+                "spec": {
+                  "props": "code",
+                  "details": {
+                    "ProductLimited": "limitedOffer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "cond": "it.$id == '${requestPlus1Id}'"
+}

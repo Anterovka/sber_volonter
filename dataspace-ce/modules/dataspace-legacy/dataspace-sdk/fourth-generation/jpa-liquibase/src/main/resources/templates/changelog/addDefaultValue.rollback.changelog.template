@@ -1,0 +1,8 @@
+
+         <rollback>
+             <addDefaultValue
+                     columnDataType="${dataType}"
+                     columnName="${columnName}"
+                     ${oldDefaultValue}
+                     tableName="${tableName}"/>
+         </rollback>

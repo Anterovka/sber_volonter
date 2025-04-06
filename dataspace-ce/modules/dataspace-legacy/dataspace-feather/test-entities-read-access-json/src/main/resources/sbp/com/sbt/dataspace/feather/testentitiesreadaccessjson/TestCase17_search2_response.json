@@ -1,0 +1,47 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${product1Id}",
+      "props": {
+        "services": {
+          "elems": [
+            {
+              "type": "Service",
+              "id": "${service1Id}",
+              "props": {
+                "request": {
+                  "type": "Request",
+                  "id": "${request1Id}",
+                  "props": {
+                    "initiator": {
+                      "document": {
+                        "type": "Document",
+                        "id": "${permission1Id}"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "Service",
+              "id": "${service2Id}",
+              "props": {
+                "request": {
+                  "type": "Request",
+                  "id": "${request2Id}",
+                  "props": {
+                    "initiator": {
+                      "document": null
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+
+    <changeSet author="${modelName}" id="${version}-${index}-fk-${indexFk}">
+        <preConditions onFail="MARK_RAN">
+             <and>
+                <columnExists tableName="${tableName}" columnName="${columnName}"/>
+                <columnExists tableName="${referenceTableName}" columnName="${referenceColumnName}"/>
+                <or>
+                    <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'FOREIGN KEY' and TABLE_NAME = '${tableName}' and CONSTRAINT_NAME = '${constraintName}'</sqlCheck></and>
+                    <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'FOREIGN KEY' and TABLE_NAME = lower('${tableName}') and CONSTRAINT_NAME = lower('${constraintName}') </sqlCheck></and>
+                </or>
+             </and>
+        </preConditions>
+        <addForeignKeyConstraint  baseColumnNames="${columnName}"
+            baseTableName="${tableName}"
+            constraintName="${constraintName}" ${deleteCascade}
+            referencedColumnNames="${referenceColumnName}"
+            referencedTableName="${referenceTableName}"/>
+    </changeSet>
+

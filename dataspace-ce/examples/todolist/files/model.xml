@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model model-name="ds_todos_10f09724_47c7_4e4f_96ec_6ffebb3" description="Быстрый старт" version="0.0.1-SNAPSHOT">
+  <enum name="AccessType">
+    <value name="OWNER"/>
+    <value name="READ"/>
+    <value name="WRITE"/>
+  </enum>
+  <enum name="TaskStatus">
+    <value name="DONE"/>
+    <value name="OPEN"/>
+    <value name="OVERDUE"/>
+    <value name="WORKING"/>
+  </enum>
+  <enum name="TaskTag">
+    <value name="CRITICAL"/>
+    <value name="HIGH_PRIORITY"/>
+    <value name="LOW_PRIORITY"/>
+    <value name="USUAL"/>
+  </enum>
+  <class name="Customer" is-abstract="false" is-dictionary="false" embeddable="false" strategy="JOINED">
+    <id category="MANUAL"/>
+    <property name="email" type="STRING" length="254"/>
+    <property name="login" type="STRING" length="254"/>
+  </class>
+  <class name="Task" is-abstract="false" is-dictionary="false" embeddable="false" strategy="JOINED">
+    <property name="accessList" type="TaskCustomerAccess" collection="SET" mappedBy="task"/>
+    <property name="description" type="TEXT"/>
+    <property name="dueDate" type="LOCALDATETIME" length="3"/>
+    <property name="status" type="TaskStatus"/>
+    <property name="tags" type="TaskTag" collection="SET"/>
+    <property name="timeStamp" type="LOCALDATETIME" length="3" default-value="now"/>
+    <property name="title" type="STRING" length="254"/>
+    <reference name="customer" type="Customer" integrity-check="false"/>
+  </class>
+  <class name="TaskCustomerAccess" is-abstract="false" is-dictionary="false" embeddable="false" strategy="JOINED">
+    <property name="accessType" type="AccessType"/>
+    <property name="task" type="Task" parent="true"/>
+    <reference name="customer" type="Customer" integrity-check="false"/>
+  </class>
+  <layout>
+    <model x="0" y="0"/>
+    <enums>
+      <enum name="AccessType">
+        <value name="READ" x="-523" y="556"/>
+        <value name="WRITE" x="-523" y="616"/>
+        <value name="OWNER" x="-523" y="676"/>
+      </enum>
+      <enum name="TaskStatus">
+        <value name="DONE" x="1632" y="577"/>
+        <value name="OPEN" x="1632" y="457"/>
+        <value name="OVERDUE" x="1632" y="637"/>
+        <value name="WORKING" x="1632" y="517"/>
+      </enum>
+      <enum name="TaskTag">
+        <value name="CRITICAL" x="1679" y="850"/>
+        <value name="HIGH_PRIORITY" x="1679" y="910"/>
+        <value name="LOW_PRIORITY" x="1679" y="970"/>
+        <value name="USUAL" x="1679" y="1030"/>
+      </enum>
+    </enums>
+    <classes>
+      <class name="Customer">
+        <property name="email" x="886" y="-83"/>
+        <property name="login" x="886" y="-23"/>
+      </class>
+      <class name="Task">
+        <property name="description" x="704" y="701"/>
+        <property name="dueDate" x="704" y="761"/>
+        <property name="timeStamp" x="704" y="581"/>
+        <property name="title" x="704" y="641"/>
+        <property name="accessList" x="704" y="941"/>
+        <property name="status" x="704" y="821"/>
+        <property name="tags" x="704" y="881"/>
+        <reference name="customer" x="704" y="521"/>
+      </class>
+      <class name="TaskCustomerAccess">
+        <property name="accessType" x="-34" y="503"/>
+        <property name="task" x="-34" y="443"/>
+        <reference name="customer" x="-34" y="383"/>
+      </class>
+    </classes>
+  </layout>
+</model>

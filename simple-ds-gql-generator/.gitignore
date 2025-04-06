@@ -1,0 +1,7 @@
+.vscode
+node_modules
+tsgen/build
+package-lock.json
+src/__generate
+src/components/__generate
+src/graphql/__generate

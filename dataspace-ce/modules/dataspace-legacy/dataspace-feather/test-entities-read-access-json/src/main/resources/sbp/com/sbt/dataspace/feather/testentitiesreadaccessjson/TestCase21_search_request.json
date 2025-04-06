@@ -1,0 +1,36 @@
+{
+  "type": "Product",
+  "props": {
+    "relatedProduct": {
+      "props": {
+        "services": {
+          "props": {
+            "operationsCount": {
+              "calc": "it.operations.$count"
+            }
+          }
+        },
+        "servicesCount": {
+          "calc": "it.services.$count"
+        }
+      }
+    },
+    "request": {
+      "props": {
+        "initiatorLastName": {
+          "calc": "it.initiator.lastName"
+        }
+      }
+    },
+    "code": {
+      "calc": "it.relatedProduct.code"
+    },
+    "servicesCount": {
+      "calc": "it.services.$count"
+    },
+    "totalCreatorCode": {
+      "calc": "it.creatorCode + it.relatedProduct.creatorCode + it{type = ProductPlus}.affectedProducts.creatorCode.$sum"
+    }
+  },
+  "cond": "it.$id == '${productPlus1Id}'"
+}

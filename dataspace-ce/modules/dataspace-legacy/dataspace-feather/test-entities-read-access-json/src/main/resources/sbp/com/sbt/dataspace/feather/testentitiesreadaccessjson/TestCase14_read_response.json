@@ -1,0 +1,42 @@
+{
+  "elems": [
+    {
+      "type": "Operation",
+      "id": "${operation1Id}",
+      "props": {
+        "actions": {
+          "elems": [
+            {
+              "type": "ActionSpecial",
+              "id": "${actionSpecial1Id}",
+              "props": {
+                "parameters": {
+                  "elems": [
+                    {
+                      "type": "ActionParameter",
+                      "id": "${actionParameterSpecial1Id}",
+                      "props": {
+                        "parameters": {
+                          "elems": [
+                            {
+                              "type": "Parameter",
+                              "id": "${parameter20Id}"
+                            },
+                            {
+                              "type": "Parameter",
+                              "id": "${parameter2Id}"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

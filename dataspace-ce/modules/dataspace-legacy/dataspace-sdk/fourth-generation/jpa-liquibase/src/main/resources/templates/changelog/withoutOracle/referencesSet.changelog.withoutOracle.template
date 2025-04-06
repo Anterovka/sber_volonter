@@ -1,0 +1,17 @@
+    <changeSet author="${modelName}" id="${version}-${index}-col-${collectionIndex}">
+        <preConditions onFail="MARK_RAN"><not><tableExists tableName="${tableName}"/></not></preConditions>
+        <createTable tablespace="${tablespace_t}" tableName="${tableName}" remarks="LinkTable=&quot;Collection table ${name} to ${propertyType} for ${propertyName}&quot;">
+            <column name="${keyColumnName}" type="VARCHAR(254)" remarks="Link to ${name}"><constraints nullable="false"/></column>
+            <column name="${columnName}" type="${type}" remarks="Link to ${propertyType}"><constraints nullable="false"/></column>
+        </createTable>${rollback}
+    </changeSet>
+    <changeSet author="${modelName}" id="${version}-${index}-col-${collectionIndex}-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = '${tableName}'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE TABLE_SCHEMA ='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('${tableName}')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="${tableName}" columnNames="${keyColumnName}, ${columnName}" constraintName="${pkIndexName}"/>${rollback}
+    </changeSet>
+

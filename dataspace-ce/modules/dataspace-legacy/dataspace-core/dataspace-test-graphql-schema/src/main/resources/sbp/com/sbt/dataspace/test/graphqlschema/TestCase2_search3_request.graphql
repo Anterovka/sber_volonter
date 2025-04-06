@@ -1,0 +1,7 @@
+{
+    searchProduct(cond: "root.$id == '${product1Id}'") @include(if: false) {
+        elems {
+            id
+        }
+    }
+}

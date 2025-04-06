@@ -1,0 +1,5 @@
+
+            <or>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">select count(${columnName}) from ${defaultSchemaName}.${tableName}</sqlCheck></and>
+                <and><dbms type="!postgresql"/><sqlCheck expectedResult="0">select count(${columnName}) from ${tableName}</sqlCheck></and>
+            </or>

@@ -1,0 +1,17 @@
+{
+  "type": "Agreement",
+  "props": {
+    "document": {
+      "props": {
+        "product": {
+          "props": [
+            "mainDocument",
+            "request"
+          ]
+        }
+      }
+    }
+  },
+  "cond": "it.$id $in ['${agreement1Id}', '${agreement2Id}']",
+  "sort": "it.code"
+}

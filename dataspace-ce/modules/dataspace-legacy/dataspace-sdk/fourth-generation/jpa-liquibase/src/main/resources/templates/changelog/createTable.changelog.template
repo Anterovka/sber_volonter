@@ -1,0 +1,14 @@
+    <changeSet author="${modelName}" id="${version}-${index}">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="${tableName}"/>
+            </not>
+        </preConditions>
+        <createTable
+                tablespace="${tablespace_t}"
+                tableName="${tableName}"
+                remarks="${remarks2}">
+
+${columns}        </createTable>${rollback}
+    </changeSet>
+

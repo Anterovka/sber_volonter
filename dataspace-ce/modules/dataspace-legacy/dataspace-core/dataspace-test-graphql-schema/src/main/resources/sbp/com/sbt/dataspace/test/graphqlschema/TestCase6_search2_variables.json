@@ -1,0 +1,16 @@
+{
+  "varChar": "G",
+  "varString": "Hello",
+  "varByte": 127,
+  "varShort": 32767,
+  "varInt": 2147483647,
+  "varLong": 9223372036854775807,
+  "varFloat": 123.4568,
+  "varDouble": 1234567.890123457,
+  "varBigDecimal": 123456789.012345679,
+  "varDate": "2020-10-29",
+  "varDateTime": "2020-10-29T16:12:10.123",
+  "varOffsetDateTime": "2020-10-29T16:12:10.123+08:00",
+  "varTime": "16:12:10.123",
+  "varBoolean": true
+}

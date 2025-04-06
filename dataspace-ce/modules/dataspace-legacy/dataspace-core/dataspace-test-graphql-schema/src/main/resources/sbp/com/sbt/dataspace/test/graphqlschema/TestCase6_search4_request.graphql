@@ -1,0 +1,9 @@
+query Test(
+    $varInt: Int = 2 @strExpr(int: $varInt)
+) {
+    searchTestEntity(cond: "it.id $in ['${testEntity1Id}', '${testEntity2Id}']", sort: { crit: "coalesce(it.p6, 0) + ${varInt}" }) {
+        elems {
+            id
+        }
+    }
+}

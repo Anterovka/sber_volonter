@@ -1,0 +1,7 @@
+{
+    searchProduct(cond: "root.$id == '${product1Id}'") @skip(if: true) {
+        elems {
+            id
+        }
+    }
+}

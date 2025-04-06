@@ -1,0 +1,28 @@
+<model model-name="aggregate" version="DEV-SNAPSHOT" xmlns="DataspaceModel">
+
+  <class name="MySecondClass">
+    <property name="code" type="String"/>
+    <property name="myClass" type="MyClass" parent="true"/>
+  </class>
+
+  <class name="MyChildClass">
+    <property name="code" type="String"/>
+    <property name="parent" type="MyClass" parent="true"/>
+  </class>
+
+  <class name="MyClass">
+    <property name="code" type="String"/>
+    <property name="childSet" type="MyChildClass" mappedBy="parent" collection="set"/>
+    <property name="mySecondClass" type="MySecondClass" mappedBy="myClass"/>
+
+  </class>
+  <class name="AbstractSubMyClass" extends="MyClass" is-abstract="true">
+    <property name="abstractSubMyClassCode" type="String"/>
+  </class>
+  <class name="FirstSubMyClass" extends="AbstractSubMyClass">
+    <property name="firstSubMyClassCode" type="String"/>
+  </class>
+  <class name="SecondSubMyClass" extends="MyClass">
+    <property name="secondSubMyClassCode" type="String"/>
+  </class>
+</model>

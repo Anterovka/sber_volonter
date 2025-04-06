@@ -1,0 +1,23 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${product1Id}",
+      "props": {
+        "aliases": {
+          "elems": [
+            "alias1"
+          ]
+        },
+        "services": {
+          "elems": [
+            {
+              "type": "Service",
+              "id": "${service1Id}"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

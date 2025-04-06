@@ -1,0 +1,2 @@
+remarks1:${isDeleted}Code: ${name}&#10;Name: ${label}
+remarks2:${isDeleted}@Label=&quot;${label}&quot;&#10;Class Code: ${name}&#10;@CDMName=&quot;${cdmName}&quot;

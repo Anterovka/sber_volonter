@@ -1,0 +1,7 @@
+{
+  "type": "UserProduct",
+  "params": {
+    "firstName": null,
+    "lastName": null
+  }
+}

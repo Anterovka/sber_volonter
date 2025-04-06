@@ -1,0 +1,9 @@
+{
+    "realm": "todos",
+    "auth-server-url": "http://localhost:8180/",
+    "ssl-required": "external",
+    "resource": "todos",
+    "public-client": true,
+    "confidential-port": 0,
+    "useResourceRoleMappings": true
+}

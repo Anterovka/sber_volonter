@@ -1,0 +1,12 @@
+
+    <changeSet author="${modelName}" id="${version}-${index}">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="${tableName}" columnName="${columnName}"/> ${addPreconditions}
+        </preConditions>
+        ${migrateSql}
+        <dropColumn tableName="${tableName}">
+            <column name="${columnName}"/>
+        </dropColumn>
+        <rollback/>
+    </changeSet>
+

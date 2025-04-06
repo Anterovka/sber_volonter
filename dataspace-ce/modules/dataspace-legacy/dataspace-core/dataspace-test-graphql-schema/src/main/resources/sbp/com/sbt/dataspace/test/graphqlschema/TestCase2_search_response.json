@@ -1,0 +1,31 @@
+{
+  "errors": [
+    {
+      "message": "Reference of type Product with id = nonexistentId is invalid",
+      "path": [
+        "searchProduct",
+        "elems",
+        0,
+        "relatedProduct"
+      ],
+      "extensions": {
+        "classification": "InvalidData"
+      }
+    }
+  ],
+  "data": {
+    "searchProduct": {
+      "elems": [
+        {
+          "relatedProduct": null,
+          "request": {
+            "initiator": {
+              "firstName": "Vasya",
+              "lastName": "Vasiliev"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

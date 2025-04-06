@@ -1,0 +1,50 @@
+[
+  {
+    "name": "getCustomerInfo",
+    "body": "query getCustomerInfo($cond: String!) {\n  searchCustomer(cond: $cond) {\n    elems {\n      ...CustomerAttributes\n    }\n  }\n}\n    fragment CustomerAttributes on _E_Customer {\n  id\n  login\n  email\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": true
+  },
+  {
+    "name": "addCustomerInfo",
+    "body": "mutation addCustomerInfo($customerInput: _CreateCustomerInput!, $login: String!, $email: String!) {\n  packet {\n    updateOrCreateCustomer(\n      input: $customerInput\n      exist: {update: {login: $login, email: $email}}\n    ) {\n      returning {\n        ...CustomerAttributes\n      }\n    }\n  }\n}\n    fragment CustomerAttributes on _E_Customer {\n  id\n  login\n  email\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": true
+  },
+  {
+    "name": "searchAllTask",
+    "body": "query searchAllTask($cond: String) {\n  searchTask(cond: $cond, sort: {crit: \"it.timeStamp\", order: DESC}) {\n    elems {\n      ...TaskAttributes\n    }\n  }\n}\n    fragment TaskAttributes on _E_Task {\n  id\n  title\n  status\n  dueDate\n  description\n  timeStamp\n  tags {\n    elems\n  }\n  accessList {\n    elems {\n      ...TaskCustomerAccessAttributes\n    }\n  }\n  customer {\n    entity {\n      ...CustomerAttributes\n    }\n  }\n}\n    fragment TaskCustomerAccessAttributes on TaskCustomerAccess {\n  id\n  task {\n    id\n  }\n  customer {\n    entity {\n      ...CustomerAttributes\n    }\n  }\n  accessType\n}\n    fragment CustomerAttributes on _E_Customer {\n  id\n  login\n  email\n}\nfragment CustomerAttributes on _E_Customer {\n  id\n  login\n  email\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": true
+  },
+  {
+    "name": "createTaskCustomerAccess",
+    "body": "mutation createTaskCustomerAccess($input: [_CreateTaskCustomerAccessInput!]!) {\n  packet {\n    createManyTaskCustomerAccess(input: $input)\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": true
+  },
+  {
+    "name": "deleteTaskCustomerAccess",
+    "body": "mutation deleteTaskCustomerAccess($input: [_DeleteManyTaskCustomerAccessInput!]!) {\n  packet {\n    deleteManyTaskCustomerAccess(input: $input)\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": true
+  },
+  {
+    "name": "createTask",
+    "body": "mutation createTask($input: _CreateTaskInput!) {\n  packet {\n    createTask(input: $input) {\n      customer {\n        entityId\n      }\n      ...TaskAttributes\n    }\n  }\n}\n    fragment TaskAttributes on _E_Task {\n  id\n  title\n  status\n  dueDate\n  description\n  timeStamp\n  tags {\n    elems\n  }\n  accessList {\n    elems {\n      ...TaskCustomerAccessAttributes\n    }\n  }\n  customer {\n    entity {\n      ...CustomerAttributes\n    }\n  }\n}\n    fragment TaskCustomerAccessAttributes on TaskCustomerAccess {\n  id\n  task {\n    id\n  }\n  customer {\n    entity {\n      ...CustomerAttributes\n    }\n  }\n  accessType\n}\n    fragment CustomerAttributes on _E_Customer {\n  id\n  login\n  email\n}\nfragment CustomerAttributes on _E_Customer {\n  id\n  login\n  email\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": true
+  },
+  {
+    "name": "updateTask",
+    "body": "mutation updateTask($updateInput: _UpdateTaskInput!) {\n  packet {\n    updateTask(input: $updateInput) {\n      ...TaskAttributes\n    }\n  }\n}\n    fragment TaskAttributes on _E_Task {\n  id\n  title\n  status\n  dueDate\n  description\n  timeStamp\n  tags {\n    elems\n  }\n  accessList {\n    elems {\n      ...TaskCustomerAccessAttributes\n    }\n  }\n  customer {\n    entity {\n      ...CustomerAttributes\n    }\n  }\n}\n    fragment TaskCustomerAccessAttributes on TaskCustomerAccess {\n  id\n  task {\n    id\n  }\n  customer {\n    entity {\n      ...CustomerAttributes\n    }\n  }\n  accessType\n}\n    fragment CustomerAttributes on _E_Customer {\n  id\n  login\n  email\n}\nfragment CustomerAttributes on _E_Customer {\n  id\n  login\n  email\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": true
+  },
+  {
+    "name": "deleteTask",
+    "body": "mutation deleteTask($id: ID!) {\n  packet {\n    deleteTask(id: $id)\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": true
+  }
+]

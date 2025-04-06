@@ -1,0 +1,29 @@
+
+    <changeSet author="${modelName}" id="${version}-${index}" dbms="h2">
+        <update tableName="${tableName}">
+${columns}
+${h2Columns}
+            <where>object_id='${id}'</where>
+        </update>
+        <rollback>
+            <update tableName="${tableName}">
+    ${rollbackColumns}
+    ${h2RollbackColumns}
+            <where>object_id='${id}'</where>
+            </update>
+        </rollback>
+    </changeSet>
+    <changeSet author="${modelName}" id="${version}-${index}" dbms="postgresql">
+        <update tableName="${tableName}">
+${columns}
+${postgresColumns}
+            <where>object_id='${id}'</where>
+        </update>
+        <rollback>
+            <update tableName="${tableName}">
+    ${rollbackColumns}
+    ${postgresRollbackColumns}
+                <where>object_id='${id}'</where>
+            </update>
+        </rollback>
+    </changeSet>

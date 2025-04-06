@@ -1,0 +1,5 @@
+{
+  "type": "Operation",
+  "cond": "it.$id == '${operation1Id}' && it.service.code == 'service1'",
+  "lock": "nowait"
+}

@@ -1,0 +1,43 @@
+{
+  "merge": [
+    {
+      "type": "TestEntity",
+      "props": [
+        "p1",
+        "p2",
+        {
+          "ps1": "elem == 'string1'"
+        }
+      ],
+      "cond": "1 == 0"
+    },
+    {
+      "type": "Product",
+      "props": {
+        "relatedProduct": {
+          "props": "code"
+        },
+        "services": {
+          "props": [
+            "managerPersonalCode",
+            "operations"
+          ],
+          "cond": "elem.code $like root.code + '%'",
+          "sort": {
+            "crit": "elem.code",
+            "order": "desc"
+          }
+        }
+      },
+      "cond": "root.$id == '${product2Id}'"
+    },
+    {
+      "type": "Service",
+      "props": "code",
+      "cond": "1 == 0"
+    }
+  ],
+  "limit": 1,
+  "offset": 0,
+  "count": true
+}

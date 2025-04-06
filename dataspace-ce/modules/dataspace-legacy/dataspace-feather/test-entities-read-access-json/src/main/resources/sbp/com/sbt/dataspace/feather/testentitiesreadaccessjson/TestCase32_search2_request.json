@@ -1,0 +1,120 @@
+{
+  "type": "TestEntity",
+  "props": {
+    "p1": {
+      "calc": "it.p14.$asString"
+    },
+    "p2": {
+      "calc": "it.p7.$asString"
+    },
+    "p3": {
+      "calc": "it.p15.$asString"
+    },
+    "p4": {
+      "calc": "'2023-08-21'.$asDate"
+    },
+    "p4_2": {
+      "calc": "it.p1.$substr(1, 10).$asDate"
+    },
+    "p5": {
+      "calc": "'2023-08-21T15:33:10.123456'.$asDateTime"
+    },
+    "p5_2": {
+      "calc": "it.p1.$substr(1, 26).$asDateTime"
+    },
+    "p6": {
+      "calc": "'2023-08-21T15:33:10.123456+00:00'.$asOffsetDateTime"
+    },
+    "p6_2": {
+      "calc": "it.p1.$asOffsetDateTime"
+    },
+    "p7": {
+      "calc": "it.p14.$year"
+    },
+    "p8": {
+      "calc": "it.p7.$year"
+    },
+    "p9": {
+      "calc": "it.p15.$year"
+    },
+    "p10": {
+      "calc": "it.p14.$month"
+    },
+    "p11": {
+      "calc": "it.p7.$month"
+    },
+    "p12": {
+      "calc": "it.p15.$month"
+    },
+    "p13": {
+      "calc": "it.p14.$day"
+    },
+    "p14": {
+      "calc": "it.p7.$day"
+    },
+    "p15": {
+      "calc": "it.p15.$day"
+    },
+    "p16": {
+      "calc": "it.p7.$hour"
+    },
+    "p17": {
+      "calc": "it.p15.$hour"
+    },
+    "p18": {
+      "calc": "it.p7.$minute"
+    },
+    "p19": {
+      "calc": "it.p15.$minute"
+    },
+    "p20": {
+      "calc": "it.p7.$second"
+    },
+    "p21": {
+      "calc": "it.p15.$second"
+    },
+    "p22": {
+      "calc": "it.p15.$offsetHour"
+    },
+    "p23": {
+      "calc": "it.p15.$offsetMinute"
+    },
+    "p24": {
+      "calc": "T15:33:10.123456"
+    },
+    "p24_2": {
+      "calc": "T15:33.$asString"
+    },
+    "p25": {
+      "calc": "it.p7.$time.$asString"
+    },
+    "p26": {
+      "calc": "it.p15.$time.$asString"
+    },
+    "p27": {
+      "calc": "'15:33:10.123456'.$asTime"
+    },
+    "p28": {
+      "calc": "it.p7.$date"
+    },
+    "p29": {
+      "calc": "it.p15.$date"
+    },
+    "p30": {
+      "calc": "it.p7.$time"
+    },
+    "p31": {
+      "calc": "it.p15.$time"
+    },
+    "p32": {
+      "calc": "it.p15.$offset"
+    },
+    "p33": {
+      "calc": "it.p15.$dateTime"
+    },
+    "p34": {
+      "calc": "it.p15.$dateTime.$asString"
+    }
+  },
+  "cond": "it.$id == '${testEntity2Id}' && T15:33:10.123456.$asString == '15:33:10.123456' && it.p15.$time.$hash != null && T15:29.$hash != null && it.p7.$time == it.p15.$time && it.p7.$time != T15:33 && it.p7.$time > T15:33 && it.p7.$time <= T15:34 && it.p7.$time < T15:34 && it.p7.$time >= T15:33 && it.p7.$time $between (T15:33, T15:34) && it.p7.$time $in [T15:33, T15:33:10.123000] && T15:33:10.123000 $in entities{type = TestEntity, cond = it.$id == '${testEntity2Id}'}.$map(it.p7.$time) && entities{type = TestEntity, cond = it.$id == '${testEntity2Id}'}.$map(it.p7.$time).$min == T15:33:10.123000 && entities{type = TestEntity, cond = it.$id == '${testEntity2Id}'}.$map(it.p7.$time).$max == T15:33:10.123000"
+}

@@ -1,0 +1,21 @@
+{
+  "type": "Product",
+  "props": {
+    "aliases": {
+      "sort": {
+        "crit": "it",
+        "order": "desc"
+      }
+    }
+  },
+  "cond": "it.$id $in ['${product2Id}', '${product3Id}'] || (it.$id == '${product1Id}' && it.parameters{cond = it.value $like 'value%'}.$exists)",
+  "sort": [
+    "it.$type",
+    {
+      "crit": "it.relatedProduct.creatorCode",
+      "nullsLast": false
+    }
+  ],
+  "offset": 1,
+  "limit": 1
+}

@@ -1,0 +1,12 @@
+{
+  "type": "Product",
+  "props": {
+    "p1": {
+      "calc": "2 + coalesce(it.relatedProduct.creatorCode, 1)"
+    },
+    "p2": {
+      "calc": "'123' + coalesce(it.mainDocument.code, '321')"
+    }
+  },
+  "cond": "it.$id == '${product1Id}' && coalesce(it.mainDocument.code, '1') == '1' && coalesce(it.relatedProduct.code, '1') == '1'"
+}

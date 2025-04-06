@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.p7.$subMilliseconds('1') == D2020-09-03"
+}

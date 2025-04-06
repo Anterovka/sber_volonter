@@ -1,0 +1,19 @@
+{
+  "type": "ProductLimited",
+  "props": {
+    "relatedProduct": {
+      "props": "creatorCode"
+    },
+    "request": {
+      "type": "RequestPlus"
+    },
+    "services": {
+      "props": {
+        "startAction": {
+          "type": "ActionSpecial"
+        }
+      }
+    }
+  },
+  "cond": "root.$id == '${productLimited1Id}'"
+}

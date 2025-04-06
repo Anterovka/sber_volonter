@@ -1,0 +1,5 @@
+query Test($byteArray: _ByteArray = "hello") {
+    searchTestEntity(cond: "root.$id == '${testEntity1Id}'") {
+        count
+    }
+}

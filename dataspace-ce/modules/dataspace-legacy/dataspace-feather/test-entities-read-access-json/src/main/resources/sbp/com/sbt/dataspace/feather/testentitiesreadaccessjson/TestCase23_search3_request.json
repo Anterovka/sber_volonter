@@ -1,0 +1,11 @@
+{
+  "type": "Service",
+  "selection": {
+    "p1": "it.managerPersonalCode"
+  },
+  "cond": "it.$id $in ['${service1Id}', '${service2Id}', '${service3Id}', '${service4Id}', '${service5Id}', '${service6Id}', '${service7Id}']",
+  "limit": 3,
+  "offset": 3,
+  "count": true,
+  "sort": "it.managerPersonalCode"
+}

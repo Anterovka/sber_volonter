@@ -1,0 +1,11 @@
+{
+  "type": "Product",
+  "props": [
+    {
+      "relatedProduct": {}
+    },
+    {
+      "services": {}
+    }
+  ]
+}

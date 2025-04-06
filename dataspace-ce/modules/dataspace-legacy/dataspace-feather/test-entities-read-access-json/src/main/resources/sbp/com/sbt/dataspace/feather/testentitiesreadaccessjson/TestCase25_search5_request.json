@@ -1,0 +1,16 @@
+{
+  "type": "Product",
+  "selection": {
+    "p1": "it.creatorCode.$min",
+    "p2": "it.creatorCode.$max",
+    "p3": "it.creatorCode.$sum",
+    "p4": "it.creatorCode.$avg",
+    "p5": "it.creatorCode.$count",
+    "p6": "it.relatedProduct.creatorCode.$count"
+  },
+  "cond": "it.$id $in ['${product1Id}', '${product2Id}', '${product3Id}']",
+  "group": ["it.relatedProduct.code"],
+  "groupCond": "it.relatedProduct.creatorCode.$count > 1 && it.relatedProduct.code $in ['product4', 'product5']",
+  "limit": 1,
+  "count": true
+}

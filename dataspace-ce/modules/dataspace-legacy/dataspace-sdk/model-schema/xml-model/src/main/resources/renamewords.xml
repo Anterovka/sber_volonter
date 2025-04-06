@@ -1,0 +1,6 @@
+<renameWords>
+    <rename from="CHGCNT" to="SYS_VER"/>
+    <rename from="LASTCHANGEDATE" to="SYS_TUPD"/>
+    <rename from="SYS_LASTCHANGEDATE" to="SYS_TUPD"/>
+    <rename from="TYPE" to="SYS_TYP"/>
+</renameWords>

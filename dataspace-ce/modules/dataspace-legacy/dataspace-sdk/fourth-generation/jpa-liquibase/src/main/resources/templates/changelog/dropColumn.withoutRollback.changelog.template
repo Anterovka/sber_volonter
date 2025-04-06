@@ -1,0 +1,11 @@
+
+    <changeSet author="${modelName}" id="${version}-${index}">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="${tableName}" columnName="${columnName}"/>
+        </preConditions>
+        <dropColumn tableName="${tableName}">
+            <column name="${columnName}"/>
+        </dropColumn>
+        <rollback/>
+    </changeSet>
+

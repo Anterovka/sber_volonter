@@ -1,0 +1,12 @@
+{
+  "type": "Entity",
+  "details": {
+    "OperationSpecial": {
+      "initiator": "firstName"
+    },
+    "Service": {
+      "initiator": "firstName"
+    }
+  },
+  "cond": "it.$id == '${service1Id}'"
+}

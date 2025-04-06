@@ -1,0 +1,28 @@
+{
+  "type": "TestEntity",
+  "props": [
+    "p1",
+    "p2",
+    "p3",
+    "p4",
+    "p5",
+    "p6",
+    "p7",
+    "p8",
+    "p9",
+    "p10",
+    "p11",
+    "p12",
+    "p13",
+    "p14",
+    "p15",
+    "ps1",
+    "ps2",
+    "ps3",
+    "ps4",
+    "r1",
+    "rc1",
+    "brec1"
+  ],
+  "cond": "root.$id == '${testEntity1Id}'"
+}

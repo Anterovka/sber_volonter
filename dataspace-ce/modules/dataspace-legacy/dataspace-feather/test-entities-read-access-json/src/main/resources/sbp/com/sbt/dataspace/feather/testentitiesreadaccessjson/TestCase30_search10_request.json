@@ -1,0 +1,22 @@
+{
+  "type": "Test2Entity",
+  "params": {
+    "character": null,
+    "string": null,
+    "byte": null,
+    "short": null,
+    "integer": null,
+    "long": null,
+    "float": null,
+    "double": null,
+    "bigDecimal": null,
+    "date": null,
+    "datetime": null,
+    "offsetDatetime": null,
+    "boolean": null,
+    "strings": [
+      "${testEntity1Id}",
+      null
+    ]
+  }
+}

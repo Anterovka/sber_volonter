@@ -1,0 +1,11 @@
+{
+  "data": {
+    "searchTestEntity": {
+      "elems": [
+        {
+          "id": "${testEntity4Id}"
+        }
+      ]
+    }
+  }
+}

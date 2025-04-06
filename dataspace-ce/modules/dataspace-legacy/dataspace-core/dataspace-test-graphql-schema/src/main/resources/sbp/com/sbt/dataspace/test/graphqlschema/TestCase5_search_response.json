@@ -1,0 +1,24 @@
+{
+  "data": {
+    "searchRequest": {
+      "elems": [
+        {
+          "initiator": {
+            "firstName": "Ivan",
+            "lastName": "Ivanov",
+            "document": {
+              "code": "document1"
+            }
+          }
+        },
+        {
+          "initiator": {
+            "firstName": "Vasya",
+            "lastName": null,
+            "document": null
+          }
+        }
+      ]
+    }
+  }
+}

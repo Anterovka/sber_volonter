@@ -1,0 +1,6 @@
+{
+  "type": "TestEntity",
+  "props": "code",
+  "cond": "root.$id == '${testEntity2Id}'",
+  "aggVersion": true
+}

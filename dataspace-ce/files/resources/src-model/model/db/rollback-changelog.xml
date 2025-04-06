@@ -1,0 +1,15 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+                   logicalFilePath="./volonteernew/changelog.xml">
+    <include file="dbms-properties.xml" relativeToChangelogFile="true"/>
+    
+    <changeSet author="volonteernew" id="0.0.1-before">
+        <tagDatabase tag="volonteernew-0.0.1-before"/>
+    </changeSet>
+
+    <changeSet author="volonteernew" id="0.0.1-applied">
+        <tagDatabase tag="volonteernew-0.0.1-applied"/>
+    </changeSet>
+</databaseChangeLog>

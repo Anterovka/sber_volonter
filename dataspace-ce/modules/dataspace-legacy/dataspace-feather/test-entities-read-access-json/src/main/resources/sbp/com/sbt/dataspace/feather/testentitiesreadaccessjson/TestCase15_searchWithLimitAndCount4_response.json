@@ -1,0 +1,25 @@
+{
+  "elems": [
+    {
+      "type": "Service",
+      "id": "${service1Id}",
+      "props": {
+        "code": "service1"
+      }
+    },
+    {
+      "type": "TestEntity",
+      "id": "${testEntity1Id}",
+      "props": {
+        "p1": "string1",
+        "p2": "123",
+        "ps1": {
+          "elems": [
+            "string1"
+          ]
+        }
+      }
+    }
+  ],
+  "count": 3
+}

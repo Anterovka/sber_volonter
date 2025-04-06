@@ -1,0 +1,17 @@
+{
+  "elems": [
+    {
+      "type": "Service",
+      "id": "${service1Id}",
+      "props": {
+        "initiator": {
+          "document": {
+            "type": "Document",
+            "id": "nonExistent",
+            "invalid": true
+          }
+        }
+      }
+    }
+  ]
+}

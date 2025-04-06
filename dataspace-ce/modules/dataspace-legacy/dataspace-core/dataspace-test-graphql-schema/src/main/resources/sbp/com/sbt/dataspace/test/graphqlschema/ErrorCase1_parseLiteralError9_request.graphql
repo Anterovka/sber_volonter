@@ -1,0 +1,5 @@
+query Test($offsetDateTime: _OffsetDateTime = "hello") {
+    searchTestEntity(cond: "root.$id == '${testEntity1Id}'") {
+        count
+    }
+}

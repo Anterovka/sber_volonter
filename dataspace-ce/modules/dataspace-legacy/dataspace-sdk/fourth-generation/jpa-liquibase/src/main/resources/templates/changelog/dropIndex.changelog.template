@@ -1,0 +1,6 @@
+    <changeSet author="${modelName}" id="${version}-${index}-index-${indexIndex}">
+        <preConditions onFail="MARK_RAN"><indexExists indexName="${indexName}"/></preConditions>
+        <dropIndex indexName="${indexName}" tableName="${tableName}"/>
+         ${rollback}
+    </changeSet>
+

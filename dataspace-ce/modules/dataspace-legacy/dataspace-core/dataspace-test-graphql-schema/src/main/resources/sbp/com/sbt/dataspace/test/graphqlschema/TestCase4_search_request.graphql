@@ -1,0 +1,8 @@
+{
+    searchTestEntity(cond: "root.$id == '${testEntity1Id}'") {
+        elems {
+            _id
+            _aggVersion
+        }
+    }
+}

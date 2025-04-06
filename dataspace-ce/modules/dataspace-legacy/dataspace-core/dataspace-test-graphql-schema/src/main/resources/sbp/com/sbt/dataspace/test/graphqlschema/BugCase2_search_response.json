@@ -1,0 +1,11 @@
+{
+  "data": {
+    "selectionByTestEntity": {
+      "elems": [
+        {
+          "id": "${testEntity1Id}"
+        }
+      ]
+    }
+  }
+}

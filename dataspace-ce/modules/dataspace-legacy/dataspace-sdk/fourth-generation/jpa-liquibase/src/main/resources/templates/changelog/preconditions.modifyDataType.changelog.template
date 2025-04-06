@@ -1,0 +1,5 @@
+
+            <or>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">${postgresqlSQL}</sqlCheck></and>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">${h2SQL}</sqlCheck></and> ${oraclePrecondition}
+            </or>

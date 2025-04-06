@@ -1,0 +1,5 @@
+{
+  "type": "Product",
+  "cond": "it.$id $in ['${product1Id}', '${product2Id}', '${product3Id}', '${productPlus1Id}', '${productLimited1Id}', '${productLimited2Id}'] && it.relatedProduct.code != null",
+  "sort": "it.$type + it.code"
+}

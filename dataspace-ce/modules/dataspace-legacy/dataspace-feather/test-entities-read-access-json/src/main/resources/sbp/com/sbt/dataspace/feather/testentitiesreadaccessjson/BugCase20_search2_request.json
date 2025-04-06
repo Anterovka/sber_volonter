@@ -1,0 +1,6 @@
+{
+  "type": "Operation",
+  "cond": "it.$id == '${operation1Id}' && !(it.service.initiator != null)",
+  "limit": 1,
+  "count": true
+}

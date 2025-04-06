@@ -1,0 +1,40 @@
+{
+  "elems": [
+    {
+      "type": "ProductLimited",
+      "id": "${productLimited1Id}",
+      "props": {
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${nonexistentId}",
+          "invalid": true
+        },
+        "request": {
+          "type": "Request",
+          "id": "${request1Id}",
+          "incorrectCasted": true
+        },
+        "services": {
+          "elems": [
+            {
+              "type": "Service",
+              "id": "${service1Id}",
+              "props": {
+                "startAction": {
+                  "type": "Action",
+                  "id": "${action1Id}",
+                  "incorrectCasted": true
+                }
+              }
+            },
+            {
+              "type": "Service",
+              "id": "${nonexistentId}",
+              "invalid": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

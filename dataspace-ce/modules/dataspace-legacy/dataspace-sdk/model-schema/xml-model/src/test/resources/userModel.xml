@@ -1,0 +1,48 @@
+<model model-name="myModelName" version="DEV-SNAPSHOT" xmlns="DataspaceModel">
+
+    <enum name="Size">
+        <value name="S">
+            <extension name="rus" value="44"/>
+            <extension name="uk" value="small"/>
+        </value>
+        <value name="M">
+            <extension name="rus" value="46"/>
+            <extension name="uk" value="medium"/>
+        </value>
+    </enum>
+
+    <type-defs>
+        <type-def name="ShortString" type="string" length="10"/>
+        <type-def name="Uni" type="String"/>
+    </type-defs>
+
+    <class name="MyMinClass">
+        <property name="code" type="String"/>
+        <reference name="client" type="Client"/>
+    </class>
+
+    <class name="MyMaxClass">
+        <property name="code" type="String" index="true" unique="true" label="MyLabel" description="MyDescription"
+                  collection="set" length="55" scale="66" mandatory="true"
+        isDeprecated="true" mappedBy="myMappedBy" parent="true" mask="MyMask"/>
+        <reference name="client" type="Client" isDeprecated="true"
+                   mandatory="true" collection="set" description="MyDescription" label="MyLabel" unique="true" index="true"/>
+    <statuses>
+      <group code="service" reason-length="100">
+        <status code="new" initial="true">
+          <to status="close"/>
+        </status>
+        <status code="close"/>
+      </group>
+    </statuses>
+    </class>
+
+    <query name="Query">
+        <implementations>
+            <sql>select t1.code code, t1.name name from T_PRODUCT t1 where t1.code = '123'</sql>
+        </implementations>
+        <property name="code" type="String"/>
+        <property name="name" type="String"/>
+    </query>
+
+</model>

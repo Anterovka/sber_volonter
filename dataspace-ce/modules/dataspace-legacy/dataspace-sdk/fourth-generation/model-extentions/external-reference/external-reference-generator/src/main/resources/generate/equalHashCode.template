@@ -1,0 +1,17 @@
+
+    @Override
+    public boolean equals(java.lang.Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || !(obj instanceof ${thisClass})) {
+            return false;
+        }
+        ${thisClass} that = (${thisClass}) obj;
+        return Objects.equals(entityId, that.entityId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(entityId);
+    }

@@ -1,0 +1,35 @@
+<layers xmlns="http://www.springframework.org/schema/boot/layers"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/boot/layers
+                      https://www.springframework.org/schema/boot/layers/layers-2.3.xsd">
+  <application>
+    <into layer="bootstrap">
+      <include>org/springframework/boot/loader/**</include>
+    </into>
+    <into layer="app" />
+  </application>
+
+  <dependencies>
+    <into layer="app">
+      <include>sbp.batch.tasks:*:*</include>
+    </into>
+    <into layer="platform">
+      <include>ru.sbrf.*:*:*</include>
+      <include>ru.sbt.*:*:*</include>
+      <include>platform.core.*:*:*</include>
+      <include>com.sbt.*:*:*</include>
+      <include>sbp.*:*:*</include>
+    </into>
+    <into layer="thirdparty">
+      <include>*:*:*</include>
+    </into>
+  </dependencies>
+
+  <layerOrder>
+    <layer>bootstrap</layer>
+    <layer>app</layer>
+    <layer>platform</layer>
+    <layer>thirdparty</layer>
+  </layerOrder>
+
+</layers>

@@ -1,0 +1,15 @@
+    <changeSet author="${modelName}" id="${version}-${index}">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and>
+                    <dbms  type="postgresql"/>
+                    <sqlCheck expectedResult="1">select count(*) from INFORMATION_SCHEMA.COLUMNS where table_schema='${defaultSchemaName}' and table_name=lower('${tableName}') and column_name=lower('${columnName}') and is_nullable='NO'</sqlCheck>
+                </and>
+                <and>
+                    <dbms  type="h2"/>
+                    <sqlCheck expectedResult="1">select count(*) from INFORMATION_SCHEMA.COLUMNS where table_name='${tableName}' and column_name='${columnName}' and is_nullable='NO'</sqlCheck>
+                </and>
+            </or>
+        </preConditions>
+        <dropNotNullConstraint tableName="${tableName}" columnName="${columnName}" columnDataType="${type}"/>${rollback}
+    </changeSet>

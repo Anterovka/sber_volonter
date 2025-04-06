@@ -1,0 +1,11 @@
+<model model-name="newParent" version="DEV-SNAPSHOT" xmlns="DataspaceModel">
+
+    <class name="MyClass">
+        <property name="code" type="String"/>
+    </class>
+
+    <class name="MyDictionary" is-dictionary="true">
+        <property name="code" type="String"/>
+    </class>
+
+</model>

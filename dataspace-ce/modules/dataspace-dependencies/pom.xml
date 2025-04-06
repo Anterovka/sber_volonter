@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.3.7</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>ru.sbertech.dataspace</groupId>
+  <artifactId>dataspace-dependencies</artifactId>
+  <version>DEV-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <ktlint.version>1.3.0</ktlint.version>
+    <detekt.version>1.23.6</detekt.version>
+    <mockk.version>1.13.11</mockk.version>
+    <sql-formatter.version>2.0.5</sql-formatter.version>
+    <jetbrains-annotations.version>23.0.0</jetbrains-annotations.version>
+    <graphql-java-extended-scalars.version>22.0</graphql-java-extended-scalars.version>
+    <spring-security.version>6.3.2</spring-security.version>
+    <commons-io.version>2.14.0</commons-io.version>
+    <nimbus-jose-jwt.version>9.39.3</nimbus-jose-jwt.version>
+    <encoder.version>1.2.3</encoder.version>
+    <java-jwt.version>3.18.2</java-jwt.version>
+    <jwks-rsa.version>0.20.0</jwks-rsa.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.mockk</groupId>
+        <artifactId>mockk-jvm</artifactId>
+        <version>${mockk.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.vertical-blank</groupId>
+        <artifactId>sql-formatter</artifactId>
+        <version>${sql-formatter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains</groupId>
+        <artifactId>annotations</artifactId>
+        <version>${jetbrains-annotations.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.graphql-java</groupId>
+        <artifactId>graphql-java-extended-scalars</artifactId>
+        <version>${graphql-java-extended-scalars.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.nimbusds</groupId>
+        <artifactId>nimbus-jose-jwt</artifactId>
+        <version>${nimbus-jose-jwt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.owasp.encoder</groupId>
+        <artifactId>encoder</artifactId>
+        <version>${encoder.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.auth0</groupId>
+        <artifactId>java-jwt</artifactId>
+        <version>${java-jwt.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.auth0</groupId>
+        <artifactId>jwks-rsa</artifactId>
+        <version>${jwks-rsa.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>

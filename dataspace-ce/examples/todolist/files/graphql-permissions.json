@@ -1,0 +1,105 @@
+[
+  {
+    "name": "getCustomerInfo",
+    "body": "query getCustomerInfo($cond: String!) {  searchCustomer(cond: $cond) {    elems {      ...CustomerAttributes    }  }}    fragment CustomerAttributes on _E_Customer {  id  login  email}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  
+  {
+    "name": "addCustomerInfo",
+    "body": "mutation addCustomerInfo($customerInput: _CreateCustomerInput!, $login: String!, $email: String!) {  packet {    updateOrCreateCustomer(input: $customerInput, exist: { update: { login: $login, email: $email } }) {      returning {        ...CustomerAttributes      }    }  }}    fragment CustomerAttributes on _E_Customer {  id  login  email}",
+    "allowEmptyChecks": false,
+    "disableJwtVerification": false,
+    "checkSelects": [
+      {
+        "conditionValue": "${customerInput.id} == ${jwt:sub}",
+        "orderValue": "0",
+        "typeName": "",
+        "description": "User can define only himself own personal data"
+      }
+    ]
+  },
+  {
+    "name": "searchAllTask",
+    "body": "query searchAllTask($cond: String) {  searchTask(cond: $cond, sort: {crit: \"it.timeStamp\", order: DESC}) {    elems {      ...TaskAttributes    }  }}    fragment TaskAttributes on _E_Task {  id  title  status  dueDate  description  timeStamp  tags {    elems  }  accessList {    elems {      ...TaskCustomerAccessAttributes    }  }  customer {    entity {      ...CustomerAttributes    }  }}    fragment TaskCustomerAccessAttributes on TaskCustomerAccess {  id  task {    id  }  customer {    entity {      ...CustomerAttributes    }  }  accessType}    fragment CustomerAttributes on _E_Customer {  id  login  email}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false,
+    "pathConditions": [
+      {
+        "path": "searchTask",
+        "cond": "it.accessList{type = TaskCustomerAccess, cond = it.customer.entityId == ${jwt:sub}}.$exists"
+      }
+    ]
+  },
+  {
+    "name": "createTask",
+    "body": "mutation createTask($input: _CreateTaskInput!) {  packet {    createTask(input: $input) {      customer {        entityId      }      ...TaskAttributes    }  }}    fragment TaskAttributes on _E_Task {  id  title  status  dueDate  description  timeStamp  tags {    elems  }  accessList {    elems {      ...TaskCustomerAccessAttributes    }  }  customer {    entity {      ...CustomerAttributes    }  }}    fragment TaskCustomerAccessAttributes on TaskCustomerAccess {  id  task {    id  }  customer {    entity {      ...CustomerAttributes    }  }  accessType}    fragment CustomerAttributes on _E_Customer {  id  login  email}",
+    "allowEmptyChecks": false,
+    "disableJwtVerification": false,
+    "checkSelects": [
+      {
+        "conditionValue": "${input.customer.entityId} == ${jwt:sub}",
+        "orderValue": "0",
+        "typeName": "",
+        "description": "User can create tasks only with himself customer entityId"
+      }
+    ]
+  },
+  {
+    "name": "updateTask",
+    "body": "mutation updateTask($updateInput: _UpdateTaskInput!) {  packet {    updateTask(input: $updateInput) {      ...TaskAttributes    }  }}    fragment TaskAttributes on _E_Task {  id  title  status  dueDate  description  timeStamp  tags {    elems  }  accessList {    elems {      ...TaskCustomerAccessAttributes    }  }  customer {    entity {      ...CustomerAttributes    }  }}    fragment TaskCustomerAccessAttributes on TaskCustomerAccess {  id  task {    id  }  customer {    entity {      ...CustomerAttributes    }  }  accessType}    fragment CustomerAttributes on _E_Customer {  id  login  email}",
+    "allowEmptyChecks": false,
+    "disableJwtVerification": false,
+    "checkSelects": [
+      {
+        "conditionValue": "it.id == ${updateInput.id} && it.accessList{type = TaskCustomerAccess, cond = it.customer.entityId == ${jwt:sub} && it.accessType != 'READ'}.$exists",
+        "orderValue": "0",
+        "typeName": "Task",
+        "description": "User can update only available himself tasks"
+      }
+    ]
+  },
+  {
+    "name": "deleteTask",
+    "body": "mutation deleteTask($id: ID!) {  packet {    deleteTask(id: $id)  }}",
+    "allowEmptyChecks": false,
+    "disableJwtVerification": false,
+    "checkSelects": [
+      {
+        "conditionValue": "it.id == ${id} && it.accessList{type = TaskCustomerAccess, cond = it.customer.entityId == ${jwt:sub} && it.accessType != 'READ'}.$exists",
+        "orderValue": "0",
+        "typeName": "Task",
+        "description": "User can delete only available himself tasks"
+      }
+    ]
+  },
+  {
+    "name": "createTaskCustomerAccess",
+    "body": "mutation createTaskCustomerAccess($input: [_CreateTaskCustomerAccessInput!]!) {  packet {    createManyTaskCustomerAccess(input: $input)  }}",
+    "allowEmptyChecks": false,
+    "disableJwtVerification": false,
+    "checkSelects": [
+      {
+        "conditionValue": "it.customer.entityId == ${jwt:sub}",
+        "orderValue": "0",
+        "typeName": "Task",
+        "description": "User can create task customer access only of available himself tasks"
+      }
+    ]
+  },
+  {
+    "name": "deleteTaskCustomerAccess",
+    "body": "mutation deleteTaskCustomerAccess($input: [_DeleteManyTaskCustomerAccessInput!]!) {  packet {    deleteManyTaskCustomerAccess(input: $input)  }}",
+    "allowEmptyChecks": false,
+    "disableJwtVerification": false,
+    "checkSelects": [
+      {
+        "conditionValue": "it.customer.entityId == ${jwt:sub}",
+        "orderValue": "0",
+        "typeName": "Task",
+        "description": "User can delete task customer access only of available himself tasks"
+      }
+    ]
+  }
+]

@@ -1,0 +1,47 @@
+{
+  "data": {
+    "searchTestEntity": {
+      "__typename": "_EC_TestEntity",
+      "elems": [
+        {
+          "__typename": "_E_TestEntity",
+          "id": "${testEntity1Id}",
+          "ps1": {
+            "__typename": "_StringCollection",
+            "elems": [
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          "r1": {
+            "__typename": "_E_TestEntity",
+            "id": "${testEntity2Id}"
+          },
+          "rc1": {
+            "__typename": "_EC_TestEntity",
+            "elems": [
+              {
+                "__typename": "_E_TestEntity",
+                "id": "${testEntity2Id}"
+              }
+            ]
+          },
+          "brec1": {
+            "__typename": "_EC_TestEntity",
+            "elems": [
+              {
+                "__typename": "_E_TestEntity",
+                "id": "${testEntity3Id}"
+              }
+            ]
+          },
+          "g1": {
+            "__typename": "_G_Group1",
+            "p1": "1"
+          }
+        }
+      ]
+    }
+  }
+}

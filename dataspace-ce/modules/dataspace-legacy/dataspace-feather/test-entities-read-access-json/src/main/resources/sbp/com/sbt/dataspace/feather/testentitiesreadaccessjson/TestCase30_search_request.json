@@ -1,0 +1,18 @@
+{
+  "type": "UserProduct",
+  "params": {
+    "firstName": "Ivan",
+    "lastName": "Ivanov"
+  },
+  "props": [
+    "code",
+    {
+      "aliases": {},
+      "relatedProduct": {},
+      "services": {},
+      "initiator": "firstName"
+    }
+  ],
+  "cond": "it.$id $in ['${product1Id}', '${product2Id}']",
+  "sort": "it.code"
+}

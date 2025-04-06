@@ -1,0 +1,132 @@
+{
+  "type": "Product",
+  "props": [
+    "code",
+    "name",
+    "request",
+    {
+      "creatorCode": {},
+      "relatedProduct": {
+        "props": [
+          "code",
+          "creatorCode",
+          {
+            "aliases": {
+              "cond": "elem $in ['alias4', 'alias5', 'alias6'] && !(elem $in root.aliases{cond = elem $in ['alias1', 'alias2']}) && elem != null && elem $like 'alias%'",
+              "limit": 3
+            },
+            "relatedProduct": {
+              "type": "ProductPlus",
+              "props": [
+                "code",
+                "creatorCode",
+                {
+                  "aliases": {
+                    "limit": 3,
+                    "count": true
+                  },
+                  "relatedProduct": {
+                    "props": [
+                      "code",
+                      {
+                        "aliases": {
+                          "limit": 0,
+                          "count": true
+                        },
+                        "services": {
+                          "props": [
+                            "code",
+                            {
+                              "operations": {
+                                "type": "OperationSpecial",
+                                "props": "code",
+                                "limit": 2
+                              }
+                            }
+                          ],
+                          "limit": 3
+                        }
+                      }
+                    ]
+                  },
+                  "services": {
+                    "limit": 3
+                  }
+                }
+              ]
+            },
+            "services": {
+              "props": [
+                "code",
+                "managerPersonalCode",
+                {
+                  "operations": {
+                    "props": "code",
+                    "limit": 2
+                  }
+                }
+              ],
+              "limit": 3
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "details": {
+    "ProductLimited": [
+      "limitedOffer",
+      {
+        "aliases": {
+          "cond": "root{type = ProductLimited}.limitedOffer == 'limitedOffer1'",
+          "limit": 3
+        },
+        "services": {
+          "props": [
+            "code",
+            "managerPersonalCode",
+            {
+              "operations": {
+                "props": "code",
+                "details": {
+                  "OperationSpecial": {
+                    "parameters": "elem.code == 'parameter1'"
+                  },
+                  "OperationLimited": {
+                    "parameters": "elem.code == 'parameter2'"
+                  }
+                },
+                "cond": "elem.code $like 'operation%'",
+                "offset": 0,
+                "count": true
+              }
+            }
+          ],
+          "limit": 3,
+          "offset": 0
+        },
+        "parameters": "elem.code != null"
+      }
+    ],
+    "Product": {
+      "services": {
+        "props": {
+          "operations": {
+            "limit": 2
+          }
+        }
+      },
+      "parameters": "elem.code != null"
+    },
+    "ProductPlus": [
+      "relatedProduct",
+      {
+        "aliases": {
+          "offset": 2,
+          "limit": 1
+        }
+      }
+    ]
+  },
+  "cond": "root.$id == '${productLimited1Id}'"
+}

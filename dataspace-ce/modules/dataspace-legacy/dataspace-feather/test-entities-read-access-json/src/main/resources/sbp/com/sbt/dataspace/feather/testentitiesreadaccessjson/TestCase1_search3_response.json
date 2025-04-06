@@ -1,0 +1,12 @@
+{
+  "elems": [
+    {
+      "type": "TestEntity",
+      "id": "${testEntity1Id}",
+      "props": {
+        "code": "testEntity1"
+      }
+    }
+  ],
+  "count": 1
+}

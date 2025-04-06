@@ -1,0 +1,18 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${product2Id}",
+      "props": {
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${product1Id}",
+          "incorrectCasted": true
+        },
+        "documents": {
+          "elems": []
+        }
+      }
+    }
+  ]
+}

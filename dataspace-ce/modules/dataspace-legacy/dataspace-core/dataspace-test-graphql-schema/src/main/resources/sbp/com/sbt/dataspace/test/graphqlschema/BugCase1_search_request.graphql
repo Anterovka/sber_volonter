@@ -1,0 +1,35 @@
+{
+    searchTestEntity(cond: "root.$id == '${testEntity1Id}'") {
+        __typename
+        elems {
+            __typename
+            id
+            ps1(sort: [{crit: "elem"}]) {
+                __typename
+                elems
+            }
+            r1 {
+                __typename
+                id
+            }
+            rc1 {
+                __typename
+                elems {
+                    __typename
+                    id
+                }
+            }
+            brec1 {
+                __typename
+                elems {
+                    __typename
+                    id
+                }
+            }
+            g1 {
+                __typename
+                p1
+            }
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "Product",
+  "props": {
+    "services": {
+      "props": {
+        "request": {
+          "props": {
+            "initiator": {
+              "document": {}
+            }
+          }
+        }
+      },
+      "sort": "it.code"
+    }
+  },
+  "cond": "it.$id == '${product1Id}' && 1 $in it.services.request.initiator.document{type = Permission}.number && 'permission1' $in it.services.request.initiator.document.code"
+}

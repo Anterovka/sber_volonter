@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>ru.sbertech.dataspace</groupId>
+    <artifactId>dataspace-legacy</artifactId>
+    <version>DEV-SNAPSHOT</version>
+  </parent>
+
+  <groupId>sbp.com.sbt.dataspace.feather</groupId>
+  <artifactId>feather</artifactId>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>bom</module>
+    <module>common</module>
+    <module>entities-read-access-json</module>
+    <module>entities-read-access-json-impl</module>
+    <module>expression-type-resolver</module>
+    <module>expressions</module>
+    <module>expressions-common</module>
+    <module>model-description</module>
+    <module>model-description-common</module>
+    <module>model-description-impl</module>
+    <module>model-description-impl-2</module>
+    <module>security-driver</module>
+    <module>simple-security-driver</module>
+    <module>string-expressions</module>
+    <module>table-query-provider</module>
+    <module>test-common</module>
+    <module>test-entities-read-access-json</module>
+    <module>test-model</module>
+    <module>test-model-description</module>
+    <module>test-model-description-common</module>
+  </modules>
+
+  <properties>
+    <argLine/>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-compile</id>
+            <phase>compile</phase>
+          </execution>
+          <execution>
+            <id>default-testCompile</id>
+            <phase>test-compile</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <phase>none</phase>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <phase>none</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <argLine>@{argLine} -Duser.timezone=UTC</argLine>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

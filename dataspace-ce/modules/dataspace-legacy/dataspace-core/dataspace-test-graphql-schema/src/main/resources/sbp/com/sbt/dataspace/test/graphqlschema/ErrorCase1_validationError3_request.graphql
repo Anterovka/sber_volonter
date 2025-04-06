@@ -1,0 +1,9 @@
+{
+    merge {
+        ... f1
+    }
+}
+
+fragment f1 on _MergedEntitiesCollection {
+    count
+}

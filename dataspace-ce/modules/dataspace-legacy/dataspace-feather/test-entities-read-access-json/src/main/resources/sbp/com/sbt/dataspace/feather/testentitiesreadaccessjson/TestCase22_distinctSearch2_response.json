@@ -1,0 +1,18 @@
+{
+  "selection": true,
+  "elems": [
+    {
+      "p1": "Service",
+      "p2": "2"
+    },
+    {
+      "p1": "Service",
+      "p2": "3"
+    },
+    {
+      "p1": "Service",
+      "p2": null
+    }
+  ],
+  "count": 4
+}

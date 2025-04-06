@@ -1,0 +1,32 @@
+{
+    merge(limit: 4, offset: 1, sort: {crit: "it.code"}) {
+        __typename
+        elems {
+            __typename
+            ... on TestEntity @mergeReqSpec(cond: "it.$id == '${testEntity1Id}'") {
+                id
+                p1
+            }
+            ... on Product @mergeReqSpec(cond: "it.$id $in ['${product1Id}', '${product2Id}', '${productLimited1Id}']") {
+                id
+                creatorCode
+                ... on ProductLimited {
+                    limitedOffer
+                }
+                ... f1
+            }
+            ... on Service @mergeReqSpec(cond: "it.$id == '${service1Id}'") {
+                id
+                managerPersonalCode
+                ... f1
+            }
+        }
+        count
+    }
+}
+
+fragment f1 on Entity {
+    attributes {
+        elems
+    }
+}

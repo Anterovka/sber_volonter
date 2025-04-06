@@ -1,0 +1,140 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${product1Id}",
+      "props": {
+        "code": "product1",
+        "code2": {
+          "base": "code",
+          "value": "product1"
+        },
+        "aliases": {
+          "elems": [
+            "alias1"
+          ]
+        },
+        "aliases2": {
+          "base": "aliases",
+          "value": {
+            "elems": [
+              "alias2"
+            ]
+          }
+        },
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${productLimited1Id}",
+          "props": {
+            "code": "productLimited1"
+          }
+        },
+        "relatedProduct2": {
+          "base": "relatedProduct",
+          "value": {
+            "type": "Product",
+            "id": "${productLimited1Id}",
+            "props": {
+              "code": {
+                "base": "creatorCode",
+                "value": "2"
+              },
+              "code2": {
+                "base": "creatorCode",
+                "value": "2"
+              },
+              "creatorCode": "2"
+            }
+          }
+        },
+        "request": {
+          "type": "Request",
+          "id": "${requestPlus1Id}"
+        },
+        "request2": {
+          "base": "request",
+          "value": {
+            "type": "RequestPlus",
+            "id": "${requestPlus1Id}",
+            "props": {
+              "initiator": {
+                "lastName": "Ivanov",
+                "document": {
+                  "type": "Document",
+                  "id": "${document1Id}"
+                }
+              },
+              "initiator2": {
+                "base": "initiator",
+                "value": {
+                  "lastName": "Ivanov",
+                  "lastName2": {
+                    "base": "lastName",
+                    "value": "Ivanov"
+                  },
+                  "document": {
+                    "type": "Document",
+                    "id": "${document1Id}"
+                  },
+                  "document2": {
+                    "base": "document",
+                    "value": {
+                      "type": "Document",
+                      "id": "${document1Id}",
+                      "props": {
+                        "code": "document1"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "services": {
+          "elems": [
+            {
+              "type": "Service",
+              "id": "${service1Id}"
+            }
+          ]
+        },
+        "services2": {
+          "base": "services",
+          "value": {
+            "elems": [
+              {
+                "type": "Service",
+                "id": "${service2Id}",
+                "props": {
+                  "operations": {
+                    "elems": [
+                      {
+                        "type": "Operation",
+                        "id": "${operation1Id}"
+                      }
+                    ]
+                  },
+                  "operations2": {
+                    "base": "operations",
+                    "value": {
+                      "elems": [
+                        {
+                          "type": "Operation",
+                          "id": "${operation2Id}",
+                          "props": {
+                            "code": "operation2"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

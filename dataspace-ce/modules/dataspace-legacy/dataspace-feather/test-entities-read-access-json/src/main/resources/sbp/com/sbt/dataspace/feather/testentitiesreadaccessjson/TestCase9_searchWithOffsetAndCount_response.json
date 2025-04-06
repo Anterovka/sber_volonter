@@ -1,0 +1,19 @@
+{
+  "elems": [
+    {
+      "type": "Document",
+      "id": "${document1Id}",
+      "props": {
+        "code": "document1"
+      }
+    },
+    {
+      "type": "Permission",
+      "id": "${permission1Id}",
+      "props": {
+        "code": "permission1"
+      }
+    }
+  ],
+  "count": 3
+}

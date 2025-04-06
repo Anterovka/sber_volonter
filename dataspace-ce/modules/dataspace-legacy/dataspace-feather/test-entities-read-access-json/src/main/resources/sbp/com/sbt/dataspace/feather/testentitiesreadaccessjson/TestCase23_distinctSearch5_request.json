@@ -1,0 +1,11 @@
+{
+  "type": "Service",
+  "selection": {
+    "p1": "it.managerPersonalCode",
+    "p2": "it.startAction.algorithmCode",
+    "p3": "it.parameters.$count"
+  },
+  "distinct": true,
+  "cond": "it.$id $in ['${service1Id}', '${service2Id}', '${service3Id}', '${service4Id}', '${service5Id}', '${service6Id}', '${service7Id}', '${service9Id}']",
+  "sort": "it.managerPersonalCode"
+}

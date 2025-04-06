@@ -1,0 +1,23 @@
+query Test(
+    $varChar: Char!,
+    $varString: String!,
+    $varByte: Byte!,
+    $varShort: Short!,
+    $varInt: Int!,
+    $varLong: Long!,
+    $varFloat: _Float4!,
+    $varDouble: Float!,
+    $varBigDecimal: BigDecimal!,
+    $varDate: _Date!,
+    $varDateTime: _DateTime!,
+    $varOffsetDateTime: _OffsetDateTime!,
+    $varTime: _Time!,
+    $varBoolean: Boolean!
+) {
+    searchTestEntity(cond: "it.id == '${testEntity1Id}' && it.p13 == ${varChar} && it.p1 == ${varString} && it.p2 == ${varByte} && it.p3 == ${varShort} && it.p4 == ${varInt} && it.p5 == ${varLong} && it.p12 < ${varFloat} && it.p6 < ${varDouble} && it.p10 < ${varBigDecimal} && it.p14 == ${varDate} && it.p7 == ${varDateTime} && it.p15 == ${varOffsetDateTime} && it.p7.$time == ${varTime} && it.p8 == ${varBoolean}") @strExpr(chars: [$varChar], strings: [$varString], bytes: [$varByte], shorts: [$varShort], ints: [$varInt], longs: [$varLong], floats: [$varFloat], doubles: [$varDouble], bigDecimals: [$varBigDecimal], dates: [$varDate], dateTimes: [$varDateTime], offsetDateTimes: [$varOffsetDateTime], times: [$varTime], booleans: [$varBoolean]) {
+        elems {
+            id
+            p1: _getByte(expression: "it.p2 - ${varByte}")
+        }
+    }
+}

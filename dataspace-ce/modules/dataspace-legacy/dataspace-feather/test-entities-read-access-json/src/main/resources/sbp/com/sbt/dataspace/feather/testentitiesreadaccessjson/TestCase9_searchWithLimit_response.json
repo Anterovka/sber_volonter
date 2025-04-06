@@ -1,0 +1,11 @@
+{
+  "elems": [
+    {
+      "type": "Document",
+      "id": "${document1Id}",
+      "props": {
+        "code": "document1"
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "preparedQuery",
+    "body": "query preparedQuery { searchTestEntity { elems { id } } }",
+    "checkSelects": [
+      {
+        "conditionValue": "'12345678901234'==${jwt:sub}",
+        "orderValue": "0",
+        "typeName": null,
+        "description": ""
+      }
+    ]
+  }
+]

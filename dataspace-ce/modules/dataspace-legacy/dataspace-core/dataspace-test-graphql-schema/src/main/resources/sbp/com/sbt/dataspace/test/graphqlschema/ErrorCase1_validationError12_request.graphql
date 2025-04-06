@@ -1,0 +1,7 @@
+query Test($varInt: Int @strExpr(int: $varInt)) {
+    searchTestEntity(cond: "it.p4 == ${varInt}", limit: $varInt) {
+        elems {
+            id
+        }
+    }
+}

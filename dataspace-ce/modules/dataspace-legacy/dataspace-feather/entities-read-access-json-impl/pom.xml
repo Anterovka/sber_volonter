@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>sbp.com.sbt.dataspace.feather</groupId>
+        <artifactId>feather</artifactId>
+        <version>DEV-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>entities-read-access-json-impl</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>model-description</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>expressions</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>security-driver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>table-query-provider</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>entities-read-access-json</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>expressions-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>string-expressions</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>test-common</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>test-entities-read-access-json</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>simple-security-driver</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

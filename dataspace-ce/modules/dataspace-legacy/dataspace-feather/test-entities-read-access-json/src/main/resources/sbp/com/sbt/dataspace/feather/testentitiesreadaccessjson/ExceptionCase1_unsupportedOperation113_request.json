@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "coalesce(root.p7, root.p12) == D2020-09-03"
+}

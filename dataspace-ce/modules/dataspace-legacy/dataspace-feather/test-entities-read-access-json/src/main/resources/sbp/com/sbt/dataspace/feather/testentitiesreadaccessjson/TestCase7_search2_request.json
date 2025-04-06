@@ -1,0 +1,6 @@
+{
+  "type": "Service",
+  "props": "name",
+  "cond": "root.$id $in ['${service1Id}', '${service2Id}', '${service3Id}']",
+  "sort": "root.name"
+}

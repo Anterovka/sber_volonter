@@ -1,0 +1,77 @@
+{
+  "type": "Product",
+  "props": {
+    "code": {},
+    "code2": {
+      "base": "code"
+    },
+    "aliases": "it == 'alias1'",
+    "aliases2": {
+      "base": "aliases",
+      "spec": "it == 'alias2'"
+    },
+    "relatedProduct": {
+      "props": "code"
+    },
+    "relatedProduct2": {
+      "base": "relatedProduct",
+      "spec": {
+        "props": {
+          "code": {
+            "base": "creatorCode"
+          },
+          "code2": {
+            "base": "creatorCode"
+          },
+          "creatorCode": {}
+        }
+      }
+    },
+    "request": {},
+    "request2": {
+      "base": "request",
+      "spec": {
+        "props": {
+          "initiator": [
+            "lastName",
+            "document"
+          ],
+          "initiator2": {
+            "base": "initiator",
+            "spec": {
+              "lastName": {},
+              "lastName2": {
+                "base": "lastName"
+              },
+              "document": {},
+              "document2": {
+                "base": "document",
+                "spec": {
+                  "props": "code"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "services": "it.$id == '${service1Id}'",
+    "services2": {
+      "base": "services",
+      "spec": {
+        "props": {
+          "operations": "it.$id == '${operation1Id}'",
+          "operations2": {
+            "base": "operations",
+            "spec": {
+              "props": "code",
+              "cond": "it.$id == '${operation2Id}'"
+            }
+          }
+        },
+        "cond": "it.$id == '${service2Id}'"
+      }
+    }
+  },
+  "cond": "it.$id == '${product1Id}'"
+}

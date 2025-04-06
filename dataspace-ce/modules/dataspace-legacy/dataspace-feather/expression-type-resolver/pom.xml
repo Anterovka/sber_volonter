@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>sbp.com.sbt.dataspace.feather</groupId>
+        <artifactId>feather</artifactId>
+        <version>DEV-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>expression-type-resolver</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>model-description</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>expressions</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>expressions-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>string-expressions</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>sbp.com.sbt.dataspace.feather</groupId>
+            <artifactId>test-common</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

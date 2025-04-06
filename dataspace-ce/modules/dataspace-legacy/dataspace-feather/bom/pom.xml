@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>sbp.com.sbt.dataspace.feather</groupId>
+    <artifactId>bom</artifactId>
+    <version>DEV-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Интерфейсы -->
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>model-description</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>expressions</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>security-driver</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>entities-read-access-json</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+
+            <!-- Реализации -->
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>common</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>model-description-common</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>model-description-impl</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>expressions-common</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>string-expressions</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>expression-type-resolver</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>simple-security-driver</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>table-query-provider</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>entities-read-access-json-impl</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+
+            <!-- Тестирование -->
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>test-common</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>test-model</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>test-model-description-common</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>test-model-description</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>sbp.com.sbt.dataspace.feather</groupId>
+                <artifactId>test-entities-read-access-json</artifactId>
+                <version>DEV-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

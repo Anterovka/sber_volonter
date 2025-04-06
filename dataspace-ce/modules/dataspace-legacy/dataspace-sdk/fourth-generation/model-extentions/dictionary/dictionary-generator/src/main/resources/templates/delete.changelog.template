@@ -1,0 +1,9 @@
+    <changeSet author="${modelName}" id="${version}-${index}">
+        <delete tableName="${tableName}">
+            <where>${idColumnName}='${id}'</where>
+        </delete>
+        <rollback>
+        ${inserts}
+        </rollback>
+    </changeSet>
+

@@ -1,0 +1,12 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${productLimited1Id}"
+    },
+    {
+      "type": "Product",
+      "id": "${product3Id}"
+    }
+  ]
+}

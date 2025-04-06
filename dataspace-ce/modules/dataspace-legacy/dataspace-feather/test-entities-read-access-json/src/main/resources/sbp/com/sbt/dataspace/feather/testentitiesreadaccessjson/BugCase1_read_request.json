@@ -1,0 +1,11 @@
+{
+  "type": "ProductLimited",
+  "props": {
+    "services": {
+      "props": "code",
+      "limit": 1
+    }
+  },
+  "cond": "root.$id == 'nonexistentId'",
+  "limit": 1
+}

@@ -1,0 +1,10 @@
+{
+  "type": "Product",
+  "props": "request",
+  "cond": "root.$id == '${productPlus1Id}' && root.request.initiator != null && root.request.initiator.firstName == 'Ivan' && root.request.initiator.lastName == 'Ivanov' && root.request.initiator.age == null && 'Vasya' $in root.services.request.initiator.firstName && root.services{cond = elem.request.initiator.lastName == 'Vasiliev'}.$exists && root.relatedProduct.request != null && root.relatedProduct.request.initiator == null",
+  "count": true,
+  "sort": {
+    "crit": "root.$id",
+    "nullsLast": true
+  }
+}

@@ -1,0 +1,15 @@
+
+    <changeSet author="${modelName}" id="${version}-${index}" >
+        <preConditions onFail="MARK_RAN">
+            <columnExists columnName="${columnName}" tableName="${tableName}"/>
+        </preConditions>
+        <dropColumn tableName="${tableName}">
+            <column name="${columnName}"/>
+        </dropColumn>
+        <rollback>
+            <sql dbms="oracle">ALTER TABLE ${tableName} ADD ${columnName} ${typeOracle} ${notNULL} AS (${valueComputedForOracle})</sql>
+            <sql dbms="postgresql">ALTER TABLE ${defaultSchemaName}.${tableName} ADD COLUMN  ${columnName} ${type} ${notNULL} GENERATED ALWAYS AS (${valueComputed}) STORED</sql>
+            <sql dbms="h2">ALTER TABLE ${tableName} ADD COLUMN  ${columnName} ${type} ${notNULL} AS (${valueComputed})</sql>
+        </rollback>
+    </changeSet>
+

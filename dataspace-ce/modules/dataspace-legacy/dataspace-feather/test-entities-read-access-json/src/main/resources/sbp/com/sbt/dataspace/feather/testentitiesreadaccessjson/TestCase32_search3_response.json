@@ -1,0 +1,138 @@
+{
+  "elems": [
+    {
+      "type": "TestEntity",
+      "id": "${testEntity3Id}",
+      "props": {
+        "p1": {
+          "calc": true,
+          "value": null
+        },
+        "p2": {
+          "calc": true,
+          "value": null
+        },
+        "p3": {
+          "calc": true,
+          "value": null
+        },
+        "p4_2": {
+          "calc": true,
+          "value": null
+        },
+        "p5_2": {
+          "calc": true,
+          "value": null
+        },
+        "p6_2": {
+          "calc": true,
+          "value": null
+        },
+        "p7": {
+          "calc": true,
+          "value": null
+        },
+        "p8": {
+          "calc": true,
+          "value": null
+        },
+        "p9": {
+          "calc": true,
+          "value": null
+        },
+        "p10": {
+          "calc": true,
+          "value": null
+        },
+        "p11": {
+          "calc": true,
+          "value": null
+        },
+        "p12": {
+          "calc": true,
+          "value": null
+        },
+        "p13": {
+          "calc": true,
+          "value": null
+        },
+        "p14": {
+          "calc": true,
+          "value": null
+        },
+        "p15": {
+          "calc": true,
+          "value": null
+        },
+        "p16": {
+          "calc": true,
+          "value": null
+        },
+        "p17": {
+          "calc": true,
+          "value": null
+        },
+        "p18": {
+          "calc": true,
+          "value": null
+        },
+        "p19": {
+          "calc": true,
+          "value": null
+        },
+        "p20": {
+          "calc": true,
+          "value": null
+        },
+        "p21": {
+          "calc": true,
+          "value": null
+        },
+        "p22": {
+          "calc": true,
+          "value": null
+        },
+        "p23": {
+          "calc": true,
+          "value": null
+        },
+        "p25": {
+          "calc": true,
+          "value": null
+        },
+        "p26": {
+          "calc": true,
+          "value": null
+        },
+        "p28": {
+          "calc": true,
+          "value": null
+        },
+        "p29": {
+          "calc": true,
+          "value": null
+        },
+        "p30": {
+          "calc": true,
+          "value": null
+        },
+        "p31": {
+          "calc": true,
+          "value": null
+        },
+        "p32": {
+          "calc": true,
+          "value": null
+        },
+        "p33": {
+          "calc": true,
+          "value": null
+        },
+        "p34": {
+          "calc": true,
+          "value": null
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,922 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PdmModel>
+  <model model-name="test" component-code="НЕ ЗАДАНО" version="DEV-SNAPSHOT" description="Test model" versioned-entities="false" autoIdMethod="SNOWFLAKE">
+    <import type="SysLockModelGenerator" file=""/>
+    <import type="IdempotenceModelGenerator" file=""/>
+    <import type="SysInitTasksModelGenerator" file=""/>
+    <import type="AggregateModelGenerator" file=""/>
+    <import type="APP_LOCKS" file=""/>
+    <import type="CLOUD-REPLICATION-TASKS" file=""/>
+    <import type="DICTIONARY_GENERATOR" file="dictionary/"/>
+    <import type="CLOUD-RELOCATION" file=""/>
+    <import type="SUBSCRIPTION_EVENTS_GENERATOR" file=""/>
+    <import type="BASE_ENTITY" file=""/>
+    <import type="SYS_CONFIG" file=""/>
+    <import type="COMPUTED-FIELD"/>
+    <import type="INTEGRITY_CHECK_GENERATOR" file=""/>
+    <import type="GQLSECURITY"/>
+    <import type="HISTORY_CHANGES" file=""/>
+    <import type="SYSVERSION" file=""/>
+    <import type="REFERENCE" file=""/>
+    <import type="CciModelGenerator" file=""/>
+    <import type="SHEDLOCK" file=""/>
+    <class name="Person" embeddable="true" description="Person" class-access="UPDATE" import-model-name="test">
+      <property name="firstName" type="String" length="254" mandatory="true" column-name="FIRSTNAME" column-type="VARCHAR(254)"/>
+      <property name="lastName" type="String" length="254" column-name="LASTNAME" column-type="VARCHAR(254)"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="TestEntity" extends="BaseEntity" tableName="T_TESTENTITY" pk-index-name="PK_T_TESTENTITY" description="Test entity" affinity="objectId" class-access="UPDATE" final-class="true" strategy="JOINED" import-model-name="test" root-type="TestEntity">
+      <index index-name="PK_T_TESTENTITY" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <embedded-lists>
+        <embedded-list name="owner">
+          <property name="firstName" column-name="OWNER_FIRSTNAME"/>
+          <property name="lastName" column-name="OWNER_LASTNAME"/>
+        </embedded-list>
+      </embedded-lists>
+      <property name="pChar" type="Character" column-name="PCHAR" description="Char" column-type="CHAR"/>
+      <property name="pString" type="String" length="254" column-name="PSTRING" column-type="VARCHAR(254)"/>
+      <property name="pText" type="String" length="4001" column-name="PTEXT" column-type="CLOB"/>
+      <property name="pByte" type="Byte" column-name="PBYTE" column-type="${type_byte}"/>
+      <property name="pShort" type="Short" column-name="PSHORT" column-type="${type_short}"/>
+      <property name="pInteger" type="Integer" column-name="PINTEGER" column-type="${type_int}"/>
+      <property name="pLong" type="Long" column-name="PLONG" column-type="${type_long}"/>
+      <property name="pFloat" type="Float" column-name="PFLOAT" column-type="${type_float}"/>
+      <property name="pDouble" type="Double" column-name="PDOUBLE" column-type="${type_double}"/>
+      <property name="pBigDecimal" type="BigDecimal" scale="10" length="38" column-name="PBIGDECIMAL" column-type="NUMBER(38,10)"/>
+      <property name="pLocalDate" type="LocalDate" column-name="PLOCALDATE" column-type="DATE"/>
+      <property name="pDate" type="Date" length="3" column-name="PDATE" column-type="TIMESTAMP(3)"/>
+      <property name="pLocalDateTime" type="LocalDateTime" length="3" column-name="PLOCALDATETIME" column-type="TIMESTAMP(3)"/>
+      <property name="pOffsetDateTime" type="OffsetDateTime" length="3" column-name="POFFSETDATETIME" column-type="${type_offsetDateTime3}"/>
+      <property name="pBoolean" type="Boolean" column-name="PBOOLEAN" column-type="${type_boolean}"/>
+      <property name="pByteArray" type="byte[]" column-name="PBYTEARRAY" column-type="${type_blob}"/>
+      <property name="pCharCollection" type="Character" collection="SET" column-name="PCHARCOLLECTION" collection-table-name="LC_TESTENTITY_PCHARCOLLECTION" key-column-name="TESTENTITY_ID" description="Char collection" column-type="CHAR" collection-pk-index-name="PK_LC_TESTENTITY_PCHARCOLLECTION"/>
+      <property name="pStringCollection" type="String" length="254" collection="SET" column-name="PSTRINGCOLLECTION" collection-table-name="LC_TESTENTITY_PSTRINGCOLLECTION" key-column-name="TESTENTITY_ID" column-type="VARCHAR(254)" collection-pk-index-name="PK_LC_TESTENTITY_PSTRINGCOLLECTION"/>
+      <property name="pByteCollection" type="Byte" collection="SET" column-name="PBYTECOLLECTION" collection-table-name="LC_TESTENTITY_PBYTECOLLECTION" key-column-name="TESTENTITY_ID" column-type="${type_byte}" collection-pk-index-name="PK_LC_TESTENTITY_PBYTECOLLECTION"/>
+      <property name="pShortCollection" type="Short" collection="SET" column-name="PSHORTCOLLECTION" collection-table-name="LC_TESTENTITY_PSHORTCOLLECTION" key-column-name="TESTENTITY_ID" column-type="${type_short}" collection-pk-index-name="PK_LC_TESTENTITY_PSHORTCOLLECTION"/>
+      <property name="pIntegerCollection" type="Integer" collection="SET" column-name="PINTEGERCOLLECTION" collection-table-name="LC_TESTENTITY_PINTEGERCOLLECTION" key-column-name="TESTENTITY_ID" column-type="${type_int}" collection-pk-index-name="PK_LC_TESTENTITY_PINTEGERCOLLECTION"/>
+      <property name="pLongCollection" type="Long" collection="SET" column-name="PLONGCOLLECTION" collection-table-name="LC_TESTENTITY_PLONGCOLLECTION" key-column-name="TESTENTITY_ID" column-type="${type_long}" collection-pk-index-name="PK_LC_TESTENTITY_PLONGCOLLECTION"/>
+      <property name="pFloatCollection" type="Float" collection="SET" column-name="PFLOATCOLLECTION" collection-table-name="LC_TESTENTITY_PFLOATCOLLECTION" key-column-name="TESTENTITY_ID" column-type="${type_float}" collection-pk-index-name="PK_LC_TESTENTITY_PFLOATCOLLECTION"/>
+      <property name="pDoubleCollection" type="Double" collection="SET" column-name="PDOUBLECOLLECTION" collection-table-name="LC_TESTENTITY_PDOUBLECOLLECTION" key-column-name="TESTENTITY_ID" column-type="${type_double}" collection-pk-index-name="PK_LC_TESTENTITY_PDOUBLECOLLECTION"/>
+      <property name="pBigDecimalCollection" type="BigDecimal" scale="10" length="38" collection="SET" column-name="PBIGDECIMALCOLLECTION" collection-table-name="LC_TESTENTITY_PBIGDECIMALCOLLECTION" key-column-name="TESTENTITY_ID" column-type="NUMBER(38,10)" collection-pk-index-name="PK_LC_TESTENTITY_PBIGDECIMALCOLLECTION"/>
+      <property name="pLocalDateCollection" type="LocalDate" collection="SET" column-name="PLOCALDATECOLLECTION" collection-table-name="LC_TESTENTITY_PLOCALDATECOLLECTION" key-column-name="TESTENTITY_ID" column-type="DATE" collection-pk-index-name="PK_LC_TESTENTITY_PLOCALDATECOLLECTION"/>
+      <property name="pDateCollection" type="Date" length="3" collection="SET" column-name="PDATECOLLECTION" collection-table-name="LC_TESTENTITY_PDATECOLLECTION" key-column-name="TESTENTITY_ID" column-type="TIMESTAMP(3)" collection-pk-index-name="PK_LC_TESTENTITY_PDATECOLLECTION"/>
+      <property name="pLocalDateTimeCollection" type="LocalDateTime" length="3" collection="SET" column-name="PLOCALDATETIMECOLLECTION" collection-table-name="LC_TESTENTITY_PLOCALDATETIMECOLLECTION" key-column-name="TESTENTITY_ID" column-type="TIMESTAMP(3)" collection-pk-index-name="PK_LC_TESTENTITY_PLOCALDATETIMECOLLECTION"/>
+      <property name="pOffsetDateTimeCollection" type="OffsetDateTime" length="3" collection="SET" column-name="POFFSETDATETIMECOLLECTION" collection-table-name="LC_TESTENTITY_POFFSETDATETIMECOLLECTION" key-column-name="TESTENTITY_ID" column-type="${type_offsetDateTime3}" collection-pk-index-name="PK_LC_TESTENTITY_POFFSETDATETIMECOLLECTION"/>
+      <property name="owner" type="Person" length="254" embedded="true" description="Embedded" column-type="VARCHAR(254)"/>
+      <property name="apiCalls" type="TestEntityApiCall" length="254" collection="SET" label="Коллекция с результатами идемпотентных вызовов" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM" mappedBy="parentObject" object-link="O2M"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="SysSubscription" label="Класс подписки" tableName="T_DSPC_SYS_SUBSCRIPTION" pk-index-name="PK_T_DSPC_SYS_SUBSCRIPTION" affinity="objectId" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test" root-type="SysSubscription">
+      <index index-name="I_SYSSUBSCRIPTION_EVENTTYPE">
+        <property name="eventType"/>
+      </index>
+      <index index-name="I_SYSSUBSCRIPTION_TARGET">
+        <property name="target"/>
+      </index>
+      <index index-name="PK_T_DSPC_SYS_SUBSCRIPTION" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-base-entity>true</no-base-entity>
+      <no-idempotence>true</no-idempotence>
+      <property name="async" type="Boolean" label="Использовать асинхронную отправку" column-name="ASYNC" column-type="${type_boolean}"/>
+      <property name="blocking" type="Boolean" label="Приостанавливать отправку при первой ошибке" column-name="BLOCKING" column-type="${type_boolean}"/>
+      <property name="callback" type="String" length="2048" label="Callback, используемый для отправки результата обработки события" column-name="CALLBACK" column-type="VARCHAR(2048)"/>
+      <property name="criteria" type="String" length="4000" label="Условие фильтрации, применяемое при отборе событий для данной подписки" column-name="CRITERIA" column-type="VARCHAR(4000)"/>
+      <property name="description" type="String" length="254" label="Описание подписки" column-name="DESCRIPTION" column-type="VARCHAR(254)"/>
+      <property name="eventType" type="String" length="254" label="Тип события, на который произведена данная подписка" column-name="EVENTTYPE" column-type="VARCHAR(254)"/>
+      <property name="headers" type="String" length="2048" label="Спецификация дополнительных заголовков сообщения" column-name="HEADERS" column-type="VARCHAR(2048)"/>
+      <property name="idempotenceHeaderName" type="String" length="254" label="Наименование заголовка сообщения, в котором будет передан UUID-ключ идемпотентности" column-name="IDEMPOTENCEHEADERNAME" column-type="VARCHAR(254)"/>
+      <property name="lastChangeDate" type="Date" length="3" label="Время последнего изменения" column-name="SYS_LASTCHANGEDATE" column-type="TIMESTAMP(3)"/>
+      <property name="maxRetryAttempts" type="Integer" label="Количество повторных попыток публикации" column-name="MAXRETRYATTEMPTS" column-type="${type_int}"/>
+      <property name="name" type="String" length="254" label="Имя подписки (для отображения, включая лейблы мониторинга)" column-name="NAME" column-type="VARCHAR(254)"/>
+      <property name="ownerId" type="String" length="254" label="Владелец подписки" column-name="SYS_OWNERID" column-type="VARCHAR(254)"/>
+      <property name="query" type="String" length="4000" label="GraphQL-запрос для выборки данных, которые будут использованы при формировании результата обработки события" column-name="QUERY" column-type="VARCHAR(4000)"/>
+      <property name="retryDelayMs" type="Integer" label="Задержка между повторными попытками публикации, в миллисекундах" column-name="RETRYDELAYMS" column-type="${type_int}"/>
+      <property name="target" type="String" length="254" label="Способ, которым должен быть отправлен результат обработки события" column-name="TARGET" column-type="VARCHAR(254)"/>
+      <property name="template" type="String" length="4000" label="Шаблон результата обработки события" column-name="TEMPLATE" column-type="VARCHAR(4000)"/>
+      <property name="timeoutMs" type="Integer" label="Таймаут публикации, в миллисекундах" column-name="TIMEOUTMS" column-type="${type_int}"/>
+      <property name="validTill" type="OffsetDateTime" length="3" label="Дата, до которой подписка считается активной" column-name="VALIDTILL" column-type="${type_offsetDateTime3}"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysEventQueueItemPK" embeddable="true" label="PrimaryKey для SysEventQueueItem" class-access="SYSTEM" generate-jpa="false" import-model-name="test" no-idempotence="true">
+      <property name="eventId" type="String" length="254" label="Идентификатор события" column-name="EVENTID" column-type="VARCHAR(254)"/>
+      <property name="subscriptionId" type="String" length="254" label="Идентификатор подписки" column-name="SUBSCRIPTIONID" column-type="VARCHAR(254)"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="SysEventQueueItem" label="Класс очереди событий" tableName="T_DSPC_SYS_EVENT_QUEUE_ITEM" pk-index-name="PK_T_DSPC_SYS_EVENT_QUEUE_ITEM" affinity="objectId" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test" root-type="SysEventQueueItem">
+      <index index-name="I_SYSEVENTQUEUEITEM_STATUS">
+        <property name="status"/>
+      </index>
+      <index index-name="I_SYSEVENTQUEUEITEM_PARTITIONHASH">
+        <property name="partitionHash"/>
+      </index>
+      <index index-name="I_SYSEVENTQUEUEITEM_CREATIONTIMESTAMP">
+        <property name="creationTimestamp"/>
+      </index>
+      <index index-name="PK_T_DSPC_SYS_EVENT_QUEUE_ITEM" primary-key="true">
+        <property name="objectId.eventId"/>
+        <property name="objectId.subscriptionId"/>
+      </index>
+      <embedded-lists>
+        <embedded-list name="objectId">
+          <property name="eventId" column-name="OBJECTID_EVENTID"/>
+          <property name="subscriptionId" column-name="OBJECTID_SUBSCRIPTIONID"/>
+        </embedded-list>
+      </embedded-lists>
+      <no-base-entity>true</no-base-entity>
+      <no-idempotence>true</no-idempotence>
+      <property name="aggregateRootId" type="String" length="254" label="ID корня агрегата Event - aggregateRootId" column-name="AGGREGATEROOTID" column-type="VARCHAR(254)"/>
+      <property name="aggregateRootType" type="String" length="254" label="Тип корня агрегата Event - определяется по метаданным" column-name="AGGREGATEROOTTYPE" column-type="VARCHAR(254)"/>
+      <property name="creationTimestamp" type="OffsetDateTime" length="3" label="Время создания записи" column-name="CREATIONTIMESTAMP" column-type="${type_offsetDateTime3}"/>
+      <property name="eventType" type="String" length="254" label="Тип события" column-name="EVENTTYPE" column-type="VARCHAR(254)"/>
+      <property name="idempotenceHeader" type="String" length="254" label="UUID-значение передаваемое в заголовке при публикации сообщения" column-name="IDEMPOTENCEHEADER" column-type="VARCHAR(254)"/>
+      <property name="lastChangeDate" type="Date" length="3" label="Время последнего изменения" column-name="SYS_LASTCHANGEDATE" column-type="TIMESTAMP(3)"/>
+      <property name="partitionHash" type="Long" label="Хэш для партиционирования" column-name="PARTITIONHASH" column-type="${type_long}"/>
+      <property name="status" type="String" length="254" label="Статус обработки элемента очереди событий" column-name="STATUS" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="SysEventQueueItemPK" length="254" label="Прикладной ID объекта" mandatory="true" embedded="true" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="SysEventQueueItemPK" category="MANUAL"/>
+    </class>
+    <class name="SysSubscriptionWorkerPK" embeddable="true" label="PrimaryKey для SysSubscriptionWorker" class-access="SYSTEM" generate-jpa="false" import-model-name="test" no-idempotence="true">
+      <property name="partitionNumber" type="Integer" label="Номер партиции" column-name="PARTITIONNUMBER" column-type="${type_int}"/>
+      <property name="subscriptionId" type="String" length="254" label="Идентификатор подписки" column-name="SUBSCRIPTIONID" column-type="VARCHAR(254)"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="SysSubscriptionWorker" label="Назначение worker на партиции" tableName="T_DSPC_SYS_SUBSCRIPTION_WORKER" pk-index-name="PK_T_DSPC_SYS_SUBSCRIPTION_WORKER" affinity="objectId" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test" root-type="SysSubscriptionWorker">
+      <index index-name="I_SYSSUBSCRIPTIONWORKER_PROCESSID">
+        <property name="processId"/>
+      </index>
+      <index index-name="I_SYSSUBSCRIPTIONWORKER_HEARTBEAT">
+        <property name="heartBeat"/>
+      </index>
+      <index index-name="PK_T_DSPC_SYS_SUBSCRIPTION_WORKER" primary-key="true">
+        <property name="objectId.partitionNumber"/>
+        <property name="objectId.subscriptionId"/>
+      </index>
+      <embedded-lists>
+        <embedded-list name="objectId">
+          <property name="partitionNumber" column-name="OBJECTID_PARTITIONNUMBER"/>
+          <property name="subscriptionId" column-name="OBJECTID_SUBSCRIPTIONID"/>
+        </embedded-list>
+      </embedded-lists>
+      <no-base-entity>true</no-base-entity>
+      <no-idempotence>true</no-idempotence>
+      <property name="heartBeat" type="OffsetDateTime" length="3" label="Время последнего обновления" column-name="HEARTBEAT" column-type="${type_offsetDateTime3}"/>
+      <property name="processId" type="String" length="254" label="Хэш текущего воркера" column-name="PROCESSID" column-type="VARCHAR(254)"/>
+      <property name="state" type="String" length="254" label="Состояние обработки партиции (active, circuit breaking, unassigned)" column-name="STATE" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="SysSubscriptionWorkerPK" length="254" label="Прикладной ID объекта" mandatory="true" embedded="true" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="SysSubscriptionWorkerPK" category="MANUAL"/>
+    </class>
+    <class name="SysSubscriptionProcess" label="Назначение worker на партиции" tableName="T_DSPC_SYS_SUBSCRIPTION_PROCESS" pk-index-name="PK_T_DSPC_SYS_SUBSCRIPTION_PROCESS" affinity="objectId" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test" root-type="SysSubscriptionProcess">
+      <index index-name="PK_T_DSPC_SYS_SUBSCRIPTION_PROCESS" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-base-entity>true</no-base-entity>
+      <no-idempotence>true</no-idempotence>
+      <property name="heartBeat" type="OffsetDateTime" length="3" label="Время последнего обновления" column-name="HEARTBEAT" column-type="${type_offsetDateTime3}"/>
+      <property name="kind" type="String" length="254" label="Вид процесса (worker / перекладчик)  (eventworker,eventtransfer)" column-name="KIND" column-type="VARCHAR(254)"/>
+      <property name="maxPartitions" type="Integer" label="Максимальное количество партиций обрабатываемых воркером" column-name="MAXPARTITIONS" column-type="${type_int}"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="BaseEvent" label="Базовый класс события" is-abstract="true" class-access="SYSTEM" import-model-name="test" is-event="true" no-base-entity="true">
+      <property name="creationTimestamp" type="OffsetDateTime" length="3" label="Время создания события" column-name="CREATIONTIMESTAMP" default-value="now" column-type="${type_offsetDateTime3}" changeable="READ_ONLY"/>
+      <property name="lastChangeDate" type="Date" length="3" label="Время последнего изменения записи" column-name="SYS_LASTCHANGEDATE" column-type="TIMESTAMP(3)" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="ID события" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="ownerId" type="String" length="254" label="ID тенанта" column-name="SYS_OWNERID" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <property name="partitionHash" type="Long" label="Предрассчитанный хеш для деления по партициям" column-name="PARTITIONHASH" column-type="${type_long}" system-field="true" changeable="SYSTEM"/>
+      <property name="status" type="String" length="254" label="Статус обработки события" column-name="STATUS" default-value="NEW" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Тип события (имя класса события)" mandatory="true" column-name="TYPE" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="BaseMergeEvent" extends="BaseEvent" label="Базовый класс события" is-abstract="true" class-access="SYSTEM" import-model-name="test" is-event="true" no-base-entity="true">
+      <property name="errorCode" type="String" length="5" label="Код ошибки" column-name="ERRORCODE" column-type="VARCHAR(5)" changeable="READ_ONLY"/>
+      <property name="errorMessage" type="String" length="2048" label="Сообщение об ошибке" column-name="ERRORMESSAGE" column-type="VARCHAR(2048)" changeable="READ_ONLY"/>
+      <property name="fromReference" type="String" length="254" label="Предыдущее значение ссылки" column-name="FROMREFERENCE" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <property name="mergeFailed" type="Boolean" label="True если операция завершилась неудачей, False или null - если успешно" column-name="MERGEFAILED" column-type="${type_boolean}" changeable="READ_ONLY"/>
+      <property name="mergeKind" type="String" length="254" label="Вид слияния - параметр процесса слияния-разлияния" column-name="MERGEKIND" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <property name="referenceName" type="String" length="254" label="Имя обрабатываемой при слиянии ссылки" column-name="REFERENCENAME" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <property name="toReference" type="String" length="254" label="Новое значение ссылки" column-name="TOREFERENCE" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="IntegrityCheck" label="Таблица для управления фоновым процессом проверки целостности БД" tableName="T_DSPC_SYS_INTEGRITYCHECK" pk-index-name="PK_T_DSPC_SYS_INTEGRITYCHECK" affinity="objectId" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test" root-type="IntegrityCheck">
+      <index unique="true" index-name="I_INTEGRITYCHECK_CHECKID">
+        <property name="checkId"/>
+      </index>
+      <index index-name="PK_T_DSPC_SYS_INTEGRITYCHECK" primary-key="true">
+        <property name="compositeId.checkTime"/>
+      </index>
+      <embedded-lists>
+        <embedded-list name="compositeId">
+          <property name="checkTime" column-name="CHECKTIME"/>
+        </embedded-list>
+      </embedded-lists>
+      <no-base-entity>true</no-base-entity>
+      <no-idempotence>true</no-idempotence>
+      <property name="checkId" type="Integer" label="Уникальный id отчета - Increment, используется для доступа к отчету" column-name="CHECKID" column-type="${type_int}"/>
+      <property name="checkState" type="String" length="254" label="Состояние - Run, done, abort, aborting" column-name="CHECKSTATE" column-type="VARCHAR(254)"/>
+      <property name="finishTime" type="OffsetDateTime" length="3" label="Время завершения проверки" column-name="FINISHTIME" column-type="${type_offsetDateTime3}"/>
+      <property name="progress" type="BigDecimal" scale="10" length="38" label="Вывод количества обработанных порций" column-name="PROGRESS" column-type="NUMBER(38,10)"/>
+      <property name="compositeId" type="IntegrityCheckPK" length="254" mandatory="true" embedded="true" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="IntegrityCheckPK" category="MANUAL"/>
+    </class>
+    <class name="IntegrityCheckPK" embeddable="true" label="PrimaryKey for IntegrityCheck" class-access="SYSTEM" generate-jpa="false" import-model-name="test">
+      <property name="checkTime" type="String" length="26" label="Время проверки - одно на всю проверку" column-name="CHECKTIME" column-type="VARCHAR(26)"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="IntegrityCheckReport" label="Таблица отчета проверки целостности БД" tableName="T_DSPC_SYS_INTEGRITYCHECKREPORT" pk-index-name="PK_T_DSPC_SYS_INTEGRITYCHECKREPORT" affinity="objectId" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test" root-type="IntegrityCheckReport">
+      <index index-name="I_INTEGRITYCHECKREPORT_CHECKTIME_1">
+        <property name="checkTime"/>
+        <property name="entityType"/>
+        <property name="checkType"/>
+      </index>
+      <no-base-entity>true</no-base-entity>
+      <no-idempotence>true</no-idempotence>
+      <property name="checkTime" type="String" length="26" label="Время проверки - одно на всю проверку" column-name="CHECKTIME" column-type="VARCHAR(26)"/>
+      <property name="checkType" type="String" length="128" label="Вид проверки" column-name="CHECKTYPE" column-type="VARCHAR(128)"/>
+      <property name="entityType" type="String" length="254" label="Имя типа" column-name="ENTITYTYPE" column-type="VARCHAR(254)"/>
+      <property name="result" type="String" length="254" label="Результат - Passed, Failed" column-name="RESULT_" column-type="VARCHAR(254)"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="IntegrityCheckReportDetails" label="Таблица детализации отчета проверки целостности БД" tableName="T_DSPC_SYS_INTEGRITYCHECKREPORTDETAILS" pk-index-name="PK_T_DSPC_SYS_INTEGRITYCHECKREPORTDETAILS" affinity="objectId" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test" root-type="IntegrityCheckReportDetails">
+      <index index-name="I_INTEGRITYCHECKREPORTDETAILS_CHECKTIME_1">
+        <property name="checkTime"/>
+        <property name="entityType"/>
+        <property name="checkType"/>
+        <property name="id"/>
+      </index>
+      <no-base-entity>true</no-base-entity>
+      <no-idempotence>true</no-idempotence>
+      <property name="checkTime" type="String" length="26" label="Время проверки - одно на всю проверку" column-name="CHECKTIME" column-type="VARCHAR(26)"/>
+      <property name="checkType" type="String" length="128" label="Вид проверки" column-name="CHECKTYPE" column-type="VARCHAR(128)"/>
+      <property name="column1" type="String" length="254" label="Столбец проверяемой таблицы" column-name="COLUMN1" column-type="VARCHAR(254)"/>
+      <property name="column2" type="String" length="254" label="Столбец таблицы, относительно которого должно выполняться условие" column-name="COLUMN2" column-type="VARCHAR(254)"/>
+      <property name="entityType" type="String" length="254" label="Имя класса, для которого формируется проверка" column-name="ENTITYTYPE" column-type="VARCHAR(254)"/>
+      <property name="errorCode" type="String" length="128" label="Код ошибки" column-name="ERRORCODE" column-type="VARCHAR(128)"/>
+      <property name="errorDetails" type="String" length="2048" label="Детали ошибки" column-name="ERRORDETAILS" column-type="VARCHAR(2048)"/>
+      <property name="id" type="String" length="254" label="ID сущности" column-name="ID" column-type="VARCHAR(254)"/>
+      <property name="table1" type="String" length="254" label="Имя проверяемой таблицы" column-name="TABLE1" column-type="VARCHAR(254)"/>
+      <property name="table2" type="String" length="254" label="Имя таблицы, относительно которой должно выполняться условие" column-name="TABLE2" column-type="VARCHAR(254)"/>
+      <property name="value1" type="String" length="254" label="Наблюдаемое значение" column-name="VALUE1" column-type="VARCHAR(254)"/>
+      <property name="value2" type="String" length="254" label="Значение столбца таблицы, относительно которого проверялось условие" column-name="VALUE2" column-type="VARCHAR(254)"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="Stakeholder" label="Таблица наблюдателей" tableName="T_STAKEHOLDER" pk-index-name="PK_T_STAKEHOLDER" is-dictionary="true" affinity="RootDictionary" class-access="UPDATE" final-class="true" strategy="JOINED" import-model-name="test" is-updated-root-dictionaries="true" root-type="Stakeholder">
+      <index index-name="PK_T_STAKEHOLDER" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_STAKEHOLDER_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="chgCnt" type="Long" label="Счетчик изменений (технический)" column-name="CHGCNT" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="code" type="String" length="254" label="Код наблюдателя" column-name="CODE" column-type="VARCHAR(254)"/>
+      <property name="isDeleted" type="Boolean" label="System attribute: record owner module id" column-name="SYS_ISDELETED" default-value="false" column-type="${type_boolean}" system-field="true" changeable="SYSTEM"/>
+      <property name="lastChangeDate" type="Date" length="3" label="System attribute: record owner module id" column-name="SYS_LASTCHANGEDATE" column-type="TIMESTAMP(3)"/>
+      <property name="name" type="String" length="254" label="Имя наблюдателя" column-name="NAME" column-type="VARCHAR(254)"/>
+      <property name="offFlag" type="Byte" label="Признак деактивации записи" column-name="OFFFLAG" column-type="${type_byte}" system-field="true" changeable="SYSTEM"/>
+      <property name="ownerId" type="String" length="254" label="System attribute: record owner module id" column-name="SYS_OWNERID" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <property name="partitionId" type="Integer" label="System attribute: partitioning id" column-name="SYS_PARTITIONID" column-type="${type_int}" system-field="true" changeable="SYSTEM"/>
+      <property name="recModelVersion" type="String" length="254" label="System attribute: Record model version" column-name="SYS_RECMODELVERSION" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="RootDictionary" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="Status" label="Таблица статусов" tableName="T_STATUS" pk-index-name="PK_T_STATUS" is-dictionary="true" affinity="RootDictionary" class-access="UPDATE" final-class="true" strategy="JOINED" import-model-name="test" is-updated-root-dictionaries="true" root-type="Status">
+      <index unique="true" index-name="I_STATUS_STATUSTYPE_1">
+        <property name="statusType"/>
+        <property name="stakeholder"/>
+        <property name="code"/>
+      </index>
+      <index index-name="PK_T_STATUS" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_STATUS_STAKEHOLDER_ID">
+        <property name="stakeholder"/>
+      </index>
+      <index index-name="I_STATUS_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="chgCnt" type="Long" label="Счетчик изменений (технический)" column-name="CHGCNT" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="code" type="String" length="254" label="Код статуса" column-name="CODE" column-type="VARCHAR(254)"/>
+      <property name="description" type="String" length="254" label="Описание статуса" column-name="DESCRIPTION" column-type="VARCHAR(254)"/>
+      <property name="initial" type="Boolean" label="Является ли статус дефолтным при создании объекта" column-name="INITIAL_" column-type="${type_boolean}"/>
+      <property name="isDeleted" type="Boolean" label="System attribute: Deleted flag" mandatory="true" column-name="SYS_ISDELETED" default-value="false" column-type="${type_boolean}" system-field="true" changeable="SYSTEM"/>
+      <property name="lastChangeDate" type="Date" length="3" label="System attribute: record owner module id" column-name="SYS_LASTCHANGEDATE" column-type="TIMESTAMP(3)"/>
+      <property name="name" type="String" length="254" label="Название статуса" column-name="NAME" column-type="VARCHAR(254)"/>
+      <property name="offFlag" type="Byte" label="Признак деактивации записи" column-name="OFFFLAG" column-type="${type_byte}" system-field="true" changeable="SYSTEM"/>
+      <property name="ownerId" type="String" length="254" label="System attribute: record owner module id" column-name="SYS_OWNERID" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <property name="partitionId" type="Integer" label="System attribute: partitioning id" column-name="SYS_PARTITIONID" column-type="${type_int}" system-field="true" changeable="SYSTEM"/>
+      <property name="recModelVersion" type="String" length="254" label="System attribute: Record model version" column-name="SYS_RECMODELVERSION" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <property name="stakeholder" type="Stakeholder" length="254" label="Ссылка на наблюдателя" column-name="STAKEHOLDER_ID" column-type="VARCHAR(254)" object-link="M2O"/>
+      <property name="statusType" type="String" length="254" label="Тип базового класса" column-name="STATUSTYPE" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="RootDictionary" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="StatusGraph" label="Таблица переходов между статусами" tableName="T_STATUSGRAPH" pk-index-name="PK_T_STATUSGRAPH" is-dictionary="true" affinity="RootDictionary" class-access="UPDATE" final-class="true" strategy="JOINED" import-model-name="test" is-updated-root-dictionaries="true" root-type="StatusGraph">
+      <index index-name="I_STATUSGRAPH_STATUSFROM_ID">
+        <property name="statusFrom"/>
+      </index>
+      <index index-name="I_STATUSGRAPH_STATUSTO_ID">
+        <property name="statusTo"/>
+      </index>
+      <index index-name="PK_T_STATUSGRAPH" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_STATUSGRAPH_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="chgCnt" type="Long" label="Счетчик изменений (технический)" column-name="CHGCNT" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="code" type="String" length="254" label="Код прехода" column-name="CODE" column-type="VARCHAR(254)"/>
+      <property name="isDeleted" type="Boolean" label="System attribute: record owner module id" column-name="SYS_ISDELETED" default-value="false" column-type="${type_boolean}" system-field="true" changeable="SYSTEM"/>
+      <property name="label" type="String" length="254" label="Пользовательская метка" column-name="LABEL" column-type="VARCHAR(254)"/>
+      <property name="lastChangeDate" type="Date" length="3" label="System attribute: record owner module id" column-name="SYS_LASTCHANGEDATE" column-type="TIMESTAMP(3)"/>
+      <property name="name" type="String" length="254" label="Название перехода" column-name="NAME" column-type="VARCHAR(254)"/>
+      <property name="offFlag" type="Byte" label="Признак деактивации записи" column-name="OFFFLAG" column-type="${type_byte}" system-field="true" changeable="SYSTEM"/>
+      <property name="ownerId" type="String" length="254" label="System attribute: record owner module id" column-name="SYS_OWNERID" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <property name="partitionId" type="Integer" label="System attribute: partitioning id" column-name="SYS_PARTITIONID" column-type="${type_int}" system-field="true" changeable="SYSTEM"/>
+      <property name="recModelVersion" type="String" length="254" label="System attribute: Record model version" column-name="SYS_RECMODELVERSION" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <property name="statusFrom" type="Status" length="254" label="Статус из которого переходим" column-name="STATUSFROM_ID" column-type="VARCHAR(254)" object-link="M2O"/>
+      <property name="statusTo" type="Status" length="254" label="Статус в который переходим" column-name="STATUSTO_ID" column-type="VARCHAR(254)" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="RootDictionary" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CrShedlock" extends="BaseEntity" label="Таблица хранения информации о распределенных блокировках" tableName="T_DSPC_SYS_SHEDLOCK" pk-index-name="PK_T_DSPC_SYS_SHEDLOCK" affinity="objectId" class-access="SYSTEM" final-class="true" strategy="JOINED" lockable="true" generate-jpa="false" import-model-name="test" root-type="CrShedlock">
+      <index index-name="PK_T_DSPC_SYS_SHEDLOCK" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="syalTimeout" type="Long" label="Таймаут прикладной блокировки" column-name="SYALTIMEOUT" column-type="${type_long}" system-field="true" changeable="SYSTEM"/>
+      <property name="syalActive" type="Boolean" label="Признак активности прикладной блокировки" column-name="SYALACTIVE" default-value="false" column-type="${type_boolean}" system-field="true" changeable="SYSTEM"/>
+      <property name="syalToken" type="String" length="256" label="Токен прикладной блокировки" column-name="SYALTOKEN" column-type="VARCHAR(256)" system-field="true" changeable="SYSTEM"/>
+      <property name="syalChangeDate" type="Date" length="3" label="Дата изменения прикладной блокировки" column-name="SYALCHANGEDATE" column-type="TIMESTAMP(3)" system-field="true" changeable="SYSTEM"/>
+      <property name="syalReason" type="String" length="256" label="Причина установки/снятия прикладной блокировки" column-name="SYALREASON" column-type="VARCHAR(256)" changeable="READ_ONLY"/>
+      <property name="syalUnlockTime" type="OffsetDateTime" length="3" label="Время окончания прикладной блокировки" column-name="SYALUNLOCKTIME" column-type="${type_offsetDateTime3}" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysVersion" extends="BaseEntity" label="Таблица хранения информации версии и состояния развернутой модели" tableName="T_DSPC_SYS_VERSIONS" pk-index-name="PK_T_DSPC_SYS_VERSIONS" affinity="objectId" class-access="SYSTEM" final-class="true" strategy="JOINED" import-model-name="test" root-type="SysVersion">
+      <index index-name="PK_T_DSPC_SYS_VERSIONS" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="implFinishTime" type="LocalDateTime" length="3" label="Время окончания прогрузки справочных данных" column-name="IMPLFINISHTIME" column-type="TIMESTAMP(3)"/>
+      <property name="implStartTime" type="LocalDateTime" length="3" label="Время начала прогрузки справочных данных" column-name="IMPLSTARTTIME" column-type="TIMESTAMP(3)"/>
+      <property name="minCompatibleVersion" type="String" length="254" label="Минимальная совместимая версия модели" column-name="MINCOMPATIBLEVERSION" column-type="VARCHAR(254)"/>
+      <property name="modelName" type="String" length="254" label="Имя модели" column-name="MODELNAME" column-type="VARCHAR(254)"/>
+      <property name="modelStatus" type="String" length="254" label="Состояние модели" column-name="MODELSTATUS" column-type="VARCHAR(254)"/>
+      <property name="modelVersion" type="String" length="254" label="Версия модели" column-name="MODELVERSION" column-type="VARCHAR(254)"/>
+      <property name="rollbackFinishTime" type="LocalDateTime" length="3" label="Время окончания отката справочных данных" column-name="ROLLBACKFINISHTIME" column-type="TIMESTAMP(3)"/>
+      <property name="rollbackStartTime" type="LocalDateTime" length="3" label="Время начала отката справочных данных" column-name="ROLLBACKSTARTTIME" column-type="TIMESTAMP(3)"/>
+      <property name="sysVersionDictUpdate" type="SysVersionDictUpdate" length="254" collection="SET" label="SysVersionDictUpdate" column-type="VARCHAR(254)" mappedBy="sysVersion" object-link="O2M"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysVersionDictUpdate" extends="BaseEntity" label="Таблица хранения загружаемых, откатываемых справочных данных" tableName="T_DSPC_SYS_VERSION_DICT_UPDATE" pk-index-name="PK_T_DSPC_SYS_VERSION_DICT_UPDATE" affinity="sysVersion" class-access="SYSTEM" final-class="true" strategy="JOINED" import-model-name="test" root-type="SysVersion">
+      <index index-name="PK_T_DSPC_SYS_VERSION_DICT_UPDATE" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSVERSIONDICTUPDATE_SYSVERSION_ID">
+        <property name="sysVersion"/>
+      </index>
+      <index index-name="I_SYSVERSIONDICTUPDATE_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="dictContent" type="String" length="4001" label="Справочные данные для загрузки в json формате" column-name="DICTCONTENT" column-type="CLOB"/>
+      <property name="dictPart" type="Integer" label="Номер загружаемой порции данных" column-name="DICTPART" column-type="${type_int}"/>
+      <property name="dictRollbackContent" type="String" length="4001" label="Справочные данные для отката в json формате" column-name="DICTROLLBACKCONTENT" column-type="CLOB"/>
+      <property name="sysVersion" type="SysVersion" length="254" label="Агрегат" mandatory="true" column-name="SYSVERSION_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="useFile" type="Boolean" label="Признак что содержимое является именем файла" column-name="USEFILE" column-type="${type_boolean}"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysVersion" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysIdGen" label="Таблица хранения индентификаторов пода" tableName="T_DSPC_SYS_IDGEN" pk-index-name="PK_T_DSPC_SYS_IDGEN" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index index-name="PK_T_DSPC_SYS_IDGEN" primary-key="true">
+        <property name="compositeId.genNo"/>
+      </index>
+      <embedded-lists>
+        <embedded-list name="compositeId">
+          <property name="genNo" column-name="GENNO"/>
+        </embedded-list>
+      </embedded-lists>
+      <no-base-entity>true</no-base-entity>
+      <no-idempotence>true</no-idempotence>
+      <property name="genId" type="String" length="36" label="ID генератора" column-name="GENID" column-type="VARCHAR(36)"/>
+      <property name="tFree" type="OffsetDateTime" length="3" label="Метка времени освобождения номера (время БД)" column-name="TFREE" column-type="${type_offsetDateTime3}"/>
+      <property name="tStart" type="OffsetDateTime" length="3" label="Метка времени выдачи номера (время БД)" column-name="TSTART" column-type="${type_offsetDateTime3}"/>
+      <property name="compositeId" type="SysIdGenPK" length="254" mandatory="true" embedded="true" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="SysIdGenPK" category="MANUAL"/>
+    </class>
+    <class name="SysIdGenPK" embeddable="true" label="PrimaryKey for SysIdGen" class-access="SYSTEM" generate-jpa="false" import-model-name="test">
+      <property name="genNo" type="Integer" label="Номер генератора" column-name="GENNO" column-type="${type_int}"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="SysConfig" label="Таблица хранения информации зоны" tableName="T_DSPC_SYS_CONFIG" pk-index-name="PK_T_DSPC_SYS_CONFIG" affinity="objectId" class-access="SYSTEM" final-class="true" strategy="JOINED" import-model-name="test" root-type="SysConfig">
+      <index index-name="PK_T_DSPC_SYS_CONFIG" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-base-entity>true</no-base-entity>
+      <no-idempotence>true</no-idempotence>
+      <property name="genNoLifeTime" type="Integer" label="Длительность использования полученного номера" column-name="GENNOLIFETIME" column-type="${type_int}"/>
+      <property name="lastPing" type="String" length="32" label="Проверка доступа" column-name="LASTPING" column-type="VARCHAR(32)"/>
+      <property name="shardId" type="String" length="254" label="Идентификатор шарды" column-name="SHARDID" column-type="VARCHAR(254)"/>
+      <property name="zoneId" type="String" length="254" label="Идентификатор зоны" column-name="ZONEID" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="RootDictionary" label="Класс агрегат справочника" tableName="T_ROOTDICTIONARY" pk-index-name="PK_T_ROOTDICTIONARY" is-dictionary="true" affinity="objectId" class-access="READ_ONLY" strategy="JOINED" import-model-name="test" root-type="RootDictionary">
+      <index index-name="PK_T_ROOTDICTIONARY" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_ROOTDICTIONARY_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Дискриминатор классов" mandatory="true" column-name="TYPE" default-value="RootDictionary" description="Дискриминатор" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CREpkEvent" extends="BaseEntity" label="Таблица событий ЕПК" tableName="T_REPL_CR_CREPKEVENT" pk-index-name="PK_T_REPL_CR_CREPKEVENT" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index unique="true" index-name="I_CREPKEVENT_EPKID">
+        <property name="epkId"/>
+      </index>
+      <index index-name="PK_T_REPL_CR_CREPKEVENT" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="currentSpace" type="String" length="254" label="Текущее пространство обслуживания" column-name="CURRENTSPACE" column-type="VARCHAR(254)"/>
+      <property name="epkId" type="String" length="254" label="Идентификатор EPK" column-name="EPKID" column-type="VARCHAR(254)"/>
+      <property name="fromClient" type="String" length="254" label="Старый клиент" column-name="FROMCLIENT" column-type="VARCHAR(254)"/>
+      <property name="fromClientVersion" type="Long" label="Версия старого клиента" column-name="FROMCLIENTVERSION" column-type="${type_long}"/>
+      <property name="newClient" type="String" length="254" label="ЕПК-ID клиента, который был создан вместо ошибочно слитого" column-name="NEWCLIENT" column-type="VARCHAR(254)"/>
+      <property name="originalToClient" type="String" length="254" label="Новый клиент. То же, что и toClient, но это поле остаётся неизменным после схлопывания" column-name="ORIGINALTOCLIENT" column-type="VARCHAR(254)"/>
+      <property name="referenceType" type="String" length="254" label="Тип обрабатываемой ссылки [Client, Individual, etc]" column-name="REFERENCETYPE" column-type="VARCHAR(254)"/>
+      <property name="status" type="String" length="254" label="Статус обработки события" column-name="STATUS" column-type="VARCHAR(254)"/>
+      <property name="timeCreated" type="Date" length="3" label="Время создания события" column-name="TIMECREATED" column-type="TIMESTAMP(3)"/>
+      <property name="toClient" type="String" length="254" label="Новый клиент" column-name="TOCLIENT" column-type="VARCHAR(254)"/>
+      <property name="toClientVersion" type="Long" label="Версия нового клиента" column-name="TOCLIENTVERSION" column-type="${type_long}"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CREpkEventBuffer" extends="BaseEntity" label="Буферная таблица событий ЕПК" tableName="T_REPL_CR_CREPKEVENTBUFFER" pk-index-name="PK_T_REPL_CR_CREPKEVENTBUFFER" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index unique="true" index-name="I_CREPKEVENTBUFFER_EPKID">
+        <property name="epkId"/>
+      </index>
+      <index index-name="I_CREPKEVENTBUFFER_STATUS">
+        <property name="status"/>
+      </index>
+      <index index-name="I_CREPKEVENTBUFFER_TIMECREATED">
+        <property name="timeCreated"/>
+      </index>
+      <index index-name="PK_T_REPL_CR_CREPKEVENTBUFFER" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="epkId" type="String" length="254" label="Идентификатор EPK" column-name="EPKID" column-type="VARCHAR(254)"/>
+      <property name="fromClient" type="String" length="254" label="Старый клиент" column-name="FROMCLIENT" column-type="VARCHAR(254)"/>
+      <property name="fromClientVersion" type="Long" label="Версия старого клиента" column-name="FROMCLIENTVERSION" column-type="${type_long}"/>
+      <property name="referenceType" type="String" length="254" label="Тип обрабатываемой ссылки [Client, Individual, etc]" column-name="REFERENCETYPE" column-type="VARCHAR(254)"/>
+      <property name="status" type="String" length="254" label="Статус обработки события" column-name="STATUS" column-type="VARCHAR(254)"/>
+      <property name="timeCreated" type="Date" length="3" label="Время создания события" column-name="TIMECREATED" column-type="TIMESTAMP(3)"/>
+      <property name="toClient" type="String" length="254" label="Новый клиент" column-name="TOCLIENT" column-type="VARCHAR(254)"/>
+      <property name="toClientVersion" type="Long" label="Версия нового клиента" column-name="TOCLIENTVERSION" column-type="${type_long}"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CRRequestEvent" extends="BaseEntity" label="Таблица событий запросов" tableName="T_REPL_CR_CRREQUESTEVENT" pk-index-name="PK_T_REPL_CR_CRREQUESTEVENT" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index index-name="PK_T_REPL_CR_CRREQUESTEVENT" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="fromClient" type="String" length="254" label="Старый клиент" column-name="FROMCLIENT" column-type="VARCHAR(254)"/>
+      <property name="fromSpace" type="String" length="254" label="Из какого пространства (SPACE/ZONE)" column-name="FROMSPACE" column-type="VARCHAR(254)"/>
+      <property name="referenceCustomType" type="String" length="254" label="Тип обрабатываемой ссылки (EkpitSoftReference)" column-name="REFERENCECUSTOMTYPE" column-type="VARCHAR(254)"/>
+      <property name="referenceType" type="String" length="254" label="Тип обрабатываемой ссылки [Client, Individual, etc]" column-name="REFERENCETYPE" column-type="VARCHAR(254)"/>
+      <property name="status" type="String" length="254" label="Статус обработки события" column-name="STATUS" column-type="VARCHAR(254)"/>
+      <property name="timeCreated" type="Date" length="3" label="Время создания события" column-name="TIMECREATED" column-type="TIMESTAMP(3)"/>
+      <property name="toClient" type="String" length="254" label="Новый клиент" column-name="TOCLIENT" column-type="VARCHAR(254)"/>
+      <property name="toSpace" type="String" length="254" label="В какое пространство (SPACE/ZONE)" column-name="TOSPACE" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CRRequestEventDupByAggregate" extends="BaseEntity" label="Таблица событий запросов" tableName="T_REPL_CR_CRREQUESTEVENT_DUP_BY_AGGREGATE" pk-index-name="PK_T_REPL_CR_CRREQUESTEVENT_DUP_BY_AGGREGATE" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index index-name="PK_T_REPL_CR_CRREQUESTEVENT_DUP_BY_AGGREGATE" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="aggregateRootClass" type="String" length="254" label="Тип корня агрегата" column-name="AGGREGATEROOTCLASS" column-type="VARCHAR(254)"/>
+      <property name="aggregateRootId" type="String" length="254" label="ID корня агрегата" column-name="AGGREGATEROOTID" column-type="VARCHAR(254)"/>
+      <property name="fromClient" type="String" length="254" label="Старый клиент" column-name="FROMCLIENT" column-type="VARCHAR(254)"/>
+      <property name="referenceCustomType" type="String" length="254" label="Тип обрабатываемой ссылки (EkpitSoftReference)" column-name="REFERENCECUSTOMTYPE" column-type="VARCHAR(254)"/>
+      <property name="referenceType" type="String" length="254" label="Тип обрабатываемой ссылки [Client, Individual, etc]" column-name="REFERENCETYPE" column-type="VARCHAR(254)"/>
+      <property name="status" type="String" length="254" label="Статус обработки события" column-name="STATUS" column-type="VARCHAR(254)"/>
+      <property name="timeCreated" type="Date" length="3" label="Время создания события" column-name="TIMECREATED" column-type="TIMESTAMP(3)"/>
+      <property name="toClient" type="String" length="254" label="Новый клиент" column-name="TOCLIENT" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CRBatch" extends="BaseEntity" label="Таблица событий ЕПК" tableName="T_REPL_CR_CRBATCH" pk-index-name="PK_T_REPL_CR_CRBATCH" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index index-name="PK_T_REPL_CR_CRBATCH" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="entityName" type="String" length="254" label="Наименования таблицы" column-name="ENTITYNAME" column-type="VARCHAR(254)"/>
+      <property name="eventId" type="String" length="254" label="Сквозной идентификатор события EventId" column-name="EVENTID" column-type="VARCHAR(254)"/>
+      <property name="fieldName" type="String" length="254" label="Наименования поля" column-name="FIELDNAME" column-type="VARCHAR(254)"/>
+      <property name="identifiers" type="String" length="254" collection="SET" label="Идентфикаторы обработанных сущностей" column-name="IDENTIFIERS" collection-table-name="LC_REPL_CR_CRBATCH_IDENTIFIERS" key-column-name="CRBATCH_ID" column-type="VARCHAR(254)" collection-pk-index-name="PK_LC_REPL_CR_CRBATCH_IDENTIFIERS"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CRTask" extends="BaseEntity" label="Таблица с задачами" tableName="T_REPL_CR_CRTASK" pk-index-name="PK_T_REPL_CR_CRTASK" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index index-name="I_CRTASK_STATUS">
+        <property name="status"/>
+      </index>
+      <index index-name="PK_T_REPL_CR_CRTASK" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="fromClient" type="String" length="254" label="Старый клиент" column-name="FROMCLIENT" column-type="VARCHAR(254)"/>
+      <property name="fromSpace" type="String" length="254" label="Из какого пространства (SPACE/ZONE)" column-name="FROMSPACE" column-type="VARCHAR(254)"/>
+      <property name="heartbeat" type="Date" length="3" label="Время когда последний раз был установлен Heartbeat" column-name="HEARTBEAT" column-type="TIMESTAMP(3)"/>
+      <property name="operationType" type="String" length="254" label="TYPE [RELOCATION, DUPLICATION]" column-name="OPERATIONTYPE" column-type="VARCHAR(254)"/>
+      <property name="referenceCustomType" type="String" length="254" label="Тип обрабатываемой ссылки (EkpitSoftReference)" column-name="REFERENCECUSTOMTYPE" column-type="VARCHAR(254)"/>
+      <property name="referenceType" type="String" length="254" label="Тип обрабатываемой ссылки [Client, Individual, etc]" column-name="REFERENCETYPE" column-type="VARCHAR(254)"/>
+      <property name="retryAfter" type="Date" length="3" label="Время после которого можно перезапустить задачу" column-name="RETRYAFTER" column-type="TIMESTAMP(3)"/>
+      <property name="retryCount" type="Integer" label="Колличество перезапусков задачи" column-name="RETRYCOUNT" column-type="${type_int}"/>
+      <property name="status" type="String" length="254" label="Статус выполнения задачи" column-name="STATUS" column-type="VARCHAR(254)"/>
+      <property name="timeCreated" type="Date" length="3" label="Время создания события" column-name="TIMECREATED" column-type="TIMESTAMP(3)"/>
+      <property name="toClient" type="String" length="254" label="Новый клиент" column-name="TOCLIENT" column-type="VARCHAR(254)"/>
+      <property name="toSpace" type="String" length="254" label="В какое пространство (SPACE/ZONE)" column-name="TOSPACE" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CRProcess" extends="BaseEntity" label="Таблица с попыткой запуска задачи" tableName="T_REPL_CR_CRPROCESS" pk-index-name="PK_T_REPL_CR_CRPROCESS" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index index-name="PK_T_REPL_CR_CRPROCESS" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="eventId" type="String" length="254" label="Сквозной идентификатор события EventId" column-name="EVENTID" column-type="VARCHAR(254)"/>
+      <property name="finishTime" type="Date" length="3" label="Время окончания обработки" column-name="FINISHTIME" column-type="TIMESTAMP(3)"/>
+      <property name="kind" type="String" length="254" label="Тип исполняемого процесса" column-name="KIND" column-type="VARCHAR(254)"/>
+      <property name="node" type="String" length="254" label="Node на которой выполнялась обработка процесса" column-name="NODE" column-type="VARCHAR(254)"/>
+      <property name="notice" type="String" length="4000" label="Результат выполнения" column-name="NOTICE" column-type="VARCHAR(4000)"/>
+      <property name="reconciliationCount" type="Integer" label="Колличество выполненых проверок реконсиляции" column-name="RECONCILIATIONCOUNT" column-type="${type_int}"/>
+      <property name="startTime" type="Date" length="3" label="Время начала обработки" column-name="STARTTIME" column-type="TIMESTAMP(3)"/>
+      <property name="status" type="String" length="254" label="Статус выполнения процесса" column-name="STATUS" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CRLock" extends="BaseEntity" label="Таблица с задачами" tableName="T_REPL_CR_CRLOCK" pk-index-name="PK_T_REPL_CR_CRLOCK" affinity="objectId" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test" root-type="CRLock">
+      <index index-name="PK_T_REPL_CR_CRLOCK" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="clientType" type="String" length="254" label="Тип клиента [Client, Individual, Organization, etc]" column-name="CLIENTTYPE" column-type="VARCHAR(254)"/>
+      <property name="duplicationFrom" type="Long" label="Блокировка по from клиенту" column-name="DUPLICATIONFROM" column-type="${type_long}"/>
+      <property name="duplicationTo" type="Long" label="Блокировка по to клиенту" column-name="DUPLICATIONTO" column-type="${type_long}"/>
+      <property name="migrationStatus" type="Long" label="Миграционная блокировка по клиенту" column-name="MIGRATIONSTATUS" column-type="${type_long}"/>
+      <property name="token" type="String" length="254" label="TOKEN" column-name="TOKEN" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CRAggregateTask" extends="BaseEntity" label="Таблица с задачами обработки конкретного агрегата" tableName="T_REPL_CR_CRAGGREGATETASK" pk-index-name="PK_T_REPL_CR_CRAGGREGATETASK" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index index-name="I_CRAGGREGATETASK_STATUS">
+        <property name="status"/>
+      </index>
+      <index index-name="I_CRAGGREGATETASK_AGGREGATEROOTID">
+        <property name="aggregateRootId"/>
+      </index>
+      <index index-name="PK_T_REPL_CR_CRAGGREGATETASK" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="aggregateRootClass" type="String" length="254" label="Тип корня агрегата" column-name="AGGREGATEROOTCLASS" column-type="VARCHAR(254)"/>
+      <property name="aggregateRootId" type="String" length="254" label="ID корня агрегата" column-name="AGGREGATEROOTID" column-type="VARCHAR(254)"/>
+      <property name="eventId" type="String" length="254" label="Сквозной идентификатор события EventId" column-name="EVENTID" column-type="VARCHAR(254)"/>
+      <property name="status" type="String" length="254" label="Статус выполнения задачи" column-name="STATUS" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CRColocationMigrationEvent" extends="BaseEntity" label="Таблица событий запросов миграции по ColocationGroup" tableName="T_REPL_CR_COLOCATION_MIGRATION_EVENT" pk-index-name="PK_T_REPL_CR_COLOCATION_MIGRATION_EVENT" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index index-name="PK_T_REPL_CR_COLOCATION_MIGRATION_EVENT" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="colocationGroupId" type="String" length="254" label="Идентификатор ColocationGroup" column-name="COLOCATIONGROUPID" column-type="VARCHAR(254)"/>
+      <property name="colocationGroupType" type="String" length="254" label="Тип ColocationGroup идентификатора" column-name="COLOCATIONGROUPTYPE" column-type="VARCHAR(254)"/>
+      <property name="fromSpace" type="String" length="254" label="Из какого пространства (SPACE/ZONE)" column-name="FROMSPACE" column-type="VARCHAR(254)"/>
+      <property name="notice" type="String" length="4000" label="Результат выполнения" column-name="NOTICE" column-type="VARCHAR(4000)"/>
+      <property name="status" type="String" length="254" label="Статус обработки события" column-name="STATUS" column-type="VARCHAR(254)"/>
+      <property name="timeCreated" type="Date" length="3" label="Время создания события" column-name="TIMECREATED" column-type="TIMESTAMP(3)"/>
+      <property name="toSpace" type="String" length="254" label="В какое пространство (SPACE/ZONE)" column-name="TOSPACE" column-type="VARCHAR(254)"/>
+      <property name="toTopic" type="String" length="4000" label="Конфигурация подключения к топику назначения" column-name="TOTOPIC" column-type="VARCHAR(4000)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CRAggregateMigrationEvent" extends="BaseEntity" label="Таблица событий запросов миграции по агрегату" tableName="T_REPL_CR_AGGREGATE_MIGRATION_EVENT" pk-index-name="PK_T_REPL_CR_AGGREGATE_MIGRATION_EVENT" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index index-name="PK_T_REPL_CR_AGGREGATE_MIGRATION_EVENT" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="aggregateRootClass" type="String" length="254" label="Тип корня агрегата" column-name="AGGREGATEROOTCLASS" column-type="VARCHAR(254)"/>
+      <property name="aggregateRootId" type="String" length="254" label="ID корня агрегата" column-name="AGGREGATEROOTID" column-type="VARCHAR(254)"/>
+      <property name="checkSum" type="String" length="254" label="Контрольная сумма данных агрегата" column-name="CHECKSUM" column-type="VARCHAR(254)"/>
+      <property name="fromSpace" type="String" length="254" label="Из какого пространства (SPACE/ZONE)" column-name="FROMSPACE" column-type="VARCHAR(254)"/>
+      <property name="masterEventId" type="String" length="254" label="Идентификатор верхнеуровневой задачи [CRColocationMigrationEvent / other / null]" column-name="MASTEREVENTID" column-type="VARCHAR(254)"/>
+      <property name="notice" type="String" length="4000" label="Результат выполнения" column-name="NOTICE" column-type="VARCHAR(4000)"/>
+      <property name="operationType" type="String" length="254" label="Тип опреации [MIGRATION, CAP_INIT]" column-name="OPERATIONTYPE" column-type="VARCHAR(254)"/>
+      <property name="publishingStatus" type="String" length="254" label="Статус публикации события [RECEIVED, PENDING, PUSHED, EMPTY]" column-name="PUBLISHINGSTATUS" column-type="VARCHAR(254)"/>
+      <property name="status" type="String" length="254" label="Статус обработки события [TRANSFERRING, TRANSFERRED, MIGRATION_LOCKED, EOD_SENT, VALIDATED, DELETED, CANCELED, PREPARED, APPLIED, TAKEN, UNLOCKED]" column-name="STATUS" column-type="VARCHAR(254)"/>
+      <property name="timeCreated" type="Date" length="3" label="Время создания события" column-name="TIMECREATED" column-type="TIMESTAMP(3)"/>
+      <property name="toSpace" type="String" length="254" label="В какое пространство (SPACE/ZONE)" column-name="TOSPACE" column-type="VARCHAR(254)"/>
+      <property name="toTopic" type="String" length="4000" label="Конфигурация подключения к топику назначения" column-name="TOTOPIC" column-type="VARCHAR(4000)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CRAggregateMigrationTask" extends="BaseEntity" label="Таблица с задачами обработки конкретного агрегата" tableName="T_REPL_CR_AGGREGATE_MIGRATION_TASK" pk-index-name="PK_T_REPL_CR_AGGREGATE_MIGRATION_TASK" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index index-name="PK_T_REPL_CR_AGGREGATE_MIGRATION_TASK" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="aggregateRootClass" type="String" length="254" label="Тип корня агрегата" column-name="AGGREGATEROOTCLASS" column-type="VARCHAR(254)"/>
+      <property name="aggregateRootId" type="String" length="254" label="ID корня агрегата" column-name="AGGREGATEROOTID" column-type="VARCHAR(254)"/>
+      <property name="aggregateVersionCursor" type="Long" label="Версия агрегата на момент последней обработанной транзакции типа [MC, IC]" column-name="AGGREGATEVERSIONCURSOR" column-type="${type_long}"/>
+      <property name="aggregateVersionFinish" type="Long" label="Версия агрегата на момент завершения процесса обработки" column-name="AGGREGATEVERSIONFINISH" column-type="${type_long}"/>
+      <property name="aggregateVersionStart" type="Long" label="Версия агрегата на момент создания задачи" column-name="AGGREGATEVERSIONSTART" column-type="${type_long}"/>
+      <property name="firstDataChunkNumber" type="Long" label="Версия dataChunk на момент начала процесса передачи" column-name="FIRSTDATACHUNKNUMBER" column-type="${type_long}"/>
+      <property name="heartbeat" type="Date" length="3" label="Время когда последний раз был установлен Heartbeat" column-name="HEARTBEAT" column-type="TIMESTAMP(3)"/>
+      <property name="retryAfter" type="Date" length="3" label="Время после которого можно перезапустить задачу" column-name="RETRYAFTER" column-type="TIMESTAMP(3)"/>
+      <property name="retryCount" type="Integer" label="Колличество перезапусков задачи" column-name="RETRYCOUNT" column-type="${type_int}"/>
+      <property name="status" type="String" length="254" label="Статус выполнения задачи" column-name="STATUS" column-type="VARCHAR(254)"/>
+      <property name="timeCreated" type="Date" length="3" label="Время создания события" column-name="TIMECREATED" column-type="TIMESTAMP(3)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CRAggregateMigrationDeleteTask" extends="BaseEntity" label="Таблица с задачами удаления конкретрного агрегата" tableName="T_REPL_CR_AGGREGATE_MIGRATION_DELETE_TASK" pk-index-name="PK_T_REPL_CR_AGGREGATE_MIGRATION_DELETE_TASK" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index index-name="PK_T_REPL_CR_AGGREGATE_MIGRATION_DELETE_TASK" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="aggregateRootClass" type="String" length="254" label="Тип корня агрегата" column-name="AGGREGATEROOTCLASS" column-type="VARCHAR(254)"/>
+      <property name="aggregateRootId" type="String" length="254" label="ID корня агрегата" column-name="AGGREGATEROOTID" column-type="VARCHAR(254)"/>
+      <property name="heartbeat" type="Date" length="3" label="Время когда последний раз был установлен Heartbeat" column-name="HEARTBEAT" column-type="TIMESTAMP(3)"/>
+      <property name="retryAfter" type="Date" length="3" label="Время после которого можно перезапустить задачу" column-name="RETRYAFTER" column-type="TIMESTAMP(3)"/>
+      <property name="retryCount" type="Integer" label="Колличество перезапусков задачи" column-name="RETRYCOUNT" column-type="${type_int}"/>
+      <property name="status" type="String" length="254" label="Статус выполнения задачи" column-name="STATUS" column-type="VARCHAR(254)"/>
+      <property name="timeCreated" type="Date" length="3" label="Время создания события" column-name="TIMECREATED" column-type="TIMESTAMP(3)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CRDataChunk" extends="BaseEntity" label="Таблица событий запросов миграции по агрегату" tableName="T_REPL_CR_DATACHUNK" pk-index-name="PK_T_REPL_CR_DATACHUNK" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index index-name="PK_T_REPL_CR_DATACHUNK" primary-key="true">
+        <property name="objectId.rootClass"/>
+        <property name="objectId.rootId"/>
+      </index>
+      <embedded-lists>
+        <embedded-list name="objectId">
+          <property name="rootClass" column-name="OBJECTID_ROOTCLASS"/>
+          <property name="rootId" column-name="OBJECTID_ROOTID"/>
+        </embedded-list>
+      </embedded-lists>
+      <no-idempotence>true</no-idempotence>
+      <property name="chunkVersion" type="Long" label="Версия DataChunk" column-name="CHUNKVERSION" column-type="${type_long}"/>
+      <property name="epoch" type="Long" label="Версия эпохи" column-name="EPOCH" column-type="${type_long}"/>
+      <property name="token" type="String" length="254" label="Идентификатор активной задачи" column-name="TOKEN" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="CRDataChunkPrimaryKey" length="254" label="Прикладной ID объекта" mandatory="true" embedded="true" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="CRDataChunkPrimaryKey" category="MANUAL"/>
+    </class>
+    <class name="CRDataChunkPrimaryKey" embeddable="true" label="PrimaryKey для DataChunk" class-access="SYSTEM" import-model-name="test">
+      <property name="rootClass" type="String" length="254" label="CompositePrimaryKey RootClass" column-name="ROOTCLASS" column-type="VARCHAR(254)"/>
+      <property name="rootId" type="String" length="254" label="CompositePrimaryKey RootId" column-name="ROOTID" column-type="VARCHAR(254)"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="CRAggregateMigrationCheckSumTask" extends="BaseEntity" label="Таблица с задачами подсчёта hashSum по агрегату" tableName="T_REPL_CR_AGGREGATE_MIGRATION_CHECKSUM_TASK" pk-index-name="PK_T_REPL_CR_AGGREGATE_MIGRATION_CHECKSUM_TASK" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index index-name="PK_T_REPL_CR_AGGREGATE_MIGRATION_CHECKSUM_TASK" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="aggregateRootClass" type="String" length="254" label="Тип корня агрегата" column-name="AGGREGATEROOTCLASS" column-type="VARCHAR(254)"/>
+      <property name="aggregateRootId" type="String" length="254" label="ID корня агрегата" column-name="AGGREGATEROOTID" column-type="VARCHAR(254)"/>
+      <property name="heartbeat" type="Date" length="3" label="Время когда последний раз был установлен Heartbeat" column-name="HEARTBEAT" column-type="TIMESTAMP(3)"/>
+      <property name="retryAfter" type="Date" length="3" label="Время после которого можно перезапустить задачу" column-name="RETRYAFTER" column-type="TIMESTAMP(3)"/>
+      <property name="retryCount" type="Integer" label="Колличество перезапусков задачи" column-name="RETRYCOUNT" column-type="${type_int}"/>
+      <property name="status" type="String" length="254" label="Статус выполнения задачи" column-name="STATUS" column-type="VARCHAR(254)"/>
+      <property name="timeCreated" type="Date" length="3" label="Время создания события" column-name="TIMECREATED" column-type="TIMESTAMP(3)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="CRAggregateCapInitTask" extends="BaseEntity" label="Таблица с задачами инициализации в КАП по агрегату" tableName="T_REPL_CR_AGGREGATE_CAP_INIT_TASK" pk-index-name="PK_T_REPL_CR_AGGREGATE_CAP_INIT_TASK" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index index-name="PK_T_REPL_CR_AGGREGATE_CAP_INIT_TASK" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="aggregateRootClass" type="String" length="254" label="Тип корня агрегата" column-name="AGGREGATEROOTCLASS" column-type="VARCHAR(254)"/>
+      <property name="aggregateRootId" type="String" length="254" label="ID корня агрегата" column-name="AGGREGATEROOTID" column-type="VARCHAR(254)"/>
+      <property name="aggregateVersionCursor" type="Long" label="Версия агрегата на момент последней обработанной транзакции типа [MC, IC]" column-name="AGGREGATEVERSIONCURSOR" column-type="${type_long}"/>
+      <property name="aggregateVersionFinish" type="Long" label="Версия агрегата на момент завершения процесса обработки" column-name="AGGREGATEVERSIONFINISH" column-type="${type_long}"/>
+      <property name="aggregateVersionStart" type="Long" label="Версия агрегата на момент создания задачи" column-name="AGGREGATEVERSIONSTART" column-type="${type_long}"/>
+      <property name="firstDataChunkNumber" type="Long" label="Версия dataChunk на момент начала процесса передачи" column-name="FIRSTDATACHUNKNUMBER" column-type="${type_long}"/>
+      <property name="heartbeat" type="Date" length="3" label="Время когда последний раз был установлен Heartbeat" column-name="HEARTBEAT" column-type="TIMESTAMP(3)"/>
+      <property name="retryAfter" type="Date" length="3" label="Время после которого можно перезапустить задачу" column-name="RETRYAFTER" column-type="TIMESTAMP(3)"/>
+      <property name="retryCount" type="Integer" label="Количество перезапусков задачи" column-name="RETRYCOUNT" column-type="${type_int}"/>
+      <property name="status" type="String" length="254" label="Статус выполнения задачи" column-name="STATUS" column-type="VARCHAR(254)"/>
+      <property name="timeCreated" type="Date" length="3" label="Время создания события" column-name="TIMECREATED" column-type="TIMESTAMP(3)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="ConsensusTask" extends="BaseEntity" label="Таблица задач определения консенсуса между нодами приложения" tableName="T_REPL_CR_CONSENSUSTASK" pk-index-name="PK_T_REPL_CR_CONSENSUSTASK" affinity="objectId" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test" root-type="ConsensusTask">
+      <index index-name="PK_T_REPL_CR_CONSENSUSTASK" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="heartBeat" type="Date" length="3" label="Время когда последний раз был установлен Heartbeat" column-name="HEARTBEAT" column-type="TIMESTAMP(3)"/>
+      <property name="nodeId" type="String" length="254" label="Мастер Нода" column-name="NODEID" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="TestEntityApiCall" extends="BaseEntity" label="Результат обработки пакета Unit of Work для TestEntity" tableName="T_TESTENTITYAPICALL" pk-index-name="PK_T_TESTENTITYAPICALL" affinity="parentObject" class-access="SYSTEM" final-class="true" strategy="JOINED" import-model-name="test" root-type="TestEntity">
+      <index index-name="PK_T_TESTENTITYAPICALL" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index unique="true" index-name="I_TESTENTITYAPICALL_APICALLID">
+        <property name="apiCallId"/>
+      </index>
+      <index index-name="I_TESTENTITYAPICALL_PARENTOBJECT_ID">
+        <property name="parentObject"/>
+      </index>
+      <index index-name="I_TESTENTITYAPICALL_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="apiCallId" type="String" length="254" label="Идентификатор пакета" column-name="APICALLID" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <property name="firstCallDate" type="Date" length="3" label="Дата первого успешного вызова пакета" column-name="FIRSTCALLDATE" column-type="TIMESTAMP(3)" system-field="true" changeable="SYSTEM"/>
+      <property name="data" type="String" length="4000" label="Результат обработки пакета" column-name="DATA" column-type="VARCHAR(4000)" system-field="true" changeable="SYSTEM"/>
+      <property name="bigData" type="String" length="4001" label="Результат обработки пакета, используется если результат не помещается в поле data" column-name="BIGDATA" column-type="CLOB" system-field="true" changeable="SYSTEM"/>
+      <property name="parentObject" type="TestEntity" length="254" label="Ссылка на родительский объект" mandatory="true" column-name="PARENTOBJECT_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="TestEntity" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="InitTask" extends="BaseEntity" label="Таблица с задачами репликации ТСА" tableName="T_REPL_CR_INIT_TASK" pk-index-name="PK_T_REPL_CR_INIT_TASK" affinity="objectId" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test" root-type="InitTask">
+      <index index-name="PK_T_REPL_CR_INIT_TASK" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="aggregateType" type="String" length="254" label="Возврат типа у агрегата" column-name="AGGREGATETYPE" column-type="VARCHAR(254)"/>
+      <property name="lastAggregateId" type="String" length="254" label="Возвращает последний обработанный агрегат" column-name="LASTAGGREGATEID" column-type="VARCHAR(254)"/>
+      <property name="timeCreated" type="Date" length="3" label="Время создания" column-name="TIMECREATED" column-type="TIMESTAMP(3)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="InitSubTask" extends="BaseEntity" label="Таблица с подзадачами репликации ТСА" tableName="T_REPL_CR_INIT_SUBTASK" pk-index-name="PK_T_REPL_CR_INIT_SUBTASK" class-access="SYSTEM" final-class="true" strategy="JOINED" generate-jpa="false" import-model-name="test">
+      <index index-name="PK_T_REPL_CR_INIT_SUBTASK" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="aggregateId" type="String" length="254" label="Возврат id агрегата" column-name="AGGREGATEID" column-type="VARCHAR(254)"/>
+      <property name="entityType" type="String" length="254" label="Возврат типа у сущности" column-name="ENTITYTYPE" column-type="VARCHAR(254)"/>
+      <property name="offset" type="Long" label="Возврат оффсета" column-name="OFFSET_" column-type="${type_long}"/>
+      <property name="status" type="String" length="254" label="Возврат статуса выполнения подзадачи" column-name="STATUS" column-type="VARCHAR(254)"/>
+      <property name="task" type="String" length="254" label="Возвращает основную задачу" column-name="TASK" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysRootSecurity" extends="BaseEntity" label="Класс агрегат таблиц безопасности" tableName="T_SEC_ROOTSECURITY" pk-index-name="PK_T_SEC_ROOTSECURITY" affinity="objectId" class-access="READ_ONLY" strategy="JOINED" import-model-name="test" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_ROOTSECURITY" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSROOTSECURITY_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="adminSettings" type="SysAdminSettings" length="254" collection="SET" label="Настройки" column-type="VARCHAR(254)" mappedBy="rootSecurity" object-link="O2M"/>
+      <property name="operations" type="SysOperation" length="254" collection="SET" label="Операции" column-type="VARCHAR(254)" mappedBy="rootSecurity" object-link="O2M"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Дискриминатор классов" mandatory="true" column-name="TYPE" default-value="SysRootSecurity" description="Дискриминатор" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysCheckSelect" extends="BaseEntity" label="Таблица проверочных запросов, выполняемых до/после основного запроса" tableName="T_SEC_CHECKSELECT" pk-index-name="PK_T_SEC_CHECKSELECT" affinity="operation" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="test" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_CHECKSELECT" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSCHECKSELECT_OPERATION_ID">
+        <property name="operation"/>
+      </index>
+      <index index-name="I_SYSCHECKSELECT_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="beforeCommitEnable" type="Boolean" label="Должна ли проверка выполняться перед коммитом" column-name="BEFORECOMMITENABLE" column-type="${type_boolean}"/>
+      <property name="beforeOperationDisable" type="Boolean" label="Должна ли проверка быть подавлена перед запросом" column-name="BEFOREOPERATIONDISABLE" column-type="${type_boolean}"/>
+      <property name="conditionValue" type="String" length="4001" label="Условие фильтрации" column-name="CONDITIONVALUE" column-type="CLOB"/>
+      <property name="description" type="String" length="254" label="Пользовательское описание" column-name="DESCRIPTION" column-type="VARCHAR(254)"/>
+      <property name="operation" type="SysOperation" length="254" label="GQL запрос к которому применяется проверка" mandatory="true" column-name="OPERATION_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="orderValue" type="Integer" label="Порядок отображения" column-name="ORDERVALUE" column-type="${type_int}"/>
+      <property name="typeName" type="String" length="254" label="Тип сущности на котором строится запрос" column-name="TYPENAME" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="SysOperation" extends="BaseEntity" label="Таблица допустимых GQL запросов" tableName="T_SEC_OPERATION" pk-index-name="PK_T_SEC_OPERATION" affinity="rootSecurity" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="test" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_OPERATION" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSOPERATION_ROOTSECURITY_ID">
+        <property name="rootSecurity"/>
+      </index>
+      <index index-name="I_SYSOPERATION_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="allowEmptyChecks" type="Boolean" label="Флаг применимости пустых условий" column-name="ALLOWEMPTYCHECKS" column-type="${type_boolean}"/>
+      <property name="body" type="String" length="4001" label="Запрос" column-name="BODY" column-type="CLOB"/>
+      <property name="checkSelects" type="SysCheckSelect" length="254" collection="SET" label="Условия" column-type="VARCHAR(254)" mappedBy="operation" object-link="O2M"/>
+      <property name="disableJwtVerification" type="Boolean" label="Флаг игнорирования проверок JWT" column-name="DISABLEJWTVERIFICATION" column-type="${type_boolean}"/>
+      <property name="hashValue" type="String" length="254" label="Хэш" column-name="HASHVALUE" column-type="VARCHAR(254)"/>
+      <property name="paramAdditions" type="SysParamAddition" length="254" collection="SET" label="Дополнительные условия" column-type="VARCHAR(254)" mappedBy="operation" object-link="O2M"/>
+      <property name="rootSecurity" type="SysRootSecurity" length="254" label="Корень" mandatory="true" column-name="ROOTSECURITY_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysAdminSettings" extends="BaseEntity" label="Таблица с параметрами безопасности" tableName="T_SEC_ADMINSETTINGS" pk-index-name="PK_T_SEC_ADMINSETTINGS" affinity="rootSecurity" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="test" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_ADMINSETTINGS" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSADMINSETTINGS_ROOTSECURITY_ID">
+        <property name="rootSecurity"/>
+      </index>
+      <index index-name="I_SYSADMINSETTINGS_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="key" type="String" length="254" label="Ключ настройки безопасности" column-name="KEY_" column-type="VARCHAR(254)"/>
+      <property name="rootSecurity" type="SysRootSecurity" length="254" label="Корень" mandatory="true" column-name="ROOTSECURITY_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="value" type="String" length="4001" label="Значение настройки безопасности" column-name="VALUE_" column-type="CLOB"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="SysParamAddition" extends="BaseEntity" label="Таблица с добавочными условиями" tableName="T_SEC_PARAMADDITION" pk-index-name="PK_T_SEC_PARAMADDITION" affinity="operation" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="test" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_PARAMADDITION" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSPARAMADDITION_OPERATION_ID">
+        <property name="operation"/>
+      </index>
+      <index index-name="I_SYSPARAMADDITION_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="operation" type="SysOperation" length="254" label="GQL запрос к которому применяются дополнительные условия" mandatory="true" column-name="OPERATION_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="paramAddition" type="String" length="4000" label="Добавочное условие к переменной" column-name="PARAMADDITION" column-type="VARCHAR(4000)"/>
+      <property name="paramName" type="String" length="254" label="Имя объявленной переменной" column-name="PARAMNAME" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="BaseEntity" label="Базовый класс модели" is-abstract="true" class-access="SYSTEM" import-model-name="test">
+      <property name="chgCnt" type="Long" label="Счетчик изменений (технический)" column-name="CHGCNT" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="isDeleted" type="Boolean" label="System attribute: Deleted flag" mandatory="true" column-name="SYS_ISDELETED" default-value="false" column-type="${type_boolean}" system-field="true" changeable="SYSTEM"/>
+      <property name="lastChangeDate" type="Date" length="3" label="System attribute: date of the last modification" column-name="SYS_LASTCHANGEDATE" column-type="TIMESTAMP(3)" changeable="READ_ONLY"/>
+      <property name="offFlag" type="Byte" label="Признак деактивации записи" column-name="OFFFLAG" column-type="${type_byte}" system-field="true" changeable="SYSTEM"/>
+      <property name="ownerId" type="String" length="254" label="System attribute: record owner module id" column-name="SYS_OWNERID" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <property name="partitionId" type="Integer" label="System attribute: partitioning id" column-name="SYS_PARTITIONID" default-value="0" column-type="${type_int}" system-field="true" changeable="SYSTEM"/>
+      <property name="recModelVersion" type="String" length="254" label="System attribute: Record model version" column-name="SYS_RECMODELVERSION" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+  </model>
+  <status/>
+  <meta-information>
+    <plugin-version>1.13.0-7</plugin-version>
+    <have-insert-root-dictionary>true</have-insert-root-dictionary>
+    <have-insert-root-security>true</have-insert-root-security>
+    <have-h2-decode-base64-function>true</have-h2-decode-base64-function>
+    <allow-lastchangedate-compare>false</allow-lastchangedate-compare>
+    <updatedCngCntSysVersion>true</updatedCngCntSysVersion>
+    <disabledGenerateOracleLiquibase>false</disabledGenerateOracleLiquibase>
+  </meta-information>
+  <system-locks>
+    <system-locks-classes class="TestEntity" table-name="T_REPL_AGGLOCK_TESTENTITY"/>
+    <system-locks-classes class="SysConfig" table-name="T_REPL_AGGLOCK_SYSCONFIG"/>
+    <system-locks-classes class="RootDictionary" table-name="T_REPL_AGGLOCK_ROOTDICTIONARY"/>
+    <system-locks-classes class="SysRootSecurity" table-name="T_REPL_AGGLOCK_SYSROOTSECURITY"/>
+    <system-locks-classes class="CRLock" table-name="T_REPL_AGGLOCK_CRLOCK"/>
+    <system-locks-classes class="SysSubscriptionWorker" table-name="T_REPL_AGGLOCK_SYSSUBSCRIPTIONWORKER"/>
+    <system-locks-classes class="CrShedlock" table-name="T_REPL_AGGLOCK_CRSHEDLOCK"/>
+    <system-locks-classes class="IntegrityCheck" table-name="T_REPL_AGGLOCK_INTEGRITYCHECK"/>
+    <system-locks-classes class="InitTask" table-name="T_REPL_AGGLOCK_INITTASK"/>
+    <system-locks-classes class="IntegrityCheckReport" table-name="T_REPL_AGGLOCK_INTEGRITYCHECKREPORT"/>
+    <system-locks-classes class="SysEventQueueItem" table-name="T_REPL_AGGLOCK_SYSEVENTQUEUEITEM"/>
+    <system-locks-classes class="SysVersion" table-name="T_REPL_AGGLOCK_SYSVERSION"/>
+    <system-locks-classes class="ConsensusTask" table-name="T_REPL_AGGLOCK_CONSENSUSTASK"/>
+    <system-locks-classes class="SysSubscriptionProcess" table-name="T_REPL_AGGLOCK_SYSSUBSCRIPTIONPROCESS"/>
+    <system-locks-classes class="IntegrityCheckReportDetails" table-name="T_REPL_AGGLOCK_INTEGRITYCHECKREPORTDETAILS"/>
+    <system-locks-classes class="SysSubscription" table-name="T_REPL_AGGLOCK_SYSSUBSCRIPTION"/>
+    <system-lockevent-table>T_REPL_AGGLOCKEVENT</system-lockevent-table>
+    <system-change-event-table>T_DSPC_SYS_CHANGE_EVENT</system-change-event-table>
+  </system-locks>
+  <system-init-tasks>
+    <system-init-tasks-table>T_DSPC_SYS_INIT_TASK</system-init-tasks-table>
+    <system-init-subtasks-table>T_DSPC_SYS_INIT_SUBTASK</system-init-subtasks-table>
+  </system-init-tasks>
+  <source-models/>
+</PdmModel>

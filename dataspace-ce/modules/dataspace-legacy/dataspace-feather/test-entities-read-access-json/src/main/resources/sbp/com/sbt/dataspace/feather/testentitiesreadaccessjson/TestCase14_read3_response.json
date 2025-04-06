@@ -1,0 +1,30 @@
+{
+  "elems": [
+    {
+      "type": "Operation",
+      "id": "${operation1Id}",
+      "props": {
+        "request": {
+          "type": "Request",
+          "id": "${request1Id}",
+          "props": {
+            "agreement": {
+              "type": "Agreement",
+              "id": "${agreement1Id}",
+              "props": {
+                "agreements": {
+                  "elems": [
+                    {
+                      "type": "Agreement",
+                      "id": "${request1agreement1_1Id}"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

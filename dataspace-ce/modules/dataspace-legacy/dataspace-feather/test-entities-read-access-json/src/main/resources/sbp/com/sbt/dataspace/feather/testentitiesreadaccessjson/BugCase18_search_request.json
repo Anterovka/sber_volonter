@@ -1,0 +1,17 @@
+{
+  "type": "Parameter",
+  "props": {
+    "entity": {
+      "details": {
+        "Service": {
+          "initiator": {
+            "document": {
+              "props": "code"
+            }
+          }
+        }
+      }
+    }
+  },
+  "cond": "it.$id == '${parameter1Id}'"
+}

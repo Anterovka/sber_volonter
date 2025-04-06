@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "entities{type=Test2Entity,params={strings=null}}.$exists"
+}

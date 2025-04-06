@@ -1,0 +1,63 @@
+<model model-name="newParent" version="DEV-SNAPSHOT" xmlns="DataspaceModel">
+
+  <enum name="MyEnum">
+    <value name="ONE"/>
+    <value name="TWO"/>
+  </enum>
+
+  <class name="MyClass">
+    <id category="AUTO_ON_EMPTY"/>
+    <property name="code" type="String" mandatory="true"/>
+    <property name="myEnum" type="MyEnum" mandatory="true"/>
+    <property name="calcCodeToUpper" type="String">
+      upper(code)
+    </property>
+    <property name="calcCodeToEnum" type="MyEnum">
+      upper(code)
+    </property>
+    <property name="childSet" type="MyChildClass" mappedBy="parent" collection="set"/>
+    <property name="secondChildSet" type="MySecondChildClass" mappedBy="parent" collection="set"/>
+    <property name="childWithDefaultIdSet" type="MyChildWithDefaultIdClass" mappedBy="parent" collection="set"/>
+  </class>
+
+  <class name="MyChildClass">
+    <id category="MANUAL"/>
+    <property name="parent" type="MyClass" parent="true"/>
+    <property name="myClass" type="MyClass" mandatory="true"/>
+    <reference name="nyClassRef" type="MyClass" mandatory="true"/>
+    <reference name="clientRef" type="Client" mandatory="true"/>
+  </class>
+
+  <class name="MyAbstractClass" is-abstract="true">
+    <property name="code" type="String" mandatory="true"/>
+    <property name="name" type="String"/>
+    <property name="sampleType" type="MySampleType"/>
+  </class>
+
+  <class name="MySecondChildClass" extends="MyAbstractClass" strategy="SINGLE_TABLE">
+    <property name="parent" type="MyClass" parent="true"/>
+    <index unique="true">
+      <property name="code"/>
+      <property name="name"/>
+    </index>
+  </class>
+
+  <class name="MyChildWithDefaultIdClass">
+    <property name="parent" type="MyClass" parent="true"/>
+    <reference name="nyClassRef" type="MyClass"/>
+    <reference name="clientRef" type="Client"/>
+  </class>
+
+  <class name="MySampleType" is-dictionary="true">
+    <property name="code" type="String"/>
+  </class>
+
+  <class name="MyAbstractDictionary" is-dictionary="true" is-abstract="true">
+    <property name="name" type="String"/>
+  </class>
+
+  <class name="MyDictionary" extends="MyAbstractDictionary" is-dictionary="true">
+    <property name="code" type="String"/>
+  </class>
+
+</model>

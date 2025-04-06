@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.$id == '${testEntity1Id}' && coalesce(root.r1.code, root.r1.p1) == 'testEntity1'"
+}

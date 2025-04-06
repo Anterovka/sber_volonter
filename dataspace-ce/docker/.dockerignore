@@ -1,0 +1,11 @@
+**/.git
+**/.gitignore
+**/README.md
+**/CHANGELOG.md
+**/docker-compose.yml
+**/Dockerfile*
+.env
+.idea
+*.iml
+target/*
+!target/*.jar

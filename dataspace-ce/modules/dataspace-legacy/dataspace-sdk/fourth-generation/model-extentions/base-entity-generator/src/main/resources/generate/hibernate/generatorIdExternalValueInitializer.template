@@ -1,0 +1,13 @@
+
+    @javax.persistence.Transient
+    private java.lang.Object $generatorIdExternalValue;
+
+    @Override
+    public java.lang.Object $readGeneratorIdExternalValue() {
+        return $generatorIdExternalValue;
+    }
+
+    @Override
+    public void $writeGeneratorIdExternalValue(java.lang.Object value) {
+        $generatorIdExternalValue = value;
+    }

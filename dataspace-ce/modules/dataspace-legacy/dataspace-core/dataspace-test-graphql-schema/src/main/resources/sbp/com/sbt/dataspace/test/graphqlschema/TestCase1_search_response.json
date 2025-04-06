@@ -1,0 +1,90 @@
+{
+  "data": {
+    "searchTestEntity": {
+      "elems": [
+        {
+          "__typename": "_E_TestEntity",
+          "id": "${testEntity1Id}",
+          "aggVersion": 0,
+          "p1": "Hello",
+          "p2": 127,
+          "p3": 32767,
+          "p4": 2147483647,
+          "p5": 9223372036854775807,
+          "p6": 1234567.890123456,
+          "p7": "${dateTime}",
+          "p8": true,
+          "p9": "${bytes}",
+          "p10": 123456789.0123456789,
+          "p11": "${string5000}",
+          "p12": 123.4567,
+          "p13": "G",
+          "p14": "${date}",
+          "p15": "${offsetDateTime}",
+          "ps1": {
+            "elems": [
+              "1",
+              "2",
+              "3"
+            ],
+            "count": 3
+          },
+          "ps2": {
+            "elems": [
+              1,
+              2,
+              3
+            ]
+          },
+          "ps3": {
+            "elems": [
+              "${dateTime}",
+              "${dateTime2}",
+              "${dateTime3}"
+            ]
+          },
+          "ps4": {
+            "elems": [
+              false,
+              true
+            ]
+          },
+          "r1": {
+            "id": "${testEntity2Id}",
+            "p1": null,
+            "p2": null,
+            "p3": null,
+            "p4": null,
+            "p5": null,
+            "p6": null,
+            "p7": null,
+            "p8": null,
+            "p9": null,
+            "p10": null,
+            "p11": null,
+            "p12": null,
+            "p13": null,
+            "p14": null,
+            "r1": null
+          },
+          "rc1": {
+            "elems": [
+              {
+                "id": "${testEntity2Id}"
+              }
+            ],
+            "count": 1
+          },
+          "brec1": {
+            "elems": [
+              {
+                "id": "${testEntity3Id}"
+              }
+            ]
+          },
+          "code": "testEntity1"
+        }
+      ]
+    }
+  }
+}

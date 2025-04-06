@@ -1,0 +1,11 @@
+{
+  "type": "Product",
+  "selection": {
+    "p1": "it.code.$min",
+    "p2": "it.code.$max",
+    "p3": "it.relatedProduct.code"
+  },
+  "cond": "it.$id $in ['${product1Id}', '${product2Id}', '${product3Id}']",
+  "group": "it.relatedProduct.code",
+  "groupCond": "it.relatedProduct.creatorCode.$count > 1"
+}

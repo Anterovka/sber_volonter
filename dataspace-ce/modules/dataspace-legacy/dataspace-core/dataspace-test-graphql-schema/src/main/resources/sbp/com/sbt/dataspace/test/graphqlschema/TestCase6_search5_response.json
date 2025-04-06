@@ -1,0 +1,16 @@
+{
+  "data": {
+    "selectionByTestEntity": {
+      "elems": [
+        {
+          "p1": 127,
+          "p2": 127
+        },
+        {
+          "p1": null,
+          "p2": 127
+        }
+      ]
+    }
+  }
+}

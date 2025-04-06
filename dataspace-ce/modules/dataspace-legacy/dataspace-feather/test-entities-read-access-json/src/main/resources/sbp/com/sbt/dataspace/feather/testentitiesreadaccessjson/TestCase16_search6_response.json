@@ -1,0 +1,94 @@
+{
+  "elems": [
+    {
+      "type": "ProductPlus",
+      "id": "${productLimited1Id}",
+      "props": {
+        "aliases": {
+          "elems": []
+        },
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${productPlus1Id}"
+        },
+        "affectedProducts": {
+          "elems": [],
+          "count": 0
+        }
+      }
+    },
+    {
+      "type": "ProductPlus",
+      "id": "${productPlus1Id}",
+      "props": {
+        "aliases": {
+          "elems": []
+        },
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${product1Id}"
+        },
+        "affectedProducts": {
+          "elems": [
+            {
+              "type": "Product",
+              "id": "${product2Id}",
+              "props": {
+                "relatedProduct": {
+                  "type": "Product",
+                  "id": "${product1Id}",
+                  "access": false
+                }
+              }
+            },
+            {
+              "type": "Product",
+              "id": "${product3Id}",
+              "props": {
+                "relatedProduct": {
+                  "type": "Product",
+                  "id": "${product2Id}",
+                  "props": {
+                    "code": "product2",
+                    "relatedProduct": {
+                      "type": "Product",
+                      "id": "${product1Id}"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "count": 2
+        }
+      }
+    },
+    {
+      "type": "Product",
+      "id": "${product2Id}",
+      "props": {
+        "aliases": {
+          "elems": []
+        },
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${product1Id}"
+        }
+      }
+    },
+    {
+      "type": "Product",
+      "id": "${product3Id}",
+      "props": {
+        "aliases": {
+          "elems": []
+        },
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${product2Id}"
+        }
+      }
+    }
+  ],
+  "count": 4
+}

@@ -1,0 +1,4 @@
+{
+  "type": "Product",
+  "cond": "it.$id == '${product1Id}' && it.services.$map(it.operations{cond = it.name != null}.$map(it.actions.$count).$sum).$sum == 4 && it.services.$map(it.startAction.operation.code).$exists && it.relatedProduct{alias = product}.aliases.$map(it + @product.code).$min == 'alias1product2'"
+}

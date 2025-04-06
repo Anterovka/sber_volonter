@@ -1,0 +1,10 @@
+{
+  "type": "Product",
+  "selection": {
+    "p1": "it.creatorCode"
+  },
+  "cond": "it.$id $in ['${product1Id}', '${product2Id}', '${product3Id}', '${product4Id}', '${product5Id}']",
+  "group": "it.creatorCode",
+  "sort": "it.creatorCode",
+  "limit": 2
+}

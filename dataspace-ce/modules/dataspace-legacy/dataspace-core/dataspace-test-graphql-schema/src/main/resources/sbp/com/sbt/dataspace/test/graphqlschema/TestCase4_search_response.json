@@ -1,0 +1,12 @@
+{
+  "data": {
+    "searchTestEntity": {
+      "elems": [
+        {
+          "_id": "${testEntity1Id}",
+          "_aggVersion": 0
+        }
+      ]
+    }
+  }
+}

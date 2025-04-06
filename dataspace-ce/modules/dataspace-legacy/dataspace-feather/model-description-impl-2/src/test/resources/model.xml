@@ -1,0 +1,223 @@
+<model model-name="test" version="1.0.0-SNAPSHOT">
+    <enum name="MyStatus">
+        <value name="OPENED"/>
+        <value name="CLOSED"/>
+    </enum>
+    <enum name="Gender">
+        <value name="MALE"/>
+        <value name="FEMALE"/>
+    </enum>
+    <enum name="Attribute">
+        <value name="TOP_PRIORITY"/>
+        <value name="FORBIDDEN"/>
+    </enum>
+
+    <class name="HistEntity">
+        <property name="code" type="String" historical="true"/>
+    </class>
+
+    <class name="Person" embeddable="true">
+        <property name="firstName" type="String" mandatory="true"/>
+        <property name="lastName" type="String"/>
+        <property name="gender" type="Gender"/>
+    </class>
+    <class name="TestEntity" final-class="true">
+        <property name="code" type="String" mandatory="true"/>
+        <property name="p1" type="String"/>
+        <property name="p2" type="Byte"/>
+        <property name="p3" type="Short"/>
+        <property name="p4" type="Integer"/>
+        <property name="p5" type="Long"/>
+        <property name="p6" type="Double"/>
+        <property name="p7" type="LocalDateTime"/>
+        <property name="p8" type="Boolean"/>
+        <property name="p9" type="byte[]"/>
+        <property name="p10" type="BigDecimal"/>
+        <property name="p11" type="Text"/>
+        <property name="p12" type="Float"/>
+        <property name="p13" type="Character"/>
+        <property name="p14" type="LocalDate"/>
+        <property name="p15" type="OffsetDateTime"/>
+        <property name="r1" type="TestEntity"/>
+        <property name="brec1" type="TestEntity" collection="set" mappedBy="r1"/>
+        <property name="e1" type="Date"/>
+        <property name="e2" type="MyStatus"/>
+    </class>
+    <class name="Client">
+        <property name="entities" type="RootEntity" collection="set" mappedBy="owner"/>
+    </class>
+    <class name="PrivilegedClient" extends="Client">
+        <property name="documents" type="Document" collection="set" mappedBy="owner"/>
+    </class>
+    <class name="RootEntity">
+        <property name="owner" type="Client" parent="true"/>
+        <property name="code" type="String" mandatory="true"/>
+        <property name="name" type="String"/>
+        <property name="attributes" type="Attribute" collection="set"/>
+        <property name="request" type="Request" mappedBy="createdEntity"/>
+        <property name="parameters" type="Parameter" collection="set" mappedBy="entity"/>
+    </class>
+    <class name="Request"
+           strategy="SINGLE_TABLE">
+        <property name="code" type="String" mandatory="true"/>
+        <property name="createdEntity" type="RootEntity" parent="true"/>
+        <property name="initiator" type="Person"/>
+    </class>
+    <class name="RequestPlus"
+           extends="Request">
+        <property name="description" type="String"/>
+    </class>
+    <class name="Parameter"
+           extends="RootEntity">
+        <property name="value" type="String"/>
+        <property name="entity" type="RootEntity"/>
+    </class>
+    <class name="ActionParameter"
+           extends="Parameter">
+        <property name="executorName" type="String"/>
+    </class>
+    <class name="ActionParameterSpecial"
+           extends="ActionParameter">
+        <property name="specialOffer" type="String"/>
+    </class>
+    <class name="Service"
+           extends="RootEntity">
+        <property name="managerPersonalCode" type="Integer"/>
+        <property name="product" type="Product"/>
+        <property name="startAction" type="Action"/>
+        <property name="operations" type="Operation" collection="set" mappedBy="service"/>
+        <property name="initiator" type="Person"/>
+    </class>
+    <class name="Operation"
+           extends="RootEntity">
+        <property name="service" type="Service"/>
+        <property name="actions" type="Action" collection="set" mappedBy="operation"/>
+    </class>
+    <class name="OperationSpecial"
+           extends="Operation">
+        <property name="specialOffer" type="String"/>
+    </class>
+    <class name="OperationLimited"
+           extends="Operation">
+        <property name="limitedOffer" type="String"/>
+        <property name="endDate" type="Date"/>
+    </class>
+    <class name="Action"
+           extends="RootEntity">
+        <property name="algorithmCode" type="Integer"/>
+        <property name="operation" type="Operation"/>
+    </class>
+    <class name="ActionSpecial"
+           extends="Action">
+        <property name="specialOffer" type="String"/>
+    </class>
+    <class name="Event"
+           extends="RootEntity">
+        <property name="author" type="String"/>
+        <property name="product" type="Product"/>
+    </class>
+    <class name="Product"
+           extends="RootEntity">
+        <property name="creatorCode" type="Integer"/>
+        <property name="aliases" type="String" collection="set"/>
+        <property name="rates" type="Double" collection="set"/>
+        <property name="affectedByProduct" type="ProductPlus"/>
+        <property name="relatedProduct" type="Product"/>
+        <property name="services" type="Service" collection="set" mappedBy="product"/>
+        <property name="events" type="Event" collection="set" mappedBy="product"/>
+    </class>
+    <class name="ProductPlus"
+           extends="Product">
+        <property name="affectedProducts" type="Product" collection="set" mappedBy="affectedByProduct"/>
+    </class>
+    <class name="ProductLimited"
+           extends="ProductPlus">
+        <property name="limitedOffer" type="String"/>
+    </class>
+    <class name="Document"
+           strategy="SINGLE_TABLE">
+        <property name="owner" type="PrivilegedClient" parent="true"/>
+        <property name="code" type="String" mandatory="true"/>
+        <property name="agreements" type="Agreement" collection="set" mappedBy="document"/>
+        <reference name="product" type="Product"/>
+        <reference name="service" type="Service" mandatory="true"/>
+        <reference name="products" type="Product" collection="set" />
+        <reference name="services" type="Service" collection="set" />
+        <reference name="externalDocument" type="ExternalDocument"/>
+        <reference name="externalDocuments" type="ExternalDocuments" collection="set" />
+    </class>
+    <class name="Permission"
+           extends="Document">
+        <property name="number" type="Integer"/>
+    </class>
+    <class name="DocumentWithParticipant" extends="Document" is-abstract="true">
+        <property name="participant" type="String"/>
+    </class>
+    <class name="Agreement"
+           extends="DocumentWithParticipant">
+        <property name="document" type="Document"/>
+        <property name="details" type="AgreementDetails" mappedBy="agreement"/>
+    </class>
+    <class name="AgreementDetails"
+           strategy="SINGLE_TABLE">
+        <property name="content" type="String"/>
+        <property name="agreement" type="Agreement" parent="true"/>
+    </class>
+    <query name="PersonInfo">
+        <params>
+            <param name="firstName" type="String"/>
+            <param name="lastName" type="String"/>
+            <param name="phones" type="String" collection="true"/>
+        </params>
+
+        <id name="id"/>
+        <property name="firstName" type="String"/>
+        <property name="lastName" type="String"/>
+        <property name="patronymic" type="String"/>
+
+        <implementations>
+            <sql>
+                select t1.ID id,
+                t1.FIRST_NAME firstName,
+                t1.LAST_NAME lastName,
+                t1.PATRONYMIC patronymic
+                from T_PERSON_INFO t1
+                where t1.FIRST_NAME = ${firstName} and t1.LAST_NAME = ${lastName} and t1.PHONE in (${phones})
+            </sql>
+        </implementations>
+    </query>
+    <query name="Statistic">
+        <property name="personsCount" type="Long"/>
+
+        <implementations>
+            <sql>
+                select count(t1.ID) personsCount
+                from T_PERSON_INFO t1
+            </sql>
+        </implementations>
+    </query>
+    <query name="TestQuery">
+        <params>
+            <param name="characterParam" type="Character" default-value="a"/>
+            <param name="stringParam" type="String" default-value="Test"/>
+            <param name="byteParam" type="Byte" default-value="1"/>
+            <param name="shortParam" type="Short" default-value="1"/>
+            <param name="integerParam" type="Integer" default-value="1"/>
+            <param name="longParam" type="Long" default-value="1"/>
+            <param name="floatParam" type="Float" default-value="1.1"/>
+            <param name="doubleParam" type="Double" default-value="1.1"/>
+            <param name="bigDecimalParam" type="BigDecimal" default-value="1.1"/>
+            <param name="localDateParam" type="LocalDate" default-value="2022-06-27"/>
+            <param name="localDateTimeParam" type="LocalDateTime" default-value="2022-06-27T14:58:10.123"/>
+            <param name="offsetDateTimeParam" type="OffsetDateTime" default-value="2022-06-27T14:58:10.123+06:00"/>
+            <param name="booleanParam" type="Boolean" default-value="true"/>
+        </params>
+        <property name="test" type="String"/>
+
+        <implementations>
+            <sql>
+                select 'test'
+            </sql>
+        </implementations>
+    </query>
+</model>

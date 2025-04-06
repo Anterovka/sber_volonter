@@ -1,0 +1,13 @@
+    <changeSet author="${modelName}" id="${version}-${index}">
+        <preConditions>
+            <columnExists tableName="${tableName}" columnName="${oldColumnName}"/>
+            <not><columnExists tableName="${tableName}" columnName="${columnName}"/></not>
+        </preConditions>
+        <renameColumn
+                columnDataType="${dataType}"
+                newColumnName="${columnName}"
+                oldColumnName="${oldColumnName}"
+                remarks="${remarks1}"
+                tableName="${tableName}"/>
+    </changeSet>
+

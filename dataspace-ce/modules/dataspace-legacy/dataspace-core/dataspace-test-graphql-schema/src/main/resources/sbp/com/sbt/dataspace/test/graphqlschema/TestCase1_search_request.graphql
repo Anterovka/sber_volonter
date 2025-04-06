@@ -1,0 +1,131 @@
+query Test($cond: String = "elem.code != null", $limit: Int = 1, $offset: Int = 1, $sort: [_SortCriterionSpecification!] = [{crit: "elem.code", order: DESC, nullsLast: true}], $order: _SortOrder! = DESC, $nullsLast: Boolean = true, $sortCriterionSpecification: _SortCriterionSpecification! = {crit: "root.p2"}) {
+    searchTestEntity(cond: "root.$id == '${testEntity1Id}'", limit: 1, sort: [{crit: "root.code", order: DESC, nullsLast: true}]) {
+        elems {
+            __typename
+            id
+            aggVersion
+            p1
+            p2
+            p3
+            p4
+            p5
+            p6
+            p7
+            p8
+            p9
+            p10
+            p11
+            p12
+            p13
+            p14
+            p15
+            ps1(sort: [{crit: "elem"}]) {
+                ... on _StringCollection {
+                    elems
+                }
+                ... f2
+            }
+            ps2(sort: [{crit: "elem"}]) {
+                elems
+            }
+            ps3(sort: [{crit: "elem"}]) {
+                elems
+            }
+            ps4(sort: [{crit: "elem"}]) {
+                elems
+            }
+            r1(alias: "r1") {
+                id
+                p1
+                p2
+                p3
+                p4
+                p5
+                p6
+                p7
+                p8
+                p9
+                p10
+                p11
+                p12
+                p13
+                p14
+                r1(alias: null) {
+                    id
+                    ... on TestEntity {
+                        id
+                        code
+                    }
+                    ps1(cond: null, limit: null, offset: null, sort: null) {
+                        elems
+                    }
+                    rc1(cond: $cond, limit: $limit, offset: $offset, sort: $sort, elemAlias: null) {
+                        ... on _EC_TestEntity {
+                            elems {
+                                id
+                                ps1 {
+                                    count
+                                }
+                                rc1(sort: [{crit: "elem.code", order: $order, nullsLast: $nullsLast}, {crit: "elem.p1", nullsLast: null}, $sortCriterionSpecification]) {
+                                    elems {
+                                        id
+                                    }
+                                }
+                            }
+                        }
+                        ... f4
+                    }
+                    g1 {
+                        p1
+                        ... on _G_Group1 {
+                            p1
+                        }
+                        ... f3
+                    }
+                    ... on _E_TestEntity {
+                        code
+                    }
+                }
+            }
+            rc1(elemAlias: "r1") {
+                elems {
+                    id
+                }
+                count
+            }
+            brec1 {
+                elems {
+                    id
+                }
+            }
+            ... f1
+            ... f1
+            ... f5
+        }
+    }
+}
+
+fragment f1 on TestEntity {
+    code
+    r1(alias: "r1") {
+        id
+    }
+}
+
+fragment f2 on _StringCollection {
+    count
+}
+
+fragment f3 on _G_Group1 {
+    p1
+}
+
+fragment f4 on _EC_TestEntity {
+    count
+}
+
+fragment f5 on _Entity {
+    ... on TestEntity {
+        code
+    }
+}

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PdmModel>
+  <model model-name="model1" component-code="НЕ ЗАДАНО" version="DEV-SNAPSHOT" versioned-entities="false" autoIdMethod="SNOWFLAKE">
+    <import type="SysLockModelGenerator" file=""/>
+    <import type="IdempotenceModelGenerator" file=""/>
+    <import type="AggregateModelGenerator" file=""/>
+    <import type="APP_LOCKS" file=""/>
+    <import type="DICTIONARY_GENERATOR" file="dictionary/"/>
+    <import type="REFERENCE" file=""/>
+    <import type="CciModelGenerator" file=""/>
+    <import type="BASE_ENTITY" file=""/>
+    <import type="COMPUTED-FIELD"/>
+    <class name="Sample" extends="Entity" tableName="T_SAMPLE" pk-index-name="PK_T_SAMPLE" affinity="objectId" class-access="UPDATE" strategy="JOINED" import-model-name="model1" root-type="Sample">
+      <index index-name="PK_T_SAMPLE" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SAMPLE_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="name" type="String" length="254" column-name="NAME" column-type="VARCHAR(254)"/>
+      <property name="sampleElementSet" type="SampleElement" length="254" collection="SET" column-type="VARCHAR(254)" mappedBy="sample" object-link="O2M"/>
+      <property name="apiCalls" type="SampleApiCall" length="254" collection="SET" label="Коллекция с результатами идемпотентных вызовов" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM" mappedBy="parentObject" object-link="O2M"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Дискриминатор классов" mandatory="true" column-name="TYPE" default-value="Sample" description="Дискриминатор" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="SampleElement" extends="Entity" tableName="T_SAMPLEELEMENT" pk-index-name="PK_T_SAMPLEELEMENT" affinity="sample" class-access="UPDATE" strategy="JOINED" import-model-name="model1" root-type="Sample">
+      <index index-name="PK_T_SAMPLEELEMENT" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SAMPLEELEMENT_SAMPLE_ID">
+        <property name="sample"/>
+      </index>
+      <index index-name="I_SAMPLEELEMENT_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <index index-name="I_SAMPLEELEMENT_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="sample" type="Sample" length="254" mandatory="true" column-name="SAMPLE_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="Sample" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <property name="type" type="String" length="254" label="Дискриминатор классов" mandatory="true" column-name="TYPE" default-value="SampleElement" description="Дискриминатор" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="SampleDictionary" tableName="T_SAMPLEDICTIONARY" pk-index-name="PK_T_SAMPLEDICTIONARY" is-dictionary="true" affinity="RootDictionary" class-access="UPDATE" strategy="JOINED" import-model-name="model1" is-updated-root-dictionaries="true" root-type="SampleDictionary">
+      <index index-name="PK_T_SAMPLEDICTIONARY" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SAMPLEDICTIONARY_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <index index-name="I_SAMPLEDICTIONARY_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="code" type="String" length="254" column-name="CODE" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="RootDictionary" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <property name="type" type="String" length="254" label="Дискриминатор классов" mandatory="true" column-name="TYPE" default-value="SampleDictionary" description="Дискриминатор" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="RootDictionary" label="Класс агрегат справочника" tableName="T_ROOTDICTIONARY" pk-index-name="PK_T_ROOTDICTIONARY" is-dictionary="true" affinity="objectId" class-access="READ_ONLY" strategy="JOINED" import-model-name="model1" root-type="RootDictionary">
+      <index index-name="PK_T_ROOTDICTIONARY" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_ROOTDICTIONARY_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Дискриминатор классов" mandatory="true" column-name="TYPE" default-value="RootDictionary" description="Дискриминатор" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SampleApiCall" extends="Entity" label="Результат обработки пакета Unit of Work для Sample" tableName="T_SAMPLEAPICALL" pk-index-name="PK_T_SAMPLEAPICALL" affinity="parentObject" class-access="SYSTEM" final-class="true" strategy="JOINED" import-model-name="model1" root-type="Sample">
+      <index index-name="PK_T_SAMPLEAPICALL" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index unique="true" index-name="I_SAMPLEAPICALL_APICALLID">
+        <property name="apiCallId"/>
+      </index>
+      <index index-name="I_SAMPLEAPICALL_PARENTOBJECT_ID">
+        <property name="parentObject"/>
+      </index>
+      <index index-name="I_SAMPLEAPICALL_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="apiCallId" type="String" length="254" label="Идентификатор пакета" column-name="APICALLID" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <property name="firstCallDate" type="Date" length="3" label="Дата первого успешного вызова пакета" column-name="FIRSTCALLDATE" column-type="TIMESTAMP(3)" system-field="true" changeable="SYSTEM"/>
+      <property name="data" type="String" length="4000" label="Результат обработки пакета" column-name="DATA" column-type="VARCHAR(4000)" system-field="true" changeable="SYSTEM"/>
+      <property name="bigData" type="String" length="4001" label="Результат обработки пакета, используется если результат не помещается в поле data" column-name="BIGDATA" column-type="CLOB" system-field="true" changeable="SYSTEM"/>
+      <property name="parentObject" type="Sample" length="254" label="Ссылка на родительский объект" mandatory="true" column-name="PARENTOBJECT_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="Sample" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="Entity" label="Основной класс модели" is-abstract="true" class-access="SYSTEM" import-model-name="model1">
+      <property name="chgCnt" type="Long" label="Счетчик изменений (технический)" column-name="CHGCNT" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="ownerId" type="String" length="254" label="System attribute: record owner module id" column-name="SYS_OWNERID" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+  </model>
+  <status/>
+  <meta-information>
+    <plugin-version>4.4.378</plugin-version>
+    <have-insert-root-dictionary>true</have-insert-root-dictionary>
+    <have-h2-decode-base64-function>true</have-h2-decode-base64-function>
+    <allow-lastchangedate-compare>false</allow-lastchangedate-compare>
+    <disabledGenerateOracleLiquibase>false</disabledGenerateOracleLiquibase>
+    <useRenamedFields>false</useRenamedFields>
+    <disableBaseEntityFields>true</disableBaseEntityFields>
+    <allowUseParentUniqueIndex>true</allowUseParentUniqueIndex>
+  </meta-information>
+  <system-init-tasks/>
+  <source-models/>
+</PdmModel>

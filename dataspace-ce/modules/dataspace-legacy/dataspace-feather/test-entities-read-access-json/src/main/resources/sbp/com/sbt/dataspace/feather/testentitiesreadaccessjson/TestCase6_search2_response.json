@@ -1,0 +1,13 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${product2Id}",
+      "props": {
+        "aliases": {
+          "elems": []
+        }
+      }
+    }
+  ]
+}

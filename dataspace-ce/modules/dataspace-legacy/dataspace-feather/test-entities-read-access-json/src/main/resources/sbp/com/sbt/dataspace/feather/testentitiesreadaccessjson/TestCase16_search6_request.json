@@ -1,0 +1,39 @@
+{
+  "merge": [
+    {
+      "type": "Product",
+      "props": [
+        "aliases",
+        "relatedProduct"
+      ],
+      "details": {
+        "ProductPlus": {
+          "affectedProducts": {
+            "props": {
+              "relatedProduct": {
+                "props": [
+                  "code",
+                  "relatedProduct"
+                ]
+              }
+            },
+            "limit": 10,
+            "count": true,
+            "sort": [
+              "it.code",
+              "it.relatedProduct.code"
+            ]
+          }
+        }
+      },
+      "cond": "it.$id $in ['${product1Id}', '${product2Id}', '${product3Id}', '${productPlus1Id}', '${productLimited1Id}', '${productLimited2Id}']"
+    },
+    {
+      "type": "TestEntity",
+      "cond": "1 == 0"
+    }
+  ],
+  "limit": 10,
+  "count": true,
+  "sort": "it.$type + it.code"
+}

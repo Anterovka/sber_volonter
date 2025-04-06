@@ -1,0 +1,20 @@
+{
+  "type": "Parameter",
+  "props": {
+    "entity": {
+      "props": {
+        "code": {
+          "calc": "root.entity.code"
+        },
+        "request": {
+          "props": {
+            "code": {
+              "calc": "root.entity.request.code"
+            }
+          }
+        }
+      }
+    }
+  },
+  "cond": "it.$id == '${parameter1Id}'"
+}

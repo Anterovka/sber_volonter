@@ -1,0 +1,27 @@
+@import "antd/dist/reset.css";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.add-form {
+  width: 480px;
+  padding: 16px;
+  border-radius: 6px;
+  margin: 24px auto;
+  border: 1px solid rgb(206, 206, 206);
+}
+
+.edit-form {
+  width: 100%;
+  margin: 8px 0 0;
+}
+
+.access-form {
+  width: 100%;
+  margin-bottom: 24px;
+  row-gap: 8px;
+}
+

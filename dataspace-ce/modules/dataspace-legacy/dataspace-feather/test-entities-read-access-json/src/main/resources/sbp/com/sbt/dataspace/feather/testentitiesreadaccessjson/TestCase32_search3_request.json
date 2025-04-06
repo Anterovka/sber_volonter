@@ -1,0 +1,102 @@
+{
+  "type": "TestEntity",
+  "props": {
+    "p1": {
+      "calc": "it.p14.$asString"
+    },
+    "p2": {
+      "calc": "it.p7.$asString"
+    },
+    "p3": {
+      "calc": "it.p15.$asString"
+    },
+    "p4_2": {
+      "calc": "it.p1.$substr(1, 10).$asDate"
+    },
+    "p5_2": {
+      "calc": "it.p1.$substr(1, 26).$asDateTime"
+    },
+    "p6_2": {
+      "calc": "it.p1.$asOffsetDateTime"
+    },
+    "p7": {
+      "calc": "it.p14.$year"
+    },
+    "p8": {
+      "calc": "it.p7.$year"
+    },
+    "p9": {
+      "calc": "it.p15.$year"
+    },
+    "p10": {
+      "calc": "it.p14.$month"
+    },
+    "p11": {
+      "calc": "it.p7.$month"
+    },
+    "p12": {
+      "calc": "it.p15.$month"
+    },
+    "p13": {
+      "calc": "it.p14.$day"
+    },
+    "p14": {
+      "calc": "it.p7.$day"
+    },
+    "p15": {
+      "calc": "it.p15.$day"
+    },
+    "p16": {
+      "calc": "it.p7.$hour"
+    },
+    "p17": {
+      "calc": "it.p15.$hour"
+    },
+    "p18": {
+      "calc": "it.p7.$minute"
+    },
+    "p19": {
+      "calc": "it.p15.$minute"
+    },
+    "p20": {
+      "calc": "it.p7.$second"
+    },
+    "p21": {
+      "calc": "it.p15.$second"
+    },
+    "p22": {
+      "calc": "it.p15.$offsetHour"
+    },
+    "p23": {
+      "calc": "it.p15.$offsetMinute"
+    },
+    "p25": {
+      "calc": "it.p7.$time.$asString"
+    },
+    "p26": {
+      "calc": "it.p15.$time.$asString"
+    },
+    "p28": {
+      "calc": "it.p7.$date"
+    },
+    "p29": {
+      "calc": "it.p15.$date"
+    },
+    "p30": {
+      "calc": "it.p7.$time"
+    },
+    "p31": {
+      "calc": "it.p15.$time"
+    },
+    "p32": {
+      "calc": "it.p15.$offset"
+    },
+    "p33": {
+      "calc": "it.p15.$dateTime"
+    },
+    "p34": {
+      "calc": "it.p15.$dateTime.$asString"
+    }
+  },
+  "cond": "it.$id == '${testEntity3Id}' && it.p15.$time.$hash == null"
+}

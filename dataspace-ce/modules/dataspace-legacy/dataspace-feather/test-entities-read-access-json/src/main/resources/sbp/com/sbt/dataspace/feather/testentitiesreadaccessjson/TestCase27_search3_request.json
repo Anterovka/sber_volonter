@@ -1,0 +1,15 @@
+{
+  "merge": [
+    {
+      "type": "Product",
+      "cond": "it.$id $in ['${product1Id}', '${product2Id}']",
+      "secCond": "it.code != 'product2'"
+    },
+    {
+      "type": "Service",
+      "cond": "it.$id $in ['${service1Id}', '${service2Id}']",
+      "secCond": "it.code != 'service2'"
+    }
+  ],
+  "sort": "it.code"
+}

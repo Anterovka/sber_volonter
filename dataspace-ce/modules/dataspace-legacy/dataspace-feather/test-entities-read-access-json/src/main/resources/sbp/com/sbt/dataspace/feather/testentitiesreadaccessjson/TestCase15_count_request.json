@@ -1,0 +1,18 @@
+{
+  "merge": [
+    {
+      "type": "TestEntity",
+      "cond": "root.$id == '${testEntity1Id}'"
+    },
+    {
+      "type": "Product",
+      "cond": "root.$id == '${product2Id}'"
+    },
+    {
+      "type": "Service",
+      "cond": "root.$id == '${service1Id}'"
+    }
+  ],
+  "limit": 0,
+  "count": true
+}

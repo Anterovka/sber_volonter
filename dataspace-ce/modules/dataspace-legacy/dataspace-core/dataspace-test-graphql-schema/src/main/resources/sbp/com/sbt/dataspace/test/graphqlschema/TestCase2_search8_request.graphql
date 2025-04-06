@@ -1,0 +1,13 @@
+{
+    searchProduct(cond: "it.$id == '${product1Id}'") {
+        elems {
+            ... on _Entity {
+                ... f1
+            }
+        }
+    }
+}
+
+fragment f1 on ProductLimited {
+    id
+}

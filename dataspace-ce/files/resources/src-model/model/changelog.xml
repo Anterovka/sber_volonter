@@ -1,0 +1,1681 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+                   logicalFilePath="./volonteernew/changelog.xml">
+    
+    
+    <changeSet author="volonteernew" id="0.0.1-before">
+        <tagDatabase tag="volonteernew-0.0.1-before"/>
+    </changeSet>
+    <changeSet author="volonteernew" id="DICTIONARY-H2-DECODER-BASE64" dbms="h2">
+        <sql>CREATE ALIAS IF NOT EXISTS BASE64_DECODE AS 'byte[] encode(String source) {return java.util.Base64.getDecoder().decode(source);}'</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" id="0.0.1-7489608606162288642">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="T_EVENT"/>
+            </not>
+        </preConditions>
+        <createTable
+                tablespace="${tablespace_t}"
+                tableName="T_EVENT"
+                remarks="Code: Event&#10;Name: ">
+
+            <column name="DESCRIPTION" type="VARCHAR(4000)" remarks="Code: description&#10;Name: " ><constraints nullable="false"/> </column>
+            <column name="ENDDATETIME" type="TIMESTAMP(3)" remarks="Code: endDateTime&#10;Name: " > </column>
+            <column name="ORGANIZATION_ID" type="VARCHAR(254)" remarks="Code: organization&#10;Name: " ><constraints nullable="false"/> </column>
+            <column name="STARTDATETIME" type="TIMESTAMP(3)" remarks="Code: startDateTime&#10;Name: " > </column>
+            <column name="STATUSFORX_CODE" type="VARCHAR(254)" remarks="Code: statusForX&#10;Name: " > </column>
+            <column name="STATUSFORX_REASON" type="VARCHAR(254)" remarks="Code: statusForX&#10;Name: " > </column>
+            <column name="OBJECT_ID" type="VARCHAR(254)" remarks="Code: objectId&#10;Name: Application Object ID" ><constraints nullable="false"/> </column>
+            <column name="AGGREGATEROOT_ID" type="VARCHAR(254)" remarks="Code: aggregateRoot&#10;Name: link to the root aggregate" > </column>
+            <column name="TYPE" type="VARCHAR(254)" remarks="Code: type&#10;Name: Class Discriminator" ><constraints nullable="false"/> </column>
+        </createTable>
+    </changeSet>
+
+<changeSet author="volonteernew" id="0.0.1-7489608606162288642-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = 'T_EVENT'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('T_EVENT')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="T_EVENT" columnNames="OBJECT_ID" constraintName="PK_T_EVENT"/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288642-index-1-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_EVENT') and indexname=lower('I_EVENT_ORGANIZATION_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_EVENT set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_EVENT reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288642-index-1">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_EVENT' AND INDEX_NAME='I_EVENT_ORGANIZATION_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_EVENT"
+            unique="false"
+            indexName="I_EVENT_ORGANIZATION_ID">
+            <column name="ORGANIZATION_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288642-index-postgresql-1" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_EVENT_ORGANIZATION_ID ON ${defaultSchemaName}.T_EVENT (ORGANIZATION_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_EVENT_ORGANIZATION_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288642-index-1-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_EVENT') and indexname=lower('I_EVENT_ORGANIZATION_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_EVENT reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288642-index-2-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_EVENT') and indexname=lower('I_EVENT_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_EVENT set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_EVENT reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288642-index-2">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_EVENT' AND INDEX_NAME='I_EVENT_AGGREGATEROOT_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_EVENT"
+            unique="false"
+            indexName="I_EVENT_AGGREGATEROOT_ID">
+            <column name="AGGREGATEROOT_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288642-index-postgresql-2" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_EVENT_AGGREGATEROOT_ID ON ${defaultSchemaName}.T_EVENT (AGGREGATEROOT_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_EVENT_AGGREGATEROOT_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288642-index-2-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_EVENT') and indexname=lower('I_EVENT_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_EVENT reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288642-index-3-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_EVENT') and indexname=lower('I_EVENT_TYPE')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_EVENT set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_EVENT reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288642-index-3">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_EVENT' AND INDEX_NAME='I_EVENT_TYPE'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_EVENT"
+            unique="false"
+            indexName="I_EVENT_TYPE">
+            <column name="TYPE"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288642-index-postgresql-3" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_EVENT_TYPE ON ${defaultSchemaName}.T_EVENT (TYPE) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_EVENT_TYPE</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288642-index-3-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_EVENT') and indexname=lower('I_EVENT_TYPE')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_EVENT reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" id="0.0.1-7489608606162288643">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="T_ORGANIZATION"/>
+            </not>
+        </preConditions>
+        <createTable
+                tablespace="${tablespace_t}"
+                tableName="T_ORGANIZATION"
+                remarks="Code: Organization&#10;Name: ">
+
+            <column name="NAME" type="VARCHAR(254)" remarks="Code: name&#10;Name: " ><constraints nullable="false"/> </column>
+            <column name="SYS_VER" type="${type_long}" remarks="Code: sys_ver&#10;Name: Technical Change Counter" > </column>
+            <column name="OBJECT_ID" type="VARCHAR(254)" remarks="Code: objectId&#10;Name: Application Object ID" ><constraints nullable="false"/> </column>
+            <column name="TYPE" type="VARCHAR(254)" remarks="Code: type&#10;Name: Class Discriminator" ><constraints nullable="false"/> </column>
+        </createTable>
+    </changeSet>
+
+<changeSet author="volonteernew" id="0.0.1-7489608606162288643-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = 'T_ORGANIZATION'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('T_ORGANIZATION')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="T_ORGANIZATION" columnNames="OBJECT_ID" constraintName="PK_T_ORGANIZATION"/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288643-index-1-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_ORGANIZATION') and indexname=lower('I_ORGANIZATION_TYPE')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_ORGANIZATION set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_ORGANIZATION reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288643-index-1">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_ORGANIZATION' AND INDEX_NAME='I_ORGANIZATION_TYPE'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_ORGANIZATION"
+            unique="false"
+            indexName="I_ORGANIZATION_TYPE">
+            <column name="TYPE"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288643-index-postgresql-1" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_ORGANIZATION_TYPE ON ${defaultSchemaName}.T_ORGANIZATION (TYPE) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_ORGANIZATION_TYPE</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288643-index-1-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_ORGANIZATION') and indexname=lower('I_ORGANIZATION_TYPE')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_ORGANIZATION reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" id="0.0.1-7489608606162288644">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="T_PERSON"/>
+            </not>
+        </preConditions>
+        <createTable
+                tablespace="${tablespace_t}"
+                tableName="T_PERSON"
+                remarks="Code: Person&#10;Name: ">
+
+            <column name="BIRTHDATE" type="DATE" remarks="Code: birthDate&#10;Name: " > </column>
+            <column name="FIRSTNAME" type="VARCHAR(254)" remarks="Code: firstName&#10;Name: " ><constraints nullable="false"/> </column>
+            <column name="LASTNAME" type="VARCHAR(254)" remarks="Code: lastName&#10;Name: " ><constraints nullable="false"/> </column>
+            <column name="SYS_VER" type="${type_long}" remarks="Code: sys_ver&#10;Name: Technical Change Counter" > </column>
+            <column name="OBJECT_ID" type="VARCHAR(254)" remarks="Code: objectId&#10;Name: Application Object ID" ><constraints nullable="false"/> </column>
+            <column name="TYPE" type="VARCHAR(254)" remarks="Code: type&#10;Name: Class Discriminator" ><constraints nullable="false"/> </column>
+        </createTable>
+    </changeSet>
+
+<changeSet author="volonteernew" id="0.0.1-7489608606162288644-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = 'T_PERSON'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('T_PERSON')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="T_PERSON" columnNames="OBJECT_ID" constraintName="PK_T_PERSON"/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288644-index-1-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_PERSON') and indexname=lower('I_PERSON_TYPE')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_PERSON set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_PERSON reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288644-index-1">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_PERSON' AND INDEX_NAME='I_PERSON_TYPE'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_PERSON"
+            unique="false"
+            indexName="I_PERSON_TYPE">
+            <column name="TYPE"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288644-index-postgresql-1" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_PERSON_TYPE ON ${defaultSchemaName}.T_PERSON (TYPE) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_PERSON_TYPE</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288644-index-1-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_PERSON') and indexname=lower('I_PERSON_TYPE')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_PERSON reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" id="0.0.1-7489608606162288645">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="T_VOLONTEER"/>
+            </not>
+        </preConditions>
+        <createTable
+                tablespace="${tablespace_t}"
+                tableName="T_VOLONTEER"
+                remarks="Code: Volonteer&#10;Name: ">
+
+            <column name="NICKNAME" type="VARCHAR(254)" remarks="Code: nickName&#10;Name: " > </column>
+            <column name="SYS_VER" type="${type_long}" remarks="Code: sys_ver&#10;Name: Technical Change Counter" > </column>
+            <column name="PERSON_ENTITYID" type="VARCHAR(254)" remarks="Code: person&#10;Name: " > </column>
+            <column name="OBJECT_ID" type="VARCHAR(254)" remarks="Code: objectId&#10;Name: Application Object ID" ><constraints nullable="false"/> </column>
+            <column name="TYPE" type="VARCHAR(254)" remarks="Code: type&#10;Name: Class Discriminator" ><constraints nullable="false"/> </column>
+        </createTable>
+    </changeSet>
+
+<changeSet author="volonteernew" id="0.0.1-7489608606162288645-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = 'T_VOLONTEER'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('T_VOLONTEER')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="T_VOLONTEER" columnNames="OBJECT_ID" constraintName="PK_T_VOLONTEER"/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288645-index-1-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEER') and indexname=lower('I_VOLONTEER_PERSON')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEER set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEER reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288645-index-1">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_VOLONTEER' AND INDEX_NAME='I_VOLONTEER_PERSON'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_VOLONTEER"
+            unique="false"
+            indexName="I_VOLONTEER_PERSON">
+            <column name="PERSON_ENTITYID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288645-index-postgresql-1" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_VOLONTEER_PERSON ON ${defaultSchemaName}.T_VOLONTEER (PERSON_ENTITYID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_VOLONTEER_PERSON</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288645-index-1-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEER') and indexname=lower('I_VOLONTEER_PERSON')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_VOLONTEER reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288645-index-2-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEER') and indexname=lower('I_VOLONTEER_TYPE')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEER set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEER reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288645-index-2">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_VOLONTEER' AND INDEX_NAME='I_VOLONTEER_TYPE'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_VOLONTEER"
+            unique="false"
+            indexName="I_VOLONTEER_TYPE">
+            <column name="TYPE"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288645-index-postgresql-2" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_VOLONTEER_TYPE ON ${defaultSchemaName}.T_VOLONTEER (TYPE) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_VOLONTEER_TYPE</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288645-index-2-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEER') and indexname=lower('I_VOLONTEER_TYPE')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_VOLONTEER reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" id="0.0.1-7489608606162288646">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="T_VOLONTEEREVENTREQUEST"/>
+            </not>
+        </preConditions>
+        <createTable
+                tablespace="${tablespace_t}"
+                tableName="T_VOLONTEEREVENTREQUEST"
+                remarks="Code: VolonteerEventRequest&#10;Name: ">
+
+            <column name="DESCRIPTION" type="VARCHAR(4000)" remarks="Code: description&#10;Name: " > </column>
+            <column name="VOLONTEER_ID" type="VARCHAR(254)" remarks="Code: volonteer&#10;Name: " ><constraints nullable="false"/> </column>
+            <column name="STATUSFORX_CODE" type="VARCHAR(254)" remarks="Code: statusForX&#10;Name: " > </column>
+            <column name="STATUSFORX_REASON" type="VARCHAR(254)" remarks="Code: statusForX&#10;Name: " > </column>
+            <column name="EVENT_ENTITYID" type="VARCHAR(254)" remarks="Code: event&#10;Name: " > </column>
+            <column name="EVENT_ROOTENTITYID" type="VARCHAR(254)" remarks="Code: event&#10;Name: " > </column>
+            <column name="OBJECT_ID" type="VARCHAR(254)" remarks="Code: objectId&#10;Name: Application Object ID" ><constraints nullable="false"/> </column>
+            <column name="AGGREGATEROOT_ID" type="VARCHAR(254)" remarks="Code: aggregateRoot&#10;Name: link to the root aggregate" > </column>
+            <column name="TYPE" type="VARCHAR(254)" remarks="Code: type&#10;Name: Class Discriminator" ><constraints nullable="false"/> </column>
+        </createTable>
+    </changeSet>
+
+<changeSet author="volonteernew" id="0.0.1-7489608606162288646-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = 'T_VOLONTEEREVENTREQUEST'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('T_VOLONTEEREVENTREQUEST')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="T_VOLONTEEREVENTREQUEST" columnNames="OBJECT_ID" constraintName="PK_T_VOLONTEEREVENTREQUEST"/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288646-index-1-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEEREVENTREQUEST') and indexname=lower('I_VOLONTEEREVENTREQUEST_VOLONTEER_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288646-index-1">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_VOLONTEEREVENTREQUEST' AND INDEX_NAME='I_VOLONTEEREVENTREQUEST_VOLONTEER_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_VOLONTEEREVENTREQUEST"
+            unique="false"
+            indexName="I_VOLONTEEREVENTREQUEST_VOLONTEER_ID">
+            <column name="VOLONTEER_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288646-index-postgresql-1" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_VOLONTEEREVENTREQUEST_VOLONTEER_ID ON ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST (VOLONTEER_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_VOLONTEEREVENTREQUEST_VOLONTEER_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288646-index-1-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEEREVENTREQUEST') and indexname=lower('I_VOLONTEEREVENTREQUEST_VOLONTEER_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288646-index-2-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEEREVENTREQUEST') and indexname=lower('I_VOLONTEEREVENTREQUEST_EVENT')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288646-index-2">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_VOLONTEEREVENTREQUEST' AND INDEX_NAME='I_VOLONTEEREVENTREQUEST_EVENT'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_VOLONTEEREVENTREQUEST"
+            unique="false"
+            indexName="I_VOLONTEEREVENTREQUEST_EVENT">
+            <column name="EVENT_ENTITYID"/>
+            <column name="EVENT_ROOTENTITYID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288646-index-postgresql-2" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_VOLONTEEREVENTREQUEST_EVENT ON ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST (EVENT_ENTITYID,EVENT_ROOTENTITYID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_VOLONTEEREVENTREQUEST_EVENT</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288646-index-2-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEEREVENTREQUEST') and indexname=lower('I_VOLONTEEREVENTREQUEST_EVENT')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288646-index-3-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEEREVENTREQUEST') and indexname=lower('I_VOLONTEEREVENTREQUEST_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288646-index-3">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_VOLONTEEREVENTREQUEST' AND INDEX_NAME='I_VOLONTEEREVENTREQUEST_AGGREGATEROOT_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_VOLONTEEREVENTREQUEST"
+            unique="false"
+            indexName="I_VOLONTEEREVENTREQUEST_AGGREGATEROOT_ID">
+            <column name="AGGREGATEROOT_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288646-index-postgresql-3" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_VOLONTEEREVENTREQUEST_AGGREGATEROOT_ID ON ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST (AGGREGATEROOT_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_VOLONTEEREVENTREQUEST_AGGREGATEROOT_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288646-index-3-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEEREVENTREQUEST') and indexname=lower('I_VOLONTEEREVENTREQUEST_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288646-index-4-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEEREVENTREQUEST') and indexname=lower('I_VOLONTEEREVENTREQUEST_TYPE')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288646-index-4">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_VOLONTEEREVENTREQUEST' AND INDEX_NAME='I_VOLONTEEREVENTREQUEST_TYPE'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_VOLONTEEREVENTREQUEST"
+            unique="false"
+            indexName="I_VOLONTEEREVENTREQUEST_TYPE">
+            <column name="TYPE"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288646-index-postgresql-4" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_VOLONTEEREVENTREQUEST_TYPE ON ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST (TYPE) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_VOLONTEEREVENTREQUEST_TYPE</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288646-index-4-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEEREVENTREQUEST') and indexname=lower('I_VOLONTEEREVENTREQUEST_TYPE')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_VOLONTEEREVENTREQUEST reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" id="0.0.1-7489608606162288648">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="T_ROOTDICTIONARY"/>
+            </not>
+        </preConditions>
+        <createTable
+                tablespace="${tablespace_t}"
+                tableName="T_ROOTDICTIONARY"
+                remarks="Code: RootDictionary&#10;Name: Aggregate class of reference">
+
+            <column name="SYS_VER" type="${type_long}" remarks="Code: sys_ver&#10;Name: Technical Change Counter" > </column>
+            <column name="OBJECT_ID" type="VARCHAR(254)" remarks="Code: objectId&#10;Name: Application Object ID" ><constraints nullable="false"/> </column>
+            <column name="TYPE" type="VARCHAR(254)" remarks="Code: type&#10;Name: Class Discriminator" ><constraints nullable="false"/> </column>
+        </createTable>
+    </changeSet>
+
+<changeSet author="volonteernew" id="0.0.1-7489608606162288648-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = 'T_ROOTDICTIONARY'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('T_ROOTDICTIONARY')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="T_ROOTDICTIONARY" columnNames="OBJECT_ID" constraintName="PK_T_ROOTDICTIONARY"/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288648-index-1-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_ROOTDICTIONARY') and indexname=lower('I_ROOTDICTIONARY_TYPE')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_ROOTDICTIONARY set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_ROOTDICTIONARY reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288648-index-1">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_ROOTDICTIONARY' AND INDEX_NAME='I_ROOTDICTIONARY_TYPE'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_ROOTDICTIONARY"
+            unique="false"
+            indexName="I_ROOTDICTIONARY_TYPE">
+            <column name="TYPE"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288648-index-postgresql-1" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_ROOTDICTIONARY_TYPE ON ${defaultSchemaName}.T_ROOTDICTIONARY (TYPE) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_ROOTDICTIONARY_TYPE</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288648-index-1-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_ROOTDICTIONARY') and indexname=lower('I_ROOTDICTIONARY_TYPE')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_ROOTDICTIONARY reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" id="0.0.1-7489608606162288649">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="T_SEC_ROOTSECURITY"/>
+            </not>
+        </preConditions>
+        <createTable
+                tablespace="${tablespace_t}"
+                tableName="T_SEC_ROOTSECURITY"
+                remarks="Code: SysRootSecurity&#10;Name: Class of security tables aggregate">
+
+            <column name="SYS_VER" type="${type_long}" remarks="Code: sys_ver&#10;Name: Technical Change Counter" > </column>
+            <column name="OBJECT_ID" type="VARCHAR(254)" remarks="Code: objectId&#10;Name: Application Object ID" ><constraints nullable="false"/> </column>
+            <column name="TYPE" type="VARCHAR(254)" remarks="Code: type&#10;Name: Class Discriminator" ><constraints nullable="false"/> </column>
+        </createTable>
+    </changeSet>
+
+<changeSet author="volonteernew" id="0.0.1-7489608606162288649-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = 'T_SEC_ROOTSECURITY'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('T_SEC_ROOTSECURITY')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="T_SEC_ROOTSECURITY" columnNames="OBJECT_ID" constraintName="PK_T_SEC_ROOTSECURITY"/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288649-index-1-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_ROOTSECURITY') and indexname=lower('I_SYSROOTSECURITY_TYPE')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_ROOTSECURITY set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_ROOTSECURITY reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288649-index-1">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_SEC_ROOTSECURITY' AND INDEX_NAME='I_SYSROOTSECURITY_TYPE'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_SEC_ROOTSECURITY"
+            unique="false"
+            indexName="I_SYSROOTSECURITY_TYPE">
+            <column name="TYPE"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288649-index-postgresql-1" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_SYSROOTSECURITY_TYPE ON ${defaultSchemaName}.T_SEC_ROOTSECURITY (TYPE) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_SYSROOTSECURITY_TYPE</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288649-index-1-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_ROOTSECURITY') and indexname=lower('I_SYSROOTSECURITY_TYPE')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_SEC_ROOTSECURITY reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" id="0.0.1-7489608606162288650">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="T_SEC_CHECKSELECT"/>
+            </not>
+        </preConditions>
+        <createTable
+                tablespace="${tablespace_t}"
+                tableName="T_SEC_CHECKSELECT"
+                remarks="Code: SysCheckSelect&#10;Name: Table of verification requests performed before/after the main request">
+
+            <column name="BEFORECOMMITENABLE" type="${type_boolean}" remarks="Code: beforeCommitEnable&#10;Name: " > </column>
+            <column name="BEFOREOPERATIONDISABLE" type="${type_boolean}" remarks="Code: beforeOperationDisable&#10;Name: Should the check be suppressed before the request?" > </column>
+            <column name="CONDITIONVALUE" type="CLOB" remarks="Code: conditionValue&#10;Name: Filtering condition" > </column>
+            <column name="DESCRIPTION" type="VARCHAR(254)" remarks="Code: description&#10;Name: User-defined description" > </column>
+            <column name="OPERATION_ID" type="VARCHAR(254)" remarks="Code: operation&#10;Name: GQL request to which the check is applied" ><constraints nullable="false"/> </column>
+            <column name="ORDERVALUE" type="${type_int}" remarks="Code: orderValue&#10;Name: Order of display" > </column>
+            <column name="TYPENAME" type="VARCHAR(254)" remarks="Code: typeName&#10;Name: Entity type on which the request is built" > </column>
+            <column name="OBJECT_ID" type="VARCHAR(254)" remarks="Code: objectId&#10;Name: Application Object ID" ><constraints nullable="false"/> </column>
+            <column name="AGGREGATEROOT_ID" type="VARCHAR(254)" remarks="Code: aggregateRoot&#10;Name: link to the root aggregate" > </column>
+        </createTable>
+    </changeSet>
+
+<changeSet author="volonteernew" id="0.0.1-7489608606162288650-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = 'T_SEC_CHECKSELECT'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('T_SEC_CHECKSELECT')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="T_SEC_CHECKSELECT" columnNames="OBJECT_ID" constraintName="PK_T_SEC_CHECKSELECT"/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288650-index-1-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_CHECKSELECT') and indexname=lower('I_SYSCHECKSELECT_OPERATION_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_CHECKSELECT set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_CHECKSELECT reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288650-index-1">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_SEC_CHECKSELECT' AND INDEX_NAME='I_SYSCHECKSELECT_OPERATION_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_SEC_CHECKSELECT"
+            unique="false"
+            indexName="I_SYSCHECKSELECT_OPERATION_ID">
+            <column name="OPERATION_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288650-index-postgresql-1" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_SYSCHECKSELECT_OPERATION_ID ON ${defaultSchemaName}.T_SEC_CHECKSELECT (OPERATION_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_SYSCHECKSELECT_OPERATION_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288650-index-1-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_CHECKSELECT') and indexname=lower('I_SYSCHECKSELECT_OPERATION_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_SEC_CHECKSELECT reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288650-index-2-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_CHECKSELECT') and indexname=lower('I_SYSCHECKSELECT_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_CHECKSELECT set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_CHECKSELECT reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288650-index-2">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_SEC_CHECKSELECT' AND INDEX_NAME='I_SYSCHECKSELECT_AGGREGATEROOT_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_SEC_CHECKSELECT"
+            unique="false"
+            indexName="I_SYSCHECKSELECT_AGGREGATEROOT_ID">
+            <column name="AGGREGATEROOT_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288650-index-postgresql-2" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_SYSCHECKSELECT_AGGREGATEROOT_ID ON ${defaultSchemaName}.T_SEC_CHECKSELECT (AGGREGATEROOT_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_SYSCHECKSELECT_AGGREGATEROOT_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288650-index-2-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_CHECKSELECT') and indexname=lower('I_SYSCHECKSELECT_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_SEC_CHECKSELECT reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" id="0.0.1-7489608606162288651">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="T_SEC_OPERATION"/>
+            </not>
+        </preConditions>
+        <createTable
+                tablespace="${tablespace_t}"
+                tableName="T_SEC_OPERATION"
+                remarks="Code: SysOperation&#10;Name: Table of allowed GQL requests">
+
+            <column name="ALLOWEMPTYCHECKS" type="${type_boolean}" remarks="Code: allowEmptyChecks&#10;Name: Applicability flag of empty conditions" > </column>
+            <column name="BODY" type="CLOB" remarks="Code: body&#10;Name: Request" > </column>
+            <column name="DISABLEJWTVERIFICATION" type="${type_boolean}" remarks="Code: disableJwtVerification&#10;Name: JWT checks ignoring flag" > </column>
+            <column name="HASHVALUE" type="VARCHAR(254)" remarks="Code: hashValue&#10;Name: Хэш" > </column>
+            <column name="PATHCONDITIONS" type="CLOB" remarks="Code: pathConditions&#10;Name: Additional routing conditions for fields" > </column>
+            <column name="ROOTSECURITY_ID" type="VARCHAR(254)" remarks="Code: rootSecurity&#10;Name: Root" ><constraints nullable="false"/> </column>
+            <column name="OBJECT_ID" type="VARCHAR(254)" remarks="Code: objectId&#10;Name: Application Object ID" ><constraints nullable="false"/> </column>
+            <column name="AGGREGATEROOT_ID" type="VARCHAR(254)" remarks="Code: aggregateRoot&#10;Name: link to the root aggregate" > </column>
+        </createTable>
+    </changeSet>
+
+<changeSet author="volonteernew" id="0.0.1-7489608606162288651-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = 'T_SEC_OPERATION'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('T_SEC_OPERATION')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="T_SEC_OPERATION" columnNames="OBJECT_ID" constraintName="PK_T_SEC_OPERATION"/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288651-index-1-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_OPERATION') and indexname=lower('I_SYSOPERATION_ROOTSECURITY_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_OPERATION set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_OPERATION reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288651-index-1">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_SEC_OPERATION' AND INDEX_NAME='I_SYSOPERATION_ROOTSECURITY_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_SEC_OPERATION"
+            unique="false"
+            indexName="I_SYSOPERATION_ROOTSECURITY_ID">
+            <column name="ROOTSECURITY_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288651-index-postgresql-1" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_SYSOPERATION_ROOTSECURITY_ID ON ${defaultSchemaName}.T_SEC_OPERATION (ROOTSECURITY_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_SYSOPERATION_ROOTSECURITY_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288651-index-1-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_OPERATION') and indexname=lower('I_SYSOPERATION_ROOTSECURITY_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_SEC_OPERATION reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288651-index-2-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_OPERATION') and indexname=lower('I_SYSOPERATION_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_OPERATION set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_OPERATION reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288651-index-2">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_SEC_OPERATION' AND INDEX_NAME='I_SYSOPERATION_AGGREGATEROOT_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_SEC_OPERATION"
+            unique="false"
+            indexName="I_SYSOPERATION_AGGREGATEROOT_ID">
+            <column name="AGGREGATEROOT_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288651-index-postgresql-2" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_SYSOPERATION_AGGREGATEROOT_ID ON ${defaultSchemaName}.T_SEC_OPERATION (AGGREGATEROOT_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_SYSOPERATION_AGGREGATEROOT_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288651-index-2-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_OPERATION') and indexname=lower('I_SYSOPERATION_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_SEC_OPERATION reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" id="0.0.1-7489608606162288652">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="T_SEC_ADMINSETTINGS"/>
+            </not>
+        </preConditions>
+        <createTable
+                tablespace="${tablespace_t}"
+                tableName="T_SEC_ADMINSETTINGS"
+                remarks="Code: SysAdminSettings&#10;Name: Table with security parameters">
+
+            <column name="KEY_" type="VARCHAR(254)" remarks="Code: key&#10;Name: Security settings key" > </column>
+            <column name="ROOTSECURITY_ID" type="VARCHAR(254)" remarks="Code: rootSecurity&#10;Name: Root" ><constraints nullable="false"/> </column>
+            <column name="VALUE_" type="CLOB" remarks="Code: value&#10;Name: Security setting value" > </column>
+            <column name="OBJECT_ID" type="VARCHAR(254)" remarks="Code: objectId&#10;Name: Application Object ID" ><constraints nullable="false"/> </column>
+            <column name="AGGREGATEROOT_ID" type="VARCHAR(254)" remarks="Code: aggregateRoot&#10;Name: link to the root aggregate" > </column>
+        </createTable>
+    </changeSet>
+
+<changeSet author="volonteernew" id="0.0.1-7489608606162288652-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = 'T_SEC_ADMINSETTINGS'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('T_SEC_ADMINSETTINGS')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="T_SEC_ADMINSETTINGS" columnNames="OBJECT_ID" constraintName="PK_T_SEC_ADMINSETTINGS"/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288652-index-1-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_ADMINSETTINGS') and indexname=lower('I_SYSADMINSETTINGS_KEY_')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_ADMINSETTINGS set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_ADMINSETTINGS reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288652-index-1">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_SEC_ADMINSETTINGS' AND INDEX_NAME='I_SYSADMINSETTINGS_KEY_'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_SEC_ADMINSETTINGS"
+            unique="true"
+            indexName="I_SYSADMINSETTINGS_KEY_">
+            <column name="KEY_"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288652-index-postgresql-1" runInTransaction="false">
+        <sql>create unique index ${liquibase.pg.online} if not exists I_SYSADMINSETTINGS_KEY_ ON ${defaultSchemaName}.T_SEC_ADMINSETTINGS (KEY_) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_SYSADMINSETTINGS_KEY_</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288652-index-1-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_ADMINSETTINGS') and indexname=lower('I_SYSADMINSETTINGS_KEY_')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_SEC_ADMINSETTINGS reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288652-index-2-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_ADMINSETTINGS') and indexname=lower('I_SYSADMINSETTINGS_ROOTSECURITY_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_ADMINSETTINGS set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_ADMINSETTINGS reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288652-index-2">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_SEC_ADMINSETTINGS' AND INDEX_NAME='I_SYSADMINSETTINGS_ROOTSECURITY_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_SEC_ADMINSETTINGS"
+            unique="false"
+            indexName="I_SYSADMINSETTINGS_ROOTSECURITY_ID">
+            <column name="ROOTSECURITY_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288652-index-postgresql-2" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_SYSADMINSETTINGS_ROOTSECURITY_ID ON ${defaultSchemaName}.T_SEC_ADMINSETTINGS (ROOTSECURITY_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_SYSADMINSETTINGS_ROOTSECURITY_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288652-index-2-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_ADMINSETTINGS') and indexname=lower('I_SYSADMINSETTINGS_ROOTSECURITY_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_SEC_ADMINSETTINGS reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288652-index-3-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_ADMINSETTINGS') and indexname=lower('I_SYSADMINSETTINGS_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_ADMINSETTINGS set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_ADMINSETTINGS reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288652-index-3">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_SEC_ADMINSETTINGS' AND INDEX_NAME='I_SYSADMINSETTINGS_AGGREGATEROOT_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_SEC_ADMINSETTINGS"
+            unique="false"
+            indexName="I_SYSADMINSETTINGS_AGGREGATEROOT_ID">
+            <column name="AGGREGATEROOT_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288652-index-postgresql-3" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_SYSADMINSETTINGS_AGGREGATEROOT_ID ON ${defaultSchemaName}.T_SEC_ADMINSETTINGS (AGGREGATEROOT_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_SYSADMINSETTINGS_AGGREGATEROOT_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288652-index-3-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_ADMINSETTINGS') and indexname=lower('I_SYSADMINSETTINGS_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_SEC_ADMINSETTINGS reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" id="0.0.1-7489608606162288653">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="T_SEC_PARAMADDITION"/>
+            </not>
+        </preConditions>
+        <createTable
+                tablespace="${tablespace_t}"
+                tableName="T_SEC_PARAMADDITION"
+                remarks="Code: SysParamAddition&#10;Name: Table with additional conditions">
+
+            <column name="OPERATION_ID" type="VARCHAR(254)" remarks="Code: operation&#10;Name: GQL request to which additional conditions are applied" ><constraints nullable="false"/> </column>
+            <column name="PARAMADDITION" type="VARCHAR(4000)" remarks="Code: paramAddition&#10;Name: Additional condition to the variable" > </column>
+            <column name="PARAMNAME" type="VARCHAR(254)" remarks="Code: paramName&#10;Name: Declared variable name" > </column>
+            <column name="OBJECT_ID" type="VARCHAR(254)" remarks="Code: objectId&#10;Name: Application Object ID" ><constraints nullable="false"/> </column>
+            <column name="AGGREGATEROOT_ID" type="VARCHAR(254)" remarks="Code: aggregateRoot&#10;Name: link to the root aggregate" > </column>
+        </createTable>
+    </changeSet>
+
+<changeSet author="volonteernew" id="0.0.1-7489608606162288653-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = 'T_SEC_PARAMADDITION'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('T_SEC_PARAMADDITION')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="T_SEC_PARAMADDITION" columnNames="OBJECT_ID" constraintName="PK_T_SEC_PARAMADDITION"/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288653-index-1-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_PARAMADDITION') and indexname=lower('I_SYSPARAMADDITION_OPERATION_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_PARAMADDITION set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_PARAMADDITION reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288653-index-1">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_SEC_PARAMADDITION' AND INDEX_NAME='I_SYSPARAMADDITION_OPERATION_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_SEC_PARAMADDITION"
+            unique="false"
+            indexName="I_SYSPARAMADDITION_OPERATION_ID">
+            <column name="OPERATION_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288653-index-postgresql-1" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_SYSPARAMADDITION_OPERATION_ID ON ${defaultSchemaName}.T_SEC_PARAMADDITION (OPERATION_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_SYSPARAMADDITION_OPERATION_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288653-index-1-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_PARAMADDITION') and indexname=lower('I_SYSPARAMADDITION_OPERATION_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_SEC_PARAMADDITION reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288653-index-2-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_PARAMADDITION') and indexname=lower('I_SYSPARAMADDITION_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_PARAMADDITION set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_SEC_PARAMADDITION reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288653-index-2">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_SEC_PARAMADDITION' AND INDEX_NAME='I_SYSPARAMADDITION_AGGREGATEROOT_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_SEC_PARAMADDITION"
+            unique="false"
+            indexName="I_SYSPARAMADDITION_AGGREGATEROOT_ID">
+            <column name="AGGREGATEROOT_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288653-index-postgresql-2" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_SYSPARAMADDITION_AGGREGATEROOT_ID ON ${defaultSchemaName}.T_SEC_PARAMADDITION (AGGREGATEROOT_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_SYSPARAMADDITION_AGGREGATEROOT_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288653-index-2-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_SEC_PARAMADDITION') and indexname=lower('I_SYSPARAMADDITION_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_SEC_PARAMADDITION reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" id="0.0.1-7489608606162288654">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="T_ORGANIZATIONAPICALL"/>
+            </not>
+        </preConditions>
+        <createTable
+                tablespace="${tablespace_t}"
+                tableName="T_ORGANIZATIONAPICALL"
+                remarks="Code: OrganizationApiCall&#10;Name: Result of processing the package Unit of Work for Organization">
+
+            <column name="APICALLID" type="VARCHAR(254)" remarks="Code: apiCallId&#10;Name: Package Identifier" > </column>
+            <column name="FIRSTCALLDATE" type="TIMESTAMP(3)" remarks="Code: firstCallDate&#10;Name: Date of the first successful package call" > </column>
+            <column name="DATA" type="VARCHAR(4000)" remarks="Code: data&#10;Name: Processing package result" > </column>
+            <column name="BIGDATA" type="CLOB" remarks="Code: bigData&#10;Name: The result of package processing, used if the result does not fit in the data field" > </column>
+            <column name="PARENTOBJECT_ID" type="VARCHAR(254)" remarks="Code: parentObject&#10;Name: Reference to parent object" ><constraints nullable="false"/> </column>
+            <column name="OBJECT_ID" type="VARCHAR(254)" remarks="Code: objectId&#10;Name: Application Object ID" ><constraints nullable="false"/> </column>
+            <column name="AGGREGATEROOT_ID" type="VARCHAR(254)" remarks="Code: aggregateRoot&#10;Name: link to the root aggregate" > </column>
+        </createTable>
+    </changeSet>
+
+<changeSet author="volonteernew" id="0.0.1-7489608606162288654-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = 'T_ORGANIZATIONAPICALL'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('T_ORGANIZATIONAPICALL')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="T_ORGANIZATIONAPICALL" columnNames="OBJECT_ID" constraintName="PK_T_ORGANIZATIONAPICALL"/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288654-index-1-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_ORGANIZATIONAPICALL') and indexname=lower('I_ORGANIZATIONAPICALL_APICALLID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_ORGANIZATIONAPICALL set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_ORGANIZATIONAPICALL reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288654-index-1">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_ORGANIZATIONAPICALL' AND INDEX_NAME='I_ORGANIZATIONAPICALL_APICALLID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_ORGANIZATIONAPICALL"
+            unique="true"
+            indexName="I_ORGANIZATIONAPICALL_APICALLID">
+            <column name="APICALLID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288654-index-postgresql-1" runInTransaction="false">
+        <sql>create unique index ${liquibase.pg.online} if not exists I_ORGANIZATIONAPICALL_APICALLID ON ${defaultSchemaName}.T_ORGANIZATIONAPICALL (APICALLID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_ORGANIZATIONAPICALL_APICALLID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288654-index-1-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_ORGANIZATIONAPICALL') and indexname=lower('I_ORGANIZATIONAPICALL_APICALLID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_ORGANIZATIONAPICALL reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288654-index-2-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_ORGANIZATIONAPICALL') and indexname=lower('I_ORGANIZATIONAPICALL_PARENTOBJECT_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_ORGANIZATIONAPICALL set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_ORGANIZATIONAPICALL reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288654-index-2">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_ORGANIZATIONAPICALL' AND INDEX_NAME='I_ORGANIZATIONAPICALL_PARENTOBJECT_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_ORGANIZATIONAPICALL"
+            unique="false"
+            indexName="I_ORGANIZATIONAPICALL_PARENTOBJECT_ID">
+            <column name="PARENTOBJECT_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288654-index-postgresql-2" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_ORGANIZATIONAPICALL_PARENTOBJECT_ID ON ${defaultSchemaName}.T_ORGANIZATIONAPICALL (PARENTOBJECT_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_ORGANIZATIONAPICALL_PARENTOBJECT_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288654-index-2-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_ORGANIZATIONAPICALL') and indexname=lower('I_ORGANIZATIONAPICALL_PARENTOBJECT_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_ORGANIZATIONAPICALL reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288654-index-3-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_ORGANIZATIONAPICALL') and indexname=lower('I_ORGANIZATIONAPICALL_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_ORGANIZATIONAPICALL set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_ORGANIZATIONAPICALL reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288654-index-3">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_ORGANIZATIONAPICALL' AND INDEX_NAME='I_ORGANIZATIONAPICALL_AGGREGATEROOT_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_ORGANIZATIONAPICALL"
+            unique="false"
+            indexName="I_ORGANIZATIONAPICALL_AGGREGATEROOT_ID">
+            <column name="AGGREGATEROOT_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288654-index-postgresql-3" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_ORGANIZATIONAPICALL_AGGREGATEROOT_ID ON ${defaultSchemaName}.T_ORGANIZATIONAPICALL (AGGREGATEROOT_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_ORGANIZATIONAPICALL_AGGREGATEROOT_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288654-index-3-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_ORGANIZATIONAPICALL') and indexname=lower('I_ORGANIZATIONAPICALL_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_ORGANIZATIONAPICALL reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" id="0.0.1-7489608606162288655">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="T_PERSONAPICALL"/>
+            </not>
+        </preConditions>
+        <createTable
+                tablespace="${tablespace_t}"
+                tableName="T_PERSONAPICALL"
+                remarks="Code: PersonApiCall&#10;Name: Result of processing the package Unit of Work for Person">
+
+            <column name="APICALLID" type="VARCHAR(254)" remarks="Code: apiCallId&#10;Name: Package Identifier" > </column>
+            <column name="FIRSTCALLDATE" type="TIMESTAMP(3)" remarks="Code: firstCallDate&#10;Name: Date of the first successful package call" > </column>
+            <column name="DATA" type="VARCHAR(4000)" remarks="Code: data&#10;Name: Processing package result" > </column>
+            <column name="BIGDATA" type="CLOB" remarks="Code: bigData&#10;Name: The result of package processing, used if the result does not fit in the data field" > </column>
+            <column name="PARENTOBJECT_ID" type="VARCHAR(254)" remarks="Code: parentObject&#10;Name: Reference to parent object" ><constraints nullable="false"/> </column>
+            <column name="OBJECT_ID" type="VARCHAR(254)" remarks="Code: objectId&#10;Name: Application Object ID" ><constraints nullable="false"/> </column>
+            <column name="AGGREGATEROOT_ID" type="VARCHAR(254)" remarks="Code: aggregateRoot&#10;Name: link to the root aggregate" > </column>
+        </createTable>
+    </changeSet>
+
+<changeSet author="volonteernew" id="0.0.1-7489608606162288655-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = 'T_PERSONAPICALL'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('T_PERSONAPICALL')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="T_PERSONAPICALL" columnNames="OBJECT_ID" constraintName="PK_T_PERSONAPICALL"/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288655-index-1-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_PERSONAPICALL') and indexname=lower('I_PERSONAPICALL_APICALLID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_PERSONAPICALL set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_PERSONAPICALL reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288655-index-1">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_PERSONAPICALL' AND INDEX_NAME='I_PERSONAPICALL_APICALLID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_PERSONAPICALL"
+            unique="true"
+            indexName="I_PERSONAPICALL_APICALLID">
+            <column name="APICALLID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288655-index-postgresql-1" runInTransaction="false">
+        <sql>create unique index ${liquibase.pg.online} if not exists I_PERSONAPICALL_APICALLID ON ${defaultSchemaName}.T_PERSONAPICALL (APICALLID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_PERSONAPICALL_APICALLID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288655-index-1-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_PERSONAPICALL') and indexname=lower('I_PERSONAPICALL_APICALLID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_PERSONAPICALL reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288655-index-2-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_PERSONAPICALL') and indexname=lower('I_PERSONAPICALL_PARENTOBJECT_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_PERSONAPICALL set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_PERSONAPICALL reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288655-index-2">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_PERSONAPICALL' AND INDEX_NAME='I_PERSONAPICALL_PARENTOBJECT_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_PERSONAPICALL"
+            unique="false"
+            indexName="I_PERSONAPICALL_PARENTOBJECT_ID">
+            <column name="PARENTOBJECT_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288655-index-postgresql-2" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_PERSONAPICALL_PARENTOBJECT_ID ON ${defaultSchemaName}.T_PERSONAPICALL (PARENTOBJECT_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_PERSONAPICALL_PARENTOBJECT_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288655-index-2-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_PERSONAPICALL') and indexname=lower('I_PERSONAPICALL_PARENTOBJECT_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_PERSONAPICALL reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288655-index-3-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_PERSONAPICALL') and indexname=lower('I_PERSONAPICALL_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_PERSONAPICALL set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_PERSONAPICALL reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288655-index-3">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_PERSONAPICALL' AND INDEX_NAME='I_PERSONAPICALL_AGGREGATEROOT_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_PERSONAPICALL"
+            unique="false"
+            indexName="I_PERSONAPICALL_AGGREGATEROOT_ID">
+            <column name="AGGREGATEROOT_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288655-index-postgresql-3" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_PERSONAPICALL_AGGREGATEROOT_ID ON ${defaultSchemaName}.T_PERSONAPICALL (AGGREGATEROOT_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_PERSONAPICALL_AGGREGATEROOT_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288655-index-3-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_PERSONAPICALL') and indexname=lower('I_PERSONAPICALL_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_PERSONAPICALL reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" id="0.0.1-7489608606162288656">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="T_VOLONTEERAPICALL"/>
+            </not>
+        </preConditions>
+        <createTable
+                tablespace="${tablespace_t}"
+                tableName="T_VOLONTEERAPICALL"
+                remarks="Code: VolonteerApiCall&#10;Name: Result of processing the package Unit of Work for Volonteer">
+
+            <column name="APICALLID" type="VARCHAR(254)" remarks="Code: apiCallId&#10;Name: Package Identifier" > </column>
+            <column name="FIRSTCALLDATE" type="TIMESTAMP(3)" remarks="Code: firstCallDate&#10;Name: Date of the first successful package call" > </column>
+            <column name="DATA" type="VARCHAR(4000)" remarks="Code: data&#10;Name: Processing package result" > </column>
+            <column name="BIGDATA" type="CLOB" remarks="Code: bigData&#10;Name: The result of package processing, used if the result does not fit in the data field" > </column>
+            <column name="PARENTOBJECT_ID" type="VARCHAR(254)" remarks="Code: parentObject&#10;Name: Reference to parent object" ><constraints nullable="false"/> </column>
+            <column name="OBJECT_ID" type="VARCHAR(254)" remarks="Code: objectId&#10;Name: Application Object ID" ><constraints nullable="false"/> </column>
+            <column name="AGGREGATEROOT_ID" type="VARCHAR(254)" remarks="Code: aggregateRoot&#10;Name: link to the root aggregate" > </column>
+        </createTable>
+    </changeSet>
+
+<changeSet author="volonteernew" id="0.0.1-7489608606162288656-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = 'T_VOLONTEERAPICALL'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('T_VOLONTEERAPICALL')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="T_VOLONTEERAPICALL" columnNames="OBJECT_ID" constraintName="PK_T_VOLONTEERAPICALL"/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288656-index-1-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEERAPICALL') and indexname=lower('I_VOLONTEERAPICALL_APICALLID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEERAPICALL set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEERAPICALL reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288656-index-1">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_VOLONTEERAPICALL' AND INDEX_NAME='I_VOLONTEERAPICALL_APICALLID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_VOLONTEERAPICALL"
+            unique="true"
+            indexName="I_VOLONTEERAPICALL_APICALLID">
+            <column name="APICALLID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288656-index-postgresql-1" runInTransaction="false">
+        <sql>create unique index ${liquibase.pg.online} if not exists I_VOLONTEERAPICALL_APICALLID ON ${defaultSchemaName}.T_VOLONTEERAPICALL (APICALLID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_VOLONTEERAPICALL_APICALLID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288656-index-1-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEERAPICALL') and indexname=lower('I_VOLONTEERAPICALL_APICALLID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_VOLONTEERAPICALL reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288656-index-2-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEERAPICALL') and indexname=lower('I_VOLONTEERAPICALL_PARENTOBJECT_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEERAPICALL set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEERAPICALL reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288656-index-2">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_VOLONTEERAPICALL' AND INDEX_NAME='I_VOLONTEERAPICALL_PARENTOBJECT_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_VOLONTEERAPICALL"
+            unique="false"
+            indexName="I_VOLONTEERAPICALL_PARENTOBJECT_ID">
+            <column name="PARENTOBJECT_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288656-index-postgresql-2" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_VOLONTEERAPICALL_PARENTOBJECT_ID ON ${defaultSchemaName}.T_VOLONTEERAPICALL (PARENTOBJECT_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_VOLONTEERAPICALL_PARENTOBJECT_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288656-index-2-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEERAPICALL') and indexname=lower('I_VOLONTEERAPICALL_PARENTOBJECT_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_VOLONTEERAPICALL reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288656-index-3-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEERAPICALL') and indexname=lower('I_VOLONTEERAPICALL_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEERAPICALL set (parallel_workers = ${index_parallel_count})</sql>
+		<rollback>
+            <sql dbms="postgresql">alter table ${defaultSchemaName}.T_VOLONTEERAPICALL reset (parallel_workers)</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="!postgresql" id="0.0.1-7489608606162288656-index-3">
+        <preConditions onFail="MARK_RAN">
+            <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='T_VOLONTEERAPICALL' AND INDEX_NAME='I_VOLONTEERAPICALL_AGGREGATEROOT_ID'</sqlCheck></and>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="T_VOLONTEERAPICALL"
+            unique="false"
+            indexName="I_VOLONTEERAPICALL_AGGREGATEROOT_ID">
+            <column name="AGGREGATEROOT_ID"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288656-index-postgresql-3" runInTransaction="false">
+        <sql>create  index ${liquibase.pg.online} if not exists I_VOLONTEERAPICALL_AGGREGATEROOT_ID ON ${defaultSchemaName}.T_VOLONTEERAPICALL (AGGREGATEROOT_ID) TABLESPACE ${tablespace_i}</sql>
+		<rollback>
+            <sql>drop index ${liquibase.pg.online} if exists I_VOLONTEERAPICALL_AGGREGATEROOT_ID</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" dbms="postgresql" id="0.0.1-7489608606162288656-index-3-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('T_VOLONTEERAPICALL') and indexname=lower('I_VOLONTEERAPICALL_AGGREGATEROOT_ID')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.T_VOLONTEERAPICALL reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+
+    <changeSet author="volonteernew" id="INSERT-ROOT-DICTIONARY-H2" dbms="h2">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from T_ROOTDICTIONARY where OBJECT_ID = '1'</sqlCheck>
+        </preConditions>
+        <insert tableName="T_ROOTDICTIONARY">
+            <column name="OBJECT_ID" value="1"/>
+            <column name="TYPE" value="RootDictionary"/>
+
+        </insert>
+		<rollback>
+            <sql>delete from T_ROOTDICTIONARY where OBJECT_ID = '1'</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" id="INSERT-ROOT-DICTIONARY-POSTGRES" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from ${defaultSchemaName}.T_ROOTDICTIONARY where OBJECT_ID = '1'</sqlCheck>
+        </preConditions>
+        <insert tableName="T_ROOTDICTIONARY">
+            <column name="OBJECT_ID" value="1"/>
+            <column name="TYPE" value="RootDictionary"/>
+
+        </insert>
+		<rollback>
+            <sql>delete from ${defaultSchemaName}.T_ROOTDICTIONARY where OBJECT_ID = '1'</sql>
+        </rollback>
+    </changeSet>
+    <changeSet author="volonteernew" id="INSERT-ROOT-SECURITY">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">select count(*) from T_SEC_ROOTSECURITY where OBJECT_ID = '1'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">select count(*) from ${defaultSchemaName}.T_SEC_ROOTSECURITY where OBJECT_ID = '1'</sqlCheck></and>
+            </or>
+        </preConditions>
+        <insert tableName="T_SEC_ROOTSECURITY">
+            <column name="OBJECT_ID" value="1"/>
+            <column name="TYPE" value="SysRootSecurity"/>
+        </insert>
+		<rollback>
+            <sql>delete from T_SEC_ROOTSECURITY where OBJECT_ID = '1'</sql>
+        </rollback>
+    </changeSet>
+
+    <changeSet author="volonteernew" id="0.0.1-applied">
+        <tagDatabase tag="volonteernew-0.0.1-applied"/>
+    </changeSet>
+</databaseChangeLog>

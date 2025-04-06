@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PdmModel>
+  <model model-name="newparent" component-code="НЕ ЗАДАНО" version="DEV-SNAPSHOT" versioned-entities="false" autoIdMethod="SNOWFLAKE">
+    <import type="GQLSECURITY"/>
+    <import type="IdempotenceModelGenerator" file=""/>
+    <import type="AggregateModelGenerator" file=""/>
+    <import type="APP_LOCKS" file=""/>
+    <import type="DICTIONARY_GENERATOR" file="dictionary/"/>
+    <import type="REFERENCE" file=""/>
+    <import type="BASE_ENTITY" file=""/>
+    <import type="COMPUTED-FIELD"/>
+    <class name="Sample" extends="Entity" tableName="T_SAMPLE" pk-index-name="PK_T_SAMPLE" affinity="objectId" class-access="UPDATE" strategy="JOINED" import-model-name="newparent" root-type="Sample">
+      <index index-name="PK_T_SAMPLE" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SAMPLE_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="name" type="String" length="254" column-name="NAME" column-type="VARCHAR(254)"/>
+      <property name="sampleElementSet" type="SampleElement" length="254" collection="SET" column-type="VARCHAR(254)" mappedBy="sample" object-link="O2M"/>
+      <property name="apiCalls" type="SampleApiCall" length="254" collection="SET" label="Коллекция с результатами идемпотентных вызовов" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM" mappedBy="parentObject" object-link="O2M"/>
+      <property name="sys_ver" type="Long" label="Счетчик изменений (технический)" column-name="SYS_VER" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Дискриминатор классов" mandatory="true" column-name="TYPE" default-value="Sample" description="Дискриминатор" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="SampleElement" extends="Entity" tableName="T_SAMPLEELEMENT" pk-index-name="PK_T_SAMPLEELEMENT" affinity="sample" class-access="UPDATE" strategy="JOINED" import-model-name="newparent" root-type="Sample">
+      <index index-name="PK_T_SAMPLEELEMENT" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SAMPLEELEMENT_SAMPLE_ID">
+        <property name="sample"/>
+      </index>
+      <index index-name="I_SAMPLEELEMENT_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <index index-name="I_SAMPLEELEMENT_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="sample" type="Sample" length="254" mandatory="true" column-name="SAMPLE_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="code" type="String" length="254" column-name="CODE" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="Sample" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <property name="type" type="String" length="254" label="Дискриминатор классов" mandatory="true" column-name="TYPE" default-value="SampleElement" description="Дискриминатор" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="SampleDictionary" tableName="T_SAMPLEDICTIONARY" pk-index-name="PK_T_SAMPLEDICTIONARY" is-dictionary="true" affinity="RootDictionary" class-access="UPDATE" strategy="JOINED" import-model-name="newparent" root-type="SampleDictionary">
+      <index index-name="PK_T_SAMPLEDICTIONARY" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SAMPLEDICTIONARY_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <index index-name="I_SAMPLEDICTIONARY_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="code" type="String" length="254" column-name="CODE" column-type="VARCHAR(254)"/>
+      <property name="sys_ver" type="Long" label="Счетчик изменений (технический)" column-name="SYS_VER" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="RootDictionary" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <property name="type" type="String" length="254" label="Дискриминатор классов" mandatory="true" column-name="TYPE" default-value="SampleDictionary" description="Дискриминатор" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="RootDictionary" label="Класс агрегат справочника" tableName="T_ROOTDICTIONARY" pk-index-name="PK_T_ROOTDICTIONARY" is-dictionary="true" affinity="objectId" class-access="READ_ONLY" strategy="JOINED" import-model-name="newparent" root-type="RootDictionary">
+      <index index-name="PK_T_ROOTDICTIONARY" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_ROOTDICTIONARY_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="sys_ver" type="Long" label="Счетчик изменений (технический)" column-name="SYS_VER" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Дискриминатор классов" mandatory="true" column-name="TYPE" default-value="RootDictionary" description="Дискриминатор" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysRootSecurity" extends="Entity" label="Класс агрегат таблиц безопасности" tableName="T_SEC_ROOTSECURITY" pk-index-name="PK_T_SEC_ROOTSECURITY" affinity="objectId" class-access="READ_ONLY" strategy="JOINED" import-model-name="newparent" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_ROOTSECURITY" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSROOTSECURITY_TYPE">
+        <property name="type"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="adminSettings" type="SysAdminSettings" length="254" collection="SET" label="Настройки" column-type="VARCHAR(254)" mappedBy="rootSecurity" object-link="O2M"/>
+      <property name="operations" type="SysOperation" length="254" collection="SET" label="Операции" column-type="VARCHAR(254)" mappedBy="rootSecurity" object-link="O2M"/>
+      <property name="sys_ver" type="Long" label="Счетчик изменений (технический)" column-name="SYS_VER" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Дискриминатор классов" mandatory="true" column-name="TYPE" default-value="SysRootSecurity" description="Дискриминатор" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysCheckSelect" extends="Entity" label="Таблица проверочных запросов, выполняемых до/после основного запроса" tableName="T_SEC_CHECKSELECT" pk-index-name="PK_T_SEC_CHECKSELECT" affinity="operation" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="newparent" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_CHECKSELECT" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSCHECKSELECT_OPERATION_ID">
+        <property name="operation"/>
+      </index>
+      <index index-name="I_SYSCHECKSELECT_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="beforeCommitEnable" type="Boolean" label="Должна ли проверка выполняться перед коммитом" column-name="BEFORECOMMITENABLE" column-type="${type_boolean}"/>
+      <property name="beforeOperationDisable" type="Boolean" label="Должна ли проверка быть подавлена перед запросом" column-name="BEFOREOPERATIONDISABLE" column-type="${type_boolean}"/>
+      <property name="conditionValue" type="String" length="4001" label="Условие фильтрации" column-name="CONDITIONVALUE" column-type="CLOB"/>
+      <property name="description" type="String" length="254" label="Пользовательское описание" column-name="DESCRIPTION" column-type="VARCHAR(254)"/>
+      <property name="operation" type="SysOperation" length="254" label="GQL запрос к которому применяется проверка" mandatory="true" column-name="OPERATION_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="orderValue" type="Integer" label="Порядок отображения" column-name="ORDERVALUE" column-type="${type_int}"/>
+      <property name="typeName" type="String" length="254" label="Тип сущности на котором строится запрос" column-name="TYPENAME" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="SysOperation" extends="Entity" label="Таблица допустимых GQL запросов" tableName="T_SEC_OPERATION" pk-index-name="PK_T_SEC_OPERATION" affinity="rootSecurity" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="newparent" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_OPERATION" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSOPERATION_ROOTSECURITY_ID">
+        <property name="rootSecurity"/>
+      </index>
+      <index index-name="I_SYSOPERATION_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="allowEmptyChecks" type="Boolean" label="Флаг применимости пустых условий" column-name="ALLOWEMPTYCHECKS" column-type="${type_boolean}"/>
+      <property name="body" type="String" length="4001" label="Запрос" column-name="BODY" column-type="CLOB"/>
+      <property name="checkSelects" type="SysCheckSelect" length="254" collection="SET" label="Условия" column-type="VARCHAR(254)" mappedBy="operation" object-link="O2M"/>
+      <property name="disableJwtVerification" type="Boolean" label="Флаг игнорирования проверок JWT" column-name="DISABLEJWTVERIFICATION" column-type="${type_boolean}"/>
+      <property name="hashValue" type="String" length="254" label="Хэш" column-name="HASHVALUE" column-type="VARCHAR(254)"/>
+      <property name="paramAdditions" type="SysParamAddition" length="254" collection="SET" label="Дополнительные условия" column-type="VARCHAR(254)" mappedBy="operation" object-link="O2M"/>
+      <property name="pathConditions" type="String" length="4001" label="Дополнительные путевые условия к полям" column-name="PATHCONDITIONS" column-type="CLOB"/>
+      <property name="rootSecurity" type="SysRootSecurity" length="254" label="Корень" mandatory="true" column-name="ROOTSECURITY_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysAdminSettings" extends="Entity" label="Таблица с параметрами безопасности" tableName="T_SEC_ADMINSETTINGS" pk-index-name="PK_T_SEC_ADMINSETTINGS" affinity="rootSecurity" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="newparent" root-type="SysRootSecurity">
+      <index unique="true" index-name="I_SYSADMINSETTINGS_KEY_">
+        <property name="key"/>
+      </index>
+      <index index-name="PK_T_SEC_ADMINSETTINGS" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSADMINSETTINGS_ROOTSECURITY_ID">
+        <property name="rootSecurity"/>
+      </index>
+      <index index-name="I_SYSADMINSETTINGS_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="key" type="String" length="254" label="Ключ настройки безопасности" column-name="KEY_" column-type="VARCHAR(254)"/>
+      <property name="rootSecurity" type="SysRootSecurity" length="254" label="Корень" mandatory="true" column-name="ROOTSECURITY_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="value" type="String" length="4001" label="Значение настройки безопасности" column-name="VALUE_" column-type="CLOB"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="SysParamAddition" extends="Entity" label="Таблица с добавочными условиями" tableName="T_SEC_PARAMADDITION" pk-index-name="PK_T_SEC_PARAMADDITION" affinity="operation" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="newparent" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_PARAMADDITION" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSPARAMADDITION_OPERATION_ID">
+        <property name="operation"/>
+      </index>
+      <index index-name="I_SYSPARAMADDITION_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="operation" type="SysOperation" length="254" label="GQL запрос к которому применяются дополнительные условия" mandatory="true" column-name="OPERATION_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="paramAddition" type="String" length="4000" label="Добавочное условие к переменной" column-name="PARAMADDITION" column-type="VARCHAR(4000)"/>
+      <property name="paramName" type="String" length="254" label="Имя объявленной переменной" column-name="PARAMNAME" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="SampleApiCall" extends="Entity" label="Результат обработки пакета Unit of Work для Sample" tableName="T_SAMPLEAPICALL" pk-index-name="PK_T_SAMPLEAPICALL" affinity="parentObject" class-access="SYSTEM" final-class="true" strategy="JOINED" import-model-name="newparent" root-type="Sample">
+      <index index-name="PK_T_SAMPLEAPICALL" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index unique="true" index-name="I_SAMPLEAPICALL_APICALLID">
+        <property name="apiCallId"/>
+      </index>
+      <index index-name="I_SAMPLEAPICALL_PARENTOBJECT_ID">
+        <property name="parentObject"/>
+      </index>
+      <index index-name="I_SAMPLEAPICALL_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="apiCallId" type="String" length="254" label="Идентификатор пакета" column-name="APICALLID" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <property name="firstCallDate" type="Date" length="3" label="Дата первого успешного вызова пакета" column-name="FIRSTCALLDATE" column-type="TIMESTAMP(3)" system-field="true" changeable="SYSTEM"/>
+      <property name="data" type="String" length="4000" label="Результат обработки пакета" column-name="DATA" column-type="VARCHAR(4000)" system-field="true" changeable="SYSTEM"/>
+      <property name="bigData" type="String" length="4001" label="Результат обработки пакета, используется если результат не помещается в поле data" column-name="BIGDATA" column-type="CLOB" system-field="true" changeable="SYSTEM"/>
+      <property name="parentObject" type="Sample" length="254" label="Ссылка на родительский объект" mandatory="true" column-name="PARENTOBJECT_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Прикладной ID объекта" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="Sample" length="254" label="ссылка на корень агрегата" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="Entity" label="Основной класс модели" is-abstract="true" class-access="SYSTEM" import-model-name="newparent">
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+  </model>
+  <status/>
+  <meta-information>
+    <plugin-version>version</plugin-version>
+    <have-insert-root-dictionary>true</have-insert-root-dictionary>
+    <have-insert-root-security>true</have-insert-root-security>
+    <have-h2-decode-base64-function>true</have-h2-decode-base64-function>
+    <allow-lastchangedate-compare>false</allow-lastchangedate-compare>
+    <disabledGenerateOracleLiquibase>true</disabledGenerateOracleLiquibase>
+    <useRenamedFields>false</useRenamedFields>
+    <disableBaseEntityFields>false</disableBaseEntityFields>
+    <allowUseParentUniqueIndex>false</allowUseParentUniqueIndex>
+  </meta-information>
+  <source-models/>
+</PdmModel>

@@ -1,0 +1,5 @@
+{
+  "type": "Product",
+  "props": "request",
+  "cond": "root.$id == '${productPlus1Id}' && root.request.$id == '${requestPlus1Id}' && root.services{cond = elem.request.$id == '${request2Id}'}.$exists && root.services.request.$id.$min == '${request2Id}' && !root.documents{type = Permission}.$exists && !root.services.request{type = RequestPlus}.$exists"
+}

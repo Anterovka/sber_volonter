@@ -1,0 +1,17 @@
+    <changeSet author="${modelName}" id="${version}-${index}" >
+        <preConditions onFail="MARK_RAN">
+            <not> <columnExists columnName="${columnName}" tableName="${tableName}"/> </not>
+        </preConditions>
+        <sql dbms="oracle">ALTER TABLE ${tableName} ADD ${columnName} ${typeOracle} ${notNULL}</sql>
+        <sql dbms="postgresql">ALTER TABLE ${defaultSchemaName}.${tableName} ADD COLUMN  ${columnName} ${type} ${notNULL}</sql>
+        <sql dbms="h2">ALTER TABLE ${tableName} ADD COLUMN  ${columnName} ${type} ${notNULL}</sql>${rollback}
+        <modifySql  dbms="h2">
+                 <append  value=" AS (${valueComputedForH2})"/>
+        </modifySql>
+        <modifySql  dbms="oracle">
+                 <append  value=" AS (${valueComputedForOracle})"/>
+        </modifySql>
+        <modifySql  dbms="postgresql">
+                  <append  value=" GENERATED ALWAYS AS (${valueComputedForPostgreSQL}) STORED"/>
+        </modifySql>
+    </changeSet>

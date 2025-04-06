@@ -1,0 +1,9 @@
+{
+  "elems": [
+    {
+      "type": "TestEntity",
+      "id": "${testEntity1Id}",
+      "aggVersion": "1"
+    }
+  ]
+}

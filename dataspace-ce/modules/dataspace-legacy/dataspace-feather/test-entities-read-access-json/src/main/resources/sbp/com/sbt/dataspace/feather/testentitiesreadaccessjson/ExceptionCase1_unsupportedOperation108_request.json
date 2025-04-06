@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.p1.$subMonths(1) == D2020-09-03"
+}

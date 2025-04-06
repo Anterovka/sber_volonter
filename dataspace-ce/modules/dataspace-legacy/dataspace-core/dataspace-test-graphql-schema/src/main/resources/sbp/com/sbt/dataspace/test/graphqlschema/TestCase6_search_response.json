@@ -1,0 +1,26 @@
+{
+  "data": {
+    "searchTestEntity": {
+      "elems": [
+        {
+          "_getChar": "G",
+          "_getString": "Hello",
+          "_getText": "${string5000}",
+          "_getByte": 127,
+          "_getShort": 32767,
+          "_getInt": 2147483647,
+          "_getLong": 9223372036854775807,
+          "_getFloat": 123.4567,
+          "_getDouble": 1234567.890123456,
+          "_getBigDecimal": 123456789.0123456789,
+          "_getDate": "${date}",
+          "_getDateTime": "${dateTime}",
+          "_getOffsetDateTime": "${offsetDateTime}",
+          "_getTime": "${time}",
+          "_getBoolean": true,
+          "_getByteArray": "${bytes}"
+        }
+      ]
+    }
+  }
+}

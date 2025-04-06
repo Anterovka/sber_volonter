@@ -1,0 +1,44 @@
+{
+  "data": {
+    "merge": {
+      "__typename": "_MergedEntitiesCollection",
+      "elems": [
+        {
+          "id": "${product2Id}",
+          "__typename": "_E_Product",
+          "creatorCode": 2,
+          "attributes": {
+            "elems": [
+              "TOP_PRIORITY"
+            ]
+          }
+        },
+        {
+          "id": "${productLimited1Id}",
+          "__typename": "_E_ProductLimited",
+          "creatorCode": 3,
+          "limitedOffer": "limitedOffer1",
+          "attributes": {
+            "elems": [
+              "FORBIDDEN"
+            ]
+          }
+        },
+        {
+          "id": "${service1Id}",
+          "__typename": "_E_Service",
+          "managerPersonalCode": 1,
+          "attributes": {
+            "elems": []
+          }
+        },
+        {
+          "id": "${testEntity1Id}",
+          "__typename": "_E_TestEntity",
+          "p1": "string1"
+        }
+      ],
+      "count": 5
+    }
+  }
+}

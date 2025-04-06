@@ -1,0 +1,12 @@
+{
+  "varSort": [
+    {
+      "crit": "it.id",
+      "order": "DESC"
+    },
+    {
+      "crit": "it.p1"
+    }
+  ],
+  "varLimit": 10
+}

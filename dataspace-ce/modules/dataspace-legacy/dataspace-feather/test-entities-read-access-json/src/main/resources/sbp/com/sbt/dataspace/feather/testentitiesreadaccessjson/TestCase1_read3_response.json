@@ -1,0 +1,24 @@
+{
+  "elems": [
+    {
+      "type": "TestEntity",
+      "id": "${testEntity2Id}",
+      "props": {
+        "p1": null,
+        "p2": null,
+        "p3": null,
+        "p4": null,
+        "p5": null,
+        "p6": null,
+        "p7": null,
+        "p8": null,
+        "p9": null,
+        "p10": null,
+        "p11": null,
+        "p12": null,
+        "p13": null,
+        "p14": null
+      }
+    }
+  ]
+}

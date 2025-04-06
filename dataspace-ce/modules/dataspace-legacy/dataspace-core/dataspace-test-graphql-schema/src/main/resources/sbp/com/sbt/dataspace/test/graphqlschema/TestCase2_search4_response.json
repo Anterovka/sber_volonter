@@ -1,0 +1,11 @@
+{
+  "data": {
+    "searchProduct": {
+      "elems": [
+        {
+          "id": "${product1Id}"
+        }
+      ]
+    }
+  }
+}

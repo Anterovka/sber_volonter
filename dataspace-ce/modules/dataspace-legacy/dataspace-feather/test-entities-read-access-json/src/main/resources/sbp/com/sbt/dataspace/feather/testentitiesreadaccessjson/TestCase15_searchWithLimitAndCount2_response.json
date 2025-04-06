@@ -1,0 +1,25 @@
+{
+  "elems": [
+    {
+      "type": "Service",
+      "id": "${service1Id}",
+      "props": {
+        "code": "service1"
+      }
+    },
+    {
+      "type": "Product",
+      "id": "${product2Id}",
+      "props": {
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${product1Id}",
+          "props": {
+            "code": "product1"
+          }
+        }
+      }
+    }
+  ],
+  "count": 3
+}

@@ -1,0 +1,86 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${product1Id}",
+      "props": {
+        "code": {
+          "base": "code",
+          "value": "product1"
+        },
+        "aliases": {
+          "base": "aliases",
+          "value": {
+            "elems": [
+              "alias1"
+            ]
+          }
+        },
+        "relatedProduct": {
+          "base": "relatedProduct",
+          "value": {
+            "type": "Product",
+            "id": "${productLimited1Id}"
+          }
+        },
+        "request": {
+          "base": "request",
+          "value": {
+            "type": "RequestPlus",
+            "id": "${requestPlus1Id}",
+            "props": {
+              "code": {
+                "base": "code",
+                "value": "requestPlus1"
+              },
+              "initiator": {
+                "base": "initiator",
+                "value": {
+                  "lastName": {
+                    "base": "lastName",
+                    "value": "Ivanov"
+                  },
+                  "document": {
+                    "base": "document",
+                    "value": {
+                      "type": "Document",
+                      "id": "${document1Id}"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "services": {
+          "base": "services",
+          "value": {
+            "elems": [
+              {
+                "type": "Service",
+                "id": "${service2Id}",
+                "props": {
+                  "code": {
+                    "base": "code",
+                    "value": "service2"
+                  },
+                  "operations": {
+                    "base": "operations",
+                    "value": {
+                      "elems": [
+                        {
+                          "type": "Operation",
+                          "id": "${operation1Id}"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

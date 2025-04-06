@@ -1,0 +1,17 @@
+<model model-name="indexWarning" version="DEV-SNAPSHOT" xmlns="DataspaceModel">
+
+    <class name="MyClass" >
+        <property name="code" type="String"/>
+        <property name="name" type="String"/>
+
+        <index>
+            <property name="code"/>
+        </index>
+
+        <index>
+            <property name="code"/>
+            <property name="name"/>
+        </index>
+    </class>
+
+</model>

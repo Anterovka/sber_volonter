@@ -1,0 +1,294 @@
+<model>
+    <enum name="Status">
+        <value>OPEN</value>
+        <value>CLOSED</value>>
+    </enum>
+    <enum name="Attribute">
+        <value>TOP_PRIORITY</value>
+        <value>FORBIDDEN</value>
+    </enum>
+
+    <entity name="TestEntity"
+            belongs="TestEntity"
+            final="true"
+            aggregate="true"
+            inheritanceStrategy="JOINED"
+            tableName="F_TEST_ENTITY"
+            idColumnName="ID"
+            aggregateColumnName="AGGREGATE"
+            systemLocksTableName="F_TEST_ENTITY_SYSTEM_LOCKS"
+            systemLocksAggregateColumnName="AGGREGATE"
+            systemLocksVersionColumnName="VERSION">
+        <primitive name="code" type="STRING" mandatory="true" columnName="CODE"/>
+        <primitive name="code_2" type="STRING" mandatory="true" columnName="CODE"/>
+        <primitive name="p1" type="STRING" columnName="P1"/>
+        <primitive name="p2" type="BYTE" columnName="P2"/>
+        <primitive name="p3" type="SHORT" columnName="P3"/>
+        <primitive name="p4" type="INTEGER" columnName="P4"/>
+        <primitive name="p5" type="LONG" columnName="P5"/>
+        <primitive name="p6" type="DOUBLE" columnName="P6"/>
+        <primitive name="p7" type="DATETIME" columnName="P7"/>
+        <primitive name="p8" type="BOOLEAN" columnName="P8"/>
+        <primitive name="p9" type="BYTE_ARRAY" columnName="P9"/>
+        <primitive name="p10" type="BIG_DECIMAL" columnName="P10"/>
+        <primitive name="p11" type="TEXT" columnName="P11"/>
+        <primitive name="p12" type="FLOAT" columnName="P12"/>
+        <primitive name="p13" type="CHARACTER" columnName="P13"/>
+        <primitive name="p14" type="DATE" columnName="P14"/>
+        <primitive name="p15" type="OFFSET_DATETIME" columnName="P15"/>
+        <primitivesCollection name="ps1" type="STRING" tableName="F_TEST_ENTITY_PS1" ownerColumnName="OWNER" columnName="ELEMENT"/>
+        <primitivesCollection name="ps2" type="INTEGER" tableName="F_TEST_ENTITY_PS2" ownerColumnName="OWNER" columnName="ELEMENT"/>
+        <primitivesCollection name="ps3" type="DATETIME" tableName="F_TEST_ENTITY_PS3" ownerColumnName="OWNER" columnName="ELEMENT"/>
+        <primitivesCollection name="ps4" type="BOOLEAN" tableName="F_TEST_ENTITY_PS4" ownerColumnName="OWNER" columnName="ELEMENT"/>
+        <reference name="r1" entity="TestEntity" entityReferencesCollectionPropertyName="brec1" columnName="R1"/>
+        <referencesCollection name="rc1" entity="TestEntity" tableName="F_TEST_ENTITY_RC1" ownerColumnName="OWNER" columnName="ELEMENT"/>
+        <group name="g1" groupName="Group1">
+            <primitive name="p1" type="STRING" columnName="G1_P1"/>
+        </group>
+        <group name="g2" groupName="Group2">
+            <reference name="r1" entity="TestEntity" mandatory="true" columnName="R1"/>
+        </group>
+        <group name="g3" groupName="Group3">
+            <reference name="r1" entity="Product" columnName="G3_R1"/>
+        </group>
+    </entity>
+    <entity name="Entity"
+            aggregate="true"
+            inheritanceStrategy="JOINED"
+            tableName="F_ENTITY"
+            idColumnName="ID"
+            typeColumnName="TYPE"
+            systemLocksTableName="F_ENTITY_SYSTEM_LOCKS"
+            systemLocksAggregateColumnName="AGGREGATE"
+            systemLocksVersionColumnName="VERSION">
+        <primitive name="code" mandatory="true" type="STRING" columnName="CODE"/>
+        <primitive name="name" type="STRING" columnName="NAME"/>
+        <primitivesCollection name="attributes" type="STRING" enumType="Attribute" tableName="F_ENTITY_ATTRIBUTES" ownerColumnName="OWNER" columnName="ELEMENT"/>
+    </entity>
+    <entity name="Request"
+            belongs="Entity"
+            inheritanceStrategy="SINGLE_TABLE"
+            tableName="F_REQUEST"
+            idColumnName="ID"
+            typeColumnName="TYPE"
+            aggregateColumnName="AGGREGATE">
+        <primitive name="code" type="STRING" mandatory="true" columnName="CODE"/>
+        <reference name="createdEntity" entity="Entity" entityReferencePropertyName="request" columnName="CREATED_ENTITY"/>
+        <reference name="agreement" entity="Agreement" entityReferencePropertyName="request" columnName="AGREEMENT"/>
+        <group name="initiator" groupName="Person">
+            <primitive name="firstName" type="STRING" mandatory="true" columnName="INITIATOR_FIRST_NAME"/>
+            <primitive name="lastName" type="STRING" columnName="INITIATOR_LAST_NAME"/>
+            <primitive name="age" type="INTEGER" columnName="INITIATOR_AGE"/>
+            <reference name="document" entity="Document" columnName="INITIATOR_DOCUMENT"/>
+        </group>
+    </entity>
+    <entity name="RequestPlus"
+            extends="Request">
+        <primitive name="description" type="STRING" columnName="DESCRIPTION"/>
+    </entity>
+    <entity name="RequestSpecial"
+            extends="Request">
+        <primitive name="specialCode" type="STRING" columnName="SPECIAL_CODE"/>
+    </entity>
+    <entity name="Parameter"
+            extends="Entity"
+            tableName="F_PARAMETER"
+            idColumnName="ID">
+        <primitive name="value" type="STRING" columnName="VALUE"/>
+        <reference name="entity" entity="Entity" mandatory="true" entityReferencesCollectionPropertyName="parameters" columnName="ENTITY"/>
+    </entity>
+    <entity name="ActionParameter"
+            extends="Parameter"
+            tableName="F_ACTION_PARAMETER"
+            idColumnName="ID">
+        <primitive name="executorName" type="STRING" columnName="EXECUTOR_NAME"/>
+    </entity>
+    <entity name="ActionParameterSpecial"
+            extends="ActionParameter"
+            tableName="F_ACTION_PARAMETER_SPECIAL"
+            idColumnName="ID">
+        <primitive name="specialOffer" type="STRING" columnName="SPECIAL_OFFER"/>
+    </entity>
+    <entity name="Service"
+            extends="Entity"
+            tableName="F_SERVICE"
+            idColumnName="ID">
+        <primitive name="managerPersonalCode" type="INTEGER" columnName="MANAGER_PERSONAL_CODE"/>
+        <reference name="startAction" entity="Action" columnName="START_ACTION"/>
+        <group name="initiator" groupName="Person">
+            <primitive name="firstName" type="STRING" mandatory="true" columnName="INITIATOR_FIRST_NAME"/>
+            <primitive name="lastName" type="STRING" columnName="INITIATOR_LAST_NAME"/>
+            <primitive name="age" type="INTEGER" columnName="INITIATOR_AGE"/>
+            <reference name="document" entity="Document" columnName="INITIATOR_DOCUMENT"/>
+        </group>
+    </entity>
+    <entity name="Operation"
+            extends="Entity"
+            tableName="F_OPERATION"
+            idColumnName="ID">
+        <reference name="service" entity="Service" entityReferencesCollectionPropertyName="operations" columnName="SERVICE"/>
+    </entity>
+    <entity name="OperationSpecial"
+            extends="Operation"
+            tableName="F_OPERATION_SPECIAL"
+            idColumnName="ID">
+        <primitive name="specialOffer" type="STRING" columnName="SPECIAL_OFFER"/>
+        <reference name="product" entity="Product" columnName="PRODUCT"/>
+        <group name="initiator" groupName="Person">
+            <primitive name="firstName" type="STRING" mandatory="true" columnName="INITIATOR_FIRST_NAME"/>
+            <primitive name="lastName" type="STRING" columnName="INITIATOR_LAST_NAME"/>
+            <primitive name="age" type="INTEGER" columnName="INITIATOR_AGE"/>
+            <reference name="document" entity="Document" columnName="INITIATOR_DOCUMENT"/>
+        </group>
+    </entity>
+    <entity name="OperationLimited"
+            extends="Operation"
+            tableName="F_OPERATION_LIMITED"
+            idColumnName="ID">
+        <primitive name="limitedOffer" type="STRING" columnName="LIMITED_OFFER"/>
+        <primitive name="endDate" type="DATETIME" columnName="END_DATE"/>
+        <reference name="product" entity="Product" columnName="PRODUCT"/>
+    </entity>
+    <entity name="Action"
+            extends="Entity"
+            tableName="F_ACTION"
+            idColumnName="ID">
+        <primitive name="algorithmCode" type="INTEGER" columnName="ALGORITHM_CODE"/>
+        <reference name="operation" entity="Operation" entityReferencesCollectionPropertyName="actions" columnName="OPERATION"/>
+    </entity>
+    <entity name="ActionSpecial"
+            extends="Action"
+            tableName="F_ACTION_SPECIAL"
+            idColumnName="ID">
+        <primitive name="specialOffer" type="STRING" columnName="SPECIAL_OFFER"/>
+    </entity>
+    <entity name="Event"
+            extends="Entity"
+            tableName="F_EVENT"
+            idColumnName="ID">
+        <primitive name="author" type="STRING" columnName="AUTHOR"/>
+    </entity>
+    <entity name="Product"
+            extends="Entity"
+            tableName="F_PRODUCT"
+            idColumnName="ID">
+        <primitive name="creatorCode" type="INTEGER" columnName="CREATOR_CODE"/>
+        <primitivesCollection name="aliases" type="STRING" tableName="F_PRODUCT_ALIASES" ownerColumnName="OWNER" columnName="ELEMENT"/>
+        <primitivesCollection name="rates" type="DOUBLE" tableName="F_PRODUCT_RATES" ownerColumnName="OWNER" columnName="ELEMENT"/>
+        <reference name="relatedProduct" entity="Product" columnName="RELATED_PRODUCT"/>
+        <reference name="mainDocument" entity="Document" columnName="MAIN_DOCUMENT"/>
+        <referencesCollection name="services" entity="Service" tableName="F_PRODUCT_SERVICES" ownerColumnName="OWNER" columnName="ELEMENT"/>
+        <referencesCollection name="events" entity="Event" tableName="F_PRODUCT_EVENTS" ownerColumnName="OWNER" columnName="ELEMENT"/>
+    </entity>
+    <entity name="ProductPlus"
+            extends="Product"
+            tableName="F_PRODUCT_PLUS"
+            idColumnName="ID">
+        <referencesCollection name="affectedProducts" entity="Product" tableName="F_PRODUCT_PLUS_AFFECTED_PRODUCTS" ownerColumnName="OWNER" columnName="ELEMENT"/>
+    </entity>
+    <entity name="ProductLimited"
+            extends="ProductPlus"
+            tableName="F_PRODUCT_LIMITED"
+            idColumnName="ID">
+        <primitive name="limitedOffer" type="STRING" columnName="LIMITED_OFFER"/>
+    </entity>
+    <entity name="Document"
+            inheritanceStrategy="SINGLE_TABLE"
+            tableName="F_DOCUMENT"
+            idColumnName="ID"
+            typeColumnName="TYPE">
+        <primitive name="code" mandatory="true" type="STRING" columnName="CODE"/>
+        <primitive name="status" type="STRING" enumType="Status" columnName="STATUS"/>
+        <reference name="product" entity="Product" entityReferencesCollectionPropertyName="documents" columnName="PRODUCT"/>
+    </entity>
+    <entity name="Permission"
+            extends="Document">
+        <primitive name="number" type="INTEGER" columnName="NUMBER_"/>
+    </entity>
+    <entity name="Agreement"
+            extends="Document">
+        <primitive name="participant" type="STRING" columnName="PARTICIPANT"/>
+        <reference name="document" entity="Document" columnName="DOCUMENT" entityReferencesCollectionPropertyName="agreements"/>
+    </entity>
+    <entity name="AgreementSpecial"
+            extends="Agreement">
+        <primitive name="specialConditions" type="STRING" columnName="SPECIAL_CONDITIONS"/>
+    </entity>
+    <entity name="UserProduct"
+            final="true"
+            inheritanceStrategy="JOINED"
+            tableType="QUERY"
+            idColumnName="ID">
+        <param name="firstName" type="STRING"/>
+        <param name="lastName" type="STRING"/>
+
+        <primitive name="code" mandatory="true" type="STRING" columnName="CODE"/>
+        <primitivesCollection name="aliases" type="STRING" tableName="F_PRODUCT_ALIASES" ownerColumnName="OWNER" columnName="ELEMENT"/>
+        <reference name="relatedProduct" entity="Product" columnName="RELATED_PRODUCT"/>
+        <referencesCollection name="services" entity="Service" tableName="F_PRODUCT_SERVICES" ownerColumnName="OWNER" columnName="ELEMENT"/>
+        <group name="initiator" groupName="Person">
+            <primitive name="firstName" type="STRING" mandatory="true" columnName="INITIATOR_FIRST_NAME"/>
+            <primitive name="lastName" type="STRING" columnName="INITIATOR_LAST_NAME"/>
+            <primitive name="age" type="INTEGER" columnName="INITIATOR_AGE"/>
+            <reference name="document" entity="Document" columnName="INITIATOR_DOCUMENT"/>
+        </group>
+    </entity>
+    <entity name="ProductCopy"
+            final="true"
+            inheritanceStrategy="JOINED"
+            tableType="QUERY">
+        <primitive name="idCopy" mandatory="true" type="STRING" columnName="ID"/>
+    </entity>
+    <entity name="Test2Entity"
+            final="true"
+            inheritanceStrategy="JOINED"
+            tableType="QUERY"
+            idColumnName="ID">
+        <param name="character" type="CHARACTER" defaultValue="a"/>
+        <param name="string" type="STRING" defaultValue="Test"/>
+        <param name="byte" type="BYTE" defaultValue="1"/>
+        <param name="short" type="SHORT" defaultValue="1"/>
+        <param name="integer" type="INTEGER" defaultValue="1"/>
+        <param name="long" type="LONG" defaultValue="1"/>
+        <param name="float" type="FLOAT" defaultValue="1.1"/>
+        <param name="double" type="DOUBLE" defaultValue="1.1"/>
+        <param name="bigDecimal" type="BIG_DECIMAL" defaultValue="1.1"/>
+        <param name="date" type="DATE" defaultValue="2022-06-27"/>
+        <param name="datetime" type="DATETIME" defaultValue="2022-06-27T14:58:10.123"/>
+        <param name="offsetDatetime" type="OFFSET_DATETIME" defaultValue="2022-06-27T14:58:10.123+06:00"/>
+        <param name="boolean" type="BOOLEAN" defaultValue="true"/>
+        <param name="strings" type="STRING" collection="true"/>
+    </entity>
+    <entity name="Test3Entity"
+            final="true"
+            inheritanceStrategy="JOINED"
+            tableType="QUERY"
+            idColumnName="ID"/>
+    <entity name="EntityA" inheritanceStrategy="JOINED" tableName="F_ENTITY_A" idColumnName="ID" typeColumnName="TYPE">
+        <primitive name="code" type="STRING" mandatory="true" columnName="CODE"/>
+        <reference name="refB" entity="EntityB" mandatory="true" columnName="REF_B" entityReferencesCollectionPropertyName="refsA"/>
+        <reference name="ref2B" entity="EntityB" mandatory="true" columnName="REF2_B"/>
+    </entity>
+    <entity name="EntityAA" extends="EntityA" tableName="F_ENTITY_AA" idColumnName="ID">
+        <primitive name="codeAA" type="STRING" columnName="CODE_AA"/>
+    </entity>
+    <entity name="EntityAAA" extends="EntityAA" tableName="F_ENTITY_AAA" idColumnName="ID">
+        <primitive name="codeAAA" type="STRING" columnName="CODE_AAA"/>
+        <reference name="refE" entity="EntityE" columnName="REF_E"/>
+    </entity>
+    <entity name="EntityB" inheritanceStrategy="JOINED" tableName="F_ENTITY_B" idColumnName="ID" typeColumnName="TYPE">
+        <primitive name="code" type="STRING" mandatory="true" columnName="CODE"/>
+        <reference name="refC" entity="EntityC" mandatory="true" columnName="REF_C"/>
+    </entity>
+    <entity name="EntityC" inheritanceStrategy="JOINED" tableName="F_ENTITY_C" idColumnName="ID" typeColumnName="TYPE">
+        <primitive name="code" type="STRING" mandatory="true" columnName="CODE"/>
+        <reference name="refD" entity="EntityD" columnName="REF_D"/>
+    </entity>
+    <entity name="EntityD" inheritanceStrategy="JOINED" tableName="F_ENTITY_D" idColumnName="ID" typeColumnName="TYPE">
+        <primitive name="code" type="STRING" mandatory="true" columnName="CODE"/>
+        <reference name="refE" entity="EntityE" mandatory="true" columnName="REF_E"/>
+    </entity>
+    <entity name="EntityE" inheritanceStrategy="JOINED" tableName="F_ENTITY_E" idColumnName="ID" typeColumnName="TYPE">
+        <primitive name="code" type="STRING" mandatory="true" columnName="CODE"/>
+    </entity>
+</model>

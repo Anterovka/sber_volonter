@@ -1,0 +1,69 @@
+{
+  "type": "TestEntity",
+  "props": {
+    "p1": {},
+    "calcP1": {
+      "calc": "it.p1"
+    },
+    "p2": {},
+    "calcP2": {
+      "calc": "it.p2"
+    },
+    "p3": {},
+    "calcP3": {
+      "calc": "it.p3"
+    },
+    "p4": {},
+    "calcP4": {
+      "calc": "it.p4"
+    },
+    "p5": {},
+    "calcP5": {
+      "calc": "it.p5"
+    },
+    "p6": {},
+    "calcP6": {
+      "calc": "it.p6"
+    },
+    "p7": {},
+    "calcP7": {
+      "calc": "it.p7"
+    },
+    "p8": {},
+    "calcP8": {
+      "calc": "it.p8"
+    },
+    "p9": {},
+    "calcP9": {
+      "calc": "it.p9"
+    },
+    "p10": {},
+    "calcP10": {
+      "calc": "it.p10"
+    },
+    "p11": {},
+    "calcP11": {
+      "calc": "it.p11"
+    },
+    "p12": {},
+    "calcP12": {
+      "calc": "it.p12"
+    },
+    "p13": {},
+    "calcP13": {
+      "calc": "it.p13"
+    },
+    "p14": {},
+    "calcP14": {
+      "calc": "it.p14"
+    },
+    "p15": {},
+    "calcP15": {
+      "calc": "it.p15"
+    },
+    "calcR1Code": {
+      "calc": "it.r1.code"
+    }
+  },
+  "cond": "it.$id == '${testEntity1Id}'"
+}

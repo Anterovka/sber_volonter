@@ -1,0 +1,189 @@
+{
+  "elems": [
+    {
+      "type": "ProductLimited",
+      "id": "${productLimited1Id}",
+      "props": {
+        "code": "productLimited1",
+        "name": null,
+        "creatorCode": "1",
+        "limitedOffer": "limitedOffer1",
+        "aliases": {
+          "elems": [
+            "alias1",
+            "alias2",
+            "alias3"
+          ]
+        },
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${productPlus2Id}",
+          "props": {
+            "code": "productPlus2",
+            "creatorCode": "2",
+            "aliases": {
+              "elems": [
+                "alias4",
+                "alias5",
+                "alias6"
+              ]
+            },
+            "relatedProduct": {
+              "type": "ProductPlus",
+              "id": "${productPlus1Id}",
+              "props": {
+                "code": "productPlus1",
+                "creatorCode": "3",
+                "aliases": {
+                  "elems": [],
+                  "count": 0
+                },
+                "relatedProduct": {
+                  "type": "Product",
+                  "id": "${productPlus3Id}",
+                  "props": {
+                    "code": "productPlus3",
+                    "aliases": {
+                      "elems": [],
+                      "count": 0
+                    },
+                    "services": {
+                      "elems": [
+                        {
+                          "type": "Service",
+                          "id": "${service5Id}",
+                          "props": {
+                            "code": "service5",
+                            "operations": {
+                              "elems": [
+                                {
+                                  "type": "OperationSpecial",
+                                  "id": "${operationSpecial2Id}",
+                                  "props": {
+                                    "code": "operationSpecial2"
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "services": {
+                  "elems": []
+                }
+              }
+            },
+            "services": {
+              "elems": [
+                {
+                  "type": "Service",
+                  "id": "${service4Id}",
+                  "props": {
+                    "code": "service4",
+                    "managerPersonalCode": "4",
+                    "operations": {
+                      "elems": []
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "request": null,
+        "services": {
+          "elems": [
+            {
+              "type": "Service",
+              "id": "${service1Id}",
+              "props": {
+                "code": "service1",
+                "managerPersonalCode": "1",
+                "operations": {
+                  "elems": [
+                    {
+                      "type": "Operation",
+                      "id": "${operation1Id}",
+                      "props": {
+                        "code": "operation1"
+                      }
+                    },
+                    {
+                      "type": "Operation",
+                      "id": "${operation2Id}",
+                      "props": {
+                        "code": "operation2"
+                      }
+                    },
+                    {
+                      "type": "OperationSpecial",
+                      "id": "${operationSpecial1Id}",
+                      "props": {
+                        "code": "operationSpecial1",
+                        "parameters": {
+                          "elems": [
+                            {
+                              "type": "Parameter",
+                              "id": "${parameter1Id}"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "count": 3
+                }
+              }
+            },
+            {
+              "type": "Service",
+              "id": "${service2Id}",
+              "props": {
+                "code": "service2",
+                "managerPersonalCode": "2",
+                "operations": {
+                  "elems": [
+                    {
+                      "type": "Operation",
+                      "id": "${operation3Id}",
+                      "props": {
+                        "code": "operation3"
+                      }
+                    }
+                  ],
+                  "count": 1
+                }
+              }
+            },
+            {
+              "type": "Service",
+              "id": "${service3Id}",
+              "props": {
+                "code": "service3",
+                "managerPersonalCode": "3",
+                "operations": {
+                  "elems": [
+                    {
+                      "type": "Operation",
+                      "id": "${operation4Id}",
+                      "props": {
+                        "code": "operation4"
+                      }
+                    }
+                  ],
+                  "count": 1
+                }
+              }
+            }
+          ]
+        },
+        "parameters": {
+          "elems": []
+        }
+      }
+    }
+  ]
+}

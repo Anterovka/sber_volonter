@@ -1,0 +1,23 @@
+query Test {
+    searchTestEntity(cond: "it.id == '${testEntity1Id}'") {
+        elems {
+            _getChar(expression: "it.p13")
+            _getString(expression: "it.p1")
+            _getText: _getString(expression: "it.p11")
+            _getByte(expression: "it.p2")
+            _getShort(expression: "it.p3")
+            _getInt(expression: "it.p4")
+            _getLong(expression: "it.p5")
+            _getFloat(expression: "it.p12")
+            _getDouble(expression: "it.p6")
+            _getBigDecimal(expression: "it.p10")
+            _getDate(expression: "it.p14")
+            _getDateTime(expression: "it.p7")
+            _getDateTime(expression: "it.p7")
+            _getOffsetDateTime(expression: "it.p15")
+            _getTime(expression: "it.p7.$time")
+            _getBoolean(expression: "it.p8")
+            _getByteArray(expression: "it.p9")
+        }
+    }
+}

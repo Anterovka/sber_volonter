@@ -1,0 +1,5 @@
+{
+  "type": "ProductCopy",
+  "props": "idCopy",
+  "cond": "it.idCopy == '${product1Id}'"
+}

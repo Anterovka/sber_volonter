@@ -1,0 +1,13 @@
+{
+  "type": "Product",
+  "props": {
+    "aliases": {
+      "secCond": "it != 'alias2'"
+    },
+    "services": {
+      "secCond": "it.code != 'service2'"
+    }
+  },
+  "cond": "it.$id $in ['${product1Id}', '${product2Id}']",
+  "secCond": "it.code != 'product2'"
+}

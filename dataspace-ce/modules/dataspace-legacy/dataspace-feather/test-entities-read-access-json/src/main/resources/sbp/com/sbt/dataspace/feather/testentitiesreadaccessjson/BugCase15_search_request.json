@@ -1,0 +1,14 @@
+{
+  "type": "Product",
+  "cond": "it.$id == '${product1Id}'",
+  "props": [
+    "code",
+    {
+      "relatedProduct": {
+        "props": "code"
+      }
+    }
+  ],
+  "limit": 200,
+  "count": true
+}

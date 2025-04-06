@@ -1,0 +1,183 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${product1Id}",
+      "props": {
+        "aliases": {
+          "elems": [
+            "alias3",
+            "alias2",
+            "alias1"
+          ]
+        },
+        "rates": {
+          "elems": [
+            "1.3",
+            "1.2",
+            "1.1"
+          ]
+        },
+        "services": {
+          "elems": [
+            {
+              "type": "Service",
+              "id": "${service3Id}",
+              "props": {
+                "operations": {
+                  "elems": []
+                }
+              }
+            },
+            {
+              "type": "Service",
+              "id": "${service2Id}",
+              "props": {
+                "operations": {
+                  "elems": []
+                }
+              }
+            },
+            {
+              "type": "Service",
+              "id": "${service1Id}",
+              "props": {
+                "operations": {
+                  "elems": [
+                    {
+                      "type": "Operation",
+                      "id": "${operation3Id}",
+                      "props": {
+                        "parameters": {
+                          "elems": [
+                            {
+                              "type": "Parameter",
+                              "id": "${parameter4Id}"
+                            },
+                            {
+                              "type": "Parameter",
+                              "id": "${parameter5Id}"
+                            },
+                            {
+                              "type": "Parameter",
+                              "id": "${parameter6Id}"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "events": {
+          "elems": [
+            {
+              "type": "Event",
+              "id": "${event3Id}",
+              "props": {
+                "parameters": {
+                  "elems": []
+                }
+              }
+            },
+            {
+              "type": "Event",
+              "id": "${event2Id}",
+              "props": {
+                "parameters": {
+                  "elems": []
+                }
+              }
+            },
+            {
+              "type": "Event",
+              "id": "${event1Id}",
+              "props": {
+                "parameters": {
+                  "elems": [
+                    {
+                      "type": "Parameter",
+                      "id": "${parameter8Id}"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "parameters": {
+          "elems": [
+            {
+              "type": "Parameter",
+              "id": "${parameter2Id}",
+              "props": {
+                "parameters": {
+                  "elems": []
+                }
+              }
+            },
+            {
+              "type": "Parameter",
+              "id": "${parameter1Id}",
+              "props": {
+                "parameters": {
+                  "elems": [
+                    {
+                      "type": "Parameter",
+                      "id": "${parameter7Id}"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "Product",
+      "id": "${product2Id}",
+      "props": {
+        "aliases": {
+          "elems": []
+        },
+        "rates": {
+          "elems": []
+        },
+        "services": {
+          "elems": []
+        },
+        "events": {
+          "elems": []
+        },
+        "parameters": {
+          "elems": []
+        }
+      }
+    },
+    {
+      "type": "Product",
+      "id": "${product3Id}",
+      "props": {
+        "aliases": {
+          "elems": []
+        },
+        "rates": {
+          "elems": []
+        },
+        "services": {
+          "elems": []
+        },
+        "events": {
+          "elems": []
+        },
+        "parameters": {
+          "elems": []
+        }
+      }
+    }
+  ]
+}

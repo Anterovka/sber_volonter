@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.p9.$asString == '1'"
+}

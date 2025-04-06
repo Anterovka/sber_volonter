@@ -1,0 +1,28 @@
+{
+  "data": {
+    "searchTestEntity": {
+      "elems": [
+        {
+          "_calc": {
+            "char": "G",
+            "string": "Hello",
+            "text": "${string5000}",
+            "byte": 127,
+            "short": 32767,
+            "int": 2147483647,
+            "long": 9223372036854775807,
+            "float": 123.4567,
+            "double": 1234567.890123456,
+            "bigDecimal": 123456789.0123456789,
+            "date": "${date}",
+            "dateTime": "${dateTime}",
+            "offsetDateTime": "${offsetDateTime}",
+            "time": "${time}",
+            "boolean": true,
+            "byteArray": "${bytes}"
+          }
+        }
+      ]
+    }
+  }
+}

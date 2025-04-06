@@ -1,0 +1,1 @@
+@Aggregate(value = ${value}.class, managedClass = ${managedClass}.class, from = "${from}" ${affinity} ${aggregate})

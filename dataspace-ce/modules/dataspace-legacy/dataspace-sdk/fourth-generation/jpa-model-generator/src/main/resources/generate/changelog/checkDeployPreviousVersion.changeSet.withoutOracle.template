@@ -1,0 +1,13 @@
+
+    <changeSet author="${modelName}" id="check-deploy-previousVersion" runAlways="true">
+<preConditions onFail="HALT" onFailMessage="In order to apply the optimized changelog, the DB schema must match version ${previousVersion}, however, this version tag is missing; installation is halted.">
+            <or>
+                <not>
+                    <tableExists tableName="T_DSPC_SYS_VERSIONS"/>
+                </not>
+                <and><dbms type="h2"/><sqlCheck expectedResult="1">select count(*) from T_DSPC_SYS_VERSIONS where MODELVERSION = '${previousVersion}'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="1">select count(*) from ${defaultSchemaName}.T_DSPC_SYS_VERSIONS where MODELVERSION = '${previousVersion}'</sqlCheck></and>
+            </or>
+        </preConditions>
+    </changeSet>
+

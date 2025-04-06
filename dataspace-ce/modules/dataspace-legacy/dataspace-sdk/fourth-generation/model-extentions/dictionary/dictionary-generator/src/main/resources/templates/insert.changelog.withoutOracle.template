@@ -1,0 +1,26 @@
+
+    <changeSet author="${modelName}" id="${version}-${index}" dbms="h2">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from ${tableName} where ${tableCode} = '${code}' ${andCheck}</sqlCheck>
+        </preConditions>
+        <insert tableName="${tableName}">
+${columns}
+${h2Columns}
+        </insert>
+        <rollback>
+            <sql>delete from ${tableName} where ${tableCode} = '${code}'${andCheck}</sql>
+        </rollback>
+    </changeSet>
+    <changeSet author="${modelName}" id="${version}-${index}" dbms="postgresql">
+            <preConditions onFail="MARK_RAN">
+                <sqlCheck expectedResult="0">select count(*) from ${defaultSchemaName}.${tableName} where ${tableCode} = '${code}' ${andCheck}</sqlCheck>
+            </preConditions>
+            <insert tableName="${tableName}">
+${columns}
+${postgresColumns}
+            </insert>
+            <rollback>
+                <sql>delete from ${defaultSchemaName}.${tableName} where ${tableCode} = '${code}' ${andCheck}</sql>
+            </rollback>
+        </changeSet>
+

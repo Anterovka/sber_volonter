@@ -1,0 +1,6 @@
+{
+  "type": "RequestPlus",
+  "props": "description",
+  "cond": "root.$id == '${requestPlus1Id}'",
+  "aggVersion": true
+}

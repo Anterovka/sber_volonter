@@ -1,0 +1,21 @@
+{
+  "elems": [
+    {
+      "type": "ProductLimited",
+      "id": "${productLimited1Id}",
+      "props": {
+        "aliases": {
+          "elems": [
+            "alias1",
+            "alias2"
+          ]
+        },
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${productPlus3Id}",
+          "incorrectCasted": true
+        }
+      }
+    }
+  ]
+}

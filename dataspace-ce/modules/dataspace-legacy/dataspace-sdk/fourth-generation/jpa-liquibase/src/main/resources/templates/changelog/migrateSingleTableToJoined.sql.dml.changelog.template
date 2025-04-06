@@ -1,0 +1,6 @@
+
+    <changeSet author="${modelName}" id="${version}-${index}-migrate">
+        <sql dbms="!postgresql">insert into ${tableName} (${columnNames}) select ${columnNames} from ${oldTableName} where ${oldTableName}.TYPE = '${nameEntity}'</sql>
+        <sql dbms="postgresql">insert into ${defaultSchemaName}.${tableName} (${columnNames}) select ${columnNames} from ${defaultSchemaName}.${oldTableName} where ${defaultSchemaName}.${oldTableName}.TYPE = '${nameEntity}'</sql>
+        <rollback/>
+    </changeSet>

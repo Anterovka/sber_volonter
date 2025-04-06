@@ -1,0 +1,10 @@
+{
+  "type": "Product",
+  "selection": {
+    "p1": "entities{type=ProductCopy, cond=it.idCopy=='${product1Id}'}.$exists.$asBoolean",
+    "p2": "entities{type=ProductCopy, cond=it.idCopy=='nonExistent'}.$exists.$asBoolean",
+    "p3": "entities{type=ProductCopy, cond=it.idCopy=='${product1Id}'}.$count",
+    "p4": "entities{type=ProductCopy, cond=it.idCopy=='nonExistent'}.$count"
+  },
+  "cond": "it.$id == '${product1Id}'"
+}

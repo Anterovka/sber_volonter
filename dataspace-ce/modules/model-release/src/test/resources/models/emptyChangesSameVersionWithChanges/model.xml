@@ -1,0 +1,15 @@
+<model model-name="emptyChangesSameVersionWithChanges" version="0.0.1" xmlns="DataspaceModel">
+  <class name="MyClass">
+    <property name="code" type="String"/>
+    <statuses>
+      <group code="service" reason-length="300">
+        <status code="new" initial="true"/>
+        <status code="done"/>
+      </group>
+      <group code="user" reason-length="100">
+        <status code="new" initial="true"/>
+        <status code="old"/>
+      </group>
+    </statuses>
+  </class>
+</model>

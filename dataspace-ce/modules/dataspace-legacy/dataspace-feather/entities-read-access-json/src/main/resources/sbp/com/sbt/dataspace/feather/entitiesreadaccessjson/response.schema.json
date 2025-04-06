@@ -1,0 +1,257 @@
+{
+  "$comment": "Ответ",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "elems": {
+          "$ref": "#/$defs/entities"
+        },
+        "count": {
+          "$ref": "#/$defs/count"
+        }
+      },
+      "required": [
+        "elems"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "selection": {
+          "$comment": "Property selection feature indicator",
+          "type": "boolean"
+        },
+        "elems": {
+          "$comment": "Selected properties",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "propertyNames": {
+              "$comment": "Property name",
+              "pattern": "^[A-Za-z0-9_]+$"
+            },
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/$defs/primitive"
+                }
+              ]
+            }
+          }
+        },
+        "count": {
+          "$ref": "#/$defs/count"
+        }
+      },
+      "required": [
+        "selection",
+        "elems"
+      ],
+      "additionalProperties": false
+    }
+  ],
+  "$defs": {
+    "entities": {
+      "$comment": "Entities",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entity"
+      }
+    },
+    "entity": {
+      "$comment": "Entity",
+      "type": "object",
+      "properties": {
+        "type": {
+          "$comment": "Entity type",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_]+$"
+        },
+        "id": {
+          "$comment": "Id entity",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "invalid": {
+          "$comment": "Invalid data flag",
+          "type": "boolean"
+        },
+        "incorrectCasted": {
+          "$comment": "Indicator of incorrect entity transformation",
+          "type": "boolean"
+        },
+        "access": {
+          "$comment": "Data accessibility indicator",
+          "type": "boolean"
+        },
+        "props": {
+          "$ref": "#/$defs/properties"
+        },
+        "aggVersion": {
+          "$comment": "Aggregate version",
+          "type": "string",
+          "pattern": "^[0-9]+$"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "properties": {
+      "$comment": "Properties",
+      "type": "object",
+      "propertyNames": {
+        "$comment": "Property name",
+        "pattern": "^[A-Za-z0-9_]+$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/value"
+      }
+    },
+    "value": {
+      "$comment": "Value",
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/primitive"
+        },
+        {
+          "$comment": "Collection of primitives",
+          "type": "object",
+          "properties": {
+            "elems": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/primitive"
+              }
+            },
+            "count": {
+              "$ref": "#/$defs/count"
+            }
+          },
+          "required": [
+            "elems"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "$comment": "Link",
+          "$ref": "#/$defs/entity"
+        },
+        {
+          "$comment": "Collection of links",
+          "type": "object",
+          "properties": {
+            "elems": {
+              "$ref": "#/$defs/entities"
+            },
+            "count": {
+              "$ref": "#/$defs/count"
+            }
+          },
+          "required": [
+            "elems"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "$comment": "Grouping",
+          "$ref": "#/$defs/properties"
+        },
+        {
+          "$comment": "Property under the alias",
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "base": {
+                  "$comment": "The name of the property on which the property is based",
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9_]+$"
+                },
+                "value": {
+                  "$ref": "#/$defs/value"
+                }
+              },
+              "required": [
+                "base",
+                "value"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "calc": {
+                  "$comment": "Indicator of computable expression",
+                  "type": "boolean"
+                },
+                "value": {
+                  "$ref": "#/$defs/value"
+                }
+              },
+              "required": [
+                "calc",
+                "value"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      ]
+    },
+    "primitive": {
+      "$comment": "Primitive",
+      "anyOf": [
+        {
+          "$comment": "Строка",
+          "type": "string"
+        },
+        {
+          "$comment": "Число",
+          "type": "string",
+          "pattern": "^\\-?[0-9]+(\\.[0-9]+)?$"
+        },
+        {
+          "$comment": "Дата",
+          "type": "string",
+          "pattern": "^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}$"
+        },
+        {
+          "$comment": "Date and time",
+          "type": "string",
+          "pattern": "^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?$"
+        },
+        {
+          "$comment": "Date and time with offset",
+          "type": "string",
+          "pattern": "^[0-9]{4}\\-[0-9]{2}\\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?[+-][0-9]{2}:[0-9]{2}$"
+        },
+        {
+          "$comment": "Logical value",
+          "type": "boolean"
+        }
+      ]
+    },
+    "count": {
+      "$comment": "Number of elements",
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

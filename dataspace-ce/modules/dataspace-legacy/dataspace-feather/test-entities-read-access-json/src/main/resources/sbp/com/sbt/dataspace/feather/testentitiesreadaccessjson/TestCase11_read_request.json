@@ -1,0 +1,5 @@
+{
+  "type": "Document",
+  "props": "code",
+  "cond": "root.$id == '${document1Id}'"
+}

@@ -1,0 +1,14 @@
+{
+  "type": "Product",
+  "props": {
+    "relatedProduct": {
+      "type": "ProductLimited",
+      "props": "code"
+    },
+    "documents": {
+      "type": "Permission",
+      "props": "code"
+    }
+  },
+  "cond": "root.$id == '${product2Id}'"
+}

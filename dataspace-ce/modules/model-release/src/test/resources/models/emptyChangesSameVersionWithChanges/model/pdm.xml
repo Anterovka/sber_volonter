@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PdmModel>
+  <model model-name="emptyChangesSameVersionWithChanges" component-code="НЕ ЗАДАНО" version="0.0.1" versioned-entities="false" autoIdMethod="SNOWFLAKE">
+    <import type="GQLSECURITY"/>
+    <import type="IdempotenceModelGenerator" file=""/>
+    <import type="AggregateModelGenerator" file=""/>
+    <import type="APP_LOCKS" file=""/>
+    <import type="DICTIONARY_GENERATOR" file="dictionary/"/>
+    <import type="REFERENCE" file=""/>
+    <import type="status" file=""/>
+    <import type="BASE_ENTITY" file=""/>
+    <import type="COMPUTED-FIELD"/>
+    <class name="MyClass" extends="Entity" tableName="T_MYCLASS" pk-index-name="PK_T_MYCLASS" affinity="objectId" class-access="UPDATE" strategy="JOINED" import-model-name="emptychanges" root-type="MyClass">
+      <index index-name="PK_T_MYCLASS" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_MYCLASS_TYPE">
+        <property name="type"/>
+      </index>
+      <embedded-lists>
+        <embedded-list name="statusForService">
+          <property name="code" column-name="STATUSFORSERVICE_CODE"/>
+          <property name="reason" column-name="STATUSFORSERVICE_REASON"/>
+        </embedded-list>
+        <embedded-list name="statusForUser">
+          <property name="code" column-name="STATUSFORUSER_CODE"/>
+          <property name="reason" column-name="STATUSFORUSER_REASON"/>
+        </embedded-list>
+      </embedded-lists>
+      <property name="statusForService" type="SysStatusFields" length="254" embedded="true" column-type="VARCHAR(254)"/>
+      <property name="statusForUser" type="SysStatusFields" length="254" embedded="true" column-type="VARCHAR(254)"/>
+      <property name="apiCalls" type="MyClassApiCall" length="254" collection="SET" label="Collection with results of idempotent calls" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM" mappedBy="parentObject" object-link="O2M"/>
+      <property name="sys_ver" type="Long" label="Technical Change Counter" column-name="SYS_VER" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="MyClass" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+      <statuses>
+        <group code="service" reason-length="300">
+          <status code="new" initial="true"/>
+          <status code="done" initial="false"/>
+        </group>
+        <group code="user" reason-length="100">
+          <status code="new" initial="true"/>
+          <status code="old" initial="false"/>
+        </group>
+      </statuses>
+    </class>
+    <class name="SysStatusFields" embeddable="true" label="Status fields type" class-access="SYSTEM" import-model-name="emptychanges">
+      <property name="code" type="String" length="254" label="Status code" column-name="CODE" column-type="VARCHAR(254)"/>
+      <property name="reason" type="String" length="300" label="Status reason" column-name="REASON" column-type="VARCHAR(300)"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="RootDictionary" label="Aggregate class of reference" tableName="T_ROOTDICTIONARY" pk-index-name="PK_T_ROOTDICTIONARY" is-dictionary="true" affinity="objectId" class-access="READ_ONLY" strategy="JOINED" import-model-name="emptychanges" root-type="RootDictionary">
+      <index index-name="PK_T_ROOTDICTIONARY" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_ROOTDICTIONARY_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="sys_ver" type="Long" label="Technical Change Counter" column-name="SYS_VER" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="RootDictionary" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysRootSecurity" extends="Entity" label="Class of security tables aggregate" tableName="T_SEC_ROOTSECURITY" pk-index-name="PK_T_SEC_ROOTSECURITY" affinity="objectId" class-access="READ_ONLY" strategy="JOINED" import-model-name="emptychanges" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_ROOTSECURITY" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSROOTSECURITY_TYPE">
+        <property name="type"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="adminSettings" type="SysAdminSettings" length="254" collection="SET" label="Settings" column-type="VARCHAR(254)" mappedBy="rootSecurity" object-link="O2M"/>
+      <property name="operations" type="SysOperation" length="254" collection="SET" label="Operations" column-type="VARCHAR(254)" mappedBy="rootSecurity" object-link="O2M"/>
+      <property name="sys_ver" type="Long" label="Technical Change Counter" column-name="SYS_VER" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="SysRootSecurity" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysCheckSelect" extends="Entity" label="Table of verification requests performed before/after the main request" tableName="T_SEC_CHECKSELECT" pk-index-name="PK_T_SEC_CHECKSELECT" affinity="operation" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="emptychanges" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_CHECKSELECT" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSCHECKSELECT_OPERATION_ID">
+        <property name="operation"/>
+      </index>
+      <index index-name="I_SYSCHECKSELECT_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="beforeCommitEnable" type="Boolean" column-name="BEFORECOMMITENABLE" column-type="${type_boolean}"/>
+      <property name="beforeOperationDisable" type="Boolean" label="Should the check be suppressed before the request?" column-name="BEFOREOPERATIONDISABLE" column-type="${type_boolean}"/>
+      <property name="conditionValue" type="String" length="4001" label="Filtering condition" column-name="CONDITIONVALUE" column-type="CLOB"/>
+      <property name="description" type="String" length="254" label="User-defined description" column-name="DESCRIPTION" column-type="VARCHAR(254)"/>
+      <property name="operation" type="SysOperation" length="254" label="GQL request to which the check is applied" mandatory="true" column-name="OPERATION_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="orderValue" type="Integer" label="Order of display" column-name="ORDERVALUE" column-type="${type_int}"/>
+      <property name="typeName" type="String" length="254" label="Entity type on which the request is built" column-name="TYPENAME" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="SysOperation" extends="Entity" label="Table of allowed GQL requests" tableName="T_SEC_OPERATION" pk-index-name="PK_T_SEC_OPERATION" affinity="rootSecurity" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="emptychanges" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_OPERATION" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSOPERATION_ROOTSECURITY_ID">
+        <property name="rootSecurity"/>
+      </index>
+      <index index-name="I_SYSOPERATION_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="allowEmptyChecks" type="Boolean" label="Applicability flag of empty conditions" column-name="ALLOWEMPTYCHECKS" column-type="${type_boolean}"/>
+      <property name="body" type="String" length="4001" label="Request" column-name="BODY" column-type="CLOB"/>
+      <property name="checkSelects" type="SysCheckSelect" length="254" collection="SET" label="Conditions" column-type="VARCHAR(254)" mappedBy="operation" object-link="O2M"/>
+      <property name="disableJwtVerification" type="Boolean" label="JWT checks ignoring flag" column-name="DISABLEJWTVERIFICATION" column-type="${type_boolean}"/>
+      <property name="hashValue" type="String" length="254" label="Хэш" column-name="HASHVALUE" column-type="VARCHAR(254)"/>
+      <property name="paramAdditions" type="SysParamAddition" length="254" collection="SET" label="Additional conditions" column-type="VARCHAR(254)" mappedBy="operation" object-link="O2M"/>
+      <property name="pathConditions" type="String" length="4001" label="Additional routing conditions for fields" column-name="PATHCONDITIONS" column-type="CLOB"/>
+      <property name="rootSecurity" type="SysRootSecurity" length="254" label="Root" mandatory="true" column-name="ROOTSECURITY_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysAdminSettings" extends="Entity" label="Table with security parameters" tableName="T_SEC_ADMINSETTINGS" pk-index-name="PK_T_SEC_ADMINSETTINGS" affinity="rootSecurity" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="emptychanges" root-type="SysRootSecurity">
+      <index unique="true" index-name="I_SYSADMINSETTINGS_KEY_">
+        <property name="key"/>
+      </index>
+      <index index-name="PK_T_SEC_ADMINSETTINGS" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSADMINSETTINGS_ROOTSECURITY_ID">
+        <property name="rootSecurity"/>
+      </index>
+      <index index-name="I_SYSADMINSETTINGS_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="key" type="String" length="254" label="Security settings key" column-name="KEY_" column-type="VARCHAR(254)"/>
+      <property name="rootSecurity" type="SysRootSecurity" length="254" label="Root" mandatory="true" column-name="ROOTSECURITY_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="value" type="String" length="4001" label="Security setting value" column-name="VALUE_" column-type="CLOB"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="SysParamAddition" extends="Entity" label="Table with additional conditions" tableName="T_SEC_PARAMADDITION" pk-index-name="PK_T_SEC_PARAMADDITION" affinity="operation" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="emptychanges" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_PARAMADDITION" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSPARAMADDITION_OPERATION_ID">
+        <property name="operation"/>
+      </index>
+      <index index-name="I_SYSPARAMADDITION_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="operation" type="SysOperation" length="254" label="GQL request to which additional conditions are applied" mandatory="true" column-name="OPERATION_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="paramAddition" type="String" length="4000" label="Additional condition to the variable" column-name="PARAMADDITION" column-type="VARCHAR(4000)"/>
+      <property name="paramName" type="String" length="254" label="Declared variable name" column-name="PARAMNAME" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="MyClassApiCall" extends="Entity" label="Result of processing the package Unit of Work for MyClass" tableName="T_MYCLASSAPICALL" pk-index-name="PK_T_MYCLASSAPICALL" affinity="parentObject" class-access="SYSTEM" final-class="true" strategy="JOINED" import-model-name="emptychanges" root-type="MyClass">
+      <index index-name="PK_T_MYCLASSAPICALL" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index unique="true" index-name="I_MYCLASSAPICALL_APICALLID">
+        <property name="apiCallId"/>
+      </index>
+      <index index-name="I_MYCLASSAPICALL_PARENTOBJECT_ID">
+        <property name="parentObject"/>
+      </index>
+      <index index-name="I_MYCLASSAPICALL_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="apiCallId" type="String" length="254" label="Package Identifier" column-name="APICALLID" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <property name="firstCallDate" type="Date" length="3" label="Date of the first successful package call" column-name="FIRSTCALLDATE" column-type="TIMESTAMP(3)" system-field="true" changeable="SYSTEM"/>
+      <property name="data" type="String" length="4000" label="Processing package result" column-name="DATA" column-type="VARCHAR(4000)" system-field="true" changeable="SYSTEM"/>
+      <property name="bigData" type="String" length="4001" label="The result of package processing, used if the result does not fit in the data field" column-name="BIGDATA" column-type="CLOB" system-field="true" changeable="SYSTEM"/>
+      <property name="parentObject" type="MyClass" length="254" label="Reference to parent object" mandatory="true" column-name="PARENTOBJECT_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="MyClass" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="Entity" label="Main model class" is-abstract="true" class-access="SYSTEM" import-model-name="emptychanges">
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+  </model>
+  <meta-information>
+    <have-insert-root-dictionary>true</have-insert-root-dictionary>
+    <have-insert-root-security>true</have-insert-root-security>
+    <have-h2-decode-base64-function>true</have-h2-decode-base64-function>
+    <allow-lastchangedate-compare>false</allow-lastchangedate-compare>
+    <disabledGenerateOracleLiquibase>true</disabledGenerateOracleLiquibase>
+    <useRenamedFields>false</useRenamedFields>
+    <disableBaseEntityFields>false</disableBaseEntityFields>
+    <allowUseParentUniqueIndex>false</allowUseParentUniqueIndex>
+  </meta-information>
+  <source-models>
+    <root-model model-name="emptyChanges" sha256="d0aff0fcbacf958c9be624bd20866df90dfa1469c7b54fe45ba829d192a6f167">H4sIAAAAAAAA/62RPQ7CMAyFdyTuYHmHFLEmLLByCKu1SqTUqeKUn9uTtgiBgI0lsv3y7E+27WLDAaZ3JdSxQ+76fNufSFpWhDMn9VEcVutqvUG4dkHU4YEyaU81H0cn7pYLAFsHUoW5y/G2H7NZKZpmyoOyPvJSaVMceqiL36FyOvuaERKTRlkFljafHG6rCp+OZ5eHSfiC4MVnT8FhTgOj+fm5ifIqWzON/05TONMHyuZvKDE0P0mseVuUNdNOS2zNdKMS3QFVFA4qswEAAA==</root-model>
+    <status-model/>
+  </source-models>
+</PdmModel>

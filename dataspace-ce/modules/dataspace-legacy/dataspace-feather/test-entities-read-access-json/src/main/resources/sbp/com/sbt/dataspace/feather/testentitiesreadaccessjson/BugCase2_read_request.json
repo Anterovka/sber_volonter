@@ -1,0 +1,15 @@
+{
+  "type": "ProductPlus",
+  "props": {
+    "affectedProducts": {
+      "type": "ProductLimited",
+      "cond": "elem.limitedOffer == 'limitedOffer1'"
+    },
+    "parameters": {
+      "type": "ActionParameter",
+      "cond": "elem.executorName == 'Vasya'"
+    }
+  },
+  "cond": "root.$id == '${productPlus1Id}'",
+  "limit": 1
+}

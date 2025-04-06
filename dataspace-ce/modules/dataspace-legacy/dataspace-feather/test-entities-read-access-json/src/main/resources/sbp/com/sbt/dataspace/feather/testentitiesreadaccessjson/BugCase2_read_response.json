@@ -1,0 +1,26 @@
+{
+  "elems": [
+    {
+      "type": "ProductPlus",
+      "id": "${productPlus1Id}",
+      "props": {
+        "affectedProducts": {
+          "elems": [
+            {
+              "type": "ProductLimited",
+              "id": "${productLimited1Id}"
+            }
+          ]
+        },
+        "parameters": {
+          "elems": [
+            {
+              "type": "ActionParameter",
+              "id": "${actionParameter1Id}"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

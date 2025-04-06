@@ -1,0 +1,6 @@
+
+        <sql dbms="!postgresql">update ${tableName} set ${columnName} = (select ${columnName} from ${collectionTableName} where ${collectionTableName}.${keyColumnName} = ${tableName}.object_id)
+                where exists (select ${columnName} from ${collectionTableName} where ${collectionTableName}.${keyColumnName} = ${tableName}.object_id)</sql>
+        <sql dbms="postgresql">update ${defaultSchemaName}.${tableName} set ${columnName} = (select ${columnName} from ${defaultSchemaName}.${collectionTableName} where ${defaultSchemaName}.${collectionTableName}.${keyColumnName} = ${defaultSchemaName}.${tableName}.object_id)
+                where exists (select ${columnName} from ${defaultSchemaName}.${collectionTableName} where ${defaultSchemaName}.${collectionTableName}.${keyColumnName} = ${defaultSchemaName}.${tableName}.object_id)</sql>
+

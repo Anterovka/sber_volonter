@@ -1,0 +1,52 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${product2Id}",
+      "props": {
+        "relatedProduct": {
+          "type": "Product",
+          "id": "${product1Id}",
+          "props": {
+            "code": "product1"
+          }
+        },
+        "services": {
+          "elems": [
+            {
+              "type": "Service",
+              "id": "${product2Service2Id}",
+              "props": {
+                "managerPersonalCode": "2",
+                "operations": {
+                  "elems": []
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "Service",
+      "id": "${service1Id}",
+      "props": {
+        "code": "service1"
+      }
+    },
+    {
+      "type": "TestEntity",
+      "id": "${testEntity1Id}",
+      "props": {
+        "p1": "string1",
+        "p2": "123",
+        "ps1": {
+          "elems": [
+            "string1"
+          ]
+        }
+      }
+    }
+  ],
+  "count": 3
+}

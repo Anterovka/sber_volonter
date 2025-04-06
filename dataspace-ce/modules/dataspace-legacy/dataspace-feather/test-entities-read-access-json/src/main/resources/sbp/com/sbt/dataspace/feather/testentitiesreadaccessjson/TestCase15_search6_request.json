@@ -1,0 +1,19 @@
+{
+  "merge": [
+    {
+      "type": "TestEntity",
+      "props": [
+        "p1"
+      ],
+      "cond": "root.$id == '${testEntity1Id}'"
+    },
+    {
+      "type": "TestEntity",
+      "props": [
+        "p11"
+      ],
+      "cond": "root.$id == '${testEntity2Id}'"
+    }
+  ],
+  "sort": "root.code"
+}

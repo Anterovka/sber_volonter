@@ -1,0 +1,8 @@
+{
+  "type": "TestEntity",
+  "selection": {
+    "p1": "(it.code == 'testEntity1').$asBoolean",
+    "p2": "(it.code != 'testEntity1').$asBoolean"
+  },
+  "cond": "it.$id == '${testEntity1Id}' && (it.code == 'testEntity1').$asBoolean == true && (it.code != 'testEntity1').$asBoolean == false"
+}

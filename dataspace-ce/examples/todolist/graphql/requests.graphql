@@ -1,0 +1,111 @@
+fragment CustomerAttributes on _E_Customer {
+  id
+  login
+  email
+}
+
+fragment TaskCustomerAccessAttributes on TaskCustomerAccess {
+  id
+  task {
+    id
+  }
+  customer {
+    entity {
+      ...CustomerAttributes
+    }
+  }
+  accessType
+}
+
+fragment TaskAttributes on _E_Task {
+  id
+  title
+  status
+  dueDate
+  description
+  timeStamp
+  tags {
+    elems
+  }
+  accessList {
+    elems {
+      ...TaskCustomerAccessAttributes
+    }
+  }
+  customer {
+    entity {
+      ...CustomerAttributes
+    }
+  }
+}
+
+query getCustomerInfo($cond: String!) {
+  searchCustomer(cond: $cond) {
+    elems {
+      ...CustomerAttributes
+    }
+  }
+}
+
+mutation addCustomerInfo($customerInput: _CreateCustomerInput!, $login: String!, $email: String!) {
+  packet {
+    updateOrCreateCustomer(
+      input: $customerInput,
+      exist: {
+        update: {
+          login: $login,
+          email: $email
+        }
+      }
+    ) {
+      returning {
+        ...CustomerAttributes
+      }
+    }
+  }
+}
+
+query searchAllTask($cond: String) {
+  searchTask(cond: $cond, sort: { crit: "it.timeStamp", order: DESC }) {
+    elems {
+      ...TaskAttributes
+    }
+  }
+}
+
+mutation createTaskCustomerAccess($input: [_CreateTaskCustomerAccessInput!]!) {
+  packet {
+    createManyTaskCustomerAccess(input: $input)
+  }
+}
+
+mutation deleteTaskCustomerAccess($input: [_DeleteManyTaskCustomerAccessInput!]!) {
+  packet {
+    deleteManyTaskCustomerAccess(input: $input)
+  }
+}
+
+mutation createTask($input: _CreateTaskInput!) {
+  packet {
+    createTask(input: $input) {
+      customer {
+        entityId
+      }
+      ...TaskAttributes
+    }
+  }
+}
+
+mutation updateTask($updateInput: _UpdateTaskInput!) {
+  packet {
+    updateTask(input: $updateInput) {
+      ...TaskAttributes
+    }
+  }
+}
+
+mutation deleteTask($id: ID!) {
+  packet {
+    deleteTask(id: $id)
+  }
+}

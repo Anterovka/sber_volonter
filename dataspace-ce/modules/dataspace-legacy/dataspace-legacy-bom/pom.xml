@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>sbp.com.sbt.dataspace</groupId>
+  <artifactId>dataspace-legacy-bom</artifactId>
+  <version>DEV-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>sbp.com.sbt.dataspace.feather</groupId>
+        <artifactId>bom</artifactId>
+        <version>DEV-SNAPSHOT</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>sbp.com.sbt.dataspace</groupId>
+        <artifactId>pprb-client-bom</artifactId>
+        <version>DEV-SNAPSHOT</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>sbp.com.sbt.dataspace.support</groupId>
+        <artifactId>support-bom</artifactId>
+        <version>DEV-SNAPSHOT</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>sbp.com.sbt.dataspace</groupId>
+        <artifactId>dataspace-graphql-schema</artifactId>
+        <version>DEV-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>sbp.com.sbt.dataspace.feather</groupId>
+        <artifactId>model-description-impl-2</artifactId>
+        <version>DEV-SNAPSHOT</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>

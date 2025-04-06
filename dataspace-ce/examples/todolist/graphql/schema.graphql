@@ -1,0 +1,581 @@
+schema {
+  query: _Query
+  mutation: _Mutation
+}
+
+directive @strExpr(char: Char, chars: [Char!], string: String, strings: [String!], byte: Byte, bytes: [Byte!], short: Short, shorts: [Short!], int: Int, ints: [Int!], long: Long, longs: [Long!], float: _Float4, floats: [_Float4!], double: Float, doubles: [Float!], bigDecimal: BigDecimal, bigDecimals: [BigDecimal!], date: _Date, dates: [_Date!], dateTime: _DateTime, dateTimes: [_DateTime!], offsetDateTime: _OffsetDateTime, offsetDateTimes: [_OffsetDateTime!], time: _Time, times: [_Time!], boolean: Boolean, booleans: [Boolean!]) on FIELD
+
+directive @mergeReqSpec(cond: String) on INLINE_FRAGMENT
+
+"""Indicates an Input Object is a OneOf Input Object."""
+directive @oneOf on INPUT_OBJECT
+
+directive @dependsOnByGet(commandId: String!, dependency: _DependsOnDependencyByGet!) on FIELD
+
+directive @dependsOnByUpdateOrCreate(commandId: String!, dependency: _DependsOnDependencyByUpdateOrCreate!) on FIELD
+
+directive @dependsOnByField(commandId: String!, name: String!) on FIELD
+
+"""An arbitrary precision signed decimal"""
+scalar BigDecimal
+
+"""An 8-bit signed integer"""
+scalar Byte
+
+"""A UTF-16 code unit; a character on Unicode's BMP"""
+scalar Char
+
+interface Customer {
+  id: ID!
+  aggVersion: Long!
+  chgCnt: Long
+  lastChangeDate: _DateTime
+  ownerId: String
+  email: String
+  login: String
+  type: String!
+  _calc: _Calculation!
+}
+
+"""A 64-bit signed integer"""
+scalar Long
+
+interface RootDictionary {
+  id: ID!
+  type: String!
+  _calc: _Calculation!
+}
+
+"""A 16-bit signed integer"""
+scalar Short
+
+interface Stakeholder {
+  id: ID!
+  chgCnt: Long
+  code: String
+  lastChangeDate: _DateTime
+  name: String
+  aggregateRoot(alias: String): RootDictionary
+  _calc: _Calculation!
+}
+
+interface Status {
+  id: ID!
+  chgCnt: Long
+  code: String
+  description: String
+  initial: Boolean
+  lastChangeDate: _DateTime
+  name: String
+  statusType: String
+  stakeholder(alias: String): Stakeholder
+  aggregateRoot(alias: String): RootDictionary
+  _calc: _Calculation!
+}
+
+interface StatusGraph {
+  id: ID!
+  chgCnt: Long
+  code: String
+  label: String
+  lastChangeDate: _DateTime
+  name: String
+  statusFrom(alias: String): Status
+  statusTo(alias: String): Status
+  aggregateRoot(alias: String): RootDictionary
+  _calc: _Calculation!
+}
+
+interface Task {
+  id: ID!
+  aggVersion: Long!
+  chgCnt: Long
+  lastChangeDate: _DateTime
+  ownerId: String
+  description: String
+  dueDate: _DateTime
+  status: _EN_TaskStatus
+  timeStamp: _DateTime
+  title: String
+  type: String!
+  tags(cond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _ENC_TaskTag!
+  accessList(elemAlias: String, cond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_TaskCustomerAccess!
+  customer: _G_CustomerReference!
+  _calc: _Calculation!
+}
+
+interface TaskCustomerAccess {
+  id: ID!
+  aggVersion: Long!
+  chgCnt: Long
+  lastChangeDate: _DateTime
+  ownerId: String
+  accessType: _EN_AccessType
+  type: String!
+  task(alias: String): Task!
+  aggregateRoot(alias: String): Task
+  customer: _G_CustomerReference!
+  _calc: _Calculation!
+}
+
+scalar _ByteArray
+
+type _Calculation {
+  char(expr: String!): Char
+  string(expr: String!): String
+  byte(expr: String!): Byte
+  short(expr: String!): Short
+  int(expr: String!): Int
+  long(expr: String!): Long
+  float(expr: String!): _Float4
+  double(expr: String!): Float
+  bigDecimal(expr: String!): BigDecimal
+  date(expr: String!): _Date
+  dateTime(expr: String!): _DateTime
+  offsetDateTime(expr: String!): _OffsetDateTime
+  time(expr: String!): _Time
+  boolean(expr: String!): Boolean
+  byteArray(expr: String!): _ByteArray
+}
+
+input _CompareCustomerInput {
+  login: String
+  email: String
+  _expr: [_GenericExprInput]
+}
+
+input _CompareTaskCustomerAccessInput {
+  accessType: _EN_AccessType
+  _expr: [_GenericExprInput]
+}
+
+input _CompareTaskInput {
+  timeStamp: _DateTime
+  dueDate: _DateTime
+  title: String
+  status: _EN_TaskStatus
+  _expr: [_GenericExprInput]
+}
+
+input _CreateCustomerInput {
+  id: ID!
+  login: String
+  email: String
+  _expr: [_GenericExprInput]
+}
+
+input _CreateTaskCustomerAccessInput {
+  accessType: _EN_AccessType
+  task: ID!
+  customer: _SingleReferenceInput
+  _expr: [_GenericExprInput]
+}
+
+input _CreateTaskInput {
+  timeStamp: _DateTime
+  dueDate: _DateTime
+  description: String
+  title: String
+  status: _EN_TaskStatus
+  tags: [_EN_TaskTag]
+  customer: _SingleReferenceInput
+  _expr: [_GenericExprInput]
+}
+
+scalar _Date
+
+scalar _DateTime
+
+input _DeleteManyCustomerInput {
+  id: ID!
+  compare: _CompareCustomerInput
+}
+
+input _DeleteManyTaskCustomerAccessInput {
+  id: ID!
+  compare: _CompareTaskCustomerAccessInput
+}
+
+input _DeleteManyTaskInput {
+  id: ID!
+  compare: _CompareTaskInput
+}
+
+enum _DependsOnDependencyByGet {
+  """EXISTS"""
+  EXISTS
+
+  """NOT_EXISTS"""
+  NOT_EXISTS
+}
+
+enum _DependsOnDependencyByUpdateOrCreate {
+  """CREATED"""
+  CREATED
+
+  """NOT_CREATED"""
+  NOT_CREATED
+}
+
+type _EC_Customer {
+  elems: [Customer!]!
+  count: Int!
+}
+
+type _EC_RootDictionary {
+  elems: [RootDictionary!]!
+  count: Int!
+}
+
+type _EC_Stakeholder {
+  elems: [Stakeholder!]!
+  count: Int!
+}
+
+type _EC_Status {
+  elems: [Status!]!
+  count: Int!
+}
+
+type _EC_StatusGraph {
+  elems: [StatusGraph!]!
+  count: Int!
+}
+
+type _EC_Task {
+  elems: [Task!]!
+  count: Int!
+}
+
+type _EC_TaskCustomerAccess {
+  elems: [TaskCustomerAccess!]!
+  count: Int!
+}
+
+type _ENC_AccessType {
+  elems: [_EN_AccessType!]!
+  count: Int!
+}
+
+type _ENC_TaskStatus {
+  elems: [_EN_TaskStatus!]!
+  count: Int!
+}
+
+type _ENC_TaskTag {
+  elems: [_EN_TaskTag!]!
+  count: Int!
+}
+
+enum _EN_AccessType {
+  OWNER
+  READ
+  WRITE
+}
+
+enum _EN_TaskStatus {
+  DONE
+  OPEN
+  OVERDUE
+  WORKING
+}
+
+enum _EN_TaskTag {
+  CRITICAL
+  HIGH_PRIORITY
+  LOW_PRIORITY
+  USUAL
+}
+
+type _E_Customer implements _Entity & Customer {
+  id: ID!
+  aggVersion: Long!
+  chgCnt: Long
+  lastChangeDate: _DateTime
+  ownerId: String
+  email: String
+  login: String
+  type: String!
+  _calc: _Calculation!
+}
+
+type _E_RootDictionary implements _Entity & RootDictionary {
+  id: ID!
+  type: String!
+  _calc: _Calculation!
+}
+
+type _E_Stakeholder implements _Entity & Stakeholder {
+  id: ID!
+  chgCnt: Long
+  code: String
+  lastChangeDate: _DateTime
+  name: String
+  aggregateRoot(alias: String): RootDictionary
+  _calc: _Calculation!
+}
+
+type _E_Status implements _Entity & Status {
+  id: ID!
+  chgCnt: Long
+  code: String
+  description: String
+  initial: Boolean
+  lastChangeDate: _DateTime
+  name: String
+  statusType: String
+  stakeholder(alias: String): Stakeholder
+  aggregateRoot(alias: String): RootDictionary
+  _calc: _Calculation!
+}
+
+type _E_StatusGraph implements _Entity & StatusGraph {
+  id: ID!
+  chgCnt: Long
+  code: String
+  label: String
+  lastChangeDate: _DateTime
+  name: String
+  statusFrom(alias: String): Status
+  statusTo(alias: String): Status
+  aggregateRoot(alias: String): RootDictionary
+  _calc: _Calculation!
+}
+
+type _E_Task implements _Entity & Task {
+  id: ID!
+  aggVersion: Long!
+  chgCnt: Long
+  lastChangeDate: _DateTime
+  ownerId: String
+  description: String
+  dueDate: _DateTime
+  status: _EN_TaskStatus
+  timeStamp: _DateTime
+  title: String
+  type: String!
+  tags(cond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _ENC_TaskTag!
+  accessList(elemAlias: String, cond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_TaskCustomerAccess!
+  customer: _G_CustomerReference!
+  _calc: _Calculation!
+}
+
+type _E_TaskCustomerAccess implements _Entity & TaskCustomerAccess {
+  id: ID!
+  aggVersion: Long!
+  chgCnt: Long
+  lastChangeDate: _DateTime
+  ownerId: String
+  accessType: _EN_AccessType
+  type: String!
+  task(alias: String): Task!
+  aggregateRoot(alias: String): Task
+  customer: _G_CustomerReference!
+  _calc: _Calculation!
+}
+
+interface _Entity {
+  id: ID!
+}
+
+input _ExistCustomerInput {
+  update: _ExistUpdateCustomerInput
+  compare: _CompareCustomerInput
+}
+
+input _ExistUpdateCustomerInput {
+  login: String
+  email: String
+  _expr: [_GenericExprInput]
+}
+
+scalar _Float4
+
+type _G_CustomerReference {
+  entityId: String
+  entity(alias: String): Customer
+}
+
+input _GenericExprInput {
+  fieldName: String!
+  expr: String!
+}
+
+enum _GetLockMode {
+  """NOT_USE"""
+  NOT_USE
+
+  """WAIT"""
+  WAIT
+
+  """NOWAIT"""
+  NOWAIT
+}
+
+type _MergedEntitiesCollection {
+  elems: [_Entity!]!
+  count: Int!
+}
+
+type _Mutation {
+  packet(aggregateVersion: Long, idempotencePacketId: String, enableBuffering: Boolean): _Packet
+}
+
+scalar _OffsetDateTime
+
+type _Packet {
+  getStatus(id: ID!, failOnEmpty: Boolean = null, lock: _GetLockMode = NOT_USE, partCond: String): Status
+  createTask(input: _CreateTaskInput!): Task
+  updateTask(input: _UpdateTaskInput!, compare: _CompareTaskInput): Task
+  getTask(id: ID!, failOnEmpty: Boolean = null, lock: _GetLockMode = NOT_USE, partCond: String): Task
+  deleteTask(id: ID!, compare: _CompareTaskInput): String
+  getStakeholder(id: ID!, failOnEmpty: Boolean = null, lock: _GetLockMode = NOT_USE, partCond: String): Stakeholder
+  createCustomer(input: _CreateCustomerInput!): Customer
+  updateOrCreateCustomer(input: _CreateCustomerInput!, exist: _ExistCustomerInput): _UpdateOrCreateCustomerResponse
+  updateCustomer(input: _UpdateCustomerInput!, compare: _CompareCustomerInput): Customer
+  getCustomer(id: ID!, failOnEmpty: Boolean = null, lock: _GetLockMode = NOT_USE, partCond: String): Customer
+  deleteCustomer(id: ID!, compare: _CompareCustomerInput): String
+  getStatusGraph(id: ID!, failOnEmpty: Boolean = null, lock: _GetLockMode = NOT_USE, partCond: String): StatusGraph
+  createTaskCustomerAccess(input: _CreateTaskCustomerAccessInput!): TaskCustomerAccess
+  updateTaskCustomerAccess(input: _UpdateTaskCustomerAccessInput!, compare: _CompareTaskCustomerAccessInput): TaskCustomerAccess
+  getTaskCustomerAccess(id: ID!, failOnEmpty: Boolean = null, lock: _GetLockMode = NOT_USE, partCond: String): TaskCustomerAccess
+  deleteTaskCustomerAccess(id: ID!, compare: _CompareTaskCustomerAccessInput): String
+  aggregateVersion: Long
+  isIdempotenceResponse: Boolean
+  _calc: _Calculation
+  createManyTask(input: [_CreateTaskInput!]!): [String]
+  updateManyTask(input: [_UpdateManyTaskInput]!): String
+  deleteManyTask(input: [_DeleteManyTaskInput]!): String
+  createManyCustomer(input: [_CreateCustomerInput!]!): [String]
+  updateOrCreateManyCustomer(input: [_UpdateOrCreateManyCustomerInput]!): [_UpdateOrCreateManyResponse]
+  updateManyCustomer(input: [_UpdateManyCustomerInput]!): String
+  deleteManyCustomer(input: [_DeleteManyCustomerInput]!): String
+  createManyTaskCustomerAccess(input: [_CreateTaskCustomerAccessInput!]!): [String]
+  updateManyTaskCustomerAccess(input: [_UpdateManyTaskCustomerAccessInput]!): String
+  deleteManyTaskCustomerAccess(input: [_DeleteManyTaskCustomerAccessInput]!): String
+}
+
+type _Query {
+  merge(limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _MergedEntitiesCollection!
+  searchCustomer(cond: String, partCond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_Customer!
+  searchTask(cond: String, partCond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_Task!
+  searchTaskCustomerAccess(cond: String, partCond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_TaskCustomerAccess!
+  searchStakeholder(cond: String, partCond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_Stakeholder!
+  searchStatus(cond: String, partCond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_Status!
+  searchStatusGraph(cond: String, partCond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_StatusGraph!
+  searchRootDictionary(cond: String, partCond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_RootDictionary!
+  resolveReferences(referenceType: String!, ids: [ID!]!): [_Reference!]!
+}
+
+type _R_Customer implements _Reference {
+  entityId: String
+  entity: Customer
+}
+
+type _R_RootDictionary implements _Reference {
+  entityId: String
+  entity: RootDictionary
+}
+
+type _R_Stakeholder implements _Reference {
+  entityId: String
+  entity: Stakeholder
+}
+
+type _R_Status implements _Reference {
+  entityId: String
+  entity: Status
+}
+
+type _R_StatusGraph implements _Reference {
+  entityId: String
+  entity: StatusGraph
+}
+
+type _R_Task implements _Reference {
+  entityId: String
+  entity: Task
+}
+
+type _R_TaskCustomerAccess implements _Reference {
+  entityId: String
+  entity: TaskCustomerAccess
+}
+
+interface _Reference {
+  entityId: String
+}
+
+input _SingleReferenceInput {
+  entityId: String!
+}
+
+input _SortCriterionSpecification {
+  crit: String!
+  order: _SortOrder! = ASC
+  nullsLast: Boolean
+}
+
+enum _SortOrder {
+  ASC
+  DESC
+}
+
+scalar _Time
+
+input _UpdateCustomerInput {
+  login: String
+  email: String
+  id: ID!
+  _expr: [_GenericExprInput]
+}
+
+input _UpdateManyCustomerInput {
+  param: _UpdateCustomerInput!
+  compare: _CompareCustomerInput
+}
+
+input _UpdateManyTaskCustomerAccessInput {
+  param: _UpdateTaskCustomerAccessInput!
+  compare: _CompareTaskCustomerAccessInput
+}
+
+input _UpdateManyTaskInput {
+  param: _UpdateTaskInput!
+  compare: _CompareTaskInput
+}
+
+type _UpdateOrCreateCustomerResponse {
+  created: Boolean
+  returning: Customer
+}
+
+input _UpdateOrCreateManyCustomerInput {
+  param: _CreateCustomerInput!
+  exist: _ExistCustomerInput
+}
+
+type _UpdateOrCreateManyResponse {
+  id: ID
+  created: Boolean
+}
+
+input _UpdateTaskCustomerAccessInput {
+  accessType: _EN_AccessType
+  task: ID
+  customer: _SingleReferenceInput
+  id: ID!
+  _expr: [_GenericExprInput]
+}
+
+input _UpdateTaskInput {
+  timeStamp: _DateTime
+  dueDate: _DateTime
+  description: String
+  title: String
+  status: _EN_TaskStatus
+  tags: [_EN_TaskTag]
+  customer: _SingleReferenceInput
+  id: ID!
+  _expr: [_GenericExprInput]
+}

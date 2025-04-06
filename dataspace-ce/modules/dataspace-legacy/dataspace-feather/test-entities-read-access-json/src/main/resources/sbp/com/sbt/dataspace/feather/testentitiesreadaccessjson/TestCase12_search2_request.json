@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.$id == '${testEntity2Id}' && root.p1.$hash == 'Hello'.$hash && root.p2.$hash == 127.$hash && root.p3.$hash == 32767.$hash && root.p4.$hash == 2147483647.$hash && root.p5.$hash == 9223372036854775807.$hash && root.p6.$hash != null && root.p7.$hash == D${dateTime}.$hash && root.p8.$hash == true.$hash && root.p9.$hash != null && root.p10.$hash != null && root.p11.$hash != null && root.p12.$hash != null && root.p13.$hash == 'G'.$hash && root.p14.$hash == D${date}.$hash"
+}

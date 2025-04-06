@@ -1,0 +1,8 @@
+{
+  "type": "TestEntity",
+  "selection": {
+    "p1": "it.p7.$time.$min",
+    "p2": "it.p7.$time.$max"
+  },
+  "cond": "it.$id == '${testEntity2Id}'"
+}

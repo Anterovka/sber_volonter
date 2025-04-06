@@ -1,0 +1,7 @@
+
+    @javax.persistence.Transient
+    @Override
+    public Class<${className}> getRootEntityClass() {
+        return ${className}.class;
+    }
+

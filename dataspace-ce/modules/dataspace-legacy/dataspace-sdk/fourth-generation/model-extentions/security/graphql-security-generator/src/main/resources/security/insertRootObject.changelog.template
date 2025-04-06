@@ -1,0 +1,14 @@
+    <changeSet author="${modelName}" id="INSERT-ROOT-SECURITY" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">select count(*) from ${tableName} where OBJECT_ID = '1'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">select count(*) from ${defaultSchemaName}.${tableName} where OBJECT_ID = '1'</sqlCheck></and>
+                <and><dbms type="oracle"/><sqlCheck expectedResult="0">select count(*) from ${tableName} where OBJECT_ID = '1'</sqlCheck></and>
+            </or>
+        </preConditions>
+        <insert tableName="${tableName}">
+            <column name="OBJECT_ID" value="1"/>
+            <column name="TYPE" value="SysRootSecurity"/>
+        </insert>${rollback}
+    </changeSet>
+

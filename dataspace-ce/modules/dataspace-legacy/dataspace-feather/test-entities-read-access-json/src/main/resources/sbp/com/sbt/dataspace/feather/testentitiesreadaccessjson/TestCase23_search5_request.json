@@ -1,0 +1,8 @@
+{
+  "type": "Action",
+  "selection": {
+    "p1": "it.operation.code",
+    "p2": "it.operation.service.code"
+  },
+  "cond": "it.$id $in ['${action1Id}', '${action2Id}']"
+}

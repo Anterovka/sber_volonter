@@ -1,0 +1,590 @@
+schema {
+  query: _Query
+  mutation: _Mutation
+}
+
+directive @strExpr(char: Char, chars: [Char!], string: String, strings: [String!], byte: Byte, bytes: [Byte!], short: Short, shorts: [Short!], int: Int, ints: [Int!], long: Long, longs: [Long!], float: _Float4, floats: [_Float4!], double: Float, doubles: [Float!], bigDecimal: BigDecimal, bigDecimals: [BigDecimal!], date: _Date, dates: [_Date!], dateTime: _DateTime, dateTimes: [_DateTime!], offsetDateTime: _OffsetDateTime, offsetDateTimes: [_OffsetDateTime!], time: _Time, times: [_Time!], boolean: Boolean, booleans: [Boolean!]) on FIELD
+
+directive @mergeReqSpec(cond: String) on INLINE_FRAGMENT
+
+directive @dependsOnByGet(commandId: String!, dependency: _DependsOnDependencyByGet!) on FIELD
+
+directive @dependsOnByUpdateOrCreate(commandId: String!, dependency: _DependsOnDependencyByUpdateOrCreate!) on FIELD
+
+"""Exposes a URL that specifies the behaviour of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behaviour of this scalar."""
+  url: String!
+) on SCALAR
+
+"""Indicates an Input Object is a OneOf Input Object."""
+directive @oneOf on INPUT_OBJECT
+
+scalar _ByteArray
+
+type _Calculation {
+  char(expr: String!): Char
+  string(expr: String!): String
+  byte(expr: String!): Byte
+  short(expr: String!): Short
+  int(expr: String!): Int
+  long(expr: String!): Long
+  float(expr: String!): _Float4
+  double(expr: String!): Float
+  bigDecimal(expr: String!): BigDecimal
+  date(expr: String!): _Date
+  dateTime(expr: String!): _DateTime
+  offsetDateTime(expr: String!): _OffsetDateTime
+  time(expr: String!): _Time
+  boolean(expr: String!): Boolean
+  byteArray(expr: String!): _ByteArray
+}
+
+input _CompareEventInput {
+  description: String
+  endDateTime: _DateTime
+  startDateTime: _DateTime
+}
+
+input _CompareOrganizationInput {
+  name: String
+}
+
+input _ComparePersonInput {
+  birthDate: _Date
+  firstName: String
+  lastName: String
+}
+
+input _CompareVolonteerEventRequestInput {
+  description: String
+}
+
+input _CompareVolonteerInput {
+  nickName: String
+}
+
+input _CreateEventInput {
+  description: String!
+  endDateTime: _DateTime
+  organization: ID!
+  startDateTime: _DateTime
+  statusForX: _SysStatusFieldsInput
+}
+
+input _CreateOrganizationInput {
+  name: String!
+}
+
+input _CreatePersonInput {
+  birthDate: _Date
+  firstName: String!
+  lastName: String!
+}
+
+input _CreateRootDictionaryInput {
+  id: ID!
+}
+
+input _CreateVolonteerEventRequestInput {
+  description: String
+  volonteer: ID!
+  statusForX: _SysStatusFieldsInput
+  event: _DoubleReferenceInput
+}
+
+input _CreateVolonteerInput {
+  nickName: String
+  person: _SingleReferenceInput!
+}
+
+scalar _Date
+
+scalar _DateTime
+
+input _DeleteManyEventInput {
+  id: String!
+  compare: _CompareEventInput
+}
+
+input _DeleteManyOrganizationInput {
+  id: String!
+  compare: _CompareOrganizationInput
+}
+
+input _DeleteManyPersonInput {
+  id: String!
+  compare: _ComparePersonInput
+}
+
+input _DeleteManyRootDictionaryInput {
+  id: String!
+}
+
+input _DeleteManyVolonteerEventRequestInput {
+  id: String!
+  compare: _CompareVolonteerEventRequestInput
+}
+
+input _DeleteManyVolonteerInput {
+  id: String!
+  compare: _CompareVolonteerInput
+}
+
+enum _DependsOnDependencyByGet {
+  EXISTS
+  NOT_EXISTS
+}
+
+enum _DependsOnDependencyByUpdateOrCreate {
+  CREATED
+  NOT_CREATED
+}
+
+type _DictionaryPacket {
+  getRootDictionary(id: ID!, failOnEmpty: Boolean = null, lock: _GetLockMode! = NOT_USE): RootDictionary
+  deleteRootDictionary(id: ID!): String
+  deleteManyRootDictionary(input: [_DeleteManyRootDictionaryInput!]!): String
+}
+
+input _DoubleReferenceInput {
+  entityId: String!
+  rootEntityId: String
+}
+
+type _E_Event implements _Entity & Event {
+  id: ID!
+  description: String!
+  endDateTime: _DateTime
+  startDateTime: _DateTime
+  type: String!
+  organization(alias: String): Organization!
+  aggregateRoot(alias: String): Organization
+  statusForX: _G_SysStatusFields!
+  _calc: _Calculation!
+}
+
+type _E_Organization implements _Entity & Organization {
+  id: ID!
+  name: String!
+  sys_ver: Long
+  type: String!
+  eventList(elemAlias: String, cond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_Event!
+  statusForX: _G_SysStatusFields!
+  _calc: _Calculation!
+}
+
+type _E_Person implements _Entity & Person {
+  id: ID!
+  birthDate: _Date
+  firstName: String!
+  lastName: String!
+  sys_ver: Long
+  type: String!
+  _calc: _Calculation!
+}
+
+type _E_RootDictionary implements _Entity & RootDictionary {
+  id: ID!
+  sys_ver: Long
+  type: String!
+  _calc: _Calculation!
+}
+
+type _E_Volonteer implements _Entity & Volonteer {
+  id: ID!
+  nickName: String
+  sys_ver: Long
+  type: String!
+  eventBookingList(elemAlias: String, cond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_VolonteerEventRequest!
+  person: _G_PersonReference!
+  _calc: _Calculation!
+}
+
+type _E_VolonteerEventRequest implements _Entity & VolonteerEventRequest {
+  id: ID!
+  description: String
+  type: String!
+  volonteer(alias: String): Volonteer!
+  aggregateRoot(alias: String): Volonteer
+  statusForX: _G_SysStatusFields!
+  event: _G_EventReference!
+  _calc: _Calculation!
+}
+
+type _EC_Event {
+  elems: [Event!]!
+  count: Int!
+}
+
+type _EC_Organization {
+  elems: [Organization!]!
+  count: Int!
+}
+
+type _EC_Person {
+  elems: [Person!]!
+  count: Int!
+}
+
+type _EC_RootDictionary {
+  elems: [RootDictionary!]!
+  count: Int!
+}
+
+type _EC_Volonteer {
+  elems: [Volonteer!]!
+  count: Int!
+}
+
+type _EC_VolonteerEventRequest {
+  elems: [VolonteerEventRequest!]!
+  count: Int!
+}
+
+interface _Entity {
+  id: ID!
+}
+
+scalar _Float4
+
+type _G_EventReference {
+  entityId: String
+  rootEntityId: String
+  entity(alias: String): Event
+}
+
+type _G_PersonReference {
+  entityId: String
+  entity(alias: String): Person
+}
+
+type _G_SysStatusFields {
+  code: String
+  reason: String
+}
+
+enum _GetLockMode {
+  NOT_USE
+  WAIT
+  NOWAIT
+}
+
+input _IncBigDecimalValue {
+  value: BigDecimal!
+  negative: Boolean = null
+  fail: _IncBigDecimalValueFail
+}
+
+input _IncBigDecimalValueFail {
+  operation: _IncFailOperator!
+  value: BigDecimal!
+}
+
+input _IncDoubleValue {
+  value: Float!
+  negative: Boolean = null
+  fail: _IncDoubleValueFail
+}
+
+input _IncDoubleValueFail {
+  operation: _IncFailOperator!
+  value: Float!
+}
+
+enum _IncFailOperator {
+  lt
+  le
+  gt
+  ge
+}
+
+input _IncFloatValue {
+  value: _Float4!
+  negative: Boolean = null
+  fail: _IncFloatValueFail
+}
+
+input _IncFloatValueFail {
+  operation: _IncFailOperator!
+  value: _Float4!
+}
+
+input _IncIntValue {
+  value: Int!
+  negative: Boolean = null
+  fail: _IncIntValueFail
+}
+
+input _IncIntValueFail {
+  operation: _IncFailOperator!
+  value: Int!
+}
+
+input _IncLongValue {
+  value: Long!
+  negative: Boolean = null
+  fail: _IncLongValueFail
+}
+
+input _IncLongValueFail {
+  operation: _IncFailOperator!
+  value: Long!
+}
+
+type _MergedEntitiesCollection {
+  elems: [_Entity!]!
+  count: Int!
+}
+
+type _Mutation {
+  packet(idempotencePacketId: String, aggregateVersion: Long): _Packet
+  dictionaryPacket: _DictionaryPacket
+}
+
+scalar _OffsetDateTime
+
+type _Packet {
+  createEvent(input: _CreateEventInput!): Event
+  createManyEvent(input: [_CreateEventInput!]!): [String]
+  updateEvent(input: _UpdateEventInput!, compare: _CompareEventInput): Event
+  updateManyEvent(input: [_UpdateManyEventInput!]!): String!
+  getEvent(id: ID!, failOnEmpty: Boolean = null, lock: _GetLockMode! = NOT_USE): Event
+  deleteEvent(id: ID!, compare: _CompareEventInput): String
+  deleteManyEvent(input: [_DeleteManyEventInput!]!): String
+  createOrganization(input: _CreateOrganizationInput!): Organization
+  createManyOrganization(input: [_CreateOrganizationInput!]!): [String]
+  updateOrganization(input: _UpdateOrganizationInput!, compare: _CompareOrganizationInput): Organization
+  updateManyOrganization(input: [_UpdateManyOrganizationInput!]!): String!
+  getOrganization(id: ID!, failOnEmpty: Boolean = null, lock: _GetLockMode! = NOT_USE): Organization
+  deleteOrganization(id: ID!, compare: _CompareOrganizationInput): String
+  deleteManyOrganization(input: [_DeleteManyOrganizationInput!]!): String
+  createPerson(input: _CreatePersonInput!): Person
+  createManyPerson(input: [_CreatePersonInput!]!): [String]
+  updatePerson(input: _UpdatePersonInput!, compare: _ComparePersonInput): Person
+  updateManyPerson(input: [_UpdateManyPersonInput!]!): String!
+  getPerson(id: ID!, failOnEmpty: Boolean = null, lock: _GetLockMode! = NOT_USE): Person
+  deletePerson(id: ID!, compare: _ComparePersonInput): String
+  deleteManyPerson(input: [_DeleteManyPersonInput!]!): String
+  createVolonteer(input: _CreateVolonteerInput!): Volonteer
+  createManyVolonteer(input: [_CreateVolonteerInput!]!): [String]
+  updateVolonteer(input: _UpdateVolonteerInput!, compare: _CompareVolonteerInput): Volonteer
+  updateManyVolonteer(input: [_UpdateManyVolonteerInput!]!): String!
+  getVolonteer(id: ID!, failOnEmpty: Boolean = null, lock: _GetLockMode! = NOT_USE): Volonteer
+  deleteVolonteer(id: ID!, compare: _CompareVolonteerInput): String
+  deleteManyVolonteer(input: [_DeleteManyVolonteerInput!]!): String
+  createVolonteerEventRequest(input: _CreateVolonteerEventRequestInput!): VolonteerEventRequest
+  createManyVolonteerEventRequest(input: [_CreateVolonteerEventRequestInput!]!): [String]
+  updateVolonteerEventRequest(input: _UpdateVolonteerEventRequestInput!, compare: _CompareVolonteerEventRequestInput): VolonteerEventRequest
+  updateManyVolonteerEventRequest(input: [_UpdateManyVolonteerEventRequestInput!]!): String!
+  getVolonteerEventRequest(id: ID!, failOnEmpty: Boolean = null, lock: _GetLockMode! = NOT_USE): VolonteerEventRequest
+  deleteVolonteerEventRequest(id: ID!, compare: _CompareVolonteerEventRequestInput): String
+  deleteManyVolonteerEventRequest(input: [_DeleteManyVolonteerEventRequestInput!]!): String
+  getRootDictionary(id: ID!, failOnEmpty: Boolean = null, lock: _GetLockMode! = NOT_USE): RootDictionary
+  isIdempotenceResponse: Boolean
+  aggregateVersion: Long
+}
+
+type _Query {
+  merge(limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _MergedEntitiesCollection!
+  resolveReferences(referenceType: String!, ids: [ID!]!): [_Reference!]!
+  searchEvent(cond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_Event!
+  searchOrganization(cond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_Organization!
+  searchPerson(cond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_Person!
+  searchVolonteer(cond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_Volonteer!
+  searchVolonteerEventRequest(cond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_VolonteerEventRequest!
+  searchRootDictionary(cond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_RootDictionary!
+  strExpr(chars: [Char!], strings: [String!], bytes: [Byte!], shorts: [Short!], ints: [Int!], longs: [Long!], floats: [_Float4!], doubles: [Float!], bigDecimals: [BigDecimal!], dates: [_Date!], dateTimes: [_DateTime!], offsetDateTimes: [_OffsetDateTime!], times: [_Time!], booleans: [Boolean!]): String
+}
+
+type _R_Event implements _Reference {
+  entityId: String
+  entity: Event
+}
+
+type _R_Organization implements _Reference {
+  entityId: String
+  entity: Organization
+}
+
+type _R_Person implements _Reference {
+  entityId: String
+  entity: Person
+}
+
+type _R_RootDictionary implements _Reference {
+  entityId: String
+  entity: RootDictionary
+}
+
+type _R_Volonteer implements _Reference {
+  entityId: String
+  entity: Volonteer
+}
+
+type _R_VolonteerEventRequest implements _Reference {
+  entityId: String
+  entity: VolonteerEventRequest
+}
+
+interface _Reference {
+  entityId: String
+}
+
+input _SingleReferenceInput {
+  entityId: String!
+}
+
+input _SortCriterionSpecification {
+  crit: String!
+  order: _SortOrder! = ASC
+  nullsLast: Boolean
+}
+
+enum _SortOrder {
+  ASC
+  DESC
+}
+
+input _SysStatusFieldsInput {
+  code: String
+  reason: String
+}
+
+scalar _Time
+
+input _UpdateEventInput {
+  id: ID!
+  description: String
+  endDateTime: _DateTime
+  organization: ID
+  startDateTime: _DateTime
+  statusForX: _SysStatusFieldsInput
+}
+
+input _UpdateManyEventInput {
+  param: _UpdateEventInput
+  compare: _CompareEventInput
+}
+
+input _UpdateManyOrganizationInput {
+  param: _UpdateOrganizationInput
+  compare: _CompareOrganizationInput
+}
+
+input _UpdateManyPersonInput {
+  param: _UpdatePersonInput
+  compare: _ComparePersonInput
+}
+
+input _UpdateManyVolonteerEventRequestInput {
+  param: _UpdateVolonteerEventRequestInput
+  compare: _CompareVolonteerEventRequestInput
+}
+
+input _UpdateManyVolonteerInput {
+  param: _UpdateVolonteerInput
+  compare: _CompareVolonteerInput
+}
+
+input _UpdateOrganizationInput {
+  id: ID!
+  name: String
+}
+
+input _UpdatePersonInput {
+  id: ID!
+  birthDate: _Date
+  firstName: String
+  lastName: String
+}
+
+input _UpdateVolonteerEventRequestInput {
+  id: ID!
+  description: String
+  volonteer: ID
+  statusForX: _SysStatusFieldsInput
+  event: _DoubleReferenceInput
+}
+
+input _UpdateVolonteerInput {
+  id: ID!
+  nickName: String
+  person: _SingleReferenceInput
+}
+
+"""An arbitrary precision signed decimal"""
+scalar BigDecimal
+
+"""An 8-bit signed integer"""
+scalar Byte
+
+"""A UTF-16 code unit; a character on Unicode's BMP"""
+scalar Char
+
+interface Event {
+  id: ID!
+  description: String!
+  endDateTime: _DateTime
+  startDateTime: _DateTime
+  type: String!
+  organization(alias: String): Organization!
+  aggregateRoot(alias: String): Organization
+  statusForX: _G_SysStatusFields!
+  _calc: _Calculation!
+}
+
+"""A 64-bit signed integer"""
+scalar Long
+
+interface Organization {
+  id: ID!
+  name: String!
+  sys_ver: Long
+  type: String!
+  eventList(elemAlias: String, cond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_Event!
+  statusForX: _G_SysStatusFields!
+  _calc: _Calculation!
+}
+
+interface Person {
+  id: ID!
+  birthDate: _Date
+  firstName: String!
+  lastName: String!
+  sys_ver: Long
+  type: String!
+  _calc: _Calculation!
+}
+
+interface RootDictionary {
+  id: ID!
+  sys_ver: Long
+  type: String!
+  _calc: _Calculation!
+}
+
+"""A 16-bit signed integer"""
+scalar Short
+
+interface Volonteer {
+  id: ID!
+  nickName: String
+  sys_ver: Long
+  type: String!
+  eventBookingList(elemAlias: String, cond: String, limit: Int, offset: Int, sort: [_SortCriterionSpecification!]): _EC_VolonteerEventRequest!
+  person: _G_PersonReference!
+  _calc: _Calculation!
+}
+
+interface VolonteerEventRequest {
+  id: ID!
+  description: String
+  type: String!
+  volonteer(alias: String): Volonteer!
+  aggregateRoot(alias: String): Volonteer
+  statusForX: _G_SysStatusFields!
+  event: _G_EventReference!
+  _calc: _Calculation!
+}
+

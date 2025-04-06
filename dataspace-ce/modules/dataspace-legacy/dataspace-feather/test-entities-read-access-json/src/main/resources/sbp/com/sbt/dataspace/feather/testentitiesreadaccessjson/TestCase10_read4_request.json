@@ -1,0 +1,13 @@
+{
+  "type": "Product",
+  "details": {
+    "ProductLimited": {
+      "request": {
+        "details": {
+          "RequestPlus": "description"
+        }
+      }
+    }
+  },
+  "cond": "root.$id == '${productPlus1Id}'"
+}

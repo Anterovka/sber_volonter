@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PdmModel>
+  <model model-name="test" component-code="НЕ ЗАДАНО" version="DEV-SNAPSHOT" description="Test model" versioned-entities="false" autoIdMethod="SNOWFLAKE">
+    <import type="GQLSECURITY"/>
+    <import type="IdempotenceModelGenerator" file=""/>
+    <import type="AggregateModelGenerator" file=""/>
+    <import type="APP_LOCKS" file=""/>
+    <import type="DICTIONARY_GENERATOR" file="dictionary/"/>
+    <import type="REFERENCE" file=""/>
+    <import type="status" file=""/>
+    <import type="BASE_ENTITY" file=""/>
+    <import type="COMPUTED-FIELD"/>
+    <enum name="Attribute" label="" deprecated="false" access="UPDATE">
+      <value name="TOP_PRIORITY"/>
+      <value name="FORBIDDEN"/>
+    </enum>
+    <enum name="Gender" label="" deprecated="false" access="UPDATE">
+      <value name="MALE"/>
+      <value name="FEMALE"/>
+    </enum>
+    <class name="Person" embeddable="true" description="Person" class-access="UPDATE" import-model-name="test">
+      <property name="firstName" type="String" length="254" mandatory="true" column-name="FIRSTNAME" column-type="VARCHAR(254)"/>
+      <property name="lastName" type="String" length="254" column-name="LASTNAME" column-type="VARCHAR(254)"/>
+      <property name="gender" type="Gender" length="254" column-name="GENDER" column-type="VARCHAR(254)" enum="true"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="Address" embeddable="true" class-access="UPDATE" import-model-name="test">
+      <property name="city" type="String" length="254" column-name="CITY" column-type="VARCHAR(254)"/>
+      <property name="street" type="String" length="254" column-name="STREET" column-type="VARCHAR(254)"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="TestEntity" extends="Entity" tableName="T_TESTENTITY" pk-index-name="PK_T_TESTENTITY" affinity="objectId" class-access="UPDATE" strategy="JOINED" import-model-name="test" root-type="TestEntity">
+      <index index-name="PK_T_TESTENTITY" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_TESTENTITY_TYPE">
+        <property name="type"/>
+      </index>
+      <embedded-lists>
+        <embedded-list name="owner">
+          <property name="firstName" column-name="OWNER_FIRSTNAME"/>
+          <property name="lastName" column-name="OWNER_LASTNAME"/>
+          <property name="gender" column-name="OWNER_GENDER"/>
+        </embedded-list>
+      </embedded-lists>
+      <property name="pChar" type="Character" column-name="PCHAR" description="Char" column-type="CHAR"/>
+      <property name="pString" type="String" length="254" column-name="PSTRING" column-type="VARCHAR(254)"/>
+      <property name="pText" type="String" length="4001" column-name="PTEXT" column-type="CLOB"/>
+      <property name="pByte" type="Byte" column-name="PBYTE" column-type="${type_byte}"/>
+      <property name="pShort" type="Short" column-name="PSHORT" column-type="${type_short}"/>
+      <property name="pInteger" type="Integer" column-name="PINTEGER" column-type="${type_int}"/>
+      <property name="pLong" type="Long" column-name="PLONG" column-type="${type_long}"/>
+      <property name="pFloat" type="Float" column-name="PFLOAT" column-type="${type_float}"/>
+      <property name="pDouble" type="Double" column-name="PDOUBLE" column-type="${type_double}"/>
+      <property name="pBigDecimal" type="BigDecimal" scale="10" length="38" column-name="PBIGDECIMAL" column-type="NUMBER(38,10)"/>
+      <property name="pLocalDate" type="LocalDate" column-name="PLOCALDATE" column-type="DATE"/>
+      <property name="pDate" type="Date" length="3" column-name="PDATE" column-type="TIMESTAMP(3)"/>
+      <property name="pLocalDateTime" type="LocalDateTime" length="3" column-name="PLOCALDATETIME" column-type="TIMESTAMP(3)"/>
+      <property name="pOffsetDateTime" type="OffsetDateTime" length="3" column-name="POFFSETDATETIME" column-type="${type_offsetDateTime3}"/>
+      <property name="pBoolean" type="Boolean" column-name="PBOOLEAN" column-type="${type_boolean}"/>
+      <property name="pByteArray" type="byte[]" column-name="PBYTEARRAY" column-type="${type_blob}"/>
+      <property name="pCharCollection" type="Character" collection="SET" column-name="PCHARCOLLECTION" collection-table-name="LC_TESTENTITY_PCHARCOLLECTION" key-column-name="TESTENTITY_ID" description="Char collection" column-type="CHAR" collection-pk-index-name="PK_LC_TESTENTITY_PCHARCOLLECTION"/>
+      <property name="pStringCollection" type="String" length="254" collection="SET" column-name="PSTRINGCOLLECTION" collection-table-name="LC_TESTENTITY_PSTRINGCOLLECTION" key-column-name="TESTENTITY_ID" column-type="VARCHAR(254)" collection-pk-index-name="PK_LC_TESTENTITY_PSTRINGCOLLECTION"/>
+      <property name="pByteCollection" type="Byte" collection="SET" column-name="PBYTECOLLECTION" collection-table-name="LC_TESTENTITY_PBYTECOLLECTION" key-column-name="TESTENTITY_ID" column-type="${type_byte}" collection-pk-index-name="PK_LC_TESTENTITY_PBYTECOLLECTION"/>
+      <property name="pShortCollection" type="Short" collection="SET" column-name="PSHORTCOLLECTION" collection-table-name="LC_TESTENTITY_PSHORTCOLLECTION" key-column-name="TESTENTITY_ID" column-type="${type_short}" collection-pk-index-name="PK_LC_TESTENTITY_PSHORTCOLLECTION"/>
+      <property name="pIntegerCollection" type="Integer" collection="SET" column-name="PINTEGERCOLLECTION" collection-table-name="LC_TESTENTITY_PINTEGERCOLLECTION" key-column-name="TESTENTITY_ID" column-type="${type_int}" collection-pk-index-name="PK_LC_TESTENTITY_PINTEGERCOLLECTION"/>
+      <property name="pLongCollection" type="Long" collection="SET" column-name="PLONGCOLLECTION" collection-table-name="LC_TESTENTITY_PLONGCOLLECTION" key-column-name="TESTENTITY_ID" column-type="${type_long}" collection-pk-index-name="PK_LC_TESTENTITY_PLONGCOLLECTION"/>
+      <property name="pFloatCollection" type="Float" collection="SET" column-name="PFLOATCOLLECTION" collection-table-name="LC_TESTENTITY_PFLOATCOLLECTION" key-column-name="TESTENTITY_ID" column-type="${type_float}" collection-pk-index-name="PK_LC_TESTENTITY_PFLOATCOLLECTION"/>
+      <property name="pDoubleCollection" type="Double" collection="SET" column-name="PDOUBLECOLLECTION" collection-table-name="LC_TESTENTITY_PDOUBLECOLLECTION" key-column-name="TESTENTITY_ID" column-type="${type_double}" collection-pk-index-name="PK_LC_TESTENTITY_PDOUBLECOLLECTION"/>
+      <property name="pBigDecimalCollection" type="BigDecimal" scale="10" length="38" collection="SET" column-name="PBIGDECIMALCOLLECTION" collection-table-name="LC_TESTENTITY_PBIGDECIMALCOLLECTION" key-column-name="TESTENTITY_ID" column-type="NUMBER(38,10)" collection-pk-index-name="PK_LC_TESTENTITY_PBIGDECIMALCOLLECTION"/>
+      <property name="pLocalDateCollection" type="LocalDate" collection="SET" column-name="PLOCALDATECOLLECTION" collection-table-name="LC_TESTENTITY_PLOCALDATECOLLECTION" key-column-name="TESTENTITY_ID" column-type="DATE" collection-pk-index-name="PK_LC_TESTENTITY_PLOCALDATECOLLECTION"/>
+      <property name="pDateCollection" type="Date" length="3" collection="SET" column-name="PDATECOLLECTION" collection-table-name="LC_TESTENTITY_PDATECOLLECTION" key-column-name="TESTENTITY_ID" column-type="TIMESTAMP(3)" collection-pk-index-name="PK_LC_TESTENTITY_PDATECOLLECTION"/>
+      <property name="pLocalDateTimeCollection" type="LocalDateTime" length="3" collection="SET" column-name="PLOCALDATETIMECOLLECTION" collection-table-name="LC_TESTENTITY_PLOCALDATETIMECOLLECTION" key-column-name="TESTENTITY_ID" column-type="TIMESTAMP(3)" collection-pk-index-name="PK_LC_TESTENTITY_PLOCALDATETIMECOLLECTION"/>
+      <property name="pOffsetDateTimeCollection" type="OffsetDateTime" length="3" collection="SET" column-name="POFFSETDATETIMECOLLECTION" collection-table-name="LC_TESTENTITY_POFFSETDATETIMECOLLECTION" key-column-name="TESTENTITY_ID" column-type="${type_offsetDateTime3}" collection-pk-index-name="PK_LC_TESTENTITY_POFFSETDATETIMECOLLECTION"/>
+      <property name="owner" type="Person" length="254" embedded="true" description="Embedded" column-type="VARCHAR(254)"/>
+      <property name="apiCalls" type="TestEntityApiCall" length="254" collection="SET" label="Collection with results of idempotent calls" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM" mappedBy="parentObject" object-link="O2M"/>
+      <property name="sys_ver" type="Long" label="Technical Change Counter" column-name="SYS_VER" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="TestEntity" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="AUTO_ON_EMPTY"/>
+    </class>
+    <class name="TestEntityExt" extends="TestEntity" tableName="T_TESTENTITYEXT" pk-index-name="PK_T_TESTENTITYEXT" affinity="objectId" class-access="UPDATE" strategy="JOINED" import-model-name="test" root-type="TestEntity">
+      <property name="pStringExt" type="String" length="254" column-name="PSTRINGEXT" column-type="VARCHAR(254)"/>
+      <id type="String" category="AUTO_ON_EMPTY"/>
+    </class>
+    <class name="TestEntitySingleTable" extends="Entity" tableName="T_TESTENTITYSINGLETABLE" pk-index-name="PK_T_TESTENTITYSINGLETABLE" affinity="objectId" class-access="UPDATE" strategy="SINGLE_TABLE" import-model-name="test" root-type="TestEntitySingleTable">
+      <index index-name="PK_T_TESTENTITYSINGLETABLE" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_TESTENTITYSINGLETABLE_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="pString" type="String" length="254" column-name="PSTRING" column-type="VARCHAR(254)"/>
+      <property name="apiCalls" type="TestEntitySingleTableApiCall" length="254" collection="SET" label="Collection with results of idempotent calls" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM" mappedBy="parentObject" object-link="O2M"/>
+      <property name="sys_ver" type="Long" label="Technical Change Counter" column-name="SYS_VER" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="TestEntitySingleTable" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="AUTO_ON_EMPTY"/>
+    </class>
+    <class name="TestEntitySingleTableExt" extends="TestEntitySingleTable" tableName="T_TESTENTITYSINGLETABLE" pk-index-name="PK_T_TESTENTITYSINGLETABLE" affinity="objectId" class-access="UPDATE" strategy="SINGLE_TABLE" import-model-name="test" root-type="TestEntitySingleTable">
+      <property name="pStringSingleTableExt" type="String" length="254" column-name="PSTRINGSINGLETABLEEXT" column-type="VARCHAR(254)"/>
+      <id type="String" category="AUTO_ON_EMPTY"/>
+    </class>
+    <class name="Product" extends="Entity" tableName="T_PRODUCT" pk-index-name="PK_T_PRODUCT" affinity="objectId" class-access="UPDATE" strategy="JOINED" import-model-name="test" root-type="Product">
+      <index index-name="PK_T_PRODUCT" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_PRODUCT_EXTERNALPRODUCT">
+        <property name="externalProduct.entityId"/>
+      </index>
+      <index index-name="I_PRODUCT_EXTERNALSERVICE">
+        <property name="externalService.entityId"/>
+        <property name="externalService.rootEntityId"/>
+      </index>
+      <index index-name="I_PRODUCT_CLIENT">
+        <property name="client.entityId"/>
+      </index>
+      <index index-name="I_PRODUCT_TYPE">
+        <property name="type"/>
+      </index>
+      <embedded-lists>
+        <embedded-list name="statusForPlatform">
+          <property name="code" column-name="STATUSFORPLATFORM_CODE"/>
+          <property name="reason" column-name="STATUSFORPLATFORM_REASON"/>
+        </embedded-list>
+        <embedded-list name="externalProduct" reference="true">
+          <property name="entityId" column-name="EXTERNALPRODUCT_ENTITYID"/>
+        </embedded-list>
+        <embedded-list name="externalService" reference="true">
+          <property name="entityId" column-name="EXTERNALSERVICE_ENTITYID"/>
+          <property name="rootEntityId" column-name="EXTERNALSERVICE_ROOTENTITYID"/>
+        </embedded-list>
+        <embedded-list name="client" reference="true">
+          <property name="entityId" column-name="CLIENT_ENTITYID"/>
+        </embedded-list>
+      </embedded-lists>
+      <property name="code" type="String" length="254" column-name="CODE" column-type="VARCHAR(254)"/>
+      <property name="attribute" type="Attribute" length="254" column-name="ATTRIBUTE" column-type="VARCHAR(254)" enum="true"/>
+      <property name="services" type="Service" length="254" collection="SET" column-type="VARCHAR(254)" mappedBy="product" object-link="O2M"/>
+      <property name="statusForPlatform" type="SysStatusFields" length="254" embedded="true" column-type="VARCHAR(254)"/>
+      <property name="apiCalls" type="ProductApiCall" length="254" collection="SET" label="Collection with results of idempotent calls" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM" mappedBy="parentObject" object-link="O2M"/>
+      <property name="sys_ver" type="Long" label="Technical Change Counter" column-name="SYS_VER" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="externalProduct" type="ProductReference" original-type="Product" length="254" embedded="true" column-type="VARCHAR(254)" external-link="true" changeable="READ_ONLY"/>
+      <property name="externalService" type="ServiceReference" original-type="Service" length="254" embedded="true" column-type="VARCHAR(254)" external-link="true" changeable="READ_ONLY"/>
+      <property name="client" type="ClientReference" external-soft-reference="true" original-type="Client" length="254" embedded="true" column-type="VARCHAR(254)" external-link="true" changeable="READ_ONLY"/>
+      <property name="externalProducts" type="RciProductExternalProducts" original-type="Product" length="254" collection="SET" column-type="VARCHAR(254)" external-link="true" mappedBy="backReference" object-link="O2M"/>
+      <property name="externalServices" type="RciProductExternalServices" original-type="Service" length="254" collection="SET" column-type="VARCHAR(254)" external-link="true" mappedBy="backReference" object-link="O2M"/>
+      <property name="clients" type="RciProductClients" external-soft-reference="true" original-type="Client" length="254" collection="SET" column-type="VARCHAR(254)" external-link="true" mappedBy="backReference" object-link="O2M"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="Product" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="AUTO_ON_EMPTY"/>
+      <statuses>
+        <group code="platform">
+          <status code="opened" initial="true">
+            <to status="closed"/>
+          </status>
+          <status code="closed" initial="false"/>
+        </group>
+      </statuses>
+    </class>
+    <class name="ProductWithExtendedStatuses" extends="Product" tableName="T_PRODUCTWITHEXTENDEDSTATUSES" pk-index-name="PK_T_PRODUCTWITHEXTENDEDSTATUSES" affinity="objectId" class-access="UPDATE" strategy="JOINED" import-model-name="test" root-type="Product">
+      <embedded-lists>
+        <embedded-list name="statusForService">
+          <property name="code" column-name="STATUSFORSERVICE_CODE"/>
+          <property name="reason" column-name="STATUSFORSERVICE_REASON"/>
+        </embedded-list>
+      </embedded-lists>
+      <property name="description" type="String" length="254" column-name="DESCRIPTION" column-type="VARCHAR(254)"/>
+      <property name="statusForService" type="SysStatusFields" length="254" embedded="true" column-type="VARCHAR(254)"/>
+      <id type="String" category="AUTO_ON_EMPTY"/>
+      <statuses>
+        <group code="service">
+          <status code="new" initial="true">
+            <to status="old"/>
+          </status>
+          <status code="old" initial="false"/>
+        </group>
+        <group code="platform">
+          <status code="created" initial="true">
+            <to status="deleted"/>
+            <to status="checked"/>
+          </status>
+          <status code="checked" initial="false">
+            <to status="deleted"/>
+          </status>
+          <status code="deleted" initial="false"/>
+        </group>
+      </statuses>
+    </class>
+    <class name="ProductWithUniqueClient" extends="Product" tableName="T_PRODUCTWITHUNIQUECLIENT" pk-index-name="PK_T_PRODUCTWITHUNIQUECLIENT" affinity="objectId" class-access="UPDATE" strategy="JOINED" import-model-name="test" root-type="Product">
+      <index unique="true" index-name="I_PRODUCTWITHUNIQUECLIENT_UNIQUECLIENT_ENTITYID">
+        <property name="uniqueClient.entityId"/>
+      </index>
+      <embedded-lists>
+        <embedded-list name="uniqueClient" reference="true">
+          <property name="entityId" column-name="UNIQUECLIENT_ENTITYID"/>
+        </embedded-list>
+      </embedded-lists>
+      <property name="uniqueClient" type="ClientReference" external-soft-reference="true" original-type="Client" length="254" embedded="true" column-type="VARCHAR(254)" external-link="true" changeable="READ_ONLY"/>
+      <id type="String" category="AUTO_ON_EMPTY"/>
+    </class>
+    <class name="ProductWithAddress" extends="ProductWithUniqueClient" tableName="T_PRODUCTWITHADDRESS" pk-index-name="PK_T_PRODUCTWITHADDRESS" affinity="objectId" class-access="UPDATE" strategy="JOINED" import-model-name="test" root-type="Product">
+      <index unique="true" index-name="I_PRODUCTWITHADDRESS_ADDRESS_CITY">
+        <property name="address.city"/>
+      </index>
+      <index unique="true" index-name="I_PRODUCTWITHADDRESS_NAME_1">
+        <property name="name"/>
+        <property name="address.city"/>
+        <property name="address.street"/>
+      </index>
+      <index unique="true" index-name="I_PRODUCTWITHADDRESS_NAME">
+        <property name="name"/>
+      </index>
+      <embedded-lists>
+        <embedded-list name="address">
+          <property name="city" column-name="ADDRESS_CITY"/>
+          <property name="street" column-name="ADDRESS_STREET"/>
+        </embedded-list>
+      </embedded-lists>
+      <property name="name" type="String" length="254" column-name="NAME" column-type="VARCHAR(254)"/>
+      <property name="address" type="Address" length="254" embedded="true" column-type="VARCHAR(254)"/>
+      <id type="String" category="AUTO_ON_EMPTY"/>
+    </class>
+    <class name="ProductWithSnowflakeId" extends="Entity" tableName="T_PRODUCTWITHSNOWFLAKEID" pk-index-name="PK_T_PRODUCTWITHSNOWFLAKEID" affinity="objectId" class-access="UPDATE" strategy="JOINED" import-model-name="test" root-type="ProductWithSnowflakeId">
+      <index index-name="PK_T_PRODUCTWITHSNOWFLAKEID" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index unique="true" index-name="I_PRODUCTWITHSNOWFLAKEID_CODE">
+        <property name="code"/>
+      </index>
+      <index index-name="I_PRODUCTWITHSNOWFLAKEID_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="code" type="String" length="254" column-name="CODE" column-type="VARCHAR(254)"/>
+      <property name="apiCalls" type="ProductWithSnowflakeIdApiCall" length="254" collection="SET" label="Collection with results of idempotent calls" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM" mappedBy="parentObject" object-link="O2M"/>
+      <property name="sys_ver" type="Long" label="Technical Change Counter" column-name="SYS_VER" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="ProductWithSnowflakeId" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="SNOWFLAKE"/>
+    </class>
+    <class name="Service" extends="Entity" tableName="T_SERVICE" pk-index-name="PK_T_SERVICE" affinity="product" class-access="UPDATE" strategy="JOINED" import-model-name="test" root-type="Product">
+      <index index-name="PK_T_SERVICE" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SERVICE_PRODUCT_ID">
+        <property name="product"/>
+      </index>
+      <index index-name="I_SERVICE_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <index index-name="I_SERVICE_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="code" type="String" length="254" column-name="CODE" column-type="VARCHAR(254)"/>
+      <property name="product" type="Product" length="254" mandatory="true" column-name="PRODUCT_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="operations" type="Operation" length="254" collection="SET" column-type="VARCHAR(254)" mappedBy="service" object-link="O2M"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="Product" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="Service" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="AUTO_ON_EMPTY"/>
+    </class>
+    <class name="Operation" extends="Entity" tableName="T_OPERATION" pk-index-name="PK_T_OPERATION" affinity="service" class-access="UPDATE" strategy="JOINED" import-model-name="test" root-type="Product">
+      <index index-name="PK_T_OPERATION" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_OPERATION_SERVICE_ID">
+        <property name="service"/>
+      </index>
+      <index index-name="I_OPERATION_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <index index-name="I_OPERATION_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="code" type="String" length="254" column-name="CODE" column-type="VARCHAR(254)"/>
+      <property name="contract" type="Contract" length="254" column-type="VARCHAR(254)" mappedBy="operation" object-link="O2O"/>
+      <property name="service" type="Service" length="254" mandatory="true" column-name="SERVICE_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="Product" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="Operation" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="AUTO_ON_EMPTY"/>
+    </class>
+    <class name="Contract" extends="Entity" tableName="T_CONTRACT" pk-index-name="PK_T_CONTRACT" affinity="operation" class-access="UPDATE" strategy="JOINED" import-model-name="test" root-type="Product">
+      <index index-name="PK_T_CONTRACT" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index unique="true" index-name="I_CONTRACT_OPERATION_ID">
+        <property name="operation"/>
+      </index>
+      <index index-name="I_CONTRACT_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <index index-name="I_CONTRACT_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="code" type="String" length="254" column-name="CODE" column-type="VARCHAR(254)"/>
+      <property name="operation" type="Operation" length="254" mandatory="true" column-name="OPERATION_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="O2O"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="Product" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="Contract" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="AUTO_ON_EMPTY"/>
+    </class>
+    <class name="Document" extends="Entity" tableName="T_DOCUMENT" pk-index-name="PK_T_DOCUMENT" affinity="objectId" class-access="UPDATE" strategy="JOINED" import-model-name="test" root-type="Document">
+      <index index-name="PK_T_DOCUMENT" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_DOCUMENT_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="name" type="String" length="254" column-name="NAME" column-type="VARCHAR(254)"/>
+      <property name="documentParts" type="DocumentPart" length="254" collection="SET" column-type="VARCHAR(254)" mappedBy="document" object-link="O2M"/>
+      <property name="apiCalls" type="DocumentApiCall" length="254" collection="SET" label="Collection with results of idempotent calls" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM" mappedBy="parentObject" object-link="O2M"/>
+      <property name="sys_ver" type="Long" label="Technical Change Counter" column-name="SYS_VER" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="Document" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="AUTO_ON_EMPTY"/>
+    </class>
+    <class name="DocumentPart" extends="Entity" tableName="T_DOCUMENTPART" pk-index-name="PK_T_DOCUMENTPART" affinity="document" class-access="UPDATE" strategy="JOINED" import-model-name="test" root-type="Document">
+      <index index-name="PK_T_DOCUMENTPART" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_DOCUMENTPART_DOCUMENT_ID">
+        <property name="document"/>
+      </index>
+      <index index-name="I_DOCUMENTPART_PARENT_ID">
+        <property name="parent"/>
+      </index>
+      <index index-name="I_DOCUMENTPART_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <index index-name="I_DOCUMENTPART_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="desc" type="String" length="254" column-name="DESC_" column-type="VARCHAR(254)"/>
+      <property name="document" type="Document" length="254" mandatory="true" column-name="DOCUMENT_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="parent" type="DocumentPart" length="254" column-name="PARENT_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="parts" type="DocumentPart" length="254" collection="SET" column-type="VARCHAR(254)" mappedBy="parent" object-link="O2M"/>
+      <property name="level2parts" type="DocumentPartLevel2" length="254" collection="SET" column-type="VARCHAR(254)" mappedBy="documentPart" object-link="O2M"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="Document" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="DocumentPart" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="AUTO_ON_EMPTY"/>
+    </class>
+    <class name="DocumentPartLevel2" extends="Entity" tableName="T_DOCUMENTPARTLEVEL2" pk-index-name="PK_T_DOCUMENTPARTLEVEL2" affinity="documentPart" class-access="UPDATE" strategy="JOINED" import-model-name="test" root-type="Document">
+      <index index-name="PK_T_DOCUMENTPARTLEVEL2" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_DOCUMENTPARTLEVEL2_DOCUMENTPART_ID">
+        <property name="documentPart"/>
+      </index>
+      <index index-name="I_DOCUMENTPARTLEVEL2_PARENT_ID">
+        <property name="parent"/>
+      </index>
+      <index index-name="I_DOCUMENTPARTLEVEL2_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <index index-name="I_DOCUMENTPARTLEVEL2_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="desc" type="String" length="254" column-name="DESC_" column-type="VARCHAR(254)"/>
+      <property name="documentPart" type="DocumentPart" length="254" mandatory="true" column-name="DOCUMENTPART_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="parent" type="DocumentPartLevel2" length="254" column-name="PARENT_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="parts" type="DocumentPartLevel2" length="254" collection="SET" column-type="VARCHAR(254)" mappedBy="parent" object-link="O2M"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="Document" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="DocumentPartLevel2" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="AUTO_ON_EMPTY"/>
+    </class>
+    <class name="Currency" label="Валюта" tableName="T_CURRENCY" pk-index-name="PK_T_CURRENCY" is-dictionary="true" affinity="RootDictionary" class-access="UPDATE" strategy="JOINED" import-model-name="test" root-type="Currency">
+      <index index-name="PK_T_CURRENCY" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_CURRENCY_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <index index-name="I_CURRENCY_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="name" type="String" length="254" label="Наименование" column-name="NAME" column-type="VARCHAR(254)"/>
+      <property name="sys_ver" type="Long" label="Technical Change Counter" column-name="SYS_VER" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="RootDictionary" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="Currency" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysStatusFields" embeddable="true" label="Status fields type" class-access="SYSTEM" import-model-name="test">
+      <property name="code" type="String" length="254" label="Status code" column-name="CODE" column-type="VARCHAR(254)"/>
+      <property name="reason" type="String" length="254" label="Status reason" column-name="REASON" column-type="VARCHAR(254)"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="RootDictionary" label="Aggregate class of reference" tableName="T_ROOTDICTIONARY" pk-index-name="PK_T_ROOTDICTIONARY" is-dictionary="true" affinity="objectId" class-access="READ_ONLY" strategy="JOINED" import-model-name="test" root-type="RootDictionary">
+      <index index-name="PK_T_ROOTDICTIONARY" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_ROOTDICTIONARY_TYPE">
+        <property name="type"/>
+      </index>
+      <property name="sys_ver" type="Long" label="Technical Change Counter" column-name="SYS_VER" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="RootDictionary" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysRootSecurity" extends="Entity" label="Class of security tables aggregate" tableName="T_SEC_ROOTSECURITY" pk-index-name="PK_T_SEC_ROOTSECURITY" affinity="objectId" class-access="READ_ONLY" strategy="JOINED" import-model-name="test" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_ROOTSECURITY" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSROOTSECURITY_TYPE">
+        <property name="type"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="adminSettings" type="SysAdminSettings" length="254" collection="SET" label="Settings" column-type="VARCHAR(254)" mappedBy="rootSecurity" object-link="O2M"/>
+      <property name="operations" type="SysOperation" length="254" collection="SET" label="Operations" column-type="VARCHAR(254)" mappedBy="rootSecurity" object-link="O2M"/>
+      <property name="sys_ver" type="Long" label="Technical Change Counter" column-name="SYS_VER" column-type="${type_long}" changeable="READ_ONLY"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="type" type="String" length="254" label="Class Discriminator" mandatory="true" column-name="TYPE" default-value="SysRootSecurity" description="Discriminator" column-type="VARCHAR(254)" changeable="READ_ONLY"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysCheckSelect" extends="Entity" label="Table of verification requests performed before/after the main request" tableName="T_SEC_CHECKSELECT" pk-index-name="PK_T_SEC_CHECKSELECT" affinity="operation" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="test" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_CHECKSELECT" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSCHECKSELECT_OPERATION_ID">
+        <property name="operation"/>
+      </index>
+      <index index-name="I_SYSCHECKSELECT_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="beforeCommitEnable" type="Boolean" column-name="BEFORECOMMITENABLE" column-type="${type_boolean}"/>
+      <property name="beforeOperationDisable" type="Boolean" label="Should the check be suppressed before the request?" column-name="BEFOREOPERATIONDISABLE" column-type="${type_boolean}"/>
+      <property name="conditionValue" type="String" length="4001" label="Filtering condition" column-name="CONDITIONVALUE" column-type="CLOB"/>
+      <property name="description" type="String" length="254" label="User-defined description" column-name="DESCRIPTION" column-type="VARCHAR(254)"/>
+      <property name="operation" type="SysOperation" length="254" label="GQL request to which the check is applied" mandatory="true" column-name="OPERATION_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="orderValue" type="Integer" label="Order of display" column-name="ORDERVALUE" column-type="${type_int}"/>
+      <property name="typeName" type="String" length="254" label="Entity type on which the request is built" column-name="TYPENAME" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="SysOperation" extends="Entity" label="Table of allowed GQL requests" tableName="T_SEC_OPERATION" pk-index-name="PK_T_SEC_OPERATION" affinity="rootSecurity" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="test" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_OPERATION" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSOPERATION_ROOTSECURITY_ID">
+        <property name="rootSecurity"/>
+      </index>
+      <index index-name="I_SYSOPERATION_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="allowEmptyChecks" type="Boolean" label="Applicability flag of empty conditions" column-name="ALLOWEMPTYCHECKS" column-type="${type_boolean}"/>
+      <property name="body" type="String" length="4001" label="Request" column-name="BODY" column-type="CLOB"/>
+      <property name="checkSelects" type="SysCheckSelect" length="254" collection="SET" label="Conditions" column-type="VARCHAR(254)" mappedBy="operation" object-link="O2M"/>
+      <property name="disableJwtVerification" type="Boolean" label="JWT checks ignoring flag" column-name="DISABLEJWTVERIFICATION" column-type="${type_boolean}"/>
+      <property name="hashValue" type="String" length="254" label="Хэш" column-name="HASHVALUE" column-type="VARCHAR(254)"/>
+      <property name="paramAdditions" type="SysParamAddition" length="254" collection="SET" label="Additional conditions" column-type="VARCHAR(254)" mappedBy="operation" object-link="O2M"/>
+      <property name="pathConditions" type="String" length="4001" label="Additional routing conditions for fields" column-name="PATHCONDITIONS" column-type="CLOB"/>
+      <property name="rootSecurity" type="SysRootSecurity" length="254" label="Root" mandatory="true" column-name="ROOTSECURITY_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="SysAdminSettings" extends="Entity" label="Table with security parameters" tableName="T_SEC_ADMINSETTINGS" pk-index-name="PK_T_SEC_ADMINSETTINGS" affinity="rootSecurity" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="test" root-type="SysRootSecurity">
+      <index unique="true" index-name="I_SYSADMINSETTINGS_KEY_">
+        <property name="key"/>
+      </index>
+      <index index-name="PK_T_SEC_ADMINSETTINGS" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSADMINSETTINGS_ROOTSECURITY_ID">
+        <property name="rootSecurity"/>
+      </index>
+      <index index-name="I_SYSADMINSETTINGS_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="key" type="String" length="254" label="Security settings key" column-name="KEY_" column-type="VARCHAR(254)"/>
+      <property name="rootSecurity" type="SysRootSecurity" length="254" label="Root" mandatory="true" column-name="ROOTSECURITY_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="value" type="String" length="4001" label="Security setting value" column-name="VALUE_" column-type="CLOB"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="SysParamAddition" extends="Entity" label="Table with additional conditions" tableName="T_SEC_PARAMADDITION" pk-index-name="PK_T_SEC_PARAMADDITION" affinity="operation" class-access="READ_ONLY" final-class="true" strategy="JOINED" import-model-name="test" root-type="SysRootSecurity">
+      <index index-name="PK_T_SEC_PARAMADDITION" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_SYSPARAMADDITION_OPERATION_ID">
+        <property name="operation"/>
+      </index>
+      <index index-name="I_SYSPARAMADDITION_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <no-idempotence>true</no-idempotence>
+      <property name="operation" type="SysOperation" length="254" label="GQL request to which additional conditions are applied" mandatory="true" column-name="OPERATION_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="paramAddition" type="String" length="4000" label="Additional condition to the variable" column-name="PARAMADDITION" column-type="VARCHAR(4000)"/>
+      <property name="paramName" type="String" length="254" label="Declared variable name" column-name="PARAMNAME" column-type="VARCHAR(254)"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="SysRootSecurity" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="TestEntityApiCall" extends="Entity" label="Result of processing the package Unit of Work for TestEntity" tableName="T_TESTENTITYAPICALL" pk-index-name="PK_T_TESTENTITYAPICALL" affinity="parentObject" class-access="SYSTEM" final-class="true" strategy="JOINED" import-model-name="test" root-type="TestEntity">
+      <index index-name="PK_T_TESTENTITYAPICALL" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index unique="true" index-name="I_TESTENTITYAPICALL_APICALLID">
+        <property name="apiCallId"/>
+      </index>
+      <index index-name="I_TESTENTITYAPICALL_PARENTOBJECT_ID">
+        <property name="parentObject"/>
+      </index>
+      <index index-name="I_TESTENTITYAPICALL_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="apiCallId" type="String" length="254" label="Package Identifier" column-name="APICALLID" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <property name="firstCallDate" type="Date" length="3" label="Date of the first successful package call" column-name="FIRSTCALLDATE" column-type="TIMESTAMP(3)" system-field="true" changeable="SYSTEM"/>
+      <property name="data" type="String" length="4000" label="Processing package result" column-name="DATA" column-type="VARCHAR(4000)" system-field="true" changeable="SYSTEM"/>
+      <property name="bigData" type="String" length="4001" label="The result of package processing, used if the result does not fit in the data field" column-name="BIGDATA" column-type="CLOB" system-field="true" changeable="SYSTEM"/>
+      <property name="parentObject" type="TestEntity" length="254" label="Reference to parent object" mandatory="true" column-name="PARENTOBJECT_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="TestEntity" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="TestEntitySingleTableApiCall" extends="Entity" label="Result of processing the package Unit of Work for TestEntitySingleTable" tableName="T_TESTENTITYSINGLETABLEAPICALL" pk-index-name="PK_T_TESTENTITYSINGLETABLEAPICALL" affinity="parentObject" class-access="SYSTEM" final-class="true" strategy="JOINED" import-model-name="test" root-type="TestEntitySingleTable">
+      <index index-name="PK_T_TESTENTITYSINGLETABLEAPICALL" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index unique="true" index-name="I_TESTENTITYSINGLETABLEAPICALL_APICALLID">
+        <property name="apiCallId"/>
+      </index>
+      <index index-name="I_TESTENTITYSINGLETABLEAPICALL_PARENTOBJECT_ID">
+        <property name="parentObject"/>
+      </index>
+      <index index-name="I_TESTENTITYSINGLETABLEAPICALL_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="apiCallId" type="String" length="254" label="Package Identifier" column-name="APICALLID" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <property name="firstCallDate" type="Date" length="3" label="Date of the first successful package call" column-name="FIRSTCALLDATE" column-type="TIMESTAMP(3)" system-field="true" changeable="SYSTEM"/>
+      <property name="data" type="String" length="4000" label="Processing package result" column-name="DATA" column-type="VARCHAR(4000)" system-field="true" changeable="SYSTEM"/>
+      <property name="bigData" type="String" length="4001" label="The result of package processing, used if the result does not fit in the data field" column-name="BIGDATA" column-type="CLOB" system-field="true" changeable="SYSTEM"/>
+      <property name="parentObject" type="TestEntitySingleTable" length="254" label="Reference to parent object" mandatory="true" column-name="PARENTOBJECT_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="TestEntitySingleTable" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="ProductApiCall" extends="Entity" label="Result of processing the package Unit of Work for Product" tableName="T_PRODUCTAPICALL" pk-index-name="PK_T_PRODUCTAPICALL" affinity="parentObject" class-access="SYSTEM" final-class="true" strategy="JOINED" import-model-name="test" root-type="Product">
+      <index index-name="PK_T_PRODUCTAPICALL" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index unique="true" index-name="I_PRODUCTAPICALL_APICALLID">
+        <property name="apiCallId"/>
+      </index>
+      <index index-name="I_PRODUCTAPICALL_PARENTOBJECT_ID">
+        <property name="parentObject"/>
+      </index>
+      <index index-name="I_PRODUCTAPICALL_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="apiCallId" type="String" length="254" label="Package Identifier" column-name="APICALLID" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <property name="firstCallDate" type="Date" length="3" label="Date of the first successful package call" column-name="FIRSTCALLDATE" column-type="TIMESTAMP(3)" system-field="true" changeable="SYSTEM"/>
+      <property name="data" type="String" length="4000" label="Processing package result" column-name="DATA" column-type="VARCHAR(4000)" system-field="true" changeable="SYSTEM"/>
+      <property name="bigData" type="String" length="4001" label="The result of package processing, used if the result does not fit in the data field" column-name="BIGDATA" column-type="CLOB" system-field="true" changeable="SYSTEM"/>
+      <property name="parentObject" type="Product" length="254" label="Reference to parent object" mandatory="true" column-name="PARENTOBJECT_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="Product" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="ProductWithSnowflakeIdApiCall" extends="Entity" label="Result of processing the package Unit of Work for ProductWithSnowflakeId" tableName="T_PRODUCTWITHSNOWFLAKEIDAPICALL" pk-index-name="PK_T_PRODUCTWITHSNOWFLAKEIDAPICALL" affinity="parentObject" class-access="SYSTEM" final-class="true" strategy="JOINED" import-model-name="test" root-type="ProductWithSnowflakeId">
+      <index index-name="PK_T_PRODUCTWITHSNOWFLAKEIDAPICALL" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index unique="true" index-name="I_PRODUCTWITHSNOWFLAKEIDAPICALL_APICALLID">
+        <property name="apiCallId"/>
+      </index>
+      <index index-name="I_PRODUCTWITHSNOWFLAKEIDAPICALL_PARENTOBJECT_ID">
+        <property name="parentObject"/>
+      </index>
+      <index index-name="I_PRODUCTWITHSNOWFLAKEIDAPICALL_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="apiCallId" type="String" length="254" label="Package Identifier" column-name="APICALLID" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <property name="firstCallDate" type="Date" length="3" label="Date of the first successful package call" column-name="FIRSTCALLDATE" column-type="TIMESTAMP(3)" system-field="true" changeable="SYSTEM"/>
+      <property name="data" type="String" length="4000" label="Processing package result" column-name="DATA" column-type="VARCHAR(4000)" system-field="true" changeable="SYSTEM"/>
+      <property name="bigData" type="String" length="4001" label="The result of package processing, used if the result does not fit in the data field" column-name="BIGDATA" column-type="CLOB" system-field="true" changeable="SYSTEM"/>
+      <property name="parentObject" type="ProductWithSnowflakeId" length="254" label="Reference to parent object" mandatory="true" column-name="PARENTOBJECT_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="ProductWithSnowflakeId" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="DocumentApiCall" extends="Entity" label="Result of processing the package Unit of Work for Document" tableName="T_DOCUMENTAPICALL" pk-index-name="PK_T_DOCUMENTAPICALL" affinity="parentObject" class-access="SYSTEM" final-class="true" strategy="JOINED" import-model-name="test" root-type="Document">
+      <index index-name="PK_T_DOCUMENTAPICALL" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index unique="true" index-name="I_DOCUMENTAPICALL_APICALLID">
+        <property name="apiCallId"/>
+      </index>
+      <index index-name="I_DOCUMENTAPICALL_PARENTOBJECT_ID">
+        <property name="parentObject"/>
+      </index>
+      <index index-name="I_DOCUMENTAPICALL_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <property name="apiCallId" type="String" length="254" label="Package Identifier" column-name="APICALLID" column-type="VARCHAR(254)" system-field="true" changeable="SYSTEM"/>
+      <property name="firstCallDate" type="Date" length="3" label="Date of the first successful package call" column-name="FIRSTCALLDATE" column-type="TIMESTAMP(3)" system-field="true" changeable="SYSTEM"/>
+      <property name="data" type="String" length="4000" label="Processing package result" column-name="DATA" column-type="VARCHAR(4000)" system-field="true" changeable="SYSTEM"/>
+      <property name="bigData" type="String" length="4001" label="The result of package processing, used if the result does not fit in the data field" column-name="BIGDATA" column-type="CLOB" system-field="true" changeable="SYSTEM"/>
+      <property name="parentObject" type="Document" length="254" label="Reference to parent object" mandatory="true" column-name="PARENTOBJECT_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="Document" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="MANUAL" length="254"/>
+    </class>
+    <class name="ProductReference" embeddable="true" label="External link ProductReference" class-access="READ_ONLY" final-class="true" import-model-name="test" original-type="Product">
+      <property name="entityId" type="String" length="254" label="External object Id" column-name="ENTITYID" column-type="VARCHAR(254)"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="ClientReference" embeddable="true" label="External link ClientReference" class-access="READ_ONLY" final-class="true" import-model-name="test" original-type="Client">
+      <property name="entityId" type="String" length="254" label="External object Id" column-name="ENTITYID" column-type="VARCHAR(254)"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="ServiceReference" embeddable="true" label="External link ServiceReference" class-access="READ_ONLY" final-class="true" import-model-name="test" original-type="Service">
+      <property name="entityId" type="String" length="254" label="External object Id" column-name="ENTITYID" column-type="VARCHAR(254)"/>
+      <property name="rootEntityId" type="String" length="254" label="Root aggregate external object Id" column-name="ROOTENTITYID" column-type="VARCHAR(254)"/>
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+    <class name="RciProductExternalProducts" extends="Entity" label="Class for external reference ProductReference" tableName="T_RCIPRODUCTEXTERNALPRODUCTS" pk-index-name="PK_T_RCIPRODUCTEXTERNALPRODUCTS" affinity="backReference" class-access="READ_ONLY" final-class="true" strategy="JOINED" external-reference="true" import-model-name="test" original-type="Product">
+      <index unique="true" index-name="I_RCIPRODUCTEXTERNALPRODUCTS_BACKREFERENCE_ID_1">
+        <property name="backReference"/>
+        <property name="reference.entityId"/>
+      </index>
+      <index index-name="PK_T_RCIPRODUCTEXTERNALPRODUCTS" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_RCIPRODUCTEXTERNALPRODUCTS_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <embedded-lists>
+        <embedded-list name="reference">
+          <property name="entityId" column-name="REFERENCE_ENTITYID"/>
+        </embedded-list>
+      </embedded-lists>
+      <property name="backReference" type="Product" length="254" label="Backlink to the aggregate owner" mandatory="true" column-name="BACKREFERENCE_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="reference" type="ProductReference" original-type="Product" length="254" label="attribute of external reference" embedded="true" column-type="VARCHAR(254)" external-link="true"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="Product" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="RciProductExternalServices" extends="Entity" label="Class for external reference ServiceReference" tableName="T_RCIPRODUCTEXTERNALSERVICES" pk-index-name="PK_T_RCIPRODUCTEXTERNALSERVICES" affinity="backReference" class-access="READ_ONLY" final-class="true" strategy="JOINED" external-reference="true" import-model-name="test" original-type="Service">
+      <index unique="true" index-name="I_RCIPRODUCTEXTERNALSERVICES_BACKREFERENCE_ID_1">
+        <property name="backReference"/>
+        <property name="reference.entityId"/>
+        <property name="reference.rootEntityId"/>
+      </index>
+      <index index-name="PK_T_RCIPRODUCTEXTERNALSERVICES" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_RCIPRODUCTEXTERNALSERVICES_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <embedded-lists>
+        <embedded-list name="reference">
+          <property name="entityId" column-name="REFERENCE_ENTITYID"/>
+          <property name="rootEntityId" column-name="REFERENCE_ROOTENTITYID"/>
+        </embedded-list>
+      </embedded-lists>
+      <property name="backReference" type="Product" length="254" label="Backlink to the aggregate owner" mandatory="true" column-name="BACKREFERENCE_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="reference" type="ServiceReference" original-type="Service" length="254" label="attribute of external reference" embedded="true" column-type="VARCHAR(254)" external-link="true"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="Product" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="RciProductClients" extends="Entity" label="Class for external reference ClientReference" tableName="T_RCIPRODUCTCLIENTS" pk-index-name="PK_T_RCIPRODUCTCLIENTS" affinity="backReference" class-access="READ_ONLY" final-class="true" strategy="JOINED" external-reference="true" import-model-name="test" original-type="Client">
+      <index unique="true" index-name="I_RCIPRODUCTCLIENTS_BACKREFERENCE_ID_1">
+        <property name="backReference"/>
+        <property name="reference.entityId"/>
+      </index>
+      <index index-name="PK_T_RCIPRODUCTCLIENTS" primary-key="true">
+        <property name="objectId"/>
+      </index>
+      <index index-name="I_RCIPRODUCTCLIENTS_AGGREGATEROOT_ID">
+        <property name="aggregateRoot"/>
+      </index>
+      <embedded-lists>
+        <embedded-list name="reference">
+          <property name="entityId" column-name="REFERENCE_ENTITYID"/>
+        </embedded-list>
+      </embedded-lists>
+      <property name="backReference" type="Product" length="254" label="Backlink to the aggregate owner" mandatory="true" column-name="BACKREFERENCE_ID" column-type="VARCHAR(254)" changeable="CREATE" parent="true" object-link="M2O"/>
+      <property name="reference" type="ClientReference" original-type="Client" length="254" label="attribute of external reference" embedded="true" column-type="VARCHAR(254)" external-link="true"/>
+      <property name="objectId" type="String" length="254" label="Application Object ID" mandatory="true" column-name="OBJECT_ID" column-type="VARCHAR(254)" id="true" changeable="READ_ONLY"/>
+      <property name="aggregateRoot" type="Product" length="254" label="link to the root aggregate" column-name="AGGREGATEROOT_ID" column-type="VARCHAR(254)" changeable="READ_ONLY" object-link="M2O"/>
+      <id type="String" category="SNOWFLAKE" length="254"/>
+    </class>
+    <class name="Entity" label="Main model class" is-abstract="true" class-access="SYSTEM" import-model-name="test">
+      <id type="String" category="NO_ID" length="254"/>
+    </class>
+  </model>
+  <meta-information>
+    <have-insert-root-dictionary>true</have-insert-root-dictionary>
+    <have-insert-root-security>true</have-insert-root-security>
+    <have-h2-decode-base64-function>true</have-h2-decode-base64-function>
+    <allow-lastchangedate-compare>false</allow-lastchangedate-compare>
+    <disabledGenerateOracleLiquibase>true</disabledGenerateOracleLiquibase>
+    <useRenamedFields>false</useRenamedFields>
+    <disableBaseEntityFields>false</disableBaseEntityFields>
+    <allowUseParentUniqueIndex>false</allowUseParentUniqueIndex>
+  </meta-information>
+  <source-models/>
+</PdmModel>

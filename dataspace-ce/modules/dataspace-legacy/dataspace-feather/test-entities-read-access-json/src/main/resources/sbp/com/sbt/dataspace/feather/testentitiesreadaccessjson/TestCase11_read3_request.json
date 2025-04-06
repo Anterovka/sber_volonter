@@ -1,0 +1,14 @@
+{
+  "type": "Agreement",
+  "props": {
+    "document": {
+      "type": "Permission",
+      "props": "code"
+    },
+    "request": {
+      "type": "RequestPlus",
+      "props": "code"
+    }
+  },
+  "cond": "root.$id == '${agreement1Id}'"
+}

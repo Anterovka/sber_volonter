@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.$id == '${testEntity1Id}' && root.rc1{type = TestEntity}.$exists && root.brec1{type = TestEntity}.$exists && root.rc1.r1{type = TestEntity}.$exists"
+}

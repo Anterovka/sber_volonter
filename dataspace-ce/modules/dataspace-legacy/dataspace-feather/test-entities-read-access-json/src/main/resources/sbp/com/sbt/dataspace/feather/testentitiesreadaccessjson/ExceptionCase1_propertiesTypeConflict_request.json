@@ -1,0 +1,15 @@
+{
+  "type": "Product",
+  "props": {
+    "product": {
+      "base": "relatedProduct"
+    }
+  },
+  "details": {
+    "ProductLimited": {
+      "product": {
+        "base": "code"
+      }
+    }
+  }
+}

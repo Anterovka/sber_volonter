@@ -1,0 +1,17 @@
+{
+  "type": "Operation",
+  "props": {
+    "request": {
+      "alias": "request",
+      "props": {
+        "agreement": {
+          "alias": "agreement",
+          "props": {
+            "agreements": "elem.code $like @request.code + @agreement.code + '_%'"
+          }
+        }
+      }
+    }
+  },
+  "cond": "root.$id == '${operation1Id}' && root.request{alias = request}.agreement{alias = agreement}.agreements{cond = elem.code $like @request.code + @agreement.code + '_%'}.$exists"
+}

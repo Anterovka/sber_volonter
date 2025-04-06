@@ -1,0 +1,7 @@
+
+    <changeSet author="${modelName}" id="check-deploy-dbms-Oracle" runAlways="true">
+        <preConditions onFail="HALT" onFailMessage="Scripts are not intended to be installed on Oracle DB, installation is aborted.">
+            <dbms type="!oracle"/>
+        </preConditions>
+    </changeSet>
+

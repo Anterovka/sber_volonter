@@ -1,0 +1,17 @@
+{
+  "type": "ProductPlus",
+  "props": {
+    "affectedProducts": {
+      "elemAlias": "element",
+      "props": {
+        "aliases": "elem $like @element.code + '%'"
+      },
+      "cond": "elem.aliases{cond=elem $like @element.code + '%'}.$exists"
+    },
+    "parameters": {
+      "elemAlias": "element",
+      "cond": "elem.parameters{cond = elem.value == @element.code}.$exists"
+    }
+  },
+  "cond": "root.$id == '${productPlus1Id}' && root.affectedProducts{elemAlias=element,cond=elem.aliases{cond=elem $like @element.code + '%'}.$exists}.$exists"
+}

@@ -1,0 +1,44 @@
+{
+  "name": "todo-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@apollo/client": "^3.3.7",
+    "@types/react": "18.2.6",
+    "@types/react-dom": "18.2.4",
+    "antd": "^5.20.0",
+    "express": "^4.19.2",
+    "graphql": "^15.7.2",
+    "keycloak-js": "^25.0.2",
+    "process": "^0.11.10",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "use-debounce": "^10.0.3"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/typescript": "^4.0.9",
+    "@graphql-codegen/typescript-operations": "^4.2.3",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.0",
+    "@types/uuid": "^10.0.0",
+    "copy-webpack-plugin": "^12.0.2",
+    "css-loader": "^7.1.2",
+    "css-minimizer-webpack-plugin": "^7.0.0",
+    "dotenv": "^16.4.5",
+    "dotenv-webpack": "^8.1.0",
+    "html-webpack-plugin": "^5.6.0",
+    "mini-css-extract-plugin": "^2.9.0",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.5.4",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "webpack-merge": "^6.0.1"
+  },
+  "scripts": {
+    "start": "webpack serve --config webpack.dev.config.js",
+    "codegen": "graphql-codegen --config codegen.yml",
+    "permgen": "graphql-codegen --config permgen.yml"
+  }
+}

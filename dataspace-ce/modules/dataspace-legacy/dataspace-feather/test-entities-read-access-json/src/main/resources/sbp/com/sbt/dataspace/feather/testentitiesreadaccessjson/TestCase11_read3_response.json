@@ -1,0 +1,22 @@
+{
+  "elems": [
+    {
+      "type": "Agreement",
+      "id": "${agreement1Id}",
+      "props": {
+        "document": {
+          "type": "Document",
+          "id": "${document1Id}",
+          "invalid": true,
+          "incorrectCasted": true
+        },
+        "request": {
+          "type": "Request",
+          "id": "${request1Id}",
+          "invalid": true,
+          "incorrectCasted": true
+        }
+      }
+    }
+  ]
+}

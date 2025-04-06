@@ -1,0 +1,19 @@
+{
+  "type": "Product",
+  "aggVersion": true,
+  "props": {
+    "relatedProduct": {
+      "aggVersion": true
+    },
+    "request": {
+      "aggVersion": true
+    },
+    "services": {
+      "aggVersion": true
+    },
+    "parameters": {
+      "aggVersion": true
+    }
+  },
+  "cond" : "it.$id == '${product1Id}'"
+}

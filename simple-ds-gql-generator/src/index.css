@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=SB+Sans+Display:wght@400;500;600;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'SB Sans Display', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  font-family: 'SB Sans Display', sans-serif;
+} 

@@ -1,0 +1,13 @@
+{
+    searchRequest(cond: "it.$id $in ['${request1Id}', '${request2Id}']", sort: { crit: "it.code" }) {
+        elems {
+            initiator {
+                firstName
+                lastName
+                document {
+                    code
+                }
+            }
+        }
+    }
+}

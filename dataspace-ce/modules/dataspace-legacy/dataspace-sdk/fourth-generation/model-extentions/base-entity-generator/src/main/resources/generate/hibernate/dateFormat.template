@@ -1,0 +1,12 @@
+    private static final String DATE_TIME_PATTERN_T = "yyyy-MM-dd'T'HH:mm:ss";
+    private static final String DATE_TIME_PATTERN_SPACE = "yyyy-MM-dd HH:mm:ss";
+    private static final List<DateTimeFormatter> DATETIME_FORMATTERS = new ArrayList<DateTimeFormatter>() {{
+        add(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN_T));
+        add(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN_SPACE));
+    }};
+    private static final List<DateTimeFormatter> OFFSET_FORMATTERS = new ArrayList<DateTimeFormatter>() {{
+        add(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        add(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN_SPACE).withZone(ZoneOffset.UTC));
+    }};
+
+    private static final DateTimeFormatter LOCAL_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");

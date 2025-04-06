@@ -1,0 +1,4 @@
+{
+  "type": "Product",
+  "cond": "it.$id $in ['${product1Id}', '${product2Id}']"
+}

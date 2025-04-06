@@ -1,0 +1,23 @@
+{
+  "type": "TestEntity",
+  "props": [
+    "p1",
+    "p2",
+    "p3",
+    "p4",
+    "p5",
+    "p6",
+    "p7",
+    "p8",
+    "p9",
+    "p10",
+    "p11",
+    "p12",
+    "p13",
+    "p14",
+    "r1",
+    "rc1",
+    "brec1"
+  ],
+  "cond": "root.$id == '${testEntity1Id}' && -root.p2 == -127 && root.p1.$upper == 'HELLO' && root.p1.$lower == 'hello' && root.code + ' ' + root.p1 == 'testEntity1 Hello' && root.p2 + 100000 + root.p3 == 132894 && root.p14 + 1 + 1 == 2 + D${date} && root.p7 + 1 + 1 == 2 + D${dateTime} && root.p2 - 100000 - root.p3 == -132640 && root.p14 - 1 - 1 == D${date} - 2 && root.p7 - 1 - 1 == D${dateTime} - 2 && root.p2 * 10 * root.p3 == 41614090 && root.p3 / 10 / root.p2 $between (25, 26) && root.p2 / 2 $between (63.4, 64.6) && root.p3 / root.p2 $between (258.007, 258.008) && root.p2 $mod 2 == 1"
+}

@@ -1,0 +1,30 @@
+{
+  "elems": [
+    {
+      "id": "${parameter1Id}",
+      "type": "Parameter",
+      "props": {
+        "entity": {
+          "id": "${entity1Id}",
+          "type": "Entity",
+          "props": {
+            "code": {
+              "calc": true,
+              "value": "entity1"
+            },
+            "request": {
+              "id": "${request1Id}",
+              "type": "Request",
+              "props": {
+                "code": {
+                  "calc": true,
+                  "value": "request1"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

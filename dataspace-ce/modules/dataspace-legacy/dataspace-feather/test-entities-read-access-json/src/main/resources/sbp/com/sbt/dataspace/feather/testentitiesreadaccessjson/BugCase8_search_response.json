@@ -1,0 +1,10 @@
+{
+  "selection": true,
+  "elems": [
+    {
+      "minDateTime": "${dateTime}",
+      "minDate": "${date}",
+      "minOffsetDateTime": "${offsetDateTime}"
+    }
+  ]
+}

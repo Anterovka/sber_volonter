@@ -1,0 +1,299 @@
+:root[data-theme="light"] {
+    --primary-color: #21A038;
+    --primary-bg: #E8F5E9;
+    --danger-color: #ff4d4f;
+    --danger-bg: #fff1f0;
+    --text-color: rgba(0, 0, 0, 0.85);
+    --secondary-text: rgba(0, 0, 0, 0.45);
+    --bg-color: #ffffff;
+    --secondary-bg: #f5f5f5;
+    --border-color: #d9d9d9;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --header-bg: #E8F5E9;
+    --menu-text: #21A038;
+    --table-header-bg: #fafafa;
+    --table-row-hover: #f5f5f5;
+    --card-bg: #ffffff;
+    --sidebar-bg: #ffffff;
+    --content-bg: #ffffff;
+    --link-color: #21A038;
+}
+
+:root[data-theme="dark"] {
+    --primary-color: #52c41a;
+    --primary-bg: #162312;
+    --danger-color: #ff7875;
+    --danger-bg: #2a1215;
+    --text-color: rgba(255, 255, 255, 0.85);
+    --secondary-text: rgba(255, 255, 255, 0.45);
+    --bg-color: #141414;
+    --secondary-bg: #000000;
+    --border-color: #434343;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+    --header-bg: #141414;
+    --menu-text: #52c41a;
+    --table-header-bg: #1f1f1f;
+    --table-row-hover: #1f1f1f;
+    --card-bg: #1f1f1f;
+    --sidebar-bg: #141414;
+    --content-bg: #141414;
+    --link-color: #52c41a;
+}
+
+/* Общие стили */
+body {
+    background-color: var(--secondary-bg) !important;
+    color: var(--text-color) !important;
+}
+
+/* Стили для компонентов */
+.ant-layout {
+    background: var(--secondary-bg) !important;
+}
+
+.ant-layout-sider {
+    background: var(--sidebar-bg) !important;
+    border-right: 1px solid var(--border-color);
+}
+
+.ant-layout-content {
+    background: var(--content-bg) !important;
+}
+
+/* Стили для карточек */
+.ant-card {
+    background: var(--card-bg) !important;
+    border-color: var(--border-color) !important;
+}
+
+.ant-card-head {
+    background: var(--card-bg) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-color) !important;
+}
+
+.volunteer-card {
+    background: var(--card-bg) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Стили для таблиц */
+.ant-table {
+    background: var(--bg-color) !important;
+    color: var(--text-color) !important;
+}
+
+.ant-table-wrapper {
+    background: var(--bg-color) !important;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.ant-table-thead > tr > th {
+    background: var(--table-header-bg) !important;
+    color: var(--text-color) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.ant-table-tbody > tr > td {
+    background: var(--bg-color) !important;
+    color: var(--text-color) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+    background: var(--table-row-hover) !important;
+}
+
+.volunteer-table {
+    background: var(--bg-color) !important;
+}
+
+.volunteer-table-header {
+    background: var(--table-header-bg) !important;
+    color: var(--text-color) !important;
+}
+
+.volunteer-table-row {
+    background: var(--bg-color) !important;
+    color: var(--text-color) !important;
+}
+
+.volunteer-table-row:hover {
+    background: var(--table-row-hover) !important;
+}
+
+/* Стили для кнопок */
+.ant-btn {
+    background: var(--bg-color) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-color) !important;
+}
+
+.ant-btn-primary {
+    background: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: var(--bg-color) !important;
+}
+
+.ant-btn-danger {
+    background: var(--danger-color) !important;
+    border-color: var(--danger-color) !important;
+    color: var(--bg-color) !important;
+}
+
+.ant-btn-link {
+    color: var(--link-color) !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+.volunteer-button-link {
+    color: var(--link-color) !important;
+}
+
+/* Стили для пагинации */
+.ant-pagination-item {
+    background: var(--bg-color) !important;
+    border-color: var(--border-color) !important;
+}
+
+.ant-pagination-item a {
+    color: var(--text-color) !important;
+}
+
+.ant-pagination-item-active {
+    border-color: var(--primary-color) !important;
+}
+
+.ant-pagination-item-active a {
+    color: var(--primary-color) !important;
+}
+
+.ant-select-dropdown {
+    background: var(--bg-color) !important;
+    border-color: var(--border-color) !important;
+}
+
+.ant-select-item {
+    color: var(--text-color) !important;
+}
+
+.ant-select-item-option-selected {
+    background: var(--primary-bg) !important;
+}
+
+/* Стили для инпутов */
+.ant-input,
+.ant-input-number,
+.ant-picker {
+    background-color: var(--bg-color) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-color) !important;
+}
+
+.ant-input:hover,
+.ant-input:focus,
+.ant-input-number:hover,
+.ant-input-number:focus,
+.ant-picker:hover,
+.ant-picker:focus {
+    border-color: var(--primary-color) !important;
+}
+
+.ant-form-item-label > label {
+    color: var(--text-color) !important;
+}
+
+/* Стили для хедера и меню */
+.ant-layout-header {
+    background: var(--header-bg) !important;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.ant-menu {
+    background: transparent !important;
+    color: var(--menu-text) !important;
+    border-right: none !important;
+}
+
+.ant-menu-item {
+    color: var(--text-color) !important;
+}
+
+.ant-menu-item a {
+    color: var(--menu-text) !important;
+}
+
+.ant-menu-item:hover {
+    background: var(--primary-bg) !important;
+}
+
+.ant-menu-item-selected {
+    background: var(--primary-bg) !important;
+    color: var(--primary-color) !important;
+}
+
+/* Стили для текста */
+.ant-typography {
+    color: var(--text-color) !important;
+}
+
+/* Стили для модальных окон */
+.ant-modal-content,
+.ant-modal-header {
+    background: var(--bg-color) !important;
+}
+
+.ant-modal-title {
+    color: var(--text-color) !important;
+}
+
+/* Дополнительные стили для темной темы */
+[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+[data-theme="dark"] .ant-layout {
+    background: var(--secondary-bg) !important;
+}
+
+[data-theme="dark"] .ant-layout-sider {
+    background: var(--sidebar-bg) !important;
+}
+
+[data-theme="dark"] .ant-layout-content {
+    background: var(--content-bg) !important;
+}
+
+[data-theme="dark"] .ant-menu {
+    background: transparent !important;
+}
+
+[data-theme="dark"] .ant-table-wrapper {
+    background: var(--bg-color) !important;
+}
+
+[data-theme="dark"] .ant-btn {
+    background: transparent !important;
+}
+
+/* Стили для скроллбара */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--secondary-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+} 

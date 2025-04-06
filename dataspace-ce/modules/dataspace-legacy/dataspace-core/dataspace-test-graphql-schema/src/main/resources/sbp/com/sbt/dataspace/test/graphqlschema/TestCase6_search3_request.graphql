@@ -1,0 +1,22 @@
+query Test(
+    $varChar: Char = "'" @strExpr(char: $varChar),
+    $varString: String = "I'm friend" @strExpr(string: $varString),
+    $varByte: Byte = 127 @strExpr(byte: $varByte),
+    $varShort: Short = 32767 @strExpr(short: $varShort),
+    $varInt: Int = 2147483647 @strExpr(int: $varInt),
+    $varLong: Long = 9223372036854775807 @strExpr(long: $varLong),
+    $varFloat: _Float4 = 123.4568 @strExpr(float: $varFloat),
+    $varDouble: Float = 1234567.890123457 @strExpr(double: $varDouble),
+    $varBigDecimal: BigDecimal = 123456789.012345679 @strExpr(bigDecimal: $varBigDecimal),
+    $varDate: _Date = "2020-10-29" @strExpr(date: $varDate),
+    $varDateTime: _DateTime = "2020-10-29T16:12:10.123" @strExpr(dateTime: $varDateTime),
+    $varOffsetDateTime: _OffsetDateTime = "2020-10-29T16:12:10.123+08:00" @strExpr(offsetDateTime: $varOffsetDateTime),
+    $varTime: _Time = "16:12:10.123" @strExpr(time: $varTime),
+    $varBoolean: Boolean = true @strExpr(boolean: $varBoolean)
+) {
+    searchTestEntity(cond: "it.id == '${testEntity1Id}' && it.p13 != ${varChar} && it.p1 != ${varString} && it.p2 == ${varByte} && it.p3 == ${varShort} && it.p4 == ${varInt} && it.p5 == ${varLong} && it.p12 < ${varFloat} && it.p6 < ${varDouble} && it.p10 < ${varBigDecimal} && it.p14 == ${varDate} && it.p7 == ${varDateTime} && it.p15 == ${varOffsetDateTime} && it.p7.$time == ${varTime} && it.p8 == ${varBoolean}") {
+        elems {
+            id
+        }
+    }
+}

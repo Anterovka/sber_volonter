@@ -1,0 +1,13 @@
+{
+  "type": "Product",
+  "props": {
+    "parameters": {
+      "elemAlias": "parameter",
+      "props": {
+        "parameters": {
+          "elemAlias": "parameter"
+        }
+      }
+    }
+  }
+}

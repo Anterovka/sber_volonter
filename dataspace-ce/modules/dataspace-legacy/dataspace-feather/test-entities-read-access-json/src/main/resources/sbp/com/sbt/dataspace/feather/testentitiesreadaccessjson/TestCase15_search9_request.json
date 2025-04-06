@@ -1,0 +1,29 @@
+{
+  "merge": [
+    {
+      "type": "TestEntity",
+      "props": [
+        "p1",
+        "p2"
+      ],
+      "cond": "1 == 0"
+    },
+    {
+      "type": "Product",
+      "props": {
+        "relatedProduct": {
+          "props": "code"
+        }
+      },
+      "cond": "root.$id == '${product2Id}'"
+    },
+    {
+      "type": "Service",
+      "props": "code",
+      "cond": "1 == 0"
+    }
+  ],
+  "sort": "root.code",
+  "limit": 1,
+  "count": true
+}

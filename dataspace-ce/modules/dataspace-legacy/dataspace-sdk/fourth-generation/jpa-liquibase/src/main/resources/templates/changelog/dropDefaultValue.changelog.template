@@ -1,0 +1,24 @@
+
+    <changeSet  author="${modelName}" ${dbms} id="${version}-${index}">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and>
+                    <dbms  type="oracle"/>
+                    <sqlCheck expectedResult="1">select count(1) from sys.user_tab_columns where table_name=upper('${tableName}') and column_name=upper('${columnName}') and data_default is not null</sqlCheck>
+                </and>
+                <and>
+                    <dbms  type="postgresql"/>
+                    <sqlCheck expectedResult="1">select count(*) from INFORMATION_SCHEMA.COLUMNS where table_schema='${defaultSchemaName}' and table_name=lower('${tableName}') and column_name=lower('${columnName}') and column_default is not null</sqlCheck>
+                </and>
+                <and>
+                    <dbms  type="h2"/>
+                    <sqlCheck expectedResult="1">select count(*) from INFORMATION_SCHEMA.COLUMNS where table_name='${tableName}' and column_name='${columnName}' and column_default is not null</sqlCheck>
+                </and>
+            </or>
+        </preConditions>
+        <dropDefaultValue
+                columnDataType="${dataType}"
+                columnName="${columnName}"
+                tableName="${tableName}"/>
+        ${defValueRollback}
+    </changeSet>

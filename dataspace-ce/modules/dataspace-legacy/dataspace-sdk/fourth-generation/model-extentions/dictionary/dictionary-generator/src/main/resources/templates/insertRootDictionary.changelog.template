@@ -1,0 +1,19 @@
+
+    <changeSet author="${modelName}" id="INSERT-ROOT-DICTIONARY-ORA-H2" dbms="oracle,h2" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from ${tableName} where ${tableCode} = '${code}'</sqlCheck>
+        </preConditions>
+        <insert tableName="${tableName}">
+${columns}
+        </insert>${rollback}
+    </changeSet>
+
+    <changeSet author="${modelName}" id="INSERT-ROOT-DICTIONARY-POSTGRES" dbms="postgresql" runOnChange="true">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from ${defaultSchemaName}.${tableName} where ${tableCode} = '${code}'</sqlCheck>
+        </preConditions>
+        <insert tableName="${tableName}">
+${columns}
+        </insert>${rollbackPG}
+    </changeSet>
+

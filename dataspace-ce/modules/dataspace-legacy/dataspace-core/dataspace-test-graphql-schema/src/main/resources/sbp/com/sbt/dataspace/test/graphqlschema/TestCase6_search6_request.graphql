@@ -1,0 +1,11 @@
+query Test(
+    $varSort: [_SortCriterionSpecification!]!,
+    $varLimit: Int!
+) {
+    searchTestEntity(cond: "it.id == '${testEntity1Id}' && 'it.id' $in [${varSort.crit}]", sort: $varSort, limit: $varLimit) {
+        elems {
+            p1: _getString(expression: "${varSort[0].crit}")
+            p2: _getInt(expression: "${varLimit}")
+        }
+    }
+}

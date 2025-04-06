@@ -1,0 +1,249 @@
+:root[data-theme="light"] {
+  --volunteer-primary: #21A038;
+  --volunteer-primary-light: #E8F5E9;
+  --volunteer-primary-dark: #1B8A2E;
+  --volunteer-text: #262626;
+  --volunteer-background: #ffffff;
+  --volunteer-border: #E0E0E0;
+  --volunteer-error: #FF4D4F;
+  --volunteer-success: #52C41A;
+  --volunteer-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --volunteer-radius: 12px;
+  --volunteer-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --volunteer-card-bg: #ffffff;
+  --volunteer-layout-bg: #f5f5f5;
+}
+
+:root[data-theme="dark"] {
+  --volunteer-primary: #52c41a;
+  --volunteer-primary-light: #162312;
+  --volunteer-primary-dark: #52c41a;
+  --volunteer-text: rgba(255, 255, 255, 0.85);
+  --volunteer-background: #141414;
+  --volunteer-border: #434343;
+  --volunteer-error: #ff7875;
+  --volunteer-success: #52c41a;
+  --volunteer-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+  --volunteer-radius: 12px;
+  --volunteer-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --volunteer-card-bg: #1f1f1f;
+  --volunteer-layout-bg: #000000;
+}
+
+/* Base styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--volunteer-layout-bg);
+  color: var(--volunteer-text);
+}
+
+/* Volunteer Layout */
+.volunteer-layout {
+  min-height: 100vh;
+  background-color: var(--volunteer-layout-bg);
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+.volunteer-sider {
+  background-color: var(--volunteer-background) !important;
+  box-shadow: var(--volunteer-shadow);
+  border-radius: var(--volunteer-radius);
+  position: fixed;
+  left: 24px;
+  top: 88px;
+  height: calc(100vh - 112px);
+  z-index: 1;
+  border: 1px solid var(--volunteer-border);
+  width: 240px !important;
+  max-width: 240px !important;
+  min-width: 240px !important;
+}
+
+.volunteer-content {
+  padding: 24px;
+  background: var(--volunteer-background);
+  min-height: 100vh;
+  border-radius: var(--volunteer-radius);
+  border: 1px solid var(--volunteer-border);
+}
+
+/* Volunteer Menu */
+.volunteer-menu {
+  background: transparent !important;
+  border-right: none !important;
+  padding: 16px !important;
+}
+
+.volunteer-menu-item {
+  color: var(--volunteer-text) !important;
+  font-weight: 500 !important;
+  padding: 12px 16px !important;
+  margin: 8px 0 !important;
+  border-radius: 8px !important;
+  transition: var(--volunteer-transition) !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.volunteer-menu-item:hover {
+  background-color: var(--volunteer-primary-light) !important;
+  color: var(--volunteer-primary) !important;
+}
+
+.volunteer-menu-item-active {
+  background-color: var(--volunteer-primary) !important;
+  color: white !important;
+}
+
+/* Volunteer Table */
+.volunteer-table {
+  background: var(--volunteer-background);
+  border-radius: var(--volunteer-radius);
+  box-shadow: var(--volunteer-shadow);
+  overflow: hidden;
+  border: 1px solid var(--volunteer-border);
+}
+
+.volunteer-table-header {
+  background-color: var(--volunteer-background) !important;
+  color: var(--volunteer-text) !important;
+  font-weight: 600 !important;
+  padding: 16px !important;
+  border-bottom: 2px solid var(--volunteer-primary-light) !important;
+}
+
+.volunteer-table-row {
+  transition: var(--volunteer-transition);
+  cursor: pointer;
+  background-color: var(--volunteer-background) !important;
+  color: var(--volunteer-text) !important;
+}
+
+.volunteer-table-row:hover {
+  background-color: var(--volunteer-primary-light) !important;
+}
+
+/* Volunteer Buttons */
+.volunteer-button {
+  background-color: var(--volunteer-primary) !important;
+  border-color: var(--volunteer-primary) !important;
+  color: white !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  padding: 8px 24px !important;
+  height: auto !important;
+  transition: var(--volunteer-transition) !important;
+  box-shadow: 0 2px 6px rgba(33, 160, 56, 0.2) !important;
+  min-width: 120px;
+}
+
+.volunteer-button:hover {
+  background-color: var(--volunteer-primary-dark) !important;
+  border-color: var(--volunteer-primary-dark) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(33, 160, 56, 0.3) !important;
+}
+
+.volunteer-button-link {
+  color: var(--volunteer-primary) !important;
+  font-weight: 500 !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  transition: var(--volunteer-transition) !important;
+  min-width: 120px;
+  background: transparent !important;
+}
+
+.volunteer-button-link:hover {
+  color: var(--volunteer-primary-dark) !important;
+  background-color: var(--volunteer-primary-light) !important;
+}
+
+/* Volunteer Cards */
+.volunteer-card {
+  background: var(--volunteer-card-bg);
+  border-radius: var(--volunteer-radius);
+  padding: 24px;
+  border: 1px solid var(--volunteer-border);
+}
+
+.volunteer-card:hover {
+  box-shadow: var(--volunteer-shadow);
+}
+
+/* Volunteer Loading States */
+.volunteer-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  background: var(--volunteer-background);
+  border-radius: var(--volunteer-radius);
+  box-shadow: var(--volunteer-shadow);
+}
+
+.volunteer-spin {
+  color: var(--volunteer-primary) !important;
+}
+
+/* Volunteer Error States */
+.volunteer-error {
+  color: var(--volunteer-error);
+  margin-bottom: 16px;
+  padding: 16px;
+  background-color: var(--volunteer-background);
+  border-radius: var(--volunteer-radius);
+  border: 1px solid var(--volunteer-error);
+}
+
+/* Volunteer Success States */
+.volunteer-success {
+  color: var(--volunteer-success);
+  margin-bottom: 16px;
+  padding: 16px;
+  background-color: var(--volunteer-background);
+  border-radius: var(--volunteer-radius);
+  border: 1px solid var(--volunteer-success);
+}
+
+.volunteer-form {
+  width: 100%;
+  max-width: 600px;
+  background: var(--volunteer-card-bg);
+  padding: 24px;
+  border-radius: var(--volunteer-radius);
+  border: 1px solid var(--volunteer-border);
+}
+
+.volunteer-form-item {
+  margin-bottom: 24px;
+}
+
+.volunteer-input {
+  border-radius: 4px;
+  background: var(--volunteer-background) !important;
+  border-color: var(--volunteer-border) !important;
+  color: var(--volunteer-text) !important;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 16px;
+  color: var(--volunteer-text);
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 16px;
+  color: var(--volunteer-error);
+} 

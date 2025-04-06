@@ -1,0 +1,484 @@
+<?xml version="1.0"?>
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="DataspaceModel" xmlns:dm="DataspaceModel"
+        elementFormDefault="qualified" version="1.0">
+    <!--*************************************************  MODEL  ***************************************************-->
+    <xs:element name="model">
+        <!--*************************************************  MODEL ATTRIBUTE **************************************-->
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+
+                    <xs:element name="enum" type="dm:EnumType" maxOccurs="unbounded">
+                        <xs:unique name="enum_unique_value">
+                            <xs:selector xpath="dm:value"/>
+                            <xs:field xpath="@name"/>
+                        </xs:unique>
+                    </xs:element>
+
+                    <xs:element name="type-defs" type="dm:TypeDefType" maxOccurs="unbounded">
+                        <xs:unique name="typeDefs_unique_typeDef">
+                            <xs:selector xpath="dm:type-def"/>
+                            <xs:field xpath="@name"/>
+                        </xs:unique>
+                    </xs:element>
+
+                    <xs:element name="class" type="dm:ClassType" maxOccurs="unbounded">
+                        <xs:unique name="class_unique_properties">
+                            <xs:selector xpath="dm:property"/>
+                            <xs:field xpath="@name"/>
+                        </xs:unique>
+                    </xs:element>
+
+                    <xs:element name="query" type="dm:QueryType" maxOccurs="unbounded">
+                        <xs:unique name="query_unique_properties">
+                            <xs:selector xpath="dm:property"/>
+                            <xs:field xpath="@name"/>
+                        </xs:unique>
+                    </xs:element>
+
+                </xs:choice>
+            </xs:sequence>
+
+
+            <xs:attributeGroup ref="dm:modelAttribute"/>
+        </xs:complexType>
+
+        <xs:unique name="enum_unique">
+            <xs:selector xpath="dm:enum"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+
+        <xs:unique name="class_unique">
+            <xs:selector xpath="dm:class"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+
+    </xs:element>
+
+    <xs:attributeGroup name="modelAttribute">
+        <xs:attribute name="model-name" type="xs:string" use="required"/>
+        <xs:attribute name="version" type="xs:string"/>
+        <xs:attribute name="table-prefix" type="xs:string" default="DEALS"/>
+        <xs:attribute name="autoIdMethod">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="SNOWFLAKE"/>
+                    <xs:enumeration value="UUIDV4"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+
+    <!--************************************************  TYPE-DEFS   ***********************************************-->
+    <xs:complexType name="TypeDefType">
+        <xs:sequence>
+            <xs:element name="type-def" type="dm:TypeDef" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="TypeDef">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="type" type="dm:PrimitiveType" use="required"/>
+        <xs:attribute name="length" type="xs:nonNegativeInteger"/>
+        <xs:attribute name="scale" type="xs:nonNegativeInteger"/>
+    </xs:complexType>
+
+    <!--*************************************************   ENUM    *************************************************-->
+    <xs:complexType name="EnumType">
+        <xs:sequence>
+            <xs:element name="value" type="dm:EnumValue" maxOccurs="unbounded"/>
+        </xs:sequence>
+
+        <xs:attribute name="name" use="required" type="dm:ObjectTypeName"/>
+        <xs:attribute name="label" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="EnumValue">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="extension" type="dm:EnumExtension" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:choice>
+        </xs:sequence>
+
+        <xs:attribute name="name" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="([A-Z0-9_])+"/>
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="40"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="label" type="xs:string"/>
+        <xs:attribute name="description" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="EnumExtension">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="value">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="0"/>
+                    <xs:maxLength value="40"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <!--*************************************************   CLASS   *************************************************-->
+    <xs:complexType name="ClassType">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="id" type="dm:ClassId" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="property" type="dm:ClassProperty" />
+                <xs:element name="reference" type="dm:ClassReference" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="index" type="dm:ClassIndex" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="idempotence-exclude" type="dm:IdempotenceExclude" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="statuses" type="dm:Statuses" minOccurs="0" maxOccurs="1"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attributeGroup ref="dm:classAttribute"/>
+    </xs:complexType>
+
+    <xs:attributeGroup name="classAttribute">
+        <xs:attribute name="name" use="required" type="dm:ObjectTypeName"/>
+        <xs:attribute name="extends" type="xs:string"/>
+        <xs:attribute name="label" type="xs:string"/>
+        <xs:attribute name="description" type="xs:string"/>
+        <xs:attribute name="lockable" type="xs:boolean" default="false"/>
+        <xs:attribute name="is-abstract" type="xs:boolean" default="false"/>
+        <xs:attribute name="is-dictionary" type="xs:boolean" default="false"/>
+        <xs:attribute name="isDeprecated" type="xs:boolean" default="false"/>
+        <xs:attribute name="embeddable" type="xs:boolean" default="false"/>
+        <xs:attribute name="strategy">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="JOINED"/>
+                    <xs:enumeration value="SINGLE_TABLE"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:attributeGroup>
+
+    <xs:complexType name="ClassId">
+        <xs:attribute name="category" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="MANUAL"/>
+                    <xs:enumeration value="SNOWFLAKE"/>
+                    <xs:enumeration value="AUTO_ON_EMPTY"/>
+                    <xs:enumeration value="UUIDV4"/>
+                    <xs:enumeration value="UUIDV4_ON_EMPTY"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="ClassReference">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="type" type="xs:string" use="required"/>
+        <xs:attribute name="label" type="xs:string"/>
+        <xs:attribute name="description" type="xs:string"/>
+        <xs:attribute name="unique" type="xs:boolean" default="false"/>
+        <xs:attribute name="mandatory" type="xs:boolean" default="false"/>
+        <xs:attribute name="index" type="xs:boolean" default="false"/>
+        <xs:attribute name="isDeprecated" type="xs:boolean" default="false"/>
+        <xs:attribute name="collection">
+            <xs:simpleType>
+                <xs:union>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="set" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="[Ss][Ee][Tt]" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:union>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="ClassProperty">
+        <xs:sequence>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="sql-expr">
+                    <xs:complexType mixed="true">
+                        <xs:attribute name="dbms" type="xs:string"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attributeGroup ref="dm:propertyAttribute"/>
+    </xs:complexType>
+
+    <xs:attributeGroup name="propertyAttribute">
+        <xs:attribute name="name" use="required" type="dm:ObjectPropertyName"/>
+        <xs:attribute name="type" type="xs:string" use="required"/>
+
+        <xs:attribute name="label" type="xs:string"/>
+        <xs:attribute name="description" type="xs:string"/>
+        <xs:attribute name="collection">
+            <xs:simpleType>
+                <xs:union>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="set" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="[Ss][Ee][Tt]" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:union>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="mappedBy" type="xs:string"/>
+        <xs:attribute name="parent" type="xs:boolean"/>
+        <xs:attribute name="length" type="xs:nonNegativeInteger"/>
+        <xs:attribute name="scale" type="xs:nonNegativeInteger"/>
+        <xs:attribute name="mandatory" type="xs:boolean"/>
+        <xs:attribute name="index" type="xs:boolean"/>
+        <xs:attribute name="mask" type="xs:string"/>
+        <xs:attribute name="unique" type="xs:boolean" default="false"/>
+        <xs:attribute name="isDeprecated" type="xs:boolean" default="false"/>
+    </xs:attributeGroup>
+
+    <xs:complexType name="ClassIndex">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="property" type="dm:IndexProperty" maxOccurs="unbounded"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="unique" type="xs:boolean" default="false"/>
+    </xs:complexType>
+
+    <xs:complexType name="IndexProperty">
+        <xs:attribute name="name" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="[a-z]+[a-z0-9]*.*([A-Z][a-z0-9]*)*"/>
+                    <xs:minLength value="1"/>
+                    <xs:maxLength value="63"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="IdempotenceExclude">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="property" type="dm:IdempotenceExcludeProperty" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="IdempotenceExcludeProperty">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+
+<!--  *** Statuses ***-->
+  <xs:complexType name="Statuses">
+    <xs:sequence>
+      <xs:element name="group" type="dm:GroupType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GroupType">
+    <xs:sequence>
+      <xs:element name="status" type="dm:StatusType" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="code" type="xs:string" use="required"/>
+    <xs:attribute name="reason-length" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="StatusType">
+    <xs:sequence>
+      <xs:element name="to" type="dm:ToType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="code" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="([a-z0-9]*([A-Z][a-z0-9]*)*_?[a-z0-9]*([A-Z][a-z0-9]*)*)*"/>
+          <xs:minLength value="1"/>
+          <xs:maxLength value="63"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="initial" type="xs:boolean"/>
+  </xs:complexType>
+
+  <xs:complexType name="ToType">
+    <xs:attribute name="status" type="xs:string" use="required"/>
+    <xs:attribute name="label" type="xs:string"/>
+  </xs:complexType>
+<!--  *** End Statuses ***-->
+
+    <!--*************************************************   QUERY   *************************************************-->
+    <xs:complexType name="QueryType">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="params" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="param" type="dm:QueryParam" minOccurs="1" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="id" type="dm:QueryId" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="property" type="dm:QueryProperty" minOccurs="1" maxOccurs="unbounded"/>
+                <xs:element name="implementations" minOccurs="1" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="sql" type="dm:QuerySql" minOccurs="1" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attributeGroup ref="dm:QueryAttribute"/>
+    </xs:complexType>
+
+    <xs:attributeGroup name="QueryAttribute">
+        <xs:attribute name="name" use="required" type="dm:ObjectTypeName"/>
+        <xs:attribute name="label" type="xs:string" />
+        <xs:attribute name="description" type="xs:string"/>
+    </xs:attributeGroup>
+
+    <xs:complexType name="QueryParam">
+        <xs:attribute name="name" type="dm:ObjectPropertyName" use="required"/>
+        <xs:attribute name="type" type="dm:ShortPrimitiveType"/>
+        <xs:attribute name="length" type="dm:Length4000"/>
+        <xs:attribute name="mask" type="xs:string"/>
+        <xs:attribute name="label" type="xs:string"/>
+        <xs:attribute name="description" type="xs:string"/>
+        <xs:attribute name="default-value" type="xs:string"/>
+        <xs:attribute name="collection" type="xs:boolean"/>
+    </xs:complexType>
+
+    <xs:complexType name="QueryId">
+        <xs:attribute name="name" type="dm:ObjectPropertyName"/>
+        <xs:attribute name="label" type="xs:string"/>
+        <xs:attribute name="description" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="QueryProperty">
+        <xs:attribute name="name" type="dm:ObjectPropertyName"/>
+        <xs:attribute name="type" type="dm:ShortPrimitiveType"/>
+        <xs:attribute name="label" type="xs:string"/>
+        <xs:attribute name="description" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="QuerySql">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="dbms" type="xs:string"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <!--**************************************  Общие вспомогательные типы  ****************************************-->
+
+    <xs:simpleType name="ObjectPropertyName">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-z]+[a-z0-9]*.*([A-Z][a-z0-9]*)*"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="63"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="ObjectTypeName">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([A-Z][a-z0-9]*)+"/>
+            <xs:minLength value="1"/>
+            <xs:maxLength value="40"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="PrimitiveType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="String"/>
+            <xs:enumeration value="string"/>
+            <xs:enumeration value="Text"/>
+            <xs:enumeration value="text"/>
+            <xs:enumeration value="BigDecimal"/>
+            <xs:enumeration value="bigdecimal"/>
+            <xs:enumeration value="Integer"/>
+            <xs:enumeration value="int"/>
+            <xs:enumeration value="integer"/>
+            <xs:enumeration value="Short"/>
+            <xs:enumeration value="short"/>
+            <xs:enumeration value="Long"/>
+            <xs:enumeration value="long"/>
+            <xs:enumeration value="Byte"/>
+            <xs:enumeration value="byte"/>
+            <xs:enumeration value="Boolean"/>
+            <xs:enumeration value="bool"/>
+            <xs:enumeration value="boolean"/>
+            <xs:enumeration value="Character"/>
+            <xs:enumeration value="char"/>
+            <xs:enumeration value="character"/>
+            <xs:enumeration value="LocalDate"/>
+            <xs:enumeration value="localDate"/>
+            <xs:enumeration value="LocalDateTime"/>
+            <xs:enumeration value="localDateTime"/>
+            <xs:enumeration value="OffsetDateTime"/>
+            <xs:enumeration value="offsetDateTime"/>
+            <xs:enumeration value="Float"/>
+            <xs:enumeration value="float"/>
+            <xs:enumeration value="Double"/>
+            <xs:enumeration value="double"/>
+            <xs:enumeration value="Binary"/>
+            <xs:enumeration value="binary"/>
+            <xs:enumeration value="byte[]"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- примитивные типы без text и binary -->
+    <xs:simpleType name="ShortPrimitiveType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="String"/>
+            <xs:enumeration value="string"/>
+            <xs:enumeration value="BigDecimal"/>
+            <xs:enumeration value="bigdecimal"/>
+            <xs:enumeration value="Integer"/>
+            <xs:enumeration value="int"/>
+            <xs:enumeration value="integer"/>
+            <xs:enumeration value="Short"/>
+            <xs:enumeration value="short"/>
+            <xs:enumeration value="Long"/>
+            <xs:enumeration value="long"/>
+            <xs:enumeration value="Byte"/>
+            <xs:enumeration value="byte"/>
+            <xs:enumeration value="Boolean"/>
+            <xs:enumeration value="bool"/>
+            <xs:enumeration value="boolean"/>
+            <xs:enumeration value="Character"/>
+            <xs:enumeration value="char"/>
+            <xs:enumeration value="character"/>
+            <xs:enumeration value="LocalDate"/>
+            <xs:enumeration value="localDate"/>
+            <xs:enumeration value="LocalDateTime"/>
+            <xs:enumeration value="localDateTime"/>
+            <xs:enumeration value="OffsetDateTime"/>
+            <xs:enumeration value="offsetDateTime"/>
+            <xs:enumeration value="Float"/>
+            <xs:enumeration value="float"/>
+            <xs:enumeration value="Double"/>
+            <xs:enumeration value="double"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Length4000">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="4000"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!--************************************************  The End  **************************************************-->
+</xs:schema>

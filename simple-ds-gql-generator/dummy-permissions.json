@@ -1,0 +1,152 @@
+[
+  {
+    "name": "searchEvent",
+    "body": "query searchEvent($cond: String) {\n  searchEvent(cond: $cond) {\n    elems {\n      ...EventAttributes\n    }\n  }\n}\n    fragment EventAttributes on _E_Event {\n  id\n  __typename\n  aggregateRoot {\n    id\n  }\n  description\n  endDateTime\n  organization {\n    id\n  }\n  startDateTime\n  statusForX {\n    code\n    reason\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "getForUpdateEvent",
+    "body": "mutation getForUpdateEvent($id: ID!) {\n  packet {\n    getEvent(id: $id) {\n      ...EventAttributes\n    }\n  }\n}\n    fragment EventAttributes on _E_Event {\n  id\n  __typename\n  aggregateRoot {\n    id\n  }\n  description\n  endDateTime\n  organization {\n    id\n  }\n  startDateTime\n  statusForX {\n    code\n    reason\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "createEvent",
+    "body": "mutation createEvent($input: _CreateEventInput!) {\n  packet {\n    createEvent(input: $input) {\n      ...EventAttributes\n    }\n  }\n}\n    fragment EventAttributes on _E_Event {\n  id\n  __typename\n  aggregateRoot {\n    id\n  }\n  description\n  endDateTime\n  organization {\n    id\n  }\n  startDateTime\n  statusForX {\n    code\n    reason\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "updateEvent",
+    "body": "mutation updateEvent($input: _UpdateEventInput!) {\n  packet {\n    updateEvent(input: $input) {\n      ...EventAttributes\n    }\n  }\n}\n    fragment EventAttributes on _E_Event {\n  id\n  __typename\n  aggregateRoot {\n    id\n  }\n  description\n  endDateTime\n  organization {\n    id\n  }\n  startDateTime\n  statusForX {\n    code\n    reason\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "deleteEvent",
+    "body": "mutation deleteEvent($id: ID!) {\n  packet {\n    deleteEvent(id: $id)\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "searchOrganization",
+    "body": "query searchOrganization($cond: String) {\n  searchOrganization(cond: $cond) {\n    elems {\n      ...OrganizationAttributes\n    }\n  }\n}\n    fragment OrganizationAttributes on _E_Organization {\n  id\n  __typename\n  name\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "getForUpdateOrganization",
+    "body": "mutation getForUpdateOrganization($id: ID!) {\n  packet {\n    getOrganization(id: $id) {\n      ...OrganizationAttributes\n    }\n  }\n}\n    fragment OrganizationAttributes on _E_Organization {\n  id\n  __typename\n  name\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "createOrganization",
+    "body": "mutation createOrganization($input: _CreateOrganizationInput!) {\n  packet {\n    createOrganization(input: $input) {\n      ...OrganizationAttributes\n    }\n  }\n}\n    fragment OrganizationAttributes on _E_Organization {\n  id\n  __typename\n  name\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "updateOrganization",
+    "body": "mutation updateOrganization($input: _UpdateOrganizationInput!) {\n  packet {\n    updateOrganization(input: $input) {\n      ...OrganizationAttributes\n    }\n  }\n}\n    fragment OrganizationAttributes on _E_Organization {\n  id\n  __typename\n  name\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "deleteOrganization",
+    "body": "mutation deleteOrganization($id: ID!) {\n  packet {\n    deleteOrganization(id: $id)\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "searchPerson",
+    "body": "query searchPerson($cond: String) {\n  searchPerson(cond: $cond) {\n    elems {\n      ...PersonAttributes\n    }\n  }\n}\n    fragment PersonAttributes on _E_Person {\n  id\n  __typename\n  birthDate\n  firstName\n  lastName\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "getForUpdatePerson",
+    "body": "mutation getForUpdatePerson($id: ID!) {\n  packet {\n    getPerson(id: $id) {\n      ...PersonAttributes\n    }\n  }\n}\n    fragment PersonAttributes on _E_Person {\n  id\n  __typename\n  birthDate\n  firstName\n  lastName\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "createPerson",
+    "body": "mutation createPerson($input: _CreatePersonInput!) {\n  packet {\n    createPerson(input: $input) {\n      ...PersonAttributes\n    }\n  }\n}\n    fragment PersonAttributes on _E_Person {\n  id\n  __typename\n  birthDate\n  firstName\n  lastName\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "updatePerson",
+    "body": "mutation updatePerson($input: _UpdatePersonInput!) {\n  packet {\n    updatePerson(input: $input) {\n      ...PersonAttributes\n    }\n  }\n}\n    fragment PersonAttributes on _E_Person {\n  id\n  __typename\n  birthDate\n  firstName\n  lastName\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "deletePerson",
+    "body": "mutation deletePerson($id: ID!) {\n  packet {\n    deletePerson(id: $id)\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "searchVolonteer",
+    "body": "query searchVolonteer($cond: String) {\n  searchVolonteer(cond: $cond) {\n    elems {\n      ...VolonteerAttributes\n    }\n  }\n}\n    fragment VolonteerAttributes on _E_Volonteer {\n  id\n  __typename\n  nickName\n  person {\n    entityId\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "getForUpdateVolonteer",
+    "body": "mutation getForUpdateVolonteer($id: ID!) {\n  packet {\n    getVolonteer(id: $id) {\n      ...VolonteerAttributes\n    }\n  }\n}\n    fragment VolonteerAttributes on _E_Volonteer {\n  id\n  __typename\n  nickName\n  person {\n    entityId\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "createVolonteer",
+    "body": "mutation createVolonteer($input: _CreateVolonteerInput!) {\n  packet {\n    createVolonteer(input: $input) {\n      ...VolonteerAttributes\n    }\n  }\n}\n    fragment VolonteerAttributes on _E_Volonteer {\n  id\n  __typename\n  nickName\n  person {\n    entityId\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "updateVolonteer",
+    "body": "mutation updateVolonteer($input: _UpdateVolonteerInput!) {\n  packet {\n    updateVolonteer(input: $input) {\n      ...VolonteerAttributes\n    }\n  }\n}\n    fragment VolonteerAttributes on _E_Volonteer {\n  id\n  __typename\n  nickName\n  person {\n    entityId\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "deleteVolonteer",
+    "body": "mutation deleteVolonteer($id: ID!) {\n  packet {\n    deleteVolonteer(id: $id)\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "searchVolonteerEventRequest",
+    "body": "query searchVolonteerEventRequest($cond: String) {\n  searchVolonteerEventRequest(cond: $cond) {\n    elems {\n      ...VolonteerEventRequestAttributes\n    }\n  }\n}\n    fragment VolonteerEventRequestAttributes on _E_VolonteerEventRequest {\n  id\n  __typename\n  aggregateRoot {\n    id\n  }\n  description\n  event {\n    entityId\n  }\n  statusForX {\n    code\n    reason\n  }\n  volonteer {\n    id\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "getForUpdateVolonteerEventRequest",
+    "body": "mutation getForUpdateVolonteerEventRequest($id: ID!) {\n  packet {\n    getVolonteerEventRequest(id: $id) {\n      ...VolonteerEventRequestAttributes\n    }\n  }\n}\n    fragment VolonteerEventRequestAttributes on _E_VolonteerEventRequest {\n  id\n  __typename\n  aggregateRoot {\n    id\n  }\n  description\n  event {\n    entityId\n  }\n  statusForX {\n    code\n    reason\n  }\n  volonteer {\n    id\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "createVolonteerEventRequest",
+    "body": "mutation createVolonteerEventRequest($input: _CreateVolonteerEventRequestInput!) {\n  packet {\n    createVolonteerEventRequest(input: $input) {\n      ...VolonteerEventRequestAttributes\n    }\n  }\n}\n    fragment VolonteerEventRequestAttributes on _E_VolonteerEventRequest {\n  id\n  __typename\n  aggregateRoot {\n    id\n  }\n  description\n  event {\n    entityId\n  }\n  statusForX {\n    code\n    reason\n  }\n  volonteer {\n    id\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "updateVolonteerEventRequest",
+    "body": "mutation updateVolonteerEventRequest($input: _UpdateVolonteerEventRequestInput!) {\n  packet {\n    updateVolonteerEventRequest(input: $input) {\n      ...VolonteerEventRequestAttributes\n    }\n  }\n}\n    fragment VolonteerEventRequestAttributes on _E_VolonteerEventRequest {\n  id\n  __typename\n  aggregateRoot {\n    id\n  }\n  description\n  event {\n    entityId\n  }\n  statusForX {\n    code\n    reason\n  }\n  volonteer {\n    id\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  },
+  {
+    "name": "deleteVolonteerEventRequest",
+    "body": "mutation deleteVolonteerEventRequest($id: ID!) {\n  packet {\n    deleteVolonteerEventRequest(id: $id)\n  }\n}",
+    "allowEmptyChecks": true,
+    "disableJwtVerification": false
+  }
+]

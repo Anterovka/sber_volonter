@@ -1,0 +1,12 @@
+{
+  "type": "UserProduct",
+  "params": {
+    "firstName": "Ivan",
+    "lastName": "Ivanov"
+  },
+  "selection": {
+    "p1": "it.code",
+    "p2": "it.services.$count"
+  },
+  "cond": "it.$id == '${product1Id}'"
+}

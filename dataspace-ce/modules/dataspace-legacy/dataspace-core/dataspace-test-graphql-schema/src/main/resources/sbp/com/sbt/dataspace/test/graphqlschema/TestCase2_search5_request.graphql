@@ -1,0 +1,12 @@
+{
+    searchProduct(cond: "root.$id == '${product1Id}'") {
+        elems {
+            id
+            services @include(if: false) {
+                elems {
+                    id
+                }
+            }
+        }
+    }
+}

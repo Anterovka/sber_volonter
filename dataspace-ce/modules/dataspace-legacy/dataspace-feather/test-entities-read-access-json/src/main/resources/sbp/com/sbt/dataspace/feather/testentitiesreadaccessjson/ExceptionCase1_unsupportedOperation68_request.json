@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "root.p1.$substr('1', '2') == '1'"
+}

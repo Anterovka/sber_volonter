@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>ru.sbertech.dataspace</groupId>
+    <artifactId>dataspace</artifactId>
+    <version>DEV-SNAPSHOT</version>
+    <relativePath>../../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>dataspace-entity-manager-default</artifactId>
+
+  <dependencies>
+    <dependency>
+      <groupId>ru.sbertech.dataspace</groupId>
+      <artifactId>dataspace-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ru.sbertech.dataspace</groupId>
+      <artifactId>dataspace-primitive</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ru.sbertech.dataspace</groupId>
+      <artifactId>dataspace-sql</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ru.sbertech.dataspace</groupId>
+      <artifactId>dataspace-sql-dialect</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ru.sbertech.dataspace</groupId>
+      <artifactId>dataspace-model</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ru.sbertech.dataspace</groupId>
+      <artifactId>dataspace-expr</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ru.sbertech.dataspace</groupId>
+      <artifactId>dataspace-universal-value</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ru.sbertech.dataspace</groupId>
+      <artifactId>dataspace-entity-manager</artifactId>
+    </dependency>
+  </dependencies>
+</project>

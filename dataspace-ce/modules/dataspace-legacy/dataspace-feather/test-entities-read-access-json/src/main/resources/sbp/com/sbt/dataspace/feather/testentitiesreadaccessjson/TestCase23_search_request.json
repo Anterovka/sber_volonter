@@ -1,0 +1,8 @@
+{
+  "type": "Product",
+  "selection": {
+    "p1": "it.code",
+    "p2": "it.services.$count"
+  },
+  "cond": "it.$id $in ['${product1Id}', '${product2Id}']"
+}

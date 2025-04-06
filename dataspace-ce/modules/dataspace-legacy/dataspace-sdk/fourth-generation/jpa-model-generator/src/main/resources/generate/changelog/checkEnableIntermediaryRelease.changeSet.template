@@ -1,0 +1,5 @@
+    <changeSet author="${modelName}" id="check-enable-intermediaryRelease" runAlways="true">
+        <preConditions onFail="HALT" onFailMessage="This changelog contains interim backward-incompatible changes and is intended only for installation on development and testing stands. To unlock the execution of the changelog, it is necessary to add the parameter -DenableIntermediaryRelease=true to the liquibase launch configuration">
+            <changeLogPropertyDefined property="enableIntermediaryRelease" value="true"/>
+        </preConditions>
+    </changeSet>

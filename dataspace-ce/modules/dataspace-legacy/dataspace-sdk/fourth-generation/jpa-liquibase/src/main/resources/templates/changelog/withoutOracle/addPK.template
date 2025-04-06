@@ -1,0 +1,9 @@
+<changeSet author="${modelName}" id="${version}-${index}-pk">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = '${tableName}'</sqlCheck></and>
+                <and><dbms type="postgresql"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS WHERE table_schema='${defaultSchemaName}' and CONSTRAINT_TYPE = 'PRIMARY KEY' and TABLE_NAME = lower('${tableName}')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <addPrimaryKey tablespace="${tablespace_i}" tableName="${tableName}" columnNames="${pk_keys_column}" constraintName="${pkIndexName}"/>${rollback}
+    </changeSet>

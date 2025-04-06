@@ -1,0 +1,48 @@
+    <changeSet author="${modelName}" dbms="postgresql" id="${version}-${index}-index-${indexIndex}-00">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="0">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('${tableName}') and indexname=lower('${indexName}')</sqlCheck>
+        </preConditions>
+        <sql dbms="postgresql">alter table ${defaultSchemaName}.${tableName} set (parallel_workers = ${index_parallel_count})</sql>${rollback1}
+    </changeSet>
+
+    <changeSet author="${modelName}" dbms="!postgresql" id="${version}-${index}-index-${indexIndex}">
+        <preConditions onFail="MARK_RAN">
+            <or>
+                <and><dbms type="h2"/><sqlCheck expectedResult="0">SELECT count(*) FROM INFORMATION_SCHEMA.INDEXES WHERE TABLE_NAME='${tableName}' AND INDEX_NAME='${indexName}'</sqlCheck></and>
+                <and><dbms type="oracle"/><sqlCheck expectedResult="0">SELECT count(*) from user_indexes where table_name=upper('${tableName}') and index_name=upper('${indexName}')</sqlCheck></and>
+            </or>
+        </preConditions>
+        <createIndex
+            tablespace="${tablespace_i}"
+            tableName="${tableName}"
+            unique="${isUnique}"
+            indexName="${indexName}">
+            ${indexColumnsTags}
+        </createIndex>${rollback2}
+        <modifySql  dbms="oracle">
+             <append value=" PARALLEL ${parallelDegree} ${liquibase.oracle.online}"/>
+        </modifySql>
+    </changeSet>
+
+    <changeSet author="${modelName}" dbms="postgresql" id="${version}-${index}-index-postgresql-${indexIndex}" runInTransaction="false">
+        <sql>create ${isUniqueRaw} index ${liquibase.pg.online} if not exists ${indexName} ON ${defaultSchemaName}.${tableName} (${indexColumnsRaw}) TABLESPACE ${tablespace_i}</sql>${rollback3}
+    </changeSet>
+
+    <changeSet author="${modelName}" dbms="oracle" id="${version}-${index}-index-${indexIndex}-10">
+        <preConditions onFail="MARK_RAN">
+            <dbms type="oracle"/><sqlCheck expectedResult="1">SELECT count(*) from user_indexes where table_name=upper('${tableName}') and index_name=upper('${indexName}')</sqlCheck>
+        </preConditions>
+        <sql dbms="oracle">ALTER INDEX ${indexName} NOPARALLEL</sql>
+        <rollback/>
+    </changeSet>
+
+    <changeSet author="${modelName}" dbms="postgresql" id="${version}-${index}-index-${indexIndex}-20">
+        <preConditions onFail="MARK_RAN">
+            <changeLogPropertyDefined property="index_parallel_count"/>
+            <sqlCheck expectedResult="1">SELECT count(*) from pg_indexes where schemaname='${defaultSchemaName}' and tablename=lower('${tableName}') and indexname=lower('${indexName}')</sqlCheck>
+        </preConditions>
+        <sql>alter table ${defaultSchemaName}.${tableName} reset (parallel_workers)</sql>
+        <rollback/>
+    </changeSet>
+

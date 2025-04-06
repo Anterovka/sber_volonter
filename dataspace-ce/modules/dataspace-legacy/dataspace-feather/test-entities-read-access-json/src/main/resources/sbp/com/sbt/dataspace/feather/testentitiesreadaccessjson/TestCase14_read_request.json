@@ -1,0 +1,24 @@
+{
+  "type": "Operation",
+  "props": {
+    "actions": {
+      "type": "ActionSpecial",
+      "elemAlias": "action",
+      "props": {
+        "parameters": {
+          "type": "ActionParameter",
+          "elemAlias": "parameter",
+          "props": {
+            "parameters": {
+              "cond": "elem.code $like @action.specialOffer + @parameter{type=ActionParameterSpecial}.specialOffer + '%'",
+              "sort": "@action.algorithmCode / elem.code.$length"
+            }
+          },
+          "cond": "elem.parameters{cond = elem.code $like @action.specialOffer + @parameter{type=ActionParameterSpecial}.specialOffer + '%'}.$exists"
+        }
+      },
+      "cond": "elem.parameters{type = ActionParameter, elemAlias = parameter, cond = elem.parameters{cond = elem.code $like @action.specialOffer + @parameter{type=ActionParameterSpecial}.specialOffer + '%'}.$exists}.$exists"
+    }
+  },
+  "cond": "root.$id == '${operation1Id}' && root.actions{type = ActionSpecial, elemAlias = action, cond = elem.parameters{type = ActionParameter, elemAlias = parameter, cond = elem.parameters{cond = elem.code $like @action.specialOffer + @parameter{type=ActionParameterSpecial}.specialOffer + '%'}.$exists}.$exists}.$exists"
+}

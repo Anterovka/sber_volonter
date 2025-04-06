@@ -1,0 +1,4 @@
+
+        <sql dbms="!postgresql">insert into ${collectionTableName} (${keyColumnName}, ${columnName}) select object_id, ${columnName} from ${tableName}</sql>
+        <sql dbms="postgresql">insert into ${defaultSchemaName}.${collectionTableName} (${keyColumnName}, ${columnName}) select object_id, ${columnName} from ${defaultSchemaName}.${tableName}</sql>
+

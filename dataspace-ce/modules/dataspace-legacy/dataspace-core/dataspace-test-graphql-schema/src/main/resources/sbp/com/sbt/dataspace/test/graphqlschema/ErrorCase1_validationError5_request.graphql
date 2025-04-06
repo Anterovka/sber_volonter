@@ -1,0 +1,11 @@
+{
+    merge {
+        elems {
+            ... on _Entity {
+                ... on Product {
+                    id
+                }
+            }
+        }
+    }
+}

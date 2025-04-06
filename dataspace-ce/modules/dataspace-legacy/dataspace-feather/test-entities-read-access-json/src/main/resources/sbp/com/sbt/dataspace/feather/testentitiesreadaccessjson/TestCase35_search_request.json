@@ -1,0 +1,8 @@
+{
+  "type": "EntityA",
+  "props": [
+    "refB",
+    "ref2B"
+  ],
+  "cond": "it.$id == '${entityA1Id}'"
+}

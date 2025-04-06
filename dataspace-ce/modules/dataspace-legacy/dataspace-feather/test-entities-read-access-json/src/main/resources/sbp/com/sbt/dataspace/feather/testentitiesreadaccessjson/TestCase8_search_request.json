@@ -1,0 +1,18 @@
+{
+  "type": "Product",
+  "props": {
+    "documents": {
+      "props": "code",
+      "details": {
+        "Permission": "number",
+        "Agreement": {
+          "document": {
+            "type": "AgreementSpecial"
+          }
+        }
+      },
+      "sort": "elem.code"
+    }
+  },
+  "cond": "root.$id == '${product1Id}' && root.documents{cond = elem{type = Permission}.number == 1}.$exists && root.documents{cond = elem{type = Permission}.number == null}.$count == 1 && root.documents{type = Agreement}.document{type = AgreementSpecial}.$exists && root.documents{type = Agreement}.document.$exists && !(root{type = ProductPlus}.relatedProduct{type = ProductPlus}.code == 'product1') && !(root{type = ProductPlus}.relatedProduct.code == 'product1')"
+}

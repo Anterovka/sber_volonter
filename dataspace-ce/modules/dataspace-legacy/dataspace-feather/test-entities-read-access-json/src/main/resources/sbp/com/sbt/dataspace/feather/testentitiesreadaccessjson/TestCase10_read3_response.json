@@ -1,0 +1,31 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${productPlus1Id}",
+      "props": {
+        "services": {
+          "elems": [
+            {
+              "type": "Service",
+              "id": "${service1Id}",
+              "props": {
+                "request": {
+                  "type": "Request",
+                  "id": "${request2Id}",
+                  "incorrectCasted": true
+                }
+              }
+            }
+          ]
+        },
+        "events": {
+          "elems": []
+        },
+        "parameters": {
+          "elems": []
+        }
+      }
+    }
+  ]
+}

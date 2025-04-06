@@ -1,0 +1,4 @@
+{
+  "type": "Request",
+  "cond": "it.$id == '${request1Id}' && it.initiator.document{type = Permission}.number == 1 && it.initiator.document{alias = document}.agreements{cond = it.participant == @document.code}.$count == 1 && it.$exists && it.createdEntity.$exists && it.createdEntity.request.$exists && it.createdEntity{type = Service}.$exists"
+}

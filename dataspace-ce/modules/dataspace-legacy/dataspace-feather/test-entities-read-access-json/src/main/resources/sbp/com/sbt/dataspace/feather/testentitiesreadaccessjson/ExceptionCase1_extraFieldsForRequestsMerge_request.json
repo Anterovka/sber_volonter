@@ -1,0 +1,11 @@
+{
+  "type": "Product",
+  "merge": [
+    {
+      "type": "Product"
+    },
+    {
+      "type": "TestEntity"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+                   logicalFilePath="./${model}/changelog.xml">
+    ${includes}
+    ${checkDeployPreviousVersion}
+    <changeSet author="${modelName}" id="${version}-before">
+        <tagDatabase tag="${modelName}-${version}-before"/>
+    </changeSet>
+${changes}
+    <changeSet author="${modelName}" id="${version}-applied">
+        <tagDatabase tag="${modelName}-${version}-applied"/>
+    </changeSet>
+</databaseChangeLog>

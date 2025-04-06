@@ -1,0 +1,28 @@
+[
+  {
+    "name": "searchClinicsQuery",
+    "body": "query searchClinicsQuery { searchClinic { elems { id name address { city } } } }",
+    "checkSelects": [
+      {
+        "conditionValue": "'manager' $in ${jwt:roles}",
+        "typeName": null
+      }
+    ],
+    "pathConditions": [
+      {
+        "path": "searchClinic",
+        "cond": "it.address.city == ${jwt:city}"
+      }
+    ]
+  },
+  {
+    "name": "createClinicMutation",
+    "body": "mutation createClinicMutation($input: _CreateClinicInput!) { packet { createClinic(input: $input) { id name address { city street flatNo } } } }",
+    "checkSelects": [
+      {
+        "conditionValue": "'administrator' $in ${jwt:roles}",
+        "typeName": null
+      }
+    ]
+  }
+]

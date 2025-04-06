@@ -1,0 +1,26 @@
+
+    <changeSet author="${modelName}" id="${version}-${index}-not-postgresql" dbms="!postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sqlCheck expectedResult="0">select count(*) from ${tableName} where ${tableCode} is null</sqlCheck>
+            </not>
+        </preConditions>
+        <update tableName="${tableName}">
+${columns}
+        <where>${tableCode} is null</where>
+        </update>
+        <rollback>select count(1) from ${tableName}</rollback>
+    </changeSet>
+
+    <changeSet author="${modelName}" id="${version}-${index}-postgresql" dbms="postgresql">
+            <preConditions onFail="MARK_RAN">
+                <not>
+                    <sqlCheck expectedResult="0">select count(*) from ${defaultSchemaName}.${tableName} where ${tableCode} is null</sqlCheck>
+                </not>
+            </preConditions>
+            <update tableName="${tableName}">
+    ${columns}
+            <where>${tableCode} is null</where>
+            </update>
+            <rollback>select count(1) from ${tableName}</rollback>
+        </changeSet>

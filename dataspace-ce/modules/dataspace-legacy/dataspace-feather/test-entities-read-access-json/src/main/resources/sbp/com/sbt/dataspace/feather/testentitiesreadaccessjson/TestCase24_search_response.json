@@ -1,0 +1,18 @@
+{
+  "elems": [
+    {
+      "type": "Product",
+      "id": "${product1Id}",
+      "props": {
+        "p1": {
+          "calc": true,
+          "value": "3"
+        },
+        "p2": {
+          "calc": true,
+          "value": "123321"
+        }
+      }
+    }
+  ]
+}

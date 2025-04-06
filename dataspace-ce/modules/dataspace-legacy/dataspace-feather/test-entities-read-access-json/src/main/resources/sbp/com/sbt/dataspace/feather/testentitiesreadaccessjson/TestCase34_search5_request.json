@@ -1,0 +1,23 @@
+{
+  "type": "EntityAA",
+  "details": {
+    "EntityAAA": {
+      "refB": {
+        "props": {
+          "refC": {
+            "props": {
+              "refD": {
+                "props": {
+                  "refE": {
+                    "props": "code"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "cond": "it.$id == '${entityAAA1Id}'"
+}

@@ -1,0 +1,52 @@
+{
+  "type": "Product",
+  "props": {
+    "code": {
+      "base": "code"
+    },
+    "aliases": {
+      "base": "aliases",
+      "spec": "it == 'alias1'"
+    },
+    "relatedProduct": {
+      "base": "relatedProduct"
+    },
+    "request": {
+      "base": "request",
+      "spec": {
+        "props": {
+          "code": {
+            "base": "code"
+          },
+          "initiator": {
+            "base": "initiator",
+            "spec": {
+              "lastName": {
+                "base": "lastName"
+              },
+              "document": {
+                "base": "document"
+              }
+            }
+          }
+        }
+      }
+    },
+    "services": {
+      "base": "services",
+      "spec": {
+        "props": {
+          "code": {
+            "base": "code"
+          },
+          "operations": {
+            "base": "operations",
+            "spec": "it.$id == '${operation1Id}'"
+          }
+        },
+        "cond": "it.$id == '${service2Id}'"
+      }
+    }
+  },
+  "cond": "it.$id == '${product1Id}'"
+}

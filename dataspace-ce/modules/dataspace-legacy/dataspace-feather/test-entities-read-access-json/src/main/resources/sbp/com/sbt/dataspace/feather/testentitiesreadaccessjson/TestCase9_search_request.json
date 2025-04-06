@@ -1,0 +1,10 @@
+{
+  "type": "Document",
+  "props": "code",
+  "details": {
+    "Permission": "number",
+    "Agreement": "participant"
+  },
+  "cond": "root.$id $in ['${document1Id}', '${permission1Id}', '${agreement1Id}'] && (root.code == 'document1' || root{type = Permission}.number == 1 || (root{type = Agreement}.participant == 'participant1' && root{type = Agreement}.agreements.$count == 2))",
+  "sort": "root.code"
+}

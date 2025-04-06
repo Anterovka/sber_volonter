@@ -1,0 +1,74 @@
+{
+  "elems": [
+    {
+      "type": "ProductLimited",
+      "id": "${productLimited1Id}",
+      "props": {
+        "code": "productLimited1",
+        "aliases": {
+          "elems": [
+            "alias1",
+            "alias2"
+          ]
+        },
+        "relatedProduct": {
+          "type": "ProductPlus",
+          "id": "${productPlus3Id}",
+          "props": {
+            "relatedProduct": {
+              "type": "ProductPlus",
+              "id": "${productPlus2Id}"
+            }
+          }
+        },
+        "affectedProducts": {
+          "elems": [
+            {
+              "type": "ProductPlus",
+              "id": "${productPlus1Id}",
+              "props": {
+                "code": "productPlus1",
+                "rates": {
+                  "elems": [
+                    "30.5",
+                    "4.5"
+                  ]
+                },
+                "affectedProducts": {
+                  "elems": [
+                    {
+                      "type": "Product",
+                      "id": "${product1Id}",
+                      "props": {
+                        "code": "product1",
+                        "rates": {
+                          "elems": [
+                            "2.5"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "type": "Product",
+              "id": "${product1Id}",
+              "props": {
+                "code": "product1",
+                "rates": {
+                  "elems": [
+                    "10.5",
+                    "2.5"
+                  ]
+                }
+              }
+            }
+          ],
+          "count": 2
+        }
+      }
+    }
+  ]
+}

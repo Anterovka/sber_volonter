@@ -1,0 +1,11 @@
+{
+  "type": "Product",
+  "props": "code",
+  "details": {
+    "ProductLimited": {
+      "code": {
+        "calc": "it.code"
+      }
+    }
+  }
+}

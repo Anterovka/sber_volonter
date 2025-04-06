@@ -1,0 +1,17 @@
+{
+  "type": "Operation",
+  "details": {
+    "OperationSpecial": {
+      "product": {
+        "props": "code"
+      }
+    },
+    "OperationLimited": {
+      "product": {
+        "props": "code"
+      }
+    }
+  },
+  "cond": "it.$id $in ['${operationSpecial1Id}', '${operationLimited1Id}']",
+  "sort": "it.code"
+}

@@ -1,0 +1,6 @@
+{
+  "type": "RequestPlus",
+  "cond": "it.$id == '${requestPlus1Id}'",
+  "limit": 1,
+  "count": true
+}

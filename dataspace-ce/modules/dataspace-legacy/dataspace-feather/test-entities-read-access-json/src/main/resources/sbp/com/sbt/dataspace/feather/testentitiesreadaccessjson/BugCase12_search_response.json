@@ -1,0 +1,54 @@
+{
+  "elems": [
+    {
+      "id": "${operationLimited1Id}",
+      "type": "OperationLimited",
+      "props": {
+        "code": "operationLimited1",
+        "name": null,
+        "service": {
+          "id": "${service1Id}",
+          "type": "Service",
+          "props": {
+            "code": "service1"
+          }
+        },
+        "request": {
+          "id": "${request2Id}",
+          "type": "Request",
+          "props": {
+            "code": "request2"
+          }
+        },
+        "parameters": {
+          "elems": []
+        }
+      }
+    },
+    {
+      "id": "${operationSpecial1Id}",
+      "type": "OperationSpecial",
+      "props": {
+        "code": "operationSpecial1",
+        "name": null,
+        "service": {
+          "id": "${service1Id}",
+          "type": "Service",
+          "props": {
+            "code": "service1"
+          }
+        },
+        "request": {
+          "id": "${request1Id}",
+          "type": "Request",
+          "props": {
+            "code": "request1"
+          }
+        },
+        "parameters": {
+          "elems": []
+        }
+      }
+    }
+  ]
+}

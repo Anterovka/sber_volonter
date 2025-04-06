@@ -1,0 +1,4 @@
+{
+  "type": "TestEntity",
+  "cond": "1 == any([1, '1'])"
+}

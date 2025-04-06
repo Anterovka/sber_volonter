@@ -1,0 +1,24 @@
+{
+  "type": "Request",
+  "props": {
+    "initiator": [
+      "firstName",
+      "lastName",
+      {
+        "document": {
+          "alias": "document",
+          "props": [
+            "code",
+            {
+              "agreements": "it.participant == @document.code"
+            }
+          ],
+          "details": {
+            "Permission": "number"
+          }
+        }
+      }
+    ]
+  },
+  "cond": "it.$id == '${request1Id}'"
+}
